@@ -6,7 +6,7 @@ bookdown::gitbook:
       before: |
         <li><a href="https://mycourses.aalto.fi/course/view.php?id=48142" target="blank">ISM-C1002</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Julkaistu paketin bookdown avulla</a></li>
     # edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
     download: ["pdf", "epub"]
 bookdown::pdf_book:
