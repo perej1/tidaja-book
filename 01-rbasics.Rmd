@@ -11,7 +11,7 @@ Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointiki
 
 ### R {-}
 
-R on ilmainen ohjelmisto eli kuka tahansa voi ladata R ohjelmointikielen tietokoneelleen missä vain milloin tahansa [CRAN:in sivuilta](https://cran.r-project.org/). Kuten kuvasta \@ref(fig:cran) näkyy, täytyy vain valita oikea asennustapa käyttöjärjestelmän mukaan (Windows, macOS tai Linux). Ohjevideo R ohjelmointikielen asennukseen Windows käyttöjärjestelmälle löytyy MyCourses sivujen osiosta [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) (katso video "R:n ja RStudion asennus").
+R on ilmainen ohjelmisto eli kuka tahansa voi ladata R ohjelmointikielen tietokoneelleen missä vain milloin tahansa [CRAN:in sivuilta](https://cran.r-project.org/). Kuten kuvasta \@ref(fig:cran) näkyy, täytyy vain valita oikea asennustapa käyttöjärjestelmän mukaan (Windows, macOS tai Linux). Ohjevideo R ohjelmointikielen asennukseen Windows käyttöjärjestelmälle löytyy MyCourses sivujen osiosta [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) (katso video *R:n ja RStudion asennus*).
 
 ```{r cran, echo=FALSE, fig.cap="R ohjelmointikielen voi asentaa erinäisille käyttöjärjestelmille CRAN:in sivuilta."}
 knitr::include_graphics("images/cran.png")
@@ -31,7 +31,7 @@ Eli R-konsoli on käyttöliittymä, jonka kautta voidaan suorittaa yksittäisiä
 knitr::include_graphics("images/terminal.png")
 ```
 
-R:n käyttö komentoriviltä suoraan voi olla kätevää, jos halutaan kokeilla jotain nopeasti. Usein tilastollinen analyysi vaatii kuitenkin useita komentoja ja muuttujia, joiden välillä voi olla monimutkaisia riippuvuussuhteita. Tämän vuoksi on hyödyllistä tallentaa tuotettu koodi (peräkkäiset R komennot) omaan tiedostoonsa. Näitä tekstitiedostoja kutsutaan R skripteiksi (*R script*). Vaikka R ohjelmat ovatkin pohjimmiltaan tekstitiedostoja, niin nämä tiedostot on tapana nimetä käyttäen päätettä `.R` päätteen `.txt` sijaan.
+R:n käyttö komentoriviltä suoraan voi olla kätevää, jos halutaan kokeilla jotain nopeasti. Usein tilastollinen analyysi vaatii kuitenkin useita komentoja ja muuttujia, joiden välillä voi olla monimutkaisia riippuvuussuhteita. Tämän vuoksi on hyödyllistä tallentaa tuotettu koodi (peräkkäiset R komennot) omaan tiedostoon. Näitä tekstitiedostoja kutsutaan R ohjelmiksi (*R script*). Vaikka R ohjelmat ovatkin pohjimmiltaan tekstitiedostoja, niin nämä tiedostot on tapana nimetä käyttäen päätettä `.R` päätteen `.txt` sijaan.
 
 Eli edelliset komennot voidaan tallentaa vaikkapa (teksti)tiedostoon `hello_world.R`, joka näkyy kuvassa \@ref(fig:script).
 
@@ -45,17 +45,33 @@ Tämän jälkeen tiedoston `hello_world.R` komennot voidaan suorittaa komennolla
 knitr::include_graphics("images/execute.png")
 ```
 
-Monet koodarit tykkäävät pelata pelkästään komentorivin ja tekstitiedostojen kanssa. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (*integrated development environment*, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (*debugging*) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, ...). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.
+Monet ohjelmoijat käyttävät pelkästään komentoriviä ja tekstieditoria R ohjelmoimiseen. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (*integrated development environment*, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (*debugging*) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, ...). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.
 
 ### RStudio {-}
 
-RStudion voi asentaa ilmaiseksi [Posit yrityksen](https://posit.co/download/rstudio-desktop/) sivuilta. Kuten kuva \@ref(fig:posit) näyttää, myös RStudion tapauksessa täytyy valita asennus oman käyttöjärjestelmän mukaan. Lisäksi MyCourses sivujen [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) osion tutoriaalivideossa "R:n ja RStudion asennus" näytetään RStudion asentaminen Windowsille. Tämä on siis sama video, jossa käydään läpi R ohjelmointikielen asennus.
+RStudion voi asentaa ilmaiseksi [Posit yrityksen](https://posit.co/download/rstudio-desktop/) sivuilta. Kuten kuva \@ref(fig:posit) näyttää, myös RStudion tapauksessa täytyy valita asennus oman käyttöjärjestelmän mukaan. Lisäksi [video](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) *R:n ja RStudion asennus* näyttää RStudion asentamisen Windowsille. Tämä on siis sama video, jossa käydään läpi R ohjelmointikielen asennus.
 
 ```{r posit, echo=FALSE, fig.cap="RStudion voi asentaa erinäisille käyttöjärjestelmille Positin sivuilta."}
 knitr::include_graphics("images/posit.png")
 ```
 
-Kun RStudion avaa ensimmäistä kertaa, niin näytöllä näkyy R-konsoli (vertaa kuvaan \@ref(fig:terminal)). Osion [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) video "R-konsoli" avaa R-konsolin toimintoja tarkemmin. Kuten todettua, yleensä halutaan kuitenkin tallentaa komennot yksittäiseen R ohjelmaan. Uuden ohjelman voi avata näppäinyhdistelmällä `Ctrl + Shift + N` tai RStudion käyttöliittymää käyttäen navigoimalla `File → New File → R Script`. Uuteen ohjelmaan voi kirjoittaa skriptin `hello_world.R` komennot.
+Kun RStudion avaa ensimmäistä kertaa, niin näytöllä näkyy R-konsoli (vertaa kuvaan \@ref(fig:terminal)). [Video](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) *R-konsoli* avaa R-konsolin toimintoja tarkemmin. Kuten todettua, yleensä komennot kuitenkin halutaan tallentaa yksittäiseen R ohjelmaan. Uuden ohjelman voi avata näppäinyhdistelmällä `Ctrl + Shift + N` tai RStudion käyttöliittymää käyttäen navigoimalla `File → New File → R Script`. Uuteen ohjelmaan voi kirjoittaa esimerkiksi kuvan \@ref(fig:script) komennot. Tämän jälkeen ohjelman voi tallentaa uudella nimellä näppäinyhdistelmällä `Ctrl + S` tai käyttäen RStudion käyttöliittymää `File → Save`.
+
+Kun ohjelma on tallennettu esimerkiksi nimellä `hello_world.R`, niin ohjelma täytyy suorittaa. RStudion kautta ohjelman komentoja suoritetaan kahdella eri tavalla:
+
+1. Yksittäinen komento suoritetaan asettamalla kursori vastaavalle riville ja painamalla `Ctrl + Enter`
+
+2. Koko ohjelma suoritetaan näppäinyhdistelmällä `Ctrl + Shift + Enter`
+
+Esimerkiksi tallennetun ohjelman komennot voidaan ajaa peräkkäin asettamalla kursori ensimmäiselle riville ja painamalla `Ctrl + Enter` kaksi kertaa. Tällöin lopputulos näyttää kuvan \@ref(fig:rstudio) kaltaiselta. Eli ohjelman koodi näkyy vasemmalla ylhäällä, suoritetut komennot näkyvät konsolissa vasemmalla alhaalla ja tallennetut muuttujat näkyvät oikealla ylhäällä. Oikealla alhaalla olevassa ikkunassa ei tässä tapauksessa näy mitään mutta esimerkiksi mahdolliset kuvaajat ilmestyvät kyseiseen ikkunaan.
+
+```{r rstudio, echo=FALSE, fig.cap="RStudion käyttöliittymän näkymä yksinkertaisen ohjelman suorituksen jälkeen."}
+knitr::include_graphics("images/rstudio.png")
+```
+
+Tarkemmin RStudion toimintoihin voi perehtyä katsomalla [videot](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) *RStudion koodieditori*, *RStudion muut toimintoikkunat* ja *RStudion hallintavalikoita*.
+
+
 
 ## R paketit
 
