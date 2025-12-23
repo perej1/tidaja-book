@@ -1,8 +1,9 @@
 # R ohjelmointikielestä
 
-R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä data-analyysin työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisien muiden työkalujen sijasta.
+R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä data-analyysin työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
 
 Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa \@ref(sec:inst).
+
 
 ## Ohjelmointikieli ja -ympäristö: asennus ja käyttö {#sec:inst}
 
@@ -10,13 +11,13 @@ Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointiki
 
 ### R {-}
 
-R on ilmainen ohjelmisto eli kuka tahansa voi ladata R ohjelmointikielen tietokoneelleen missä vain milloin tahansa [täältä](https://cran.r-project.org/). Kuten kuvasta \@ref(fig:cran) näkyy, täytyy vain valita oikea asennustapa käyttöjärjestelmän mukaan (Windows, maxOS tai Linux). Ohjevideo R ohjelmointikielen asennukseen Windows käyttöjärjestelmälle löytyy MyCourses sivujen osiosta [R materiaalit](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) (katso video "R:n ja RStudion asennus").
+R on ilmainen ohjelmisto eli kuka tahansa voi ladata R ohjelmointikielen tietokoneelleen missä vain milloin tahansa [CRAN:in sivuilta](https://cran.r-project.org/). Kuten kuvasta \@ref(fig:cran) näkyy, täytyy vain valita oikea asennustapa käyttöjärjestelmän mukaan (Windows, macOS tai Linux). Ohjevideo R ohjelmointikielen asennukseen Windows käyttöjärjestelmälle löytyy MyCourses sivujen osiosta [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) (katso video "R:n ja RStudion asennus").
 
 ```{r cran, echo=FALSE, fig.cap="R ohjelmointikielen voi asentaa erinäisille käyttöjärjestelmille CRAN:in sivuilta."}
 knitr::include_graphics("images/cran.png")
 ```
 
-Kun R on asennettu, niin komentoja voidaan ajaa komentoriviltä^[Esimerkit komentorivin käytöstä ollaan toteutettu Linux käyttöjärjestelmällä. R ohjelmointikieltä voi käyttää kometorivin kautta myös muissa käyttöjärjestelmissä kuten Windowsissa.]. Kuvassa \@ref(fig:terminal) näkyy esimerkki, jossa kaksi R komentoa ajetaan peräkkäin. Ensin R käynnistetään komentoriviltä käyttäen komentoa `R`, jonka seurauksena R käynnistyy ja tulostaa näytölle perustietoja asennetusta versiosta lisenssistä jne. Tämän jälkeen
+Kun R on asennettu, niin komentoja voidaan ajaa komentoriviltä^[Esimerkit komentorivin käytöstä ollaan toteutettu Linux Ubuntu käyttöjärjestelmällä. R ohjelmointikieltä voi käyttää kometorivin kautta myös muissa käyttöjärjestelmissä kuten Windowsissa.]. Kuvassa \@ref(fig:terminal) näkyy esimerkki, jossa kaksi R komentoa ajetaan peräkkäin. Ensin R-konsoli käynnistetään komentoriviltä käyttäen komentoa `R`. Seurauksena näytölle tulostuu perustietoja asennetusta versiosta, lisenssistä jne. Tämän jälkeen
 
 1. ensimmäinen R komento tallentaa arvon 2 muuttujaan `x` käyttäen nuoli `<-` notaatiota,
 
@@ -24,13 +25,15 @@ Kun R on asennettu, niin komentoja voidaan ajaa komentoriviltä^[Esimerkit komen
 
 3. summan tulos, joka on 3, tulostuu näytölle.
 
+Eli R-konsoli on käyttöliittymä, jonka kautta voidaan suorittaa yksittäisiä R komentoja peräkkäin.
+
 ```{r terminal, echo=FALSE, fig.cap="Yksittäisiä R komentoja GNOME komentorivillä."}
 knitr::include_graphics("images/terminal.png")
 ```
 
-R:n käyttö komentoriviltä suoraan voi olla kätevää, jos halutaan kokeilla jotain nopeasti. Usein tilastollinen analyysi vaatii kuitenkin useita komentoja ja muuttujia, joiden välillä voi olla monimutkaisia riippuvuussuhteita. Tämän vuoksi on hyödyllistä tallentaa tuotettu koodi (peräkkäiset R komennot) omaan tiedostoonsa. Näitä tekstitiedostoja kutsutaan R ohjelmiksi (*R script*). Vaikka R ohjelmat ovatkin pohjimmiltaan tekstitiedostoja, niin nämä tiedostot on tapana nimetä käyttäen päätettä `.R` päätteen `.txt` sijaan.
+R:n käyttö komentoriviltä suoraan voi olla kätevää, jos halutaan kokeilla jotain nopeasti. Usein tilastollinen analyysi vaatii kuitenkin useita komentoja ja muuttujia, joiden välillä voi olla monimutkaisia riippuvuussuhteita. Tämän vuoksi on hyödyllistä tallentaa tuotettu koodi (peräkkäiset R komennot) omaan tiedostoonsa. Näitä tekstitiedostoja kutsutaan R skripteiksi (*R script*). Vaikka R ohjelmat ovatkin pohjimmiltaan tekstitiedostoja, niin nämä tiedostot on tapana nimetä käyttäen päätettä `.R` päätteen `.txt` sijaan.
 
-Eli kuvan komennot voidaan tallentaa vaikkapa (teksti)tiedostoon `hello_world.R`, joka näkyy kuvassa \@ref(fig:script).
+Eli edelliset komennot voidaan tallentaa vaikkapa (teksti)tiedostoon `hello_world.R`, joka näkyy kuvassa \@ref(fig:script).
 
 ```{r script, echo=FALSE, fig.cap="Aiemmat komennot tallennettuna yhteen tiedostoon."}
 knitr::include_graphics("images/script.png")
@@ -45,6 +48,14 @@ knitr::include_graphics("images/execute.png")
 Monet koodarit tykkäävät pelata pelkästään komentorivin ja tekstitiedostojen kanssa. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (*integrated development environment*, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (*debugging*) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, ...). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.
 
 ### RStudio {-}
+
+RStudion voi asentaa ilmaiseksi [Posit yrityksen](https://posit.co/download/rstudio-desktop/) sivuilta. Kuten kuva \@ref(fig:posit) näyttää, myös RStudion tapauksessa täytyy valita asennus oman käyttöjärjestelmän mukaan. Lisäksi MyCourses sivujen [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) osion tutoriaalivideossa "R:n ja RStudion asennus" näytetään RStudion asentaminen Windowsille. Tämä on siis sama video, jossa käydään läpi R ohjelmointikielen asennus.
+
+```{r posit, echo=FALSE, fig.cap="RStudion voi asentaa erinäisille käyttöjärjestelmille Positin sivuilta."}
+knitr::include_graphics("images/posit.png")
+```
+
+Kun RStudion avaa ensimmäistä kertaa, niin näytöllä näkyy R-konsoli (vertaa kuvaan \@ref(fig:terminal)). Osion [R-ohjelmointikielen ja RStudion asennus sekä käyttö](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) video "R-konsoli" avaa R-konsolin toimintoja tarkemmin. Kuten todettua, yleensä halutaan kuitenkin tallentaa komennot yksittäiseen R ohjelmaan. Uuden ohjelman voi avata näppäinyhdistelmällä `Ctrl + Shift + N` tai RStudion käyttöliittymää käyttäen navigoimalla `File → New File → R Script`. Uuteen ohjelmaan voi kirjoittaa skriptin `hello_world.R` komennot.
 
 ## R paketit
 

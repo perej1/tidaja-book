@@ -7,4 +7,4 @@ bookdown::gitbook:
       before: |
         <li><a href="https://mycourses.aalto.fi/course/view.php?id=48142" target="blank">ISM-C1002</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Julkaistu paketin bookdown avulla</a></li>
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Julkaistu bookdownin avulla</a></li>
