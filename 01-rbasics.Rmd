@@ -1,8 +1,8 @@
 # R ohjelmointikielestä
 
-R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä data-analyysin työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
+R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä datatieteen työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
 
-Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa \@ref(sec:inst).
+Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa \@ref(sec:inst). Lisämateriaalia R ohjelmointikielen opetteluun löytyy luvusta \@ref(sec:programming).
 
 
 ## Ohjelmointikieli ja -ympäristö: asennus ja käyttö {#sec:inst}
@@ -17,7 +17,7 @@ R on ilmainen ohjelmisto eli kuka tahansa voi ladata R ohjelmointikielen tietoko
 knitr::include_graphics("images/cran.png")
 ```
 
-Kun R on asennettu, niin komentoja voidaan ajaa komentoriviltä^[Esimerkit komentorivin käytöstä ollaan toteutettu Linux Ubuntu käyttöjärjestelmällä. R ohjelmointikieltä voi käyttää kometorivin kautta myös muissa käyttöjärjestelmissä kuten Windowsissa.]. Kuvassa \@ref(fig:terminal) näkyy esimerkki, jossa kaksi R komentoa ajetaan peräkkäin. Ensin R-konsoli käynnistetään komentoriviltä käyttäen komentoa `R`. Seurauksena näytölle tulostuu perustietoja asennetusta versiosta, lisenssistä jne. Tämän jälkeen
+Kun R on asennettu, niin komentoja voidaan ajaa komentoriviltä^[Esimerkit komentorivin käytöstä ollaan toteutettu Linux Ubuntu käyttöjärjestelmällä. R ohjelmointikieltä voi käyttää komentorivin kautta myös muissa käyttöjärjestelmissä kuten Windowsissa.]. Kuvassa \@ref(fig:terminal) näkyy esimerkki, jossa kaksi R komentoa ajetaan peräkkäin. Ensin R-konsoli käynnistetään komentoriviltä käyttäen komentoa `R`. Seurauksena näytölle tulostuu perustietoja asennetusta versiosta, lisenssistä jne. Tämän jälkeen
 
 1. ensimmäinen R komento tallentaa arvon 2 muuttujaan `x` käyttäen nuoli `<-` notaatiota,
 
@@ -71,8 +71,41 @@ knitr::include_graphics("images/rstudio.png")
 
 Tarkemmin RStudion toimintoihin voi perehtyä katsomalla [videot](https://mycourses.aalto.fi/mod/page/view.php?id=1431515) *RStudion koodieditori*, *RStudion muut toimintoikkunat* ja *RStudion hallintavalikoita*.
 
+## Ohjelmoinnin opettelu {#sec:programming}
+
+Ohjelmointia oppii kaikista parhaiten tekemällä. Lisäksi ohjelmoinnin opetteluun on olemassa valtava määrä erinomaisia lähteitä, jotka ovat yleensä vielä avoimesti saatavilla. Tämän vuoksi näissä muistiinpanoissa ei ole tarkoitus antaa kaikenkattavaa esittelyä R ohjelmointikieleen. Alla listaamme kuitenkin muutamia avoimesti saatavia lähteitä, jotka saattavat olla hyödyllisiä kurssin kannalta:
+
+- [*R tutuksi*](https://www.mv.helsinki.fi/home/mjxpirin/medstat_course/material/Rmoniste_tiltu1.pdf) on kurssisivuilta saatavissa oleva suomenkielinen luentomoniste R:n opetteluun. Materiaali keskittyy perus-R (*base R*) toimintoihin menemättä syvemmälle R-paketteihin (*R package*) (katso luku \@ref(sec:why)).
+
+- [*R Programming for Data Science*](https://bookdown.org/rdpeng/rprogdatascience/) on englanninkielinen lähde, joka on samanhenkinen edellä mainitun luentomonisteen kanssa [@peng2016].
+
+- [R for Data Science](https://r4ds.hadley.nz/) tarjoaa vaihtoehtoisen näkökulman kahteen yllä olevaan lähteeseen. Perus-R:n sijaan kyseinen kirja keskittyy pakettikokoelman *Tidyverse* toimintoihin. [Tidyverse](https://tidyverse.org/) antaa vaihtoehtoisia datatieteen työkaluja [@wickham2017]. 
+
+- [*Advanced R*](https://adv-r.hadley.nz/) voi olla erityisen hyödyllinen esimerkiksi kokeneille ohjelmoijille, jotka haluavat perehtyä tarkemmin esimerkiksi oliohjelmointiin, funktionaaliseen ohjelmointiin ja R:n tietorakenteisiin [@wickham2019].
+
+Yllä olevia lähteitä ei välttämättä kannata lukea kannesta kanteen vaan niitä kannattaa kohdella käsikirjoina. Eli kun ongelma tulee vastaan, niin kannattaa tarkistaa, jos vastaus löytyisi yllä olevasta kirjallisuudesta. Lisäksi usein joku muukin on kokenut saman ongelman. Tälllöin suurella todennäköysyydellä vastaus voi löytyä internetin keskustelupalstoilta kuten [Stack Overflowsta](https://stackoverflow.com/collectives/r-language?tab=overview).
+
+Lisäksi R:n dokumentaatio auttaa, kun tiedät R funktion/komennon nimen mutta et muista miten sitä käytetään. Esimerkiksi
+
+```{r, eval=FALSE}
+?matrix
+```
+
+antaa funktion `matrix()` dokumentaation, jonka alku näkyy kuvassa \@ref(fig:doc).
+
+(ref:captiondoc) Funktion `matrix()` dokumentaatio.
+
+```{r doc, echo=FALSE, fig.cap="(ref:captiondoc)"}
+knitr::include_graphics("images/doc.png")
+```
 
 
-## R paketit
+## Miksi R? {#sec:why}
+
+- R, Excel ja Python
+
+- Vapaa ohjelmisto ja avoin lähdekoodi
+
+  - R paketit
 
 ## R Markdown
