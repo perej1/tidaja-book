@@ -159,19 +159,56 @@ Seuraavaksi, yksinkertaisen demon avulla, käymme läpi tyypillisen data-analyys
 
 Suoritamme data-analyysin ensin perus-R:n ja sitten Tidyversen avulla. Tämä havainnollistaa myös sitä, että R:ssä saman asian voi tehdä useammalla eri tavalla.
 
-Esimerkkinä käytämme kuuluisaa `iris` havaintoaineistoa, joka sisältää mittauksia kukan terälehden ominaisuuksista kolmelle eri kurjenmiekkalajille `setosa`, `versicolor` ja `virginica`. Data-aineisto on saatavilla perus-R asennuksen mukana mutta oppimisen vuoksi luemme datan tiedostosta. Datan siivoamisen jälkeen sovitamme yksinkertaisen lineaarisen regressiomallin. 
+Esimerkkinä käytämme kuuluisaa `iris` havaintoaineistoa, joka sisältää mittauksia kukan terälehden ominaisuuksista kolmelle eri kurjenmiekkalajille `setosa`, `versicolor` ja `virginica`. Data-aineisto on saatavilla perus-R asennuksen mukana mutta oppimisen vuoksi luemme datan tiedostosta. Kyseinen tiedosto on näkyvissä  [kurssisivuilla](https://mycourses.aalto.fi/mod/folder/view.php?id=1437133). Datan siivoamisen jälkeen sovitamme yksinkertaisen lineaarisen regressiomallin. 
+
+Ennen kuin jatkamme itse demoon, sanomme pari sanaa työhakemistosta.
 
 
-### Lineaarinen regressio (perus-R) {-}
+### Työhakemisto {-}
 
+Jotta aineisto voidaan lukea (1. askel), R:n täytyy tietää missä aineisto sijaitsee. Polku aineiston sijainnille kirjoitetaan yleensä työhakemiston (*working directory*) suhteen. Työhakemisto on se hakemisto/kansio, johon ohjelmien tuottama data tallentuu oletuksena. Nykyisen työhakemiston näet komennolla `getwd()` ja voit asettaa työhakemiston komennolla `setwd()`. Kurssia varten voit esimerkiksi tehdä työpöydälle kansion `tidaja`, jonka sisällä on edelleen kansiot viikottain: `1week`, `2week`, ... Tällöin saatat haluta asettaa työhakemistoksi kansion `1week`. Käyttöjärjestelmästä riippuen, polku haluttuun kansioon kirjoitetaan hieman eri tavoin. Esimerkiksi Linux Ubuntun tapauksessa voisin asettaa halutun työhakemiston jotakuinkin näin:
 
+```{r, eval=FALSE}
+setwd("~/Desktop/tidaja/1week")
+```
+
+Windowsin tapauksessa polku oikeaan kansioon voisi näyttää seuraavalta riippuen käyttäjänimestäsi
+```{r, eval=FALSE}
+setwd("C:\Users\YourUserName\Desktop")
+```
+
+Eli `setwd()` komentoon polku kirjoitetaan merkkien `"` sisään.
+
+Työhakemiston voi asettaa myös käyttäen RStudion käyttöliittymää. Näppäinyhdistelmällä `Ctrl + Shift + H` saa auki *Choose Working Directory* ikkunan jonka kautta voi navigoida haluttuun kansioon. Saman voi tehdä RStudion valikkojen kautta `Session → Set Working Directory → Choose Directory`. Komennolla `getwd()` voit tarkistaa, että työhakemisto on varmasti asetettu oikein:
+
+```{r, eval=FALSE}
+getwd()
+```
 
 ```{r}
-str(iris)
+## [1] "/home/perej/Desktop/tidaja/1week"
 ```
 
 
-### Lineaarinen regressio (Tidyverse paketit) {-}
+### Perus-R toteutus {-}
+
+Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilytetään yleensä tekstitiedostoissa^[Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.]. Tässä tapauksessa aineisto on tallennettu tekstitiedostoon `iris.csv`, jonka arvot ollaan erotettu pilkuilla (*comma-separated values*, CSV). Tiedoston `iris.csv` tarkemman rakenteen voit nähdä avaamalla sen valitsemassasi tekstieditorissa. Kuvan \@ref(fig:vim) avulla voidaan nähdä, että ensimmäinen rivi koostuu sarakkeiden otsikoista ja seuraavat rivit vastaavat havaintoja. Sarakkeet taas vastaavat muuttujia, esimerkiksi viimeinen sarake antaa kurjenmiekkalajin nimen.
+
+(ref:captionvim) Tiedosto `iris.csv` avattuna [vim](https://www.vim.org/) tekstieditorissa.
+
+```{r vim, echo=FALSE, fig.cap="(ref:captionvim)"}
+knitr::include_graphics("images/vim.png")
+```
+
+Kun työhakemisto on on asetettu, niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä (eng: *input*). Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
+
+```{r}
+iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
+```
+
+
+
+### Tidyverse toteutus {-}
 
 ## R Markdown
 
