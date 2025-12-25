@@ -217,9 +217,27 @@ Yllä olevan tulosteen perusteella näyttää siltä, että luimme tiedoston `ir
 str(iris)
 ```
 
-Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical` (kokonais- ja desimaaliluvut). Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille.
+Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical` (kokonais- ja desimaaliluvut). Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille. RStudiossa luetun hvaintoaineiston näet myös käyttämällä komentoa `View()`^[`View()` toimii ainostaan RStudiossa.] (eli `View(iris)`).
 
-Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy **siivota**. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne.
+Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy **siivota**. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne. Tässä tapauksessa haluamme sovittaa lineaarisen regressiomallin, jossa lajin `setosa` muuttujaa `Sepal.Length` selitetään muuttujan `Sepal.Width` muuttujan avulla. Lisäksi monessa ohjelmointikielessä on tapana nimetä muuttujat pienellä (esim. katso [Tidyverse tyyliopas](https://style.tidyverse.org/syntax.html)). Tämän vuoksi nimeämme valitut sarakkeet myös pienellä.
+
+Aloitamme valitsemalla halutut rivit ja sarakkeet.
+```{r}
+iris_filter <- iris[iris$Species == "setosa", c(1,2)]
+```
+
+Ensimmäinen indeksi^[R:ssä indeksöinti alkaa luvusta 1.] ennen pilkkua vastaa rivejä ja toinen kolumneja. Ennen pilkkua oleva vertailulauseke kertoo, että valitsemme vain ne rivit jotka vastaavat lajia `setosa`. Sarakkeista valitsemme vain ensimmäisen (`Sepal.Length`) ja toisen (`Sepal.Width`). Komento `c` tulee sanasta *concatenate*. Kyseisellä komennolla voi yhdistää arvoja vektoreiksi. Seuraavaksi nimeämme kolumnit pienellä ja pisteen `.` korvaamme alaviivalla `_`:
+```{r}
+colnames(iris_filter) <- c("sepal_length", "sepal_width")
+```
+Sarakkeiden nimet täytyy antaa yhtenä vektorina käyttäen `c` komentoa.
+
+Kun data on siivottu voit vielä tarkistaa sen käyttämällä haluamaasi funktiota
+```{r}
+str(iris_filter)
+```
+
+Nyt olemme valmiita itse **data-analyysiin**.
 
 ### Tidyverse toteutus {-}
 
