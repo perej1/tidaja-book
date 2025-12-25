@@ -192,7 +192,7 @@ getwd()
 
 ### Perus-R toteutus {-}
 
-Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilytetään yleensä tekstitiedostoissa^[Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.]. Tässä tapauksessa aineisto on tallennettu tekstitiedostoon `iris.csv`, jonka arvot ollaan erotettu pilkuilla (*comma-separated values*, CSV). Tiedoston `iris.csv` tarkemman rakenteen voit nähdä avaamalla sen valitsemassasi tekstieditorissa. Kuvan \@ref(fig:vim) avulla voidaan nähdä, että ensimmäinen rivi koostuu sarakkeiden otsikoista ja seuraavat rivit vastaavat havaintoja. Sarakkeet taas vastaavat muuttujia, esimerkiksi viimeinen sarake antaa kurjenmiekkalajin nimen.
+Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilytetään yleensä tekstitiedostoissa^[Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.]. Tässä tapauksessa aineisto on tallennettu tekstitiedostoon `iris.csv`, jonka arvot ollaan erotettu pilkuilla (eng: *comma-separated values*, CSV). Tiedoston `iris.csv` tarkemman rakenteen voit nähdä avaamalla sen valitsemassasi tekstieditorissa. Kuvan \@ref(fig:vim) näkyy, että ensimmäinen rivi koostuu sarakkeiden otsikoista ja seuraavat rivit vastaavat havaintoja. Sarakkeet taas vastaavat muuttujia, esimerkiksi viimeinen sarake antaa kurjenmiekkalajin nimen.
 
 (ref:captionvim) Tiedosto `iris.csv` avattuna [vim](https://www.vim.org/) tekstieditorissa.
 
@@ -206,9 +206,25 @@ Kun työhakemisto on on asetettu, niin komennon `read.table()` avulla voit lukea
 iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
 ```
 
+Kun havaintoaineisto on luettu, niin kannattaa tarkistaa että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan `iris` tallennettu havaintoaineisto tulee näyttämään oudolta. Tarksitamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muutttujan `iris` R-konsolille koko datajoukko tulostuu (paitsi jos rivejä on liikaa). Toinen tapa on `head` komento, joka tulostaa havaintoaineiston ensimmäiset rivit.
+```{r}
+head(iris)
+```
 
+Yllä olevan tulosteen perusteella näyttää siltä, että luimme tiedoston `iris.csv` oikein. Vielä enemmän informaatiota antaa komento `str()`,
+
+```{r}
+str(iris)
+```
+
+Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical` (kokonais- ja desimaaliluvut). Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille.
+
+Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy **siivota**. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne.
 
 ### Tidyverse toteutus {-}
+
+
+Lisää tietoa kyseisestä tietotyypistä löydät esimerkiksi [täältä](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html#factors) perus-R näkökulmasta ja [tuolta](https://r4ds.hadley.nz/factors.html) Tidyversen näkökulmasta.
 
 ## R Markdown
 
