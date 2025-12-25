@@ -237,7 +237,39 @@ Kun data on siivottu voit vielä tarkistaa sen käyttämällä haluamaasi funkti
 str(iris_filter)
 ```
 
-Nyt olemme valmiita itse **data-analyysiin**.
+Nyt olemme valmiita itse **data-analyysiin**. Ennen tilastollisia menetelmiä on hyödyllistä tarkastella dataa visuaalisesti. Alla symbolin `$` avulla voidaan poimia haluttuja sarakkeita nimien perusteella.
+
+```{r base-scatter, fig.cap="Hajontakuvio halutuista muuttujista."}
+plot(iris_filter$sepal_width, iris_filter$sepal_length,
+     xlab = "Sepal Width", ylab = "Sepal Length")
+```
+
+Kuvan \@ref(fig:base-scatter) perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarinen regressiomallin
+
+$$
+  \mathrm{Sepal\ Length}= \beta\cdot \mathrm{Sepal\ Width} + \varepsilon_i
+$$
+
+sovitus voisi tuntua järkevältä tässä tilanteessa. Voimme sovittaa mallin käyttäen `lm` funktiota,
+```{r}
+fit_lm <- lm(sepal_length ~ sepal_width, data = iris_filter)
+```
+
+Eli vastemuuttuja tulee symbolin `~` vasemmalle puolelle ja selitettävät muuttujat oikealle puolelle. Argumentti `data` ottaa sisäänsä muuttujan, joka sisältää havaintoaineiston.
+
+Nyt sovitetun regressioviivan voi piirtää havaintoaineiston kanssa seuraavasti
+```{r base-reg, fig.cap="Sovitettu lineaarinen regressiomalli."}
+plot(iris_filter$sepal_width, iris_filter$sepal_length,
+     xlab = "Sepal Width", ylab = "Sepal Length")
+abline(a = fit_lm$coefficients[1], b = fit_lm$coefficients[2])
+```
+
+Ensimmäinen komento piirtää saman hajontakuvion kuin kuvassa \@ref(fig:base-scatter). Toinen komento piirtää sovitetun regresiokäyrän. Argumetti `a` ottaa sisään vakiotermin estimaatin ja parametri `b` ottaa sisään kulmakäyrän estimaatin. Kyseiset estimaatit voidaan myös tulostaa:
+```{r}
+fit_lm$coefficients
+```
+
+
 
 ### Tidyverse toteutus {-}
 
