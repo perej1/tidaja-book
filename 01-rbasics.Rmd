@@ -75,7 +75,7 @@ Tarkemmin RStudion toimintoihin voi perehtyä katsomalla [videot](https://mycour
 
 Ohjelmointia oppii kaikista parhaiten tekemällä. Lisäksi ohjelmoinnin opetteluun on olemassa valtava määrä erinomaisia lähteitä, jotka ovat yleensä vielä avoimesti saatavilla. Tämän vuoksi näissä muistiinpanoissa ei ole tarkoitus antaa kaikenkattavaa esittelyä R ohjelmointikieleen. Alla listaamme kuitenkin muutamia avoimesti saatavia lähteitä, jotka saattavat olla hyödyllisiä kurssin kannalta:
 
-- [*R tutuksi*](https://www.mv.helsinki.fi/home/mjxpirin/medstat_course/material/Rmoniste_tiltu1.pdf) on kurssisivuilta saatavissa oleva suomenkielinen luentomoniste R:n opetteluun. Materiaali keskittyy perus-R (*base R*) toimintoihin menemättä syvemmälle R-paketteihin (*R package*) (katso luku \@ref(sec:why)).
+- [*R tutuksi*](https://www.mv.helsinki.fi/home/mjxpirin/medstat_course/material/Rmoniste_tiltu1.pdf) on kurssisivuilta saatavissa oleva suomenkielinen luentomoniste R:n opetteluun. Materiaali keskittyy perus-R (*base R*) toimintoihin menemättä syvemmälle R-paketteihin (*R package*) (katso luku \@ref(sec:packages)).
 
 - [*R Programming for Data Science*](https://bookdown.org/rdpeng/rprogdatascience/) on englanninkielinen lähde, joka on samanhenkinen edellä mainitun luentomonisteen kanssa [@peng2016].
 
@@ -100,12 +100,81 @@ knitr::include_graphics("images/doc.png")
 ```
 
 
-## Miksi R? {#sec:why}
+## R-paketit {#sec:packages}
 
-- R, Excel ja Python
+Asennettaessa R ohjelmointikieli luvun \@ref(sec:inst) ohjeiden mukaan, tietokoneelle asentuu perus-R (*base-R*) ja muutama suositeltu R-paketti. Perus-R on ikään kuin pienin toimiva tuote (*minimum viable product*), joka sisältää vain vaaditut toiminnot R:n ajamiseen. Toisaalta R-paketit (*R packages*) tarjoavat laajennuksia perustoimintoihin.
 
-- Vapaa ohjelmisto ja avoin lähdekoodi
+R on [*vapaa*](https://en.wikipedia.org/wiki/Free_software) ja [*avoimen*](https://en.wikipedia.org/wiki/Open_source) lähdekoodin ohjelmisto. Tämä mahdollistaa sen, että kuka tahansa voi kehittää uusia ominaisuuksia R-pakettien muodossa. Paketit julkaistaan yleensä [CRAN:in sivuilla](https://cran.r-project.org/web/packages/available_packages_by_name.html) vaikka muitakin julkaisufoorumeita kuten [Bioconductor](https://www.bioconductor.org/packages/release/BiocViews.html#___Software) on olemassa. Alla on muutamia esimerkkejä R-paketeista:
 
-  - R paketit
+- [ggplot2](https://ggplot2.tidyverse.org/) mahdollistaa laadukkaiden kuvaajien tekemisen, vaikka tietenkin perus-R toiminnallisuuksien avulla voi myös tehdä kuvaajia.
+
+- [dplyr](https://dplyr.tidyverse.org/) antaa työkaluja datan "siivoamiseen" ennen varsinaista analyysiä.
+
+- [tibble](https://tibble.tidyverse.org/) tarjoaa vaihtoehtoisen toteutuksen perus-R:n tietorakenteelle `data.frame`, joka on tarkoitettu datan tallentamiseen.
+
+- [glmnet](https://glmnet.stanford.edu/) paketin avulla voi sovittaa säännellyn lineaarisen regressiomallin (*regularized linear regression*), joka on eräs laajennus perinteisestä lineaarisesta regressiosta.
+
+Kolme ensimmäistä mainituista paketeista kuuluvat [Tidyverse](https://tidyverse.org/) pakettikokoelmaan, joka antaa vaihtoehtoisia datatieteen työkaluja verrattuna perus-R toimintoihin^[Teoriassa kuka tahansa voi ehdottaa muutoksia perus-R:ään mutta käytännössä muutoksia perustoimintoihin hyväksytään erittäin harvoin. Usein vaihtoehtoiset ja uudet toiminnot toteutetaan siis R-pakettien muodossa.]. Toisaalta monet R-paketit kuten `glmnet` tarjoavat toteutuksia tilastollisista menetelmistä, joita ei ole sisällytetty perus-R:ään.
+
+Jotta tietyn R-paketin toimintoja voidaan käyttää, niin kyseinen paketti täytyy ensin asentaa. Käytämme esimerkkinä `dplyr` pakettia, joka asennetaan R-komennolla
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+```
+
+Huomaa, että yllä paketin nimi täytyy antaa `"` merkkien sisällä. Paketin asennus tarvitsee tehdä vain kerran. Eli esimerkiksi jos asennat paketin, suljet RStudion ja avaat RStudion uudestaan, niin pakettia **ei** tarvitse asentaa uudestaan.
+
+Kun paketti on asennettu niin voit käyttää sen funktioita. Jos kuitenkin yrität esim. käyttää paketin `dplyr`^[Tässä vaiheessa esiteltyjen funktioden toimintaa ei tarvitse ymmärtää. Tarkoitus on esitellä, miten R-paketit toimivat] funktiota `lead` suoraan, niin saat virheilmoituksen
+
+```{r, error=TRUE}
+lead(1:3)
+```
+
+Yleinen tapa saada paketin sisäiset funktiot käyttöön on kiinnittää (*attach*) se ohjelman alkuun käyttäen `library()` komentoa, jonka jälkeen pakettia voidaan käyttää
+```{r, message=FALSE}
+library(dplyr)
+lead(1:3) # No error message
+```
+
+Huomaa, että komennossa `library()` paketin nimeä ei tarvitse sisällyttää merkkien `"` sisään.
+
+Paketin tekijät voivat nimetä funktioden nimet miten haluavat. Tällöin on siis mahdollista, että eri paketeissa on samannimisiä funktioita, jotka toimivat eri tavoin. Jos tälläinen tilanne tulee eteen, niin täytyy tarkentaa kumman paketin funktiota käytetään. Esimerkiksi funktio `lag` on paketeissa `dplyr` ja `stats` (sisältyy perus-R asennukseen). Nämä kaksi erilaista `lag` funktiota erotetaan asettamalla `::` paketin ja funktion väliin.
+```{r}
+stats::lag(1:3)
+dplyr::lag(1:3)
+```
+
+
+
+## Data-analyysin askeleet {#sec:demo}
+
+
+Seuraavaksi, yksinkertaisen demon avulla, käymme läpi tyypillisen data-analyysin vaiheet:
+
+1. Datan lukeminen
+
+2. Datan siivoaminen
+
+3. Data-analyysi (visualisointi, mallien sovitus, tulkinta)
+
+Suoritamme data-analyysin ensin perus-R:n ja sitten Tidyversen avulla. Tämä havainnollistaa myös sitä, että R:ssä saman asian voi tehdä useammalla eri tavalla.
+
+Esimerkkinä käytämme kuuluisaa `iris` havaintoaineistoa, joka sisältää mittauksia kukan terälehden ominaisuuksista kolmelle eri kurjenmiekkalajille `setosa`, `versicolor` ja `virginica`. Data-aineisto on saatavilla perus-R asennuksen mukana mutta oppimisen vuoksi luemme datan tiedostosta. Datan siivoamisen jälkeen sovitamme yksinkertaisen lineaarisen regressiomallin. 
+
+
+### Lineaarinen regressio (perus-R) {-}
+
+
+
+```{r}
+str(iris)
+```
+
+
+### Lineaarinen regressio (Tidyverse paketit) {-}
 
 ## R Markdown
+
+## Miksi R?
+
+Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
