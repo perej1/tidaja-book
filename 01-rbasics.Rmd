@@ -81,7 +81,7 @@ Ohjelmointia oppii kaikista parhaiten tekemällä. Lisäksi ohjelmoinnin opettel
 
 - [R for Data Science](https://r4ds.hadley.nz/) tarjoaa vaihtoehtoisen näkökulman kahteen yllä olevaan lähteeseen. Perus-R:n sijaan kyseinen kirja keskittyy pakettikokoelman *Tidyverse* toimintoihin. [Tidyverse](https://tidyverse.org/) antaa vaihtoehtoisia datatieteen työkaluja [@wickham2017]. 
 
-- [*Advanced R*](https://adv-r.hadley.nz/) voi olla erityisen hyödyllinen esimerkiksi kokeneille ohjelmoijille, jotka haluavat perehtyä tarkemmin esimerkiksi oliohjelmointiin, funktionaaliseen ohjelmointiin ja R:n tietorakenteisiin [@wickham2019].
+- [*Advanced R*](https://adv-r.hadley.nz/) voi olla hyödyllinen kokeneille ohjelmoijille, jotka haluavat perehtyä tarkemmin esimerkiksi oliohjelmointiin, funktionaaliseen ohjelmointiin ja R:n tietorakenteisiin [@wickham2019].
 
 Yllä olevia lähteitä ei välttämättä kannata lukea kannesta kanteen vaan niitä kannattaa kohdella käsikirjoina. Eli kun ongelma tulee vastaan, niin kannattaa tarkistaa, jos vastaus löytyisi yllä olevasta kirjallisuudesta. Lisäksi usein joku muukin on kokenut saman ongelman. Tälllöin suurella todennäköisyydellä vastaus voi löytyä internetin keskustelupalstoilta kuten [Stack Overflowsta](https://stackoverflow.com/collectives/r-language?tab=overview).
 
@@ -155,11 +155,11 @@ Seuraavaksi, yksinkertaisen demon avulla, käymme läpi tyypillisen data-analyys
 
 2. Datan siivoaminen
 
-3. Data-analyysi (visualisointi, mallien sovitus, tulkinta)
+3. Tilastollinen analyysi (visualisointi, mallien sovitus, tulkinta)
 
 Suoritamme data-analyysin ensin perus-R:n ja sitten Tidyversen avulla. Tämä havainnollistaa myös sitä, että R:ssä saman asian voi tehdä useammalla eri tavalla.
 
-Esimerkkinä käytämme kuuluisaa `iris` havaintoaineistoa, joka sisältää mittauksia kukan terälehden ominaisuuksista kolmelle eri kurjenmiekkalajille `setosa`, `versicolor` ja `virginica`. Data-aineisto on saatavilla perus-R asennuksen mukana mutta oppimisen vuoksi luemme datan tiedostosta. Kyseinen tiedosto on näkyvissä  [kurssisivuilla](https://mycourses.aalto.fi/mod/folder/view.php?id=1437133). Datan siivoamisen jälkeen sovitamme yksinkertaisen lineaarisen regressiomallin. 
+Esimerkkinä käytämme kuuluisaa `iris` havaintoaineistoa, joka sisältää mittauksia kukan terälehden ominaisuuksista kolmelle eri kurjenmiekkalajille `setosa`, `versicolor` ja `virginica`. Data-aineisto on saatavilla perus-R asennuksen mukana mutta oppimisen vuoksi luemme datan tiedostosta. Kyseinen tiedosto on näkyvissä  [kurssisivuilla](https://mycourses.aalto.fi/mod/folder/view.php?id=1437133). Datan siivoamisen jälkeen sovitamme yksinkertaisen lineaarisen regressiomallin, joka on tuttu menetelmä kurssilta *tilastotieteen perusteet*.
 
 Ennen kuin jatkamme itse demoon, sanomme pari sanaa työhakemistosta.
 
@@ -169,7 +169,7 @@ Demon R syntaksia ei tarvitse ymmärtää täydellisesti kurssin alussa. Demon t
 
 ### Työhakemisto {-}
 
-Jotta aineisto voidaan lukea (1. askel), R:n täytyy tietää missä aineisto sijaitsee. Polku aineiston sijainnille kirjoitetaan yleensä työhakemiston (*working directory*) suhteen. Työhakemisto on se hakemisto/kansio, johon ohjelmien tuottama data tallentuu oletuksena. Nykyisen työhakemiston näet komennolla `getwd()` ja voit asettaa työhakemiston komennolla `setwd()`. Kurssia varten voit esimerkiksi tehdä työpöydälle kansion `tidaja`, jonka sisällä on edelleen kansiot viikottain: `1week`, `2week`, ... Tällöin saatat haluta asettaa työhakemistoksi kansion `1week`. Käyttöjärjestelmästä riippuen, polku haluttuun kansioon kirjoitetaan hieman eri tavoin. Esimerkiksi Linux Ubuntun tapauksessa voisin asettaa halutun työhakemiston jotakuinkin näin:
+Jotta aineisto voidaan lukea (1. askel), R:n täytyy tietää missä aineisto sijaitsee. Polku aineiston sijainnille kirjoitetaan yleensä työhakemiston (*working directory*) suhteen. Työhakemisto on se hakemisto/kansio, johon ohjelmien tuottama data tallentuu oletuksena. Nykyisen työhakemiston näet komennolla `getwd()` ja voit asettaa työhakemiston komennolla `setwd()`. Kurssia varten voit esimerkiksi tehdä työpöydälle kansion `tidaja`, jonka sisällä on edelleen kansiot viikottain: `1week`, `2week`, ... Tällöin saatat haluta asettaa työhakemistoksi kansion `1week`. Käyttöjärjestelmästä riippuen polku haluttuun kansioon kirjoitetaan hieman eri tavoin. Esimerkiksi Linux Ubuntun tapauksessa voisin asettaa halutun työhakemiston jotakuinkin näin:
 
 ```{r, eval=FALSE}
 setwd("~/Desktop/tidaja/1week")
@@ -195,7 +195,7 @@ getwd()
 
 ### Perus-R toteutus {-}
 
-Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilytetään yleensä tekstitiedostoissa^[Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.]. Tässä tapauksessa aineisto on tallennettu tekstitiedostoon `iris.csv`, jonka arvot ollaan erotettu pilkuilla (eng: *comma-separated values*, CSV). Tiedoston `iris.csv` tarkemman rakenteen voit nähdä avaamalla sen valitsemassasi tekstieditorissa. Kuvan \@ref(fig:vim) näkyy, että ensimmäinen rivi koostuu sarakkeiden otsikoista ja seuraavat rivit vastaavat havaintoja. Sarakkeet taas vastaavat muuttujia, esimerkiksi viimeinen sarake antaa kurjenmiekkalajin nimen.
+Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilytetään yleensä tekstitiedostoissa^[Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.]. Tässä tapauksessa aineisto on tallennettu tekstitiedostoon `iris.csv`, jonka arvot ollaan erotettu pilkuilla (eng: *comma-separated values*, CSV). Tiedoston `iris.csv` tarkemman rakenteen voit nähdä avaamalla sen valitsemassasi tekstieditorissa. Kuvassa \@ref(fig:vim) näkyy, että tiedoston ensimmäinen rivi koostuu sarakkeiden otsikoista ja seuraavat rivit ovat yksittäisiä havaintoja. Sarakkeet taas vastaavat muuttujia, esimerkiksi viimeinen sarake antaa jokaisen havainnon kurjenmiekkalajin nimen.
 
 (ref:captionvim) Tiedosto `iris.csv` avattuna [vim](https://www.vim.org/) tekstieditorissa.
 
@@ -203,13 +203,13 @@ Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilyt
 knitr::include_graphics("images/vim.png")
 ```
 
-Kun työhakemisto on on asetettu, niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä (eng: *input*). Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
+Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä (eng: *input*). Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
 
 ```{r}
 iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
 ```
 
-Kun havaintoaineisto on luettu, niin kannattaa tarkistaa että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan `iris` tallennettu havaintoaineisto tulee näyttämään oudolta. Tarksitamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muutttujan `iris` R-konsolille koko datajoukko tulostuu (paitsi jos rivejä on liikaa). Toinen tapa on `head` komento, joka tulostaa havaintoaineiston ensimmäiset rivit.
+Havaintoaineiston lukemisen jälkeen kannattaa tarkistaa, että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan `iris` tallennettu havaintoaineisto tulee näyttämään oudolta. Tarkistamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muutttujan `iris` R-konsolille koko datajoukko tulostuu (lukuunottamatta viimeisiä, jos tiedosto on liian suuri). Toinen tapa nähdä havintoaineisto on `head` komento, joka tulostaa havaintoaineiston ensimmäiset rivit.
 ```{r}
 head(iris)
 ```
@@ -220,7 +220,7 @@ Yllä olevan tulosteen perusteella näyttää siltä, että luimme tiedoston `ir
 str(iris)
 ```
 
-Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical` (kokonais- ja desimaaliluvut). Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille. RStudiossa luetun hvaintoaineiston näet myös käyttämällä komentoa `View()`^[`View()` toimii ainostaan RStudiossa.] (eli `View(iris)`).
+Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical`, joka on varattu kokonais- ja desimaaliluvuille. Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille. Luetun havaintoaineiston näet myös erillisessä ikkunassa käyttäen komentoa `View()` eli `View(iris)`.
 
 Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy **siivota**. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne. Tässä tapauksessa haluamme sovittaa lineaarisen regressiomallin, jossa lajin `setosa` muuttujaa `Sepal.Length` selitetään muuttujan `Sepal.Width` muuttujan avulla. Lisäksi monessa ohjelmointikielessä on tapana nimetä muuttujat pienellä (esim. katso [Tidyverse tyyliopas](https://style.tidyverse.org/syntax.html)). Tämän vuoksi nimeämme valitut sarakkeet myös pienellä.
 
@@ -240,9 +240,9 @@ Kun data on siivottu voit vielä tarkistaa sen käyttämällä haluamaasi funkti
 str(iris_filter)
 ```
 
-Nyt olemme valmiita itse **data-analyysiin**. Ennen tilastollisia menetelmiä on hyödyllistä tarkastella dataa visuaalisesti. Alla symbolin `$` avulla voidaan poimia haluttuja sarakkeita nimien perusteella.
+Nyt olemme valmiita itse **data-analyysiin**. Ennen tilastollisia menetelmiä on hyödyllistä tarkastella dataa visuaalisesti. Alla symbolin `$` avulla voidaan poimia haluttuja sarakkeita nimien perusteella. Valituista sarakkeista piirretään hajontakuvio funktion `plot` avulla.
 
-```{r base-scatter, fig.cap="Hajontakuvio halutuista muuttujista."}
+```{r base-scatter, fig.cap="Hajontakuvio halutuista muuttujista Sepal Width ja Sepal Length."}
 plot(iris_filter$sepal_width, iris_filter$sepal_length,
      xlab = "Sepal Width", ylab = "Sepal Length")
 ```
@@ -250,7 +250,7 @@ plot(iris_filter$sepal_width, iris_filter$sepal_length,
 Kuvan \@ref(fig:base-scatter) perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarinen regressiomallin
 
 $$
-  \mathrm{Sepal\ Length}= \beta\cdot \mathrm{Sepal\ Width} + \varepsilon_i
+  \mathrm{Sepal\ Length}_i= \beta\cdot \mathrm{Sepal\ Width}_i + \varepsilon_i
 $$
 
 sovitus voisi tuntua järkevältä tässä tilanteessa. Voimme sovittaa mallin käyttäen `lm` funktiota,
@@ -258,7 +258,7 @@ sovitus voisi tuntua järkevältä tässä tilanteessa. Voimme sovittaa mallin k
 fit_lm <- lm(sepal_length ~ sepal_width, data = iris_filter)
 ```
 
-Eli vastemuuttuja tulee symbolin `~` vasemmalle puolelle ja selitettävät muuttujat oikealle puolelle. Argumentti `data` ottaa sisäänsä muuttujan, joka sisältää havaintoaineiston.
+Eli vastemuuttuja tulee symbolin `~` vasemmalle puolelle ja selittävät muuttujat oikealle puolelle. Argumentti `data` ottaa sisäänsä muuttujan, joka sisältää havaintoaineiston.
 
 Nyt sovitetun regressioviivan voi piirtää havaintoaineiston kanssa seuraavasti
 ```{r base-reg, fig.cap="Sovitettu lineaarinen regressiomalli."}
@@ -276,8 +276,45 @@ fit_lm$coefficients
 
 ### Tidyverse toteutus {-}
 
+Seuraavaksi suoritamme täysin saman data-analyysin kuin edellisessä luvussa Tidyverse pakettien avulla. Tämä on myös ensimmäinen esimerkki, jossa käytämme muita ulkoisia paketteja eikä perus-R toimintoja. Kaikki Tidyverse paketit voidaan asentaa komennolla
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
 
-Lisää tietoa kyseisestä tietotyypistä löydät esimerkiksi [täältä](https://bookdown.org/rdpeng/rprogdatascience/r-nuts-and-bolts.html#factors) perus-R näkökulmasta ja [tuolta](https://r4ds.hadley.nz/factors.html) Tidyversen näkökulmasta.
+Kyseistä demoa varten emme kuitenkaan tarvitse kaikkia Tidyverse paketteja, joten tarvittavan osajoukon paketeista voi asentaa seuraavasti:
+```{r, eval=FALSE}
+install.packages(c("readr", "dplyr", "ggplot2"))
+```
+
+Kun tarvittavat paketit ollaan asennettu voit joko kiinnittää ne `library` komennolla tai viitata suoraan paketin funktiohin käyttäen `::` notaatiota. Pakettien kiinnittäminen on  hyödyllistä, jos käytät sen sisäisiä funktiota toistuvasti samassa ohjelmassa. Tässä tapauksessa kiinnitämme paketit `dplyr` ja `ggplot2`.
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+Vihdoin kun paketteihin liittyvät esivalmistelut ollaan tehty ja työhakemisto ollaan asetettu, niin olemme valmiita **lukemaan** datan paketin `readr` funktion `read_csv()` avulla. Kyseisen funktion syntaksi on hyvin samankaltainen verrattuna perus-R asennuksen mukana tulevaan `read.csv()` funktioon:
+```{r}
+iris2 <- readr::read_csv("data/iris.csv", col_names = TRUE,
+                         col_types = "ddddc")
+```
+
+Ensimmäinen argumentti antaa polun itse tiedostoon, josta data luetaan. Toinen argumentti kertoo, että tiedoston ensimmäinen rivi sisältää muuttujien nimet. Poiketen `read.table()` funktiosta, argumenttia havaintojen erottimelle ei tarvitse antaa, koska `read_csv` olettaa automaattisesti erottimen olevan pilkku. Viimeiseen argumenttiin ohjelmoija antaa sarakkeiden tietotyypit (`d = double` eli desimaaliluku ja `c = character` eli tekstipohjainen muuttuja). Tämän argumentin voit jättää halutessasi pois, jolloin `read_csv()` arvaa sarakkeiden tietotyypit aivan kuten `read.table()`.
+
+Erot funktioden `read.table()` ja `readr::read_csv()` käytössä ovat siis melko minimaaliset. Funktio `readr::read_csv()` on kuitenkin hieman nopeampi ja kannustaa ohjelmoijaa täsmentämään sarakkeiden tietotyypit itse. Lisäksi luettu data tallennetaan erilaisiin tietotyyppeihin:
+```{r}
+class(iris)
+class(iris2)
+```
+
+Eli muuttujaan `iris` funktiolla `read.table()` luettu data on tietotyyppiä `data.frame`, joka on perus-R:n tietotyyppi taulukkomuotoisen datan tallentamiseen. Toisaalta `iris2` on tietotyyppiä `tbl_df` eli `tibble`, joka on Tidyverse toteutus tietotyypistä `data.frame`. Ero näkyy esimerkiksi muuttujia `iris` ja `iris2` tulostettaessa. Tibblen tulostus antaa vähemmän rivejä ja kertoo sarakkeiden tietotyypit otsikoiden alapuolella:
+
+```{r}
+iris2
+```
+
+Muuttujan `iris` voit halutessasi tulostaa itse mutta emme näytä tulostetta tässä luentomonisteessa, koska tuloste on niin pitkä.
+
+Seuraavaksi *siivoamme* datan samaan tyyliin kuin edellisessä luvussa mutta käyttäen Tidyverse paketin `dplyr` funktioita. Ensin suoritamme siivoamisen ´, jonka jälkeen selitämme askeleet.
 
 ## R Markdown
 
