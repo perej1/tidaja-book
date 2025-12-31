@@ -203,7 +203,7 @@ Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilyt
 knitr::include_graphics("images/vim.png")
 ```
 
-Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä (eng: *input*). Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
+Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä. Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
 
 ```{r}
 iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
@@ -240,7 +240,7 @@ Kun data on siivottu voit vielä tarkistaa sen käyttämällä haluamaasi funkti
 str(iris_filter)
 ```
 
-Nyt olemme valmiita itse **data-analyysiin**. Ennen tilastollisia menetelmiä on hyödyllistä tarkastella dataa visuaalisesti. Alla symbolin `$` avulla voidaan poimia haluttuja sarakkeita nimien perusteella. Valituista sarakkeista piirretään hajontakuvio funktion `plot` avulla.
+Nyt olemme valmiita itse **tilastollisen analyysiin**. Ennen tilastollisia menetelmiä on hyödyllistä tarkastella dataa visuaalisesti. Alla symbolin `$` avulla voidaan poimia haluttuja sarakkeita nimien perusteella. Valituista sarakkeista piirretään hajontakuvio funktion `plot` avulla.
 
 ```{r base-scatter, fig.cap="Hajontakuvio halutuista muuttujista Sepal Width ja Sepal Length."}
 plot(iris_filter$sepal_width, iris_filter$sepal_length,
@@ -334,7 +334,7 @@ Eli suoritamme yllä olevat operaatiot (`filter()`, `rename()` ja `select()`) j�
 Putki `%>%` tekee siis koodista luettavaa, kun monia yksinkertaisia operaatioita suoritetaan peräkkäin, mikä on tyypillistä datan siivoamisessa. Alla näkyy vielä havainnollistus putken käytöstä.
 
 ::: {.example}
-Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään on harvoin toimivaa suoraan.]
+Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään harvoin toimivaa.]
 ```
 data_transform <- data %>%
   f() %>%
@@ -354,6 +354,28 @@ data_transform <- h(data_transform)
 ```
 :::
 
+Viimeinen askel on **tilastollinen analyysi**. Kuten perus-R toteutuksessa, voimme tarkastella dataa ensin visuaalisesti. Tidyversen toiminnallisuudet kuvaajien tekemiseen tarjotaan `ggplot2` paketissa. Paketin ideana on lisäillä kerroksia kuvaajaan käyttäen `+` merkkiä. Kuvan \@ref(fig:ggplot-scatter) tuottavan koodin ensimmäinen kerros määrittää tarvittavat muuttujat kuvaajaa varten. Toinen kerros kertoo, että kuvaajana käytämme hajontakuviota. Viimeiset kaksi kerrosta nimeävät akselit sopivammin. Myöhempää käyttöä varten tallennamme kuvaajan muuttujaan `gscatter`.
+
+
+(ref:captionggplot-scatter) Sama hajontakuvio kuin kuvassa \@ref(fig:base-scatter) mutta käyttäen pakettia `ggplot2`.
+
+```{r ggplot-scatter, fig.cap="(ref:captionggplot-scatter)"}
+gscatter <- ggplot(iris2_filter, aes(x = sepal_width, y = sepal_length)) +
+  geom_point() +
+  xlab("Sepal Width") +
+  ylab("Sepal Length")
+gscatter
+```
+
+Regressioviivan voimme tuottaa kuvaan \@ref(fig:ggplot-scatter) kätevästi vain lisäämällä uuden kerroksen. Estimaatit regressiokertoimille kuvaa \@ref(fig:ggplot-regression) saamme edellisen luvun muuttujasta `fit_lm`.
+
+(ref:captionggplot-regression) Sovitettu lineaarinen regressiomalli kuten kuvassa \@ref(fig:base-reg) mutta käyttäen pakettia `ggplot2`.
+
+```{r ggplot-regression, fig.cap="(ref:captionggplot-regression)"}
+gscatter +
+  geom_abline(intercept = fit_lm$coefficients[1],
+              slope = fit_lm$coefficients[2])
+```
 
 
 ## R Markdown
