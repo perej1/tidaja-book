@@ -4,6 +4,7 @@ language:
   label:
     fig: "Kuva "
     remark: "Huomautus "
+    exm: "Esimerkki "
   ui:
     chapter_name: "Luku "
 rmd-files: ["index.Rmd", "01-rbasics.Rmd", "references.Rmd"]

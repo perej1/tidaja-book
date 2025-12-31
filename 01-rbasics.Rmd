@@ -314,7 +314,47 @@ iris2
 
 Muuttujan `iris` voit halutessasi tulostaa itse mutta emme näytä tulostetta tässä luentomonisteessa, koska tuloste on niin pitkä.
 
-Seuraavaksi *siivoamme* datan samaan tyyliin kuin edellisessä luvussa mutta käyttäen Tidyverse paketin `dplyr` funktioita. Ensin suoritamme siivoamisen ´, jonka jälkeen selitämme askeleet.
+Seuraavaksi **siivoamme** datan samaan tyyliin kuin edellisessä luvussa mutta käyttäen Tidyverse paketin `dplyr` funktioita. Ensin suoritamme siivoamisen, jonka jälkeen selitämme askeleet.
+```{r}
+iris2_filter <- iris2 %>%
+  filter(Species == "setosa") %>%
+  rename(sepal_width = Sepal.Width, sepal_length = Sepal.Length) %>%
+  select(sepal_width, sepal_length)
+iris2_filter # Print the outcome of "cleaning"
+```
+
+Eli suoritamme yllä olevat operaatiot (`filter()`, `rename()` ja `select()`) järjestyksessä ylhäältä alas käyttäen putki (eng: *pipe*) operaattoria `%>%`:
+
+1. Datasta `iris2` suodatetaan vain ne havainnot, joiden laji on `setosa`.
+
+2. Yllä olevan operaation lopputuloksesta kolumnit `Sepal.Width` ja `Sepal.Length` nimetään uudelleen.
+
+3. Viimeiseksi yllä olevan operaation lopputuloksesta valitaan kolumnit `sepal_width` ja `sepal_length` ja tallennetaan ne muuttujaan `iris2_filter`.
+
+Putki `%>%` tekee siis koodista luettavaa, kun monia yksinkertaisia operaatioita suoritetaan peräkkäin, mikä on tyypillistä datan siivoamisessa. Alla näkyy vielä havainnollistus putken käytöstä.
+
+::: {.example}
+Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään on harvoin toimivaa suoraan.]
+```
+data_transform <- data %>%
+  f() %>%
+  g() %>%
+  h()
+```
+voisi kirjoittaa myös seuraavasti
+```
+data_transform <- h(g(f(data)))
+```
+
+tai seuraavasti
+```
+data_transform <- f(data)
+data_transform <- g(data_transform)
+data_transform <- h(data_transform)
+```
+:::
+
+
 
 ## R Markdown
 
