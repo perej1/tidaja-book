@@ -171,8 +171,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.2" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#sec:programming"><i class="fa fa-check"></i><b>1.2</b> Ohjelmoinnin opettelu</a></li>
 <li class="chapter" data-level="1.3" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#sec:packages"><i class="fa fa-check"></i><b>1.3</b> R-paketit</a></li>
 <li class="chapter" data-level="1.4" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#sec:demo"><i class="fa fa-check"></i><b>1.4</b> Data-analyysin askeleet</a></li>
-<li class="chapter" data-level="1.5" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#r-markdown"><i class="fa fa-check"></i><b>1.5</b> R Markdown</a></li>
-<li class="chapter" data-level="1.6" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#miksi-r"><i class="fa fa-check"></i><b>1.6</b> Miksi R?</a></li>
+<li class="chapter" data-level="1.5" data-path="r-ohjelmointikielestä.html"><a href="r-ohjelmointikielestä.html#sec:markdown"><i class="fa fa-check"></i><b>1.5</b> R Markdown</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lähteet.html"><a href="lähteet.html"><i class="fa fa-check"></i>Lähteet</a></li>
 <li class="divider"></li>
@@ -196,8 +195,10 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="r-ohjelmointikielestä" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Luku 1</span> R ohjelmointikielestä<a href="r-ohjelmointikielestä.html#r-ohjelmointikielest%C3%A4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä datatieteen työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.</p>
-<p>Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa <a href="r-ohjelmointikielestä.html#sec:inst">1.1</a>. Lisämateriaalia R ohjelmointikielen opetteluun löytyy luvusta <a href="r-ohjelmointikielestä.html#sec:programming">1.2</a>.</p>
+<p>R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä datatieteen työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. R:n tekstipohjaisia ohjelmia on kuitenkin paljon helpompi hallinnoida verrattuna Exceliin, kun data-analyysi vaatii useita ja monimutkaisia askeleita.</p>
+<p>Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. Se voidaan myöntää, että on olemassa muitakin erinomaisia työkaluja tilastollista analyysiä varten. R on kuitenkin verrattain helppo aloittaa verrattuna muihin kieliin, kun kyse on puhtaasta data-analyysistä. Tämän vuoksi tämän kurssin kaikki tietokonetehtävät suoritetaan R ohjelmointikielellä. Jos haluat lukea lisää R kielen filosofiasta ja historiasta, voit vilkaista jossain vaiheessa kurssia <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">lukua 2</a> kirjasta <em>R programming for data science</em> <span class="citation">(<a href="#ref-peng2016">Peng 2016</a>)</span>.</p>
+<p>Tämän luvun päämotivaatio onkin esitellä R:n ominaisuuksia ja toivottavasti vakuuttaa lukija siitä, että R voi olla hyödyllinen työkalu. Tarkoitus ei kuitenkaan ole antaa kaikenkattavaa esittelyä R:ään vaan R taidot kehittyvät varmasti kurssin aikana.</p>
+<p>Ensin käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa <a href="r-ohjelmointikielestä.html#sec:inst">1.1</a>. Lisämateriaalia R ohjelmointikielen opetteluun löytyy luvusta <a href="r-ohjelmointikielestä.html#sec:programming">1.2</a>. Lisäksi R:ssä on tyypillistä käyttää muiden ohjelmoijien ja tilastotieteilijöiden käyttämiä paketteja. Lyhyt esittely paketteihin annetaan luvussa <a href="r-ohjelmointikielestä.html#sec:packages">1.3</a>. Tämän jälkeen R:n toimintoja esitellään lyhyen data-analyysin kautta luvussa <a href="r-ohjelmointikielestä.html#sec:demo">1.4</a>. Viimeiseksi luvussa <a href="r-ohjelmointikielestä.html#sec:markdown">1.5</a> sanomme pari sanaa R Markdownista, jonka avulla voi tehdä esimerkiksi raportteja yhdistäen tekstiä ja R koodia. <strong>R Markdownin käyttö kurssilla ei kuitenkaan ole pakollista.</strong></p>
 <div id="sec:inst" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Ohjelmointikieli ja -ympäristö: asennus ja käyttö<a href="r-ohjelmointikielestä.html#sec:inst" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="r" class="section level3 unnumbered hasAnchor">
@@ -237,7 +238,7 @@ Kuva 1.3: Aiemmat komennot tallennettuna yhteen tiedostoon.
 Kuva 1.4: R ohjelman suoritus komentoriviltä.
 </p>
 </div>
-<p>Monet ohjelmoijat käyttävät pelkästään komentoriviä ja tekstieditoria R ohjelmoimiseen. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (<em>integrated development environment</em>, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (<em>debugging</em>) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, …). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.</p>
+<p>Monet ohjelmoijat käyttävät pelkästään komentoriviä ja tekstieditoria R ohjelmoimiseen. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (<em>integrated development environment</em>, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (<em>debugging</em>) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, …). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. <strong>Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.</strong></p>
 </div>
 <div id="rstudio" class="section level3 unnumbered hasAnchor">
 <h3>RStudio<a href="r-ohjelmointikielestä.html#rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -335,7 +336,7 @@ Kuva 1.7: Funktion <code>matrix()</code> dokumentaatio.
 <p>Jotta aineisto voidaan lukea (1. askel), R:n täytyy tietää missä aineisto sijaitsee. Polku aineiston sijainnille kirjoitetaan yleensä työhakemiston (<em>working directory</em>) suhteen. Työhakemisto on se hakemisto/kansio, johon ohjelmien tuottama data tallentuu oletuksena. Nykyisen työhakemiston näet komennolla <code>getwd()</code> ja voit asettaa työhakemiston komennolla <code>setwd()</code>. Kurssia varten voit esimerkiksi tehdä työpöydälle kansion <code>tidaja</code>, jonka sisällä on edelleen kansiot viikottain: <code>1week</code>, <code>2week</code>, … Tällöin saatat haluta asettaa työhakemistoksi kansion <code>1week</code>. Käyttöjärjestelmästä riippuen polku haluttuun kansioon kirjoitetaan hieman eri tavoin. Esimerkiksi Linux Ubuntun tapauksessa voisin asettaa halutun työhakemiston jotakuinkin näin:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-ohjelmointikielestä.html#cb11-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;~/Desktop/tidaja/1week&quot;</span>)</span></code></pre></div>
 <p>Windowsin tapauksessa polku oikeaan kansioon voisi näyttää seuraavalta riippuen käyttäjänimestäsi</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-ohjelmointikielestä.html#cb12-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:\Users\YourUserName\Desktop&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-ohjelmointikielestä.html#cb12-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:\Users\YourUserName\Desktop</span><span class="sc">\t</span><span class="st">idaja\1week&quot;</span>)</span></code></pre></div>
 <p>Eli <code>setwd()</code> komentoon polku kirjoitetaan merkkien <code>"</code> sisään.</p>
 <p>Työhakemiston voi asettaa myös käyttäen RStudion käyttöliittymää. Näppäinyhdistelmällä <code>Ctrl + Shift + H</code> saa auki <em>Choose Working Directory</em> ikkunan jonka kautta voi navigoida haluttuun kansioon. Saman voi tehdä RStudion valikkojen kautta <code>Session → Set Working Directory → Choose Directory</code>. Komennolla <code>getwd()</code> voit tarkistaa, että työhakemisto on varmasti asetettu oikein:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-ohjelmointikielestä.html#cb13-1" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
@@ -353,7 +354,7 @@ Kuva 1.8: Tiedosto <code>iris.csv</code> avattuna <a href="https://www.vim.org/"
 </div>
 <p>Kun työhakemisto on asetettu (katso edellinen luku), niin komennon <code>read.table()</code> avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> kuten <code>file</code> (polku datatiedostoon), <code>header</code> (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), <code>sep</code> (erotin arvojen välillä), … Jos tiedosto <code>iris.csv</code> on tallennettu työhakemiston sisällä olevaan kansioon <code>data</code>, niin havaintoaineisto voidaan lukea seuraavasti</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-ohjelmointikielestä.html#cb15-1" tabindex="-1"></a>iris <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/iris.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
-<p>Havaintoaineiston lukemisen jälkeen kannattaa tarkistaa, että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan <code>iris</code> tallennettu havaintoaineisto tulee näyttämään oudolta. Tarkistamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muutttujan <code>iris</code> R-konsolille koko datajoukko tulostuu (lukuunottamatta viimeisiä, jos tiedosto on liian suuri). Toinen tapa nähdä havintoaineisto on <code>head</code> komento, joka tulostaa havaintoaineiston ensimmäiset rivit.</p>
+<p>Havaintoaineiston lukemisen jälkeen kannattaa tarkistaa, että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan <code>iris</code> tallennettu havaintoaineisto tulee näyttämään oudolta. Tarkistamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muuttujan <code>iris</code> R-konsolille koko datajoukko tulostuu (lukuunottamatta viimeisiä rivejä, jos tiedosto on liian suuri). Toinen tapa nähdä havintoaineisto on <code>head</code> komento, joka tulostaa havaintoaineiston ensimmäiset rivit.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-ohjelmointikielestä.html#cb16-1" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
@@ -370,7 +371,7 @@ Kuva 1.8: Tiedosto <code>iris.csv</code> avattuna <a href="https://www.vim.org/"
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : chr  &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; &quot;setosa&quot; ...</code></pre>
-<p>Myös <code>str()</code> tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä <code>numerical</code>, joka on varattu kokonais- ja desimaaliluvuille. Viimeinen kolumni on tietotyyppiä <code>character</code>, joka on tarkoitettu tekstimuotoisille muuttujille. Luetun havaintoaineiston näet myös erillisessä ikkunassa käyttäen komentoa <code>View()</code> eli <code>View(iris)</code>.</p>
+<p>Myös <code>str()</code> tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä <code>numerical</code>, joka on varattu kokonais- ja desimaaliluvuille. Viimeinen kolumni on tietotyyppiä <code>character</code>, joka on tarkoitettu tekstimuotoisille muuttujille. Halutessasi luetun havaintoaineiston näet myös erillisessä ikkunassa käyttäen komentoa <code>View()</code> eli <code>View(iris)</code>.</p>
 <p>Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy <strong>siivota</strong>. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne. Tässä tapauksessa haluamme sovittaa lineaarisen regressiomallin, jossa lajin <code>setosa</code> muuttujaa <code>Sepal.Length</code> selitetään muuttujan <code>Sepal.Width</code> muuttujan avulla. Lisäksi monessa ohjelmointikielessä on tapana nimetä muuttujat pienellä (esim. katso <a href="https://style.tidyverse.org/syntax.html">Tidyverse tyyliopas</a>). Tämän vuoksi nimeämme valitut sarakkeet myös pienellä.</p>
 <p>Aloitamme valitsemalla halutut rivit ja sarakkeet.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-ohjelmointikielestä.html#cb20-1" tabindex="-1"></a>iris_filter <span class="ot">&lt;-</span> iris[iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span></code></pre></div>
@@ -391,7 +392,7 @@ Kuva 1.8: Tiedosto <code>iris.csv</code> avattuna <a href="https://www.vim.org/"
 Kuva 1.9: Hajontakuvio halutuista muuttujista Sepal Width ja Sepal Length.
 </p>
 </div>
-<p>Kuvan <a href="r-ohjelmointikielestä.html#fig:base-scatter">1.9</a> perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarinen regressiomallin</p>
+<p>Kuvan <a href="r-ohjelmointikielestä.html#fig:base-scatter">1.9</a> perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarisen regressiomallin</p>
 <p><span class="math display">\[
   \mathrm{Sepal\ Length}_i= \beta\cdot \mathrm{Sepal\ Width}_i + \varepsilon_i
 \]</span></p>
@@ -408,7 +409,7 @@ Kuva 1.9: Hajontakuvio halutuista muuttujista Sepal Width ja Sepal Length.
 Kuva 1.10: Sovitettu lineaarinen regressiomalli.
 </p>
 </div>
-<p>Ensimmäinen komento piirtää saman hajontakuvion kuin kuvassa <a href="r-ohjelmointikielestä.html#fig:base-scatter">1.9</a>. Toinen komento piirtää sovitetun regresiokäyrän. Argumetti <code>a</code> ottaa sisään vakiotermin estimaatin ja parametri <code>b</code> ottaa sisään kulmakäyrän estimaatin. Kyseiset estimaatit voidaan myös tulostaa:</p>
+<p>Ensimmäinen komento piirtää saman hajontakuvion kuin kuvassa <a href="r-ohjelmointikielestä.html#fig:base-scatter">1.9</a>. Toinen komento piirtää sovitetun regressiokäyrän. Argumentti <code>a</code> ottaa sisään vakiotermin estimaatin ja parametri <code>b</code> ottaa sisään kulmakäyrän estimaatin. Kyseiset estimaatit voidaan myös tulostaa:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="r-ohjelmointikielestä.html#cb27-1" tabindex="-1"></a>fit_lm<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept) sepal_width 
 ##   2.6390012   0.6904897</code></pre>
@@ -419,7 +420,7 @@ Kuva 1.10: Sovitettu lineaarinen regressiomalli.
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="r-ohjelmointikielestä.html#cb29-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
 <p>Kyseistä demoa varten emme kuitenkaan tarvitse kaikkia Tidyverse paketteja, joten tarvittavan osajoukon paketeista voi asentaa seuraavasti:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="r-ohjelmointikielestä.html#cb30-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;readr&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>))</span></code></pre></div>
-<p>Kun tarvittavat paketit ollaan asennettu voit joko kiinnittää ne <code>library</code> komennolla tai viitata suoraan paketin funktiohin käyttäen <code>::</code> notaatiota. Pakettien kiinnittäminen on hyödyllistä, jos käytät sen sisäisiä funktiota toistuvasti samassa ohjelmassa. Tässä tapauksessa kiinnitämme paketit <code>dplyr</code> ja <code>ggplot2</code>.</p>
+<p>Kun tarvittavat paketit ollaan asennettu, voit joko kiinnittää ne <code>library</code> komennolla tai viitata suoraan paketin funktiohin käyttäen <code>::</code> notaatiota. Pakettien kiinnittäminen on hyödyllistä, jos käytät sen sisäisiä funktiota toistuvasti samassa ohjelmassa. Tässä tapauksessa kiinnitämme paketit <code>dplyr</code> ja <code>ggplot2</code>.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="r-ohjelmointikielestä.html#cb31-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb31-2"><a href="r-ohjelmointikielestä.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
 <p>Vihdoin kun paketteihin liittyvät esivalmistelut ollaan tehty ja työhakemisto ollaan asetettu, niin olemme valmiita <strong>lukemaan</strong> datan paketin <code>readr</code> funktion <code>read_csv()</code> avulla. Kyseisen funktion syntaksi on hyvin samankaltainen verrattuna perus-R asennuksen mukana tulevaan <code>read.csv()</code> funktioon:</p>
@@ -501,7 +502,7 @@ data_transform &lt;- h(data_transform)</code></pre>
 Kuva 1.11: Sama hajontakuvio kuin kuvassa <a href="r-ohjelmointikielestä.html#fig:base-scatter">1.9</a> mutta käyttäen pakettia <code>ggplot2</code>.
 </p>
 </div>
-<p>Regressioviivan voimme tuottaa kuvaan <a href="r-ohjelmointikielestä.html#fig:ggplot-scatter">1.11</a> kätevästi vain lisäämällä uuden kerroksen. Estimaatit regressiokertoimille kuvaa <a href="r-ohjelmointikielestä.html#fig:ggplot-regression">1.12</a> saamme edellisen luvun muuttujasta <code>fit_lm</code>.</p>
+<p>Regressioviivan voimme tuottaa kuvaan <a href="r-ohjelmointikielestä.html#fig:ggplot-scatter">1.11</a> kätevästi vain lisäämällä uuden kerroksen. Estimaatit regressiokertoimille kuvaa <a href="r-ohjelmointikielestä.html#fig:ggplot-regression">1.12</a> varten saamme edellisen luvun muuttujasta <code>fit_lm</code>.</p>
 
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="r-ohjelmointikielestä.html#cb45-1" tabindex="-1"></a>gscatter <span class="sc">+</span></span>
 <span id="cb45-2"><a href="r-ohjelmointikielestä.html#cb45-2" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> fit_lm<span class="sc">$</span>coefficients[<span class="dv">1</span>],</span>
@@ -514,12 +515,10 @@ Kuva 1.12: Sovitettu lineaarinen regressiomalli kuten kuvassa <a href="r-ohjelmo
 </div>
 </div>
 </div>
-<div id="r-markdown" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> R Markdown<a href="r-ohjelmointikielestä.html#r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="miksi-r" class="section level2 hasAnchor" number="1.6">
-<h2><span class="header-section-number">1.6</span> Miksi R?<a href="r-ohjelmointikielestä.html#miksi-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.</p>
+<div id="sec:markdown" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> R Markdown<a href="r-ohjelmointikielestä.html#sec:markdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Markdownin avulla voi yhdistää koodia, tekstiä ja kaavoja. Eli R Markdownin avulla voit tehdä raportteja, tehdä data-analyysiin liittyviä projekteja tai jopa kirjoittaa kirjoja. Esimerkiksi tämä luentomateriaali on kirjoitettu R Markdownilla. <strong>Halutessasi voit käyttää R Markdownia tehtävien palauttamiseen mutta tämä ei ole missään nimessä pakollista kurssin puitteissa.</strong> Varsinkin jos olet aloitteleva koodari, niin suosittelen tekemään tietokonetehtävät R ohjelmien kautta. Myöhemmin kurssin edetessä, jos innostusta riittää, niin R Markdownin opetteluun voi aina palata.</p>
+<p>Kurssisivuilla tarjoamme kuitenkin <a href="https://mycourses.aalto.fi/mod/folder/view.php?id=1431536">R Markdown pohjan</a> halukkaille. Huomaa, että itse R Markdown pohjan <code>template.Rmd</code> tuottama tiedosto <code>template.pdf</code> tarjoaa ohjeita R Markdownin käyttöön.</p>
 
 </div>
 </div>
@@ -544,7 +543,7 @@ Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2017. <em>R for 
 <li id="fn4"><p>Vastaavasti suuret aineistot säilytetään usein tietokannoissa. Tällöin haluttu havaintojoukko haetaan esim. SQL-kyselyllä.<a href="r-ohjelmointikielestä.html#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>Tietojenkäsittelytieteessä <a href="https://en.wikipedia.org/wiki/Parameter_(computer_programming)"><em>argumentti</em></a> tarkoittaa funktion syötettä. Vrt. <span class="math inline">\(x\)</span> ja <span class="math inline">\(f(x)\)</span>.<a href="r-ohjelmointikielestä.html#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>R:ssä indeksöinti alkaa luvusta 1.<a href="r-ohjelmointikielestä.html#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>Pseudokoodi on eräänlaista “leikkikoodia”, jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään harvoin toimivaa.<a href="r-ohjelmointikielestä.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Pseudokoodi on eräänlaista “leikkikoodia”, jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään on harvoin toimivaa.<a href="r-ohjelmointikielestä.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

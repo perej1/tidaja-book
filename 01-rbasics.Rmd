@@ -1,8 +1,12 @@
 # R ohjelmointikielestä
 
-R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä datatieteen työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
+R on ohjelmointikieli, joka on tarkoitettu erityisesti tilastolliseen analyysiin. R on yksi yleisempiä datatieteen työkaluja niin yliopistoissa kuin yritysmaailmassa. Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. R:n tekstipohjaisia ohjelmia on kuitenkin paljon helpompi hallinnoida verrattuna Exceliin, kun data-analyysi vaatii useita ja monimutkaisia askeleita.
 
-Ennen kuin sukellamme syvemmälle R:n filosofiaan, käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa \@ref(sec:inst). Lisämateriaalia R ohjelmointikielen opetteluun löytyy luvusta \@ref(sec:programming).
+Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. Se voidaan myöntää, että on olemassa muitakin erinomaisia työkaluja tilastollista analyysiä varten. R on kuitenkin verrattain helppo aloittaa verrattuna muihin kieliin, kun kyse on puhtaasta data-analyysistä. Tämän vuoksi tämän kurssin kaikki tietokonetehtävät suoritetaan R ohjelmointikielellä. Jos haluat lukea lisää R kielen filosofiasta ja historiasta, voit vilkaista jossain vaiheessa kurssia [lukua 2](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) kirjasta *R programming for data science* [@peng2016].
+
+Tämän luvun päämotivaatio onkin esitellä R:n ominaisuuksia ja toivottavasti vakuuttaa lukija siitä, että R voi olla hyödyllinen työkalu. Tarkoitus ei kuitenkaan ole antaa kaikenkattavaa esittelyä R:ään vaan R taidot kehittyvät varmasti kurssin aikana.
+
+Ensin käymme läpi R ohjelmointikielen ja RStudion asennuksen, sekä RStudion käyttöliittymän perusteet luvussa \@ref(sec:inst). Lisämateriaalia R ohjelmointikielen opetteluun löytyy luvusta \@ref(sec:programming). Lisäksi R:ssä on tyypillistä käyttää muiden ohjelmoijien ja tilastotieteilijöiden käyttämiä paketteja. Lyhyt esittely paketteihin annetaan luvussa \@ref(sec:packages). Tämän jälkeen R:n toimintoja esitellään lyhyen data-analyysin kautta luvussa \@ref(sec:demo). Viimeiseksi luvussa \@ref(sec:markdown) sanomme pari sanaa R Markdownista, jonka avulla voi tehdä esimerkiksi raportteja yhdistäen tekstiä ja R koodia. **R Markdownin käyttö kurssilla ei kuitenkaan ole pakollista.**
 
 
 ## Ohjelmointikieli ja -ympäristö: asennus ja käyttö {#sec:inst}
@@ -45,7 +49,7 @@ Tämän jälkeen tiedoston `hello_world.R` komennot voidaan suorittaa komennolla
 knitr::include_graphics("images/execute.png")
 ```
 
-Monet ohjelmoijat käyttävät pelkästään komentoriviä ja tekstieditoria R ohjelmoimiseen. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (*integrated development environment*, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (*debugging*) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, ...). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.
+Monet ohjelmoijat käyttävät pelkästään komentoriviä ja tekstieditoria R ohjelmoimiseen. Yllä myös näytimme, että koodia voidaan ajaa ilman mitään muita lisätyökaluja kunhan R on asennettu. Usein on kuitenkin toivottavaa käyttää ohjelmointiympäristöä (*integrated development environment*, IDE), joka tarjoaa työkaluja esimerkiksi koodin muokkausta, suorittamista ja virheenjäljitystä (*debugging*) varten. IDE:n valintaan on useita vaihtoehtoja (Visual Studio Code, Eclipse, ...). Omalla vastuulla voit käyttää omavalintaista ohjelmointiympäristöä tai tekstieditoria. **Tällä kurssilla käytämme kuitenkin RStudiota, joka on R ohjelmointikielelle räätälöity IDE.**
 
 ### RStudio {-}
 
@@ -145,9 +149,7 @@ dplyr::lag(1:3)
 ```
 
 
-
 ## Data-analyysin askeleet {#sec:demo}
-
 
 Seuraavaksi, yksinkertaisen demon avulla, käymme läpi tyypillisen data-analyysin vaiheet:
 
@@ -177,7 +179,7 @@ setwd("~/Desktop/tidaja/1week")
 
 Windowsin tapauksessa polku oikeaan kansioon voisi näyttää seuraavalta riippuen käyttäjänimestäsi
 ```{r, eval=FALSE}
-setwd("C:\Users\YourUserName\Desktop")
+setwd("C:\Users\YourUserName\Desktop\tidaja\1week")
 ```
 
 Eli `setwd()` komentoon polku kirjoitetaan merkkien `"` sisään.
@@ -209,7 +211,7 @@ Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table(
 iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
 ```
 
-Havaintoaineiston lukemisen jälkeen kannattaa tarkistaa, että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan `iris` tallennettu havaintoaineisto tulee näyttämään oudolta. Tarkistamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muutttujan `iris` R-konsolille koko datajoukko tulostuu (lukuunottamatta viimeisiä, jos tiedosto on liian suuri). Toinen tapa nähdä havintoaineisto on `head` komento, joka tulostaa havaintoaineiston ensimmäiset rivit.
+Havaintoaineiston lukemisen jälkeen kannattaa tarkistaa, että se on luettu oikein. Esimerkiksi jos erotin arvojen välillä on asetettu väärin, niin muuttujaan `iris` tallennettu havaintoaineisto tulee näyttämään oudolta. Tarkistamiseen on monta eri tapaa. Esimerkiksi kirjoittamalla muuttujan `iris` R-konsolille koko datajoukko tulostuu (lukuunottamatta viimeisiä rivejä, jos tiedosto on liian suuri). Toinen tapa nähdä havintoaineisto on `head` komento, joka tulostaa havaintoaineiston ensimmäiset rivit.
 ```{r}
 head(iris)
 ```
@@ -220,7 +222,7 @@ Yllä olevan tulosteen perusteella näyttää siltä, että luimme tiedoston `ir
 str(iris)
 ```
 
-Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical`, joka on varattu kokonais- ja desimaaliluvuille. Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille. Luetun havaintoaineiston näet myös erillisessä ikkunassa käyttäen komentoa `View()` eli `View(iris)`.
+Myös `str()` tulostaa ensimmäiset havainnot sarakkeittain. Lisäksi komento antaa kolumnien tietotyypit. Tässä tapauksessa ensimmäiset neljä kolumnia ovat tyyppiä `numerical`, joka on varattu kokonais- ja desimaaliluvuille. Viimeinen kolumni on tietotyyppiä `character`, joka on tarkoitettu tekstimuotoisille muuttujille. Halutessasi luetun havaintoaineiston näet myös erillisessä ikkunassa käyttäen komentoa `View()` eli `View(iris)`.
 
 Kun havaintoaineisto on luettu, niin yleensä ennen itse tilastollista analyysiä dataa täytyy **siivota**. Tämä voi tarkoittaa muuttujien (eli sarakkeiden) uudelleennimeämistä tai valintaa, havaintojen suodattamista jne. Tässä tapauksessa haluamme sovittaa lineaarisen regressiomallin, jossa lajin `setosa` muuttujaa `Sepal.Length` selitetään muuttujan `Sepal.Width` muuttujan avulla. Lisäksi monessa ohjelmointikielessä on tapana nimetä muuttujat pienellä (esim. katso [Tidyverse tyyliopas](https://style.tidyverse.org/syntax.html)). Tämän vuoksi nimeämme valitut sarakkeet myös pienellä.
 
@@ -247,7 +249,7 @@ plot(iris_filter$sepal_width, iris_filter$sepal_length,
      xlab = "Sepal Width", ylab = "Sepal Length")
 ```
 
-Kuvan \@ref(fig:base-scatter) perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarinen regressiomallin
+Kuvan \@ref(fig:base-scatter) perusteella näyttää, että muuttujien välillä on lineaarinen riippuvuus. Tämän vuoksi lineaarisen regressiomallin
 
 $$
   \mathrm{Sepal\ Length}_i= \beta\cdot \mathrm{Sepal\ Width}_i + \varepsilon_i
@@ -267,7 +269,7 @@ plot(iris_filter$sepal_width, iris_filter$sepal_length,
 abline(a = fit_lm$coefficients[1], b = fit_lm$coefficients[2])
 ```
 
-Ensimmäinen komento piirtää saman hajontakuvion kuin kuvassa \@ref(fig:base-scatter). Toinen komento piirtää sovitetun regresiokäyrän. Argumetti `a` ottaa sisään vakiotermin estimaatin ja parametri `b` ottaa sisään kulmakäyrän estimaatin. Kyseiset estimaatit voidaan myös tulostaa:
+Ensimmäinen komento piirtää saman hajontakuvion kuin kuvassa \@ref(fig:base-scatter). Toinen komento piirtää sovitetun regressiokäyrän. Argumentti `a` ottaa sisään vakiotermin estimaatin ja parametri `b` ottaa sisään kulmakäyrän estimaatin. Kyseiset estimaatit voidaan myös tulostaa:
 ```{r}
 fit_lm$coefficients
 ```
@@ -286,7 +288,7 @@ Kyseistä demoa varten emme kuitenkaan tarvitse kaikkia Tidyverse paketteja, jot
 install.packages(c("readr", "dplyr", "ggplot2"))
 ```
 
-Kun tarvittavat paketit ollaan asennettu voit joko kiinnittää ne `library` komennolla tai viitata suoraan paketin funktiohin käyttäen `::` notaatiota. Pakettien kiinnittäminen on  hyödyllistä, jos käytät sen sisäisiä funktiota toistuvasti samassa ohjelmassa. Tässä tapauksessa kiinnitämme paketit `dplyr` ja `ggplot2`.
+Kun tarvittavat paketit ollaan asennettu, voit joko kiinnittää ne `library` komennolla tai viitata suoraan paketin funktiohin käyttäen `::` notaatiota. Pakettien kiinnittäminen on  hyödyllistä, jos käytät sen sisäisiä funktiota toistuvasti samassa ohjelmassa. Tässä tapauksessa kiinnitämme paketit `dplyr` ja `ggplot2`.
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -334,7 +336,7 @@ Eli suoritamme yllä olevat operaatiot (`filter()`, `rename()` ja `select()`) j�
 Putki `%>%` tekee siis koodista luettavaa, kun monia yksinkertaisia operaatioita suoritetaan peräkkäin, mikä on tyypillistä datan siivoamisessa. Alla näkyy vielä havainnollistus putken käytöstä.
 
 ::: {.example}
-Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään harvoin toimivaa.]
+Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään on harvoin toimivaa.]
 ```
 data_transform <- data %>%
   f() %>%
@@ -367,7 +369,7 @@ gscatter <- ggplot(iris2_filter, aes(x = sepal_width, y = sepal_length)) +
 gscatter
 ```
 
-Regressioviivan voimme tuottaa kuvaan \@ref(fig:ggplot-scatter) kätevästi vain lisäämällä uuden kerroksen. Estimaatit regressiokertoimille kuvaa \@ref(fig:ggplot-regression) saamme edellisen luvun muuttujasta `fit_lm`.
+Regressioviivan voimme tuottaa kuvaan \@ref(fig:ggplot-scatter) kätevästi vain lisäämällä uuden kerroksen. Estimaatit regressiokertoimille kuvaa \@ref(fig:ggplot-regression) varten saamme edellisen luvun muuttujasta `fit_lm`.
 
 (ref:captionggplot-regression) Sovitettu lineaarinen regressiomalli kuten kuvassa \@ref(fig:base-reg) mutta käyttäen pakettia `ggplot2`.
 
@@ -378,8 +380,8 @@ gscatter +
 ```
 
 
-## R Markdown
+## R Markdown {#sec:markdown}
 
-## Miksi R?
+R Markdownin avulla voi yhdistää koodia, tekstiä ja kaavoja. Eli R Markdownin avulla voit tehdä raportteja, tehdä data-analyysiin liittyviä projekteja tai jopa kirjoittaa kirjoja. Esimerkiksi tämä luentomateriaali on kirjoitettu R Markdownilla. **Halutessasi voit käyttää R Markdownia tehtävien palauttamiseen mutta tämä ei ole missään nimessä pakollista kurssin puitteissa.** Varsinkin jos olet aloitteleva koodari, niin suosittelen tekemään tietokonetehtävät R ohjelmien kautta. Myöhemmin kurssin edetessä, jos innostusta riittää, niin R Markdownin opetteluun voi aina palata.
 
-Aloittelijoille R voi kuitenkin vaikuttaa aluksi varsin eksoottiselta vaihtoehdolta. Esimerkiksi Excelin taulukkolaskentaan perustuva käyttöliittymä on aivan eri maailmasta kuin ohjelmointiin perustuva R. Toisaalta puhtaat koodarit voivat ihmetellä, miksi emme käytä Python ohjelmointikieltä. Kun taas matemaatikot ovat ehkä omimmillaan Matlabin tai Julian kanssa. On siis tärkeää perustella, miksi käytämme R ohjelmointikieltä tällä kurssilla lukuisten muiden työkalujen sijasta.
+Kurssisivuilla tarjoamme kuitenkin [R Markdown pohjan](https://mycourses.aalto.fi/mod/folder/view.php?id=1431536) halukkaille. Huomaa, että itse R Markdown pohjan `template.Rmd` tuottama tiedosto `template.pdf` tarjoaa ohjeita R Markdownin käyttöön.

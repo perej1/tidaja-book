@@ -18,3 +18,4 @@ sec:packages
 sec:demo
 r-markdown
 miksi-r
+sec:markdown
