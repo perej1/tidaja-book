@@ -1,6 +1,5 @@
 book_filename: "tidaja-book"
 delete_merged_file: true
-output_dir: "docs"
 language:
   label:
     fig: "Kuva "
