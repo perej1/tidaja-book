@@ -203,7 +203,7 @@ Ensimmäinen askel on **datan lukeminen**. Suhteellisen pienet aineistot säilyt
 knitr::include_graphics("images/vim.png")
 ```
 
-Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä *argumentti* tarkoittaa funktion syötettä. Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
+Kun työhakemisto on asetettu (katso edellinen luku), niin komennon `read.table()` avulla voit lukea datan. Komento ottaa sisäänsä useita argumentteja^[Tietojenkäsittelytieteessä [*argumentti*](https://en.wikipedia.org/wiki/Parameter_(computer_programming)) tarkoittaa funktion syötettä. Vrt. $x$ ja $f(x)$.] kuten `file` (polku datatiedostoon), `header` (sisältääkö ensimmäinen rivi sarakkeiden otsikot?), `sep` (erotin arvojen välillä), ... Jos tiedosto `iris.csv` on tallennettu työhakemiston sisällä olevaan kansioon `data`, niin havaintoaineisto voidaan lukea seuraavasti
 
 ```{r}
 iris <- read.table("data/iris.csv", header = TRUE, sep = ",")
