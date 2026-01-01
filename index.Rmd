@@ -8,4 +8,29 @@ bibliography: "book.bib"
 link-citations: yes
 ---
 
-# Alkusanat {-}
+# Alustava kurssiohjelma {-}
+
+```{r, echo=FALSE}
+weeks <- stringr::str_c("Viikko ", 1:12)
+
+topics <- c(
+  "R ohjelmoinnista",
+  "Moniulotteiset jakaumat 1",
+  "Moniulotteiset jakaumat 2",
+  "Moniulotteinen lineaarinen regressio 1",
+  "Moniulotteinen lineaarinen regressio 2",
+  "uusiomenetelmä ja permutaatiotesti",
+  "ANOVA",
+  "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
+  "Epäparametrisia testejä",
+  "Logistinen regressio",
+  "Klusterointi", 
+  "Kertaus"
+  )
+
+location <- c("Luku 1", rep("TODO", 11))
+
+table <- tibble::tibble(Viikko = weeks, Aihe = topics, Luku = location)
+
+knitr::kable(table)
+```
