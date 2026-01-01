@@ -382,6 +382,7 @@ gscatter +
 
 ## R Markdown {#sec:markdown}
 
+
 R Markdownin avulla voi yhdistää koodia, tekstiä ja kaavoja. Eli R Markdownin avulla voit tehdä raportteja, tehdä data-analyysiin liittyviä projekteja tai jopa kirjoittaa kirjoja. Esimerkiksi tämä luentomateriaali on kirjoitettu R Markdownilla. **Halutessasi voit käyttää R Markdownia tehtävien palauttamiseen mutta tämä ei ole missään nimessä pakollista kurssin puitteissa.** Varsinkin jos olet aloitteleva koodari, niin suosittelen tekemään tietokonetehtävät R ohjelmien kautta. Myöhemmin kurssin edetessä, jos innostusta riittää, niin R Markdownin opetteluun voi aina palata.
 
 Kurssisivuilla tarjoamme kuitenkin [R Markdown pohjan](https://mycourses.aalto.fi/mod/folder/view.php?id=1431536) halukkaille. Huomaa, että itse R Markdown pohjan `template.Rmd` tuottama tiedosto `template.pdf` tarjoaa ohjeita R Markdownin käyttöön.
