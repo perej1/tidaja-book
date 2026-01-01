@@ -16,7 +16,4 @@ sec:inst
 sec:programming
 sec:packages
 sec:demo
-r-markdown
-miksi-r
 sec:markdown
-tab:unnamed-chunk-1
