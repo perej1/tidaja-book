@@ -17,3 +17,9 @@ sec:programming
 sec:packages
 sec:demo
 sec:markdown
+moniulotteiset-jakaumat
+tilastollinen-riippuvuus
+perusteet
+ehdolliset-jakaumat
+moniulotteinen-normaalijakauma
+tunnusluvuista

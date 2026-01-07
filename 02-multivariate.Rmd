@@ -1,0 +1,25 @@
+# Moniulotteiset jakaumat
+
+- Motivaatio
+
+- Vektorit ja satunnaisvektorit
+
+- kertymäfunktio
+
+## Tilastollinen riippuvuus
+
+## Perusteet
+
+### Diskreetit jakaumat {-}
+
+### Jatkuvat jakaumat {-}
+
+## Ehdolliset jakaumat
+
+### Diskreetit jakaumat {-}
+
+### Jatkuvat jakaumat {-}
+
+## Moniulotteinen normaalijakauma
+
+## Tunnusluvuista

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 2 Moniulotteiset jakaumat | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 2 Moniulotteiset jakaumat | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 2 Moniulotteiset jakaumat | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 2 Moniulotteiset jakaumat | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="r-ohjelmointikielestä.html"/>
+<link rel="prev" href="r-ohjelmointikielestä.html"/>
+<link rel="next" href="lähteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -201,98 +201,49 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Tilastotieteen ja data-analytiikan jatkokurssi</h1>
-<p class="author"><em>Jaakko Pere</em></p>
-<p class="date"><em>2026-01-07</em></p>
+<div id="moniulotteiset-jakaumat" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Luku 2</span> Moniulotteiset jakaumat<a href="moniulotteiset-jakaumat.html#moniulotteiset-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li><p>Motivaatio</p></li>
+<li><p>Vektorit ja satunnaisvektorit</p></li>
+<li><p>kertymäfunktio</p></li>
+</ul>
+<div id="tilastollinen-riippuvuus" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Tilastollinen riippuvuus<a href="moniulotteiset-jakaumat.html#tilastollinen-riippuvuus" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="alustava-kurssiohjelma" class="section level1 unnumbered hasAnchor">
-<h1>Alustava kurssiohjelma<a href="index.html#alustava-kurssiohjelma" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table>
-<colgroup>
-<col width="12%" />
-<col width="67%" />
-<col width="19%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Viikko</th>
-<th align="left">Aihe</th>
-<th align="left">Luku</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Viikko 1</td>
-<td align="left">R ohjelmoinnista</td>
-<td align="left">Luku 1</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 2</td>
-<td align="left">Moniulotteiset jakaumat 1</td>
-<td align="left">Luvut 2.1–2.2</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 3</td>
-<td align="left">Moniulotteiset jakaumat 2</td>
-<td align="left">Luvut 2.3–2.5</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 4</td>
-<td align="left">Moniulotteinen lineaarinen regressio 1</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 5</td>
-<td align="left">Moniulotteinen lineaarinen regressio 2</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 6</td>
-<td align="left">ANOVA</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 7</td>
-<td align="left">Uusiomenetelmä ja permutaatiotesti</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 8</td>
-<td align="left">Estimoinnista (jatkoa <em>tilastotieteen perusteista</em>)</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 9</td>
-<td align="left">Epäparametrisia testejä</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 10</td>
-<td align="left">Logistinen regressio</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 11</td>
-<td align="left">Klusterointi</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 12</td>
-<td align="left">Kertaus</td>
-<td align="left">TODO</td>
-</tr>
-</tbody>
-</table>
+<div id="perusteet" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Perusteet<a href="moniulotteiset-jakaumat.html#perusteet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="diskreetit-jakaumat" class="section level3 unnumbered hasAnchor">
+<h3>Diskreetit jakaumat<a href="moniulotteiset-jakaumat.html#diskreetit-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="jatkuvat-jakaumat" class="section level3 unnumbered hasAnchor">
+<h3>Jatkuvat jakaumat<a href="moniulotteiset-jakaumat.html#jatkuvat-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="ehdolliset-jakaumat" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Ehdolliset jakaumat<a href="moniulotteiset-jakaumat.html#ehdolliset-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="diskreetit-jakaumat-1" class="section level3 unnumbered hasAnchor">
+<h3>Diskreetit jakaumat<a href="moniulotteiset-jakaumat.html#diskreetit-jakaumat-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="jatkuvat-jakaumat-1" class="section level3 unnumbered hasAnchor">
+<h3>Jatkuvat jakaumat<a href="moniulotteiset-jakaumat.html#jatkuvat-jakaumat-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="moniulotteinen-normaalijakauma" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Moniulotteinen normaalijakauma<a href="moniulotteiset-jakaumat.html#moniulotteinen-normaalijakauma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="tunnusluvuista" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Tunnusluvuista<a href="moniulotteiset-jakaumat.html#tunnusluvuista" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="r-ohjelmointikielestä.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-ohjelmointikielestä.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lähteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
