@@ -335,7 +335,7 @@ Eli suoritamme yllä olevat operaatiot (`filter()`, `rename()` ja `select()`) j�
 
 Putki `%>%` tekee siis koodista luettavaa, kun monia yksinkertaisia operaatioita suoritetaan peräkkäin, mikä on tyypillistä datan siivoamisessa. Alla näkyy vielä havainnollistus putken käytöstä.
 
-::: {.example}
+::: {.example name="Putki operaattori"}
 Esimerkiksi pseudokoodin^[Pseudokoodi on eräänlaista "leikkikoodia", jonka tarkoitus on havainnollistaa algoritmiin sisältyviä operaatioita. Itse pseudokoodi itsessään on harvoin toimivaa.]
 ```
 data_transform <- data %>%

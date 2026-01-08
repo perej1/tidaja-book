@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html"><i class="fa fa-check"></i><b>2</b> Moniulotteiset jakaumat</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:dep"><i class="fa fa-check"></i><b>2.1</b> Tilastollinen riippuvuus</a></li>
+<li class="chapter" data-level="2.1" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:dep"><i class="fa fa-check"></i><b>2.1</b> Stokastinen riippuvuus</a></li>
 <li class="chapter" data-level="2.2" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:rvec"><i class="fa fa-check"></i><b>2.2</b> Perusteet</a></li>
 <li class="chapter" data-level="2.3" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:cond"><i class="fa fa-check"></i><b>2.3</b> Ehdolliset jakaumat</a></li>
 <li class="chapter" data-level="2.4" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:normal"><i class="fa fa-check"></i><b>2.4</b> Moniulotteinen normaalijakauma</a></li>
@@ -192,7 +192,7 @@ Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten od
 <p>Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.</p>
 
 <div class="example">
-<p><span id="exm:unlabeled-div-1" class="example"><strong>Esimerkki 2.1  </strong></span>Taulukossa <a href="moniulotteiset-jakaumat.html#tab:body">2.1</a> näkyy neliulotteinen aineisto ihmisen kehon eri osien mittauksista (yksikkö: tuuma). Kaikki mitatut muuttujat <code>ShoulderWidth</code>, <code>Belly</code>, <code>ArmLength</code> ja <code>TotalHeight</code> ovat tässä tapauksessa jatkuvia. Tuntuisi luonnolliselta, että muuttujien välillä on riippuvuussuhteita. Esimerkiksi ehkä pidemmällä ihmisellä on pidemmät kädet? Jos näin on, niin menetämme informaatiota analysoidessa muuttujia erikseen.</p>
+<p><span id="exm:body" class="example"><strong>Esimerkki 2.1  (Moniulotteinen aineisto) </strong></span>Taulukossa <a href="moniulotteiset-jakaumat.html#tab:body">2.1</a> näkyy neliulotteinen aineisto ihmisen kehon eri osien mittauksista (yksikkö: tuuma). Kaikki mitatut muuttujat <code>ShoulderWidth</code>, <code>Belly</code>, <code>ArmLength</code> ja <code>TotalHeight</code> ovat tässä tapauksessa jatkuvia. Tuntuisi luonnolliselta, että muuttujien välillä on riippuvuussuhteita. Esimerkiksi ehkä pidemmällä ihmisellä on pidemmät kädet? Jos näin on, niin menetämme informaatiota analysoidessa muuttujia erikseen.</p>
 <table>
 <caption><span id="tab:body">Taulukko 2.1: </span>Neliulotteinen aineisto ihmisen kehon dimensioista. Rivi vastaa yhtä havaintoa (ihmistä) ja sarake vastaa yhtä muuttujaa.</caption>
 <thead>
@@ -258,9 +258,90 @@ Kuva 2.1: Hajontakuviot muuttujista pareittain.
 <li>Yhden muuttujan ennustaminen muilla muuttujilla</li>
 <li>Dimensioiden pienennys (eng: <em>dimension reduction</em>) ennen varsinaista analyysiä</li>
 </ul>
-<p>Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa <a href="moniulotteiset-jakaumat.html#sec:dep">2.1</a> määrittelemme tilastollisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa <a href="moniulotteiset-jakaumat.html#sec:cond">2.3</a> syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku <a href="moniulotteiset-jakaumat.html#sec:normal">2.4</a>. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a>. Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.</p>
+<p>Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa <a href="moniulotteiset-jakaumat.html#sec:dep">2.1</a> määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa <a href="moniulotteiset-jakaumat.html#sec:cond">2.3</a> syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku <a href="moniulotteiset-jakaumat.html#sec:normal">2.4</a>. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a>. Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.</p>
 <div id="sec:dep" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Tilastollinen riippuvuus<a href="moniulotteiset-jakaumat.html#sec:dep" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">2.1</span> Stokastinen riippuvuus<a href="moniulotteiset-jakaumat.html#sec:dep" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Intuitiivisesti ajateltuna kaksi satunnaismuuttujaa <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippumattomia, jos tieto muuttujan <span class="math inline">\(X\)</span> arvosta ei anna mitään lisätietoa muuttujan <span class="math inline">\(Y\)</span> arvosta ja päinvastoin. Toisaalta satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippuvia, jos tieto <span class="math inline">\(X\)</span>:n arvosta antaa jotain lisätietoa <span class="math inline">\(Y\)</span>:n arvosta ja päinvastoin.</p>
+<div class="example">
+<p><span id="exm:ind" class="example"><strong>Esimerkki 2.2  (Riippuvuus intuitiivisesti) </strong></span></p>
+<ul>
+<li><p>Määritellään satunnaismuuttujat <span class="math inline">\(X = \mathrm{Markkinointi\ (euroissa)}\)</span> ja <span class="math inline">\(Y = \mathrm{Myynti\ (euroissa)}\)</span>. Todennäköisesti edellä annetut satunnaismuuttujat riippuvat toisistaan. Mitä enemmän yritys markkinoi, sitä enemmän myynti kasvaa (ainakin johonkin pisteeseen asti).</p></li>
+<li><p>Määritellään satunnaismuuttujat <span class="math inline">\(X = \mathrm{kolikonheiton\ tulos}\)</span> ja <span class="math inline">\(Y = \mathrm{nopanheiton\ tulos}\)</span>. Muuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kyseessä on aivan tavallinen noppa ja aivan tavallinen kolikko. Jos heitän ensin kolikko ja saan klaavan, niin tämä tulos ei kerro mitään siitä, minkä silmäluvun tulen saamaan heittämällä seuraavaksi noppaa.</p></li>
+</ul>
+<p>Yllä olevissa esimerkeissä satunnaismuuttujien välinen riippuvuus/riippumattomuus oli helposti pääteltävissä. Aina tilanne ei kuitenkaan ole niin yksinkertainen:</p>
+<ul>
+<li>Olkoon <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> riippumattomia <span class="math inline">\(\pm 1\)</span> arvoisia satunnaismuuttujia niin, että
+<span class="math display">\[\begin{equation*}
+\mathbb{P}\left(X_i = -1\right) = \mathbb{P}\left(X_i = +1\right)
+= \frac{1}{2}, \quad i\in\{1,2\}.
+\end{equation*}\]</span>
+Määritellään satunnaismuuttuja <span class="math inline">\(Y = X_1 X_2\)</span>. Ovatko satunnaismuuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> stokastisesti riippumattomia?
+<ul>
+<li>Intuitiivisesti ajateltuna muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> eivät välttämättä ole riippumattomia, koska <span class="math inline">\(Y\)</span>:n arvo riippuu suoraan <span class="math inline">\(X_1\)</span> arvosta siinä mielessä, että <span class="math inline">\(Y\)</span> määritellään muuttujan <span class="math inline">\(X_1\)</span> avulla. Tästä huolimatta muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> ovat stokastisesti riippumattomia!</li>
+</ul></li>
+</ul>
+</div>
+<p>Alla annamme stokastisen riippumattomuuden/riippuvuuden määritelmän kahdelle satunnaismuuttujalle.</p>
+<div class="definition">
+<p><span id="def:ind" class="definition"><strong>Määritelmä 2.1  (Stokastinen riippumattomuus) </strong></span>Satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(x\in\mathbb{R}\)</span> ja <span class="math inline">\(y\in\mathbb{R}\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(X\leq x \cap Y\leq y\right)
+  = \mathbb{P}\left(X\leq x\right) \mathbb{P}\left(Y\leq y\right).
+\end{equation*}\]</span>
+Jos jollekin <span class="math inline">\((x,y)\)</span>-yhdistelmälle pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(X\leq x \cap Y\leq y\right)
+  \neq \mathbb{P}\left(X\leq x\right) \mathbb{P}\left(Y\leq y\right),
+\end{equation*}\]</span>
+niin satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippuvia.</p>
+</div>
+<p>Eli satunnaismuuttujat ovat riippumattomia, jos niitä vastaava “yhteistodennäköisyys” voidaan aina kirjoittaa tulomuodossa. Määritelmä <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> voidaan antaa myös tapahtumien avulla. Muuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille tapahtumille <span class="math inline">\(\{X\in A\}\)</span> ja <span class="math inline">\(\{Y\in B\}\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(X\in A \cap Y\in B\right)
+  = \mathbb{P}\left(X\in A\right) \mathbb{P}\left(Y\in B\right).
+\end{equation*}\]</span>
+Toisaalta määritelmä <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> yleistyy myös useammalle satunnaismuuttujalle. Eli muuttujat <span class="math inline">\(X_1, \ldots, X_n\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(x_1\in\mathbb{R}, \ldots, x_n\in\mathbb{R}\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(X_1\leq x_1 \cap \cdots  \cap X_n\leq x_n\right)
+  = \mathbb{P}\left(X_1\leq x_1\right) \cdots \mathbb{P}\left(X_n\leq x_n\right).
+\end{equation*}\]</span>
+Kuten luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> tullaan näkemään, niin satunnaisvektoreiden käsittely yksinkertaistuu huomattavasti, jos kaikki vektorin muuttujat ovat riippumattomia.</p>
+<p>Seuraavaksi annamme esimerkin, jossa tarkistetaan kahden satunnaismuuttujan välinen riippumattomuus/riippuvuus.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-1" class="example"><strong>Esimerkki 2.3  (Kolikonheitto) </strong></span>Heitetään kolikkoa kolme kertaa. Yhden kolikonheiton tulos on joko klaava (<span class="math inline">\(T\)</span>) tai kruuna (<span class="math inline">\(H\)</span>) js kolikko on reilu eli
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(T\right) = \mathbb{P}\left(H\right) = \frac{1}{2}.
+\end{equation*}\]</span>
+Kolikonheitot ovat myös toisistaan riippumattomia.</p>
+<p>Määritellään kaksi satunnaismuuttujaa:</p>
+<ul>
+<li><p><span class="math inline">\(X = \text{Klaavojen määrä kahdella ensimmäisellä heitolla}\)</span>.</p></li>
+<li><p><span class="math inline">\(Y = \text{Klaavojen määrä kahdella viimeisellä heitolla}\)</span>.</p></li>
+</ul>
+<p>Tarkoitus on selvittää ovatko muuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> riippumattomia. Tarkastellaan seuraavia tapahtumia:</p>
+<ul>
+<li><p>Tapahtuma <span class="math inline">\(1\)</span>: <span class="math inline">\(\{X = 0\}\)</span></p></li>
+<li><p>Tapahtuma <span class="math inline">\(2\)</span>: <span class="math inline">\(\{Y = 0\}\)</span></p></li>
+<li><p>Tapahtuma <span class="math inline">\(3\)</span>: <span class="math inline">\(\{X = 0 \cap Y = 0\}\)</span>.</p></li>
+</ul>
+<p>Kaikki mahdolliset heittosarjat ovat
+<span class="math display">\[\begin{equation*}
+  \{\underbrace{(HHH)}_{s_1}, \underbrace{(HHT)}_{s_2},
+  \underbrace{(HTH)}_{s_3}, \underbrace{(THH)}_{s_4},
+  \underbrace{(TTH)}_{s_5}, \underbrace{(THT)}_{s_6},
+  \underbrace{(HTT)}_{s_7}, \underbrace{(TTT)}_{s_8}\}
+\end{equation*}\]</span>
+Jokaisen heittosarjan <span class="math inline">\(s_i\)</span> todennäköisyys on <span class="math inline">\((1/2)^3 = 1/8\)</span>, koska heitot ovat riippumattomia. Tapahtuma <span class="math inline">\(1\)</span> toteutuu heittosarjoilla <span class="math inline">\(s_1\)</span> ja <span class="math inline">\(s_2\)</span>. Heittosarjat ovat toisensa poissulkevia, joten <span class="math inline">\(\mathbb{P}\left(X = 0\right) = \mathbb{P}\left(s_1 \cup s_2\right) = \mathbb{P}\left(s_1\right) + \mathbb{P}\left(s_2\right) = 1/8 + 1/8 = 1/4\)</span>. Samanlaisella päättelyllä saadaan <span class="math inline">\(\mathbb{P}\left(Y = 0\right) = 1/4\)</span>. Toisaalta tapahtuma 3 toteutuu vain heittosarjalla <span class="math inline">\(s_1\)</span>, joten <span class="math inline">\(\mathbb{P}\left(X = 0 \cap Y = 0\right) = \mathbb{P}\left(s_1\right) = 1/8\)</span>. Saimme siis
+<span class="math display">\[\begin{equation*}
+\frac{1}{16} =  \left(\frac{1}{4}\right)^2
+= \mathbb{P}\left(X = 0\right)\mathbb{P}\left(Y = 0\right)
+\neq \mathbb{P}\left(X = 0 \cap Y = 0\right) = \frac{1}{8},
+\end{equation*}\]</span>
+joten muuttuvat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia.</p>
+</div>
+<div class="remark">
+<p><span id="unlabeled-div-2" class="remark"><em>Huomautus</em>. </span>Vapaaehtoisena lisätehtävänä voit määritelmän <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> avulla tarkistaa, että esimerkin <a href="moniulotteiset-jakaumat.html#exm:ind">2.2</a> viimeinen väite pätee.</p>
+</div>
 </div>
 <div id="sec:rvec" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Perusteet<a href="moniulotteiset-jakaumat.html#sec:rvec" class="anchor-section" aria-label="Anchor link to header"></a></h2>

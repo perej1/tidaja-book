@@ -7,6 +7,7 @@ language:
     remark: "Huomautus "
     exm: "Esimerkki "
     tab: "Taulukko "
+    def: "Määritelmä "
   ui:
     chapter_name: "Luku "
 rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "references.Rmd"]
