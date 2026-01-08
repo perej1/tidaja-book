@@ -185,9 +185,60 @@ Vapaaehtoisena lisätehtävänä voit määritelmän \@ref(def:ind) avulla tarki
 
 ## Perusteet {#sec:rvec}
 
-- Vektorit ja satunnaisvektorit
+Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori ($d$-ulotteinen) on **järjestetty** lista lukuja $(x_1, x_2, \ldots, x_d)$, $x_i\in\mathbb{R}$. Eli vektori voidaan tulkita avaruuden $\mathbb{R}^d$ alkiona. Esimerkiksi $2$-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämään koordinaattiin) tasossa $\mathbb{R}^2$ kuten kuvassa \@ref(fig:vec). Samoin $d$-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa $\mathbb{R}^d$ mutta visualisointi muuttuu mahdottomaksi kun $d > 3$. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi $(1, 2) \neq (2, 1)$.
 
-- kertymäfunktio
+::: {.remark name="Vektorinotaatioista"}
+
+- Joskus vektorit erotetaan luvuista lihavoimalla vektorit. Tässä monisteessa käytämme kyseistä periaatetta eli $\boldsymbol x$ tulkitaan vektorina ja $x$ lukuna.
+
+- Usein oletuksena vektorit tulkitaan pystyvektoreina. Sillä onko $\boldsymbol x$ pysty- vai vaakavektori on merkitystä vektoreiden välisissä laskutoimituksissa. Muista, että notaatio $\boldsymbol x^T$ tarkoittaa transpoosia, joka muuttaa vaakavektorin pystyvektoriksi ja toisinpäin. Eli esimerkiksi $(1, 4, 2.4)^T$ on $3$-ulotteinen pystyvektori
+\begin{equation*}
+\begin{pmatrix}
+  1 \\ 4 \\ 2.4
+\end{pmatrix}.
+\end{equation*}
+Joten tekstissä merkitsemme pystyvektoreita esimerkiksi notaatiolla $\boldsymbol y = (4, 1, 8, 2)^T$.
+:::
+
+Vektorin $\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d$ suuruutta tai pituutta voidaan mitata sen normin $\|\boldsymbol x\|$ avulla,
+\begin{equation*}
+  \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
+\end{equation*}
+Suuruuden lisäksi vektorilla on suunta. Työkalu vektorin suunnan määrittämiseen on pistetulo. Kahden vektorin $\boldsymbol x\in\mathbb{R}^d$ ja $\boldsymbol y\in\mathbb{R}^d$ välinen pistetulo määritellään seuraavasti,
+\begin{equation*}
+  \langle \boldsymbol x, \boldsymbol y\rangle = \sum_{i = 1}^d x_i y_i.
+\end{equation*}
+Erityisesti kaksi vektoria $\boldsymbol x$ ja $\boldsymbol y$ ovat suorassa kulmassa toisiinsa nähden jos ja vain jos $\langle \boldsymbol x, \boldsymbol y\rangle = 0$.
+
+::: {.example name="Vektorin suuruus ja suunta"}
+- Kuvan \@ref(fig:vec) vektoreilla $(2,2)^T$ ja $(-1, \sqrt{7})^T$ on sama normi.
+
+- Kuvan \@ref(fig:vec) vektoreiden $(2, 2)^T$ ja $(-1, 1)^T$ välinen pistetulo on nolla.
+:::
+
+(ref:vec-cap) Vektoreita karteesisessa koordinaatistossa.
+
+```{r vec, echo=FALSE, fig.cap="(ref:vec-cap)"}
+knitr::include_graphics("images/vectors.jpg")
+```
+
+
+::: {.example name="Havaintoaineisto ja vektorit"}
+- Esimerkin \@ref(exm:body) aineiston havainnot (rivit) voidaan tulkita $4$-ulotteisina vektoreina eli pisteinä avaruudessa $\mathbb{R}^4$.
+:::
+
+Nyt olemme valmiita määrittelemään satunnaisvektorit.
+
+::: {.definition #rvec name="Satunnaisvektori ja sen yhteiskertymäfunktio"}
+Olkoon $X_1, X_2, \ldots, X_d$ satunnaismuuttujia. Tällöin $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ on $d$-ulotteinen satunnaisvektori. Satunnaisvektorin yhteiskertymäfunktio $F_{\boldsymbol X}(\boldsymbol x):\mathbb{R}^d\to[0,1]$ kohdassa $\boldsymbol x = (x_1, x_2, \ldots, x_d)$ määritellään seuraavasti,
+\begin{equation*}
+  \begin{split}
+    F_{\boldsymbol X}(\boldsymbol x)
+    = \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right),
+  \end{split}
+\end{equation*}
+jolle voidaan käyttää myös tiiviimpää notaatiota $F_{\boldsymbol X}(\boldsymbol x) = \mathbb{P}\left(\boldsymbol X \leq \boldsymbol x\right)$.
+:::
 
 ### Diskreetit jakaumat {-}
 

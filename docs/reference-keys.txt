@@ -32,3 +32,8 @@ sec:statistic
 exm:unlabeled-div-1
 fig:cor
 exr:unlabeled-div-2
+fig:vec
+exm:unlabeled-div-4
+exm:unlabeled-div-5
+exm:unlabeled-div-6
+def:rvec
