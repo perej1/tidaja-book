@@ -185,7 +185,7 @@ Vapaaehtoisena lisätehtävänä voit määritelmän \@ref(def:ind) avulla tarki
 
 ## Perusteet {#sec:rvec}
 
-Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori ($d$-ulotteinen) on **järjestetty** lista lukuja $(x_1, x_2, \ldots, x_d)$, $x_i\in\mathbb{R}$. Eli vektori voidaan tulkita avaruuden $\mathbb{R}^d$ alkiona. Esimerkiksi $2$-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämään koordinaattiin) tasossa $\mathbb{R}^2$ kuten kuvassa \@ref(fig:vec). Samoin $d$-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa $\mathbb{R}^d$ mutta visualisointi muuttuu mahdottomaksi kun $d > 3$. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi $(1, 2) \neq (2, 1)$.
+Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori ($d$-ulotteinen) on **järjestetty** lista lukuja $(x_1, x_2, \ldots, x_d)$, $x_i\in\mathbb{R}$. Eli vektori voidaan tulkita avaruuden $\mathbb{R}^d$ alkiona. Esimerkiksi $2$-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa $\mathbb{R}^2$ kuten kuvassa \@ref(fig:vec). Samoin $d$-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa $\mathbb{R}^d$ mutta visualisointi muuttuu mahdottomaksi kun $d > 3$. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi $(1, 2) \neq (2, 1)$.
 
 ::: {.remark name="Vektorinotaatioista"}
 
@@ -195,9 +195,9 @@ Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrat
 \begin{equation*}
 \begin{pmatrix}
   1 \\ 4 \\ 2.4
-\end{pmatrix}.
+\end{pmatrix},
 \end{equation*}
-Joten tekstissä merkitsemme pystyvektoreita esimerkiksi notaatiolla $\boldsymbol y = (4, 1, 8, 2)^T$.
+joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla $\boldsymbol y = (4, 1, 8, 2)^T$.
 :::
 
 Vektorin $\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d$ suuruutta tai pituutta voidaan mitata sen normin $\|\boldsymbol x\|$ avulla,
@@ -239,6 +239,26 @@ Olkoon $X_1, X_2, \ldots, X_d$ satunnaismuuttujia. Tällöin $\boldsymbol X = (X
 \end{equation*}
 jolle voidaan käyttää myös tiiviimpää notaatiota $F_{\boldsymbol X}(\boldsymbol x) = \mathbb{P}\left(\boldsymbol X \leq \boldsymbol x\right)$.
 :::
+
+Yksiulotteisen satunnaismuuttujan $X$ tapauksessa kertymäfunktio $F_X(x), x\in\mathbb{R}$ antaa kaiken informaation kyseisen satunnaismuuttujan jakaumasta $\mathbb{P}\left(X\in A\right), A\subset\mathbb{R}$. Samoin moniulotteisen satunnaisvektorin tapauksessa yhteiskertymäfunktio $F_{\boldsymbol X}(\boldsymbol x)$ antaa kaiken informaation kyseisen satunnaisvektorin jakaumasta $\mathbb{P}\left(\boldsymbol X\in B\right), B\subset\mathbb{R}^d$. Sanomme siis, että kaksi satunnaisvektoria $\boldsymbol X$ ja $\boldsymbol Y$ ovat samoin jakautuneet, jos $F_{\boldsymbol X}(\boldsymbol x) = F_{\boldsymbol Y}(\boldsymbol x)$ pätee kaikille $\boldsymbol x\in\mathbb{R}^d$.
+
+Huomautamme jo tässä kohtaa, että usein informaatio yksittäisistä komponenttimuuttujista $X_1, \ldots, X_d$ kertoo varsin vähän satunnaisvektorista $\boldsymbol X = (X_1, \ldots, X_d)$ -- yleisesti ottaen satunnaismuuttujien $X_i$ kertymäfunktioista $F_{X_i}$ **ei** voida päätellä satunnaisvektorin $\boldsymbol X$ yhteiskertymäfunktiota $F_{\boldsymbol X}$. Sääntöön löytyy kuitenkin yksi poikkeus.
+
+::: {.theorem name="Riippumattomat komponenttivektorit"}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)$ satunnaisvektori niin, että satunnaismuuttujat $X_1, X_2, \ldots, X_d$ ovat riippumattomia. Tällöin riippumattomuuden määritelmästä seuraa, että kohdassa $\boldsymbol x = (x_1, x_2,\ldots, x_d)$ satunnaisvektorin $\boldsymbol X$ kertymäfunktio voidaan kirjoittaa muodossa
+\begin{equation*}
+  F_{\boldsymbol X}(\boldsymbol x) = F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_d}(x_d)
+  = \prod_{i = 1}^d F_{X_1}(x_i).
+\end{equation*}
+Eli satunnaisvektoria vastaava yhteiskertymäfunktio $F_{\boldsymbol X}(\boldsymbol x)$ on tulo komponenttimuuttujien $X_i$ kertymäfunktioista $F_{X_i}(x_i)$. 
+:::
+
+::: {.remark}
+Yllä puhumme satunnaisvektorin $\boldsymbol X$ *yhteis*jakaumasta, *yhteis*kertymäfunktiosta jne. Tästä eteenpäin tiputamme etuliitteen "yhteis", kun on selkeää mistä puhutaan.
+:::
+
+Seuraavaksi käsittelemme konkreettisempia esimerkkejä satunnaisvektoreista. Aloitamme diskreeteistä moniulotteisista satunnaismuuttujista, minkä jälkeen sanomme muutaman sanan jatkuvista moniulotteisista satunnaismuuttujista.
+
 
 ### Diskreetit jakaumat {-}
 

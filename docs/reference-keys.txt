@@ -37,3 +37,4 @@ exm:unlabeled-div-4
 exm:unlabeled-div-5
 exm:unlabeled-div-6
 def:rvec
+thm:unlabeled-div-7

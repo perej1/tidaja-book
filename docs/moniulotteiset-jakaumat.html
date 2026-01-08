@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-08" />
+<meta name="date" content="2026-01-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -389,7 +389,7 @@ Kuva 2.2: Otoskorrelaation <span class="math inline">\(\hat\rho_{XY}\)</span> su
 </div>
 <div id="sec:rvec" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Perusteet<a href="moniulotteiset-jakaumat.html#sec:rvec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämään koordinaattiin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="moniulotteiset-jakaumat.html#fig:vec">2.3</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
+<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="moniulotteiset-jakaumat.html#fig:vec">2.3</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
 <div class="remark">
 <p><span id="unlabeled-div-4" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
 <ul>
@@ -398,9 +398,9 @@ Kuva 2.2: Otoskorrelaation <span class="math inline">\(\hat\rho_{XY}\)</span> su
 <span class="math display">\[\begin{equation*}
 \begin{pmatrix}
 1 \\ 4 \\ 2.4
-\end{pmatrix}.
+\end{pmatrix},
 \end{equation*}\]</span>
-Joten tekstissä merkitsemme pystyvektoreita esimerkiksi notaatiolla <span class="math inline">\(\boldsymbol y = (4, 1, 8, 2)^T\)</span>.</p></li>
+joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla <span class="math inline">\(\boldsymbol y = (4, 1, 8, 2)^T\)</span>.</p></li>
 </ul>
 </div>
 <p>Vektorin <span class="math inline">\(\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d\)</span> suuruutta tai pituutta voidaan mitata sen normin <span class="math inline">\(\|\boldsymbol x\|\)</span> avulla,
@@ -443,6 +443,20 @@ Kuva 2.3: Vektoreita karteesisessa koordinaatistossa.
 \end{equation*}\]</span>
 jolle voidaan käyttää myös tiiviimpää notaatiota <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x) = \mathbb{P}\left(\boldsymbol X \leq \boldsymbol x\right)\)</span>.</p>
 </div>
+<p>Yksiulotteisen satunnaismuuttujan <span class="math inline">\(X\)</span> tapauksessa kertymäfunktio <span class="math inline">\(F_X(x), x\in\mathbb{R}\)</span> antaa kaiken informaation kyseisen satunnaismuuttujan jakaumasta <span class="math inline">\(\mathbb{P}\left(X\in A\right), A\subset\mathbb{R}\)</span>. Samoin moniulotteisen satunnaisvektorin tapauksessa yhteiskertymäfunktio <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x)\)</span> antaa kaiken informaation kyseisen satunnaisvektorin jakaumasta <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in B\right), B\subset\mathbb{R}^d\)</span>. Sanomme siis, että kaksi satunnaisvektoria <span class="math inline">\(\boldsymbol X\)</span> ja <span class="math inline">\(\boldsymbol Y\)</span> ovat samoin jakautuneet, jos <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x) = F_{\boldsymbol Y}(\boldsymbol x)\)</span> pätee kaikille <span class="math inline">\(\boldsymbol x\in\mathbb{R}^d\)</span>.</p>
+<p>Huomautamme jo tässä kohtaa, että usein informaatio yksittäisistä komponenttimuuttujista <span class="math inline">\(X_1, \ldots, X_d\)</span> kertoo varsin vähän satunnaisvektorista <span class="math inline">\(\boldsymbol X = (X_1, \ldots, X_d)\)</span> – yleisesti ottaen satunnaismuuttujien <span class="math inline">\(X_i\)</span> kertymäfunktioista <span class="math inline">\(F_{X_i}\)</span> <strong>ei</strong> voida päätellä satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> yhteiskertymäfunktiota <span class="math inline">\(F_{\boldsymbol X}\)</span>. Sääntöön löytyy kuitenkin yksi poikkeus.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-7" class="theorem"><strong>Fakta 2.1  (Riippumattomat komponenttivektorit) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2, \ldots, X_d)\)</span> satunnaisvektori niin, että satunnaismuuttujat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span> ovat riippumattomia. Tällöin riippumattomuuden määritelmästä seuraa, että kohdassa <span class="math inline">\(\boldsymbol x = (x_1, x_2,\ldots, x_d)\)</span> satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> kertymäfunktio voidaan kirjoittaa muodossa
+<span class="math display">\[\begin{equation*}
+  F_{\boldsymbol X}(\boldsymbol x) = F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_d}(x_d)
+  = \prod_{i = 1}^d F_{X_1}(x_i).
+\end{equation*}\]</span>
+Eli satunnaisvektoria vastaava yhteiskertymäfunktio <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x)\)</span> on tulo komponenttimuuttujien <span class="math inline">\(X_i\)</span> kertymäfunktioista <span class="math inline">\(F_{X_i}(x_i)\)</span>.</p>
+</div>
+<div class="remark">
+<p><span id="unlabeled-div-8" class="remark"><em>Huomautus</em>. </span>Yllä puhumme satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> <em>yhteis</em>jakaumasta, <em>yhteis</em>kertymäfunktiosta jne. Tästä eteenpäin tiputamme etuliitteen “yhteis”, kun on selkeää mistä puhutaan.</p>
+</div>
+<p>Seuraavaksi käsittelemme konkreettisempia esimerkkejä satunnaisvektoreista. Aloitamme diskreeteistä moniulotteisista satunnaismuuttujista, minkä jälkeen sanomme muutaman sanan jatkuvista moniulotteisista satunnaismuuttujista.</p>
 <div id="diskreetit-jakaumat" class="section level3 unnumbered hasAnchor">
 <h3>Diskreetit jakaumat<a href="moniulotteiset-jakaumat.html#diskreetit-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
