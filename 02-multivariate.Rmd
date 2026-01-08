@@ -8,7 +8,15 @@ Jos taas satunnaismuuttuja $Y$ on jatkuva, niin sen kertymäfunktio voidaan kirj
 \begin{equation*}
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}
-Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$ ja varianssi voidaan estimoida otosvarianssilla $\frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2$. Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
+\begin{equation*}
+  \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
+\end{equation*}
+ja varianssi voidaan estimoida otosvarianssilla
+\begin{equation*}
+  s_Y^2 = \frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2.
+\end{equation*}
+Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
 
 Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.
 
@@ -44,7 +52,7 @@ Kurssilla käymme läpi perusmenetelmiä, joilla voi tehdä tilastollista analyy
 
 Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan  moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa \@ref(sec:dep) määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa \@ref(sec:rvec) määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa \@ref(sec:cond) syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku \@ref(sec:normal). Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa \@ref(sec:statistic). Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.
 
-## Stokastinen riippuvuus {#sec:dep}
+## Stokastinen riippumattomuus {#sec:dep}
 
 Intuitiivisesti ajateltuna kaksi satunnaismuuttujaa $X$ ja $Y$ ovat stokastisesti riippumattomia, jos tieto muuttujan $X$ arvosta ei anna mitään lisätietoa muuttujan $Y$ arvosta ja päinvastoin. Toisaalta satunnaismuuttujat $X$ ja $Y$ ovat stokastisesti riippuvia, jos tieto $X$:n arvosta antaa jotain lisätietoa $Y$:n arvosta ja päinvastoin.
 
@@ -61,10 +69,10 @@ Yllä olevissa esimerkeissä satunnaismuuttujien välinen riippuvuus/riippumatto
   = \frac{1}{2}, \quad i\in\{1,2\}.
 \end{equation*}
 Määritellään satunnaismuuttuja $Y = X_1 X_2$. Ovatko satunnaismuuttujat $Y$ ja $X_1$ stokastisesti riippumattomia?
-    -  Intuitiivisesti ajateltuna muuttujat $Y$ ja $X_1$ eivät välttämättä ole riippumattomia, koska $Y$:n arvo riippuu suoraan $X_1$  arvosta siinä mielessä, että $Y$  määritellään muuttujan $X_1$ avulla. Tästä huolimatta muuttujat $Y$ ja $X_1$ ovat  stokastisesti riippumattomia!
+    -  Intuitiivisesti ajateltuna muuttujat $Y$ ja $X_1$ eivät välttämättä ole riippumattomia, koska $Y$ määritellään muuttujan $X_1$ avulla. Tästä huolimatta muuttujat $Y$ ja $X_1$ ovat  stokastisesti riippumattomia!
 :::
 
-Alla annamme stokastisen riippumattomuuden/riippuvuuden määritelmän kahdelle satunnaismuuttujalle.
+Seuraavaksi annamme stokastisen riippumattomuuden/riippuvuuden määritelmän kahden satunnaismuuttujan välillä.
 
 ::: {.definition #ind name="Stokastinen riippumattomuus"}
 Satunnaismuuttujat $X$ ja $Y$ ovat riippumattomia, jos kaikille $x\in\mathbb{R}$ ja $y\in\mathbb{R}$ pätee
@@ -130,6 +138,45 @@ Jokaisen heittosarjan $s_i$ todennäköisyys on $(1/2)^3 = 1/8$, koska heitot ov
 \end{equation*}
 joten muuttuvat $X$ ja $Y$ *eivät* ole riippumattomia.
 :::
+
+Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muoto. Kahden satunnaismuuttujan $X$ ja $Y$ välistä lineaarista riippuvuutta mittaa kovarianssi,
+\begin{equation*}
+  \mathrm{Cov}\left(X, Y\right) =
+  \mathbb{E}\left(\left(X - \mathbb{E}\left(X\right)\right)
+  \left(Y - \mathbb{E}\left(Y\right)\right)\right).
+\end{equation*}
+Jos satunnaismuuttujista $X$ ja $Y$ on otokset $x_1, \ldots, x_n$ ja $y_1, \ldots, y_n$, niin kovarianssia voidaan estimoida otoskovarianssilla
+\begin{equation*}
+  s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
+  \left(y_i - \bar y\right),
+\end{equation*}
+jossa $\bar y$ on otosta $y_1, \ldots, y_n$ vastaava keskiarvo. Kovarianssia voidaan tulkita seuraavasti:
+
+- Kun $\mathrm{Cov}\left(X, Y\right) > 0$, niin muuttujien $X$ ja $Y$ välillä on kasvava lineaarinen riippuvuus
+
+- Kun $\mathrm{Cov}\left(X, Y\right) < 0$, niin muuttujien $X$ ja $Y$ välillä on vähenevä lineaarinen riippuvuus
+
+Kovarianssin suuruuteen vaikuttaan muuttujien $X$ ja $Y$ skaalat, joten kovarianssin suuruutta $\left|\mathrm{Cov}\left(X, Y\right)\right|$ on vaikea tulkita. Tämän vuoksi kovarianssi usein normalisoidaan jakamalla satunnaismuuttujia vastaavilla keskihajonnoilla, jolloin päädytään (Pearsonin) korrelaatiokertoimeen,
+\begin{equation*}
+  \mathrm{Cor}\left(X, Y\right) = \frac{\mathrm{Cov}\left(X, Y\right)}
+  {\sqrt{\mathrm{Var}\left(X\right)\mathrm{Var}\left(Y\right)}}.
+\end{equation*}
+Korrelaatiokertoimen estimaattori on
+\begin{equation*}
+  \hat\rho_{XY} = \frac{s_{XY}}{\sqrt{s_X^2s_Y^2}},
+\end{equation*}
+jossa $s_Y^2$ on otosta $y_1, \ldots, y_n$ vastaava otosvarianssi. Korrelaation $\mathrm{Cor}\left(X, Y\right)$ arvo on aina välillä $[-1, 1].$ Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus $\left|\mathrm{Cor}\left(X, Y\right)\right|$ kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat *eivät* ole riippumattomia ja $\mathrm{Cov}\left(X, Y\right) = 0$. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan \@ref(fig:cor) oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.
+
+::: {.exercise name="Viikko 2, tehtävä 2"}
+Olkoon $X\sim \mathrm{Tas}\left([-1,1]\right)$ eli $X$ on satunnaismuuttuja, joka noudattaa tasajakaumaa välillä $[-1, 1]$. Määritellään toinen satunnaismuuttuja muunnoksen $Y = X^2$ mukaan. Tällöin satunnaismuuttujat $X$ ja $Y$ *eivät* ole riippumattomia mutta $\mathrm{Cov}\left(X, Y\right) = 0$.
+:::
+
+(ref:cor-cap) Otoskorrelaation $\hat\rho_{XY}$ suuruusluokka erilaisille havaintoaineistoille.
+
+```{r cor, echo=FALSE, fig.cap="(ref:cor-cap)"}
+knitr::include_graphics("images/correlation.jpg")
+```
+
 
 ::: {.remark}
 Vapaaehtoisena lisätehtävänä voit määritelmän \@ref(def:ind) avulla tarkistaa, että esimerkin \@ref(exm:ind) viimeinen väite pätee.

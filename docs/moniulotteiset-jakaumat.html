@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html"><i class="fa fa-check"></i><b>2</b> Moniulotteiset jakaumat</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:dep"><i class="fa fa-check"></i><b>2.1</b> Stokastinen riippuvuus</a></li>
+<li class="chapter" data-level="2.1" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:dep"><i class="fa fa-check"></i><b>2.1</b> Stokastinen riippumattomuus</a></li>
 <li class="chapter" data-level="2.2" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:rvec"><i class="fa fa-check"></i><b>2.2</b> Perusteet</a></li>
 <li class="chapter" data-level="2.3" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:cond"><i class="fa fa-check"></i><b>2.3</b> Ehdolliset jakaumat</a></li>
 <li class="chapter" data-level="2.4" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:normal"><i class="fa fa-check"></i><b>2.4</b> Moniulotteinen normaalijakauma</a></li>
@@ -188,7 +188,15 @@ Jos taas satunnaismuuttuja <span class="math inline">\(Y\)</span> on jatkuva, ni
 <span class="math display">\[\begin{equation*}
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}\]</span>
-Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo <span class="math inline">\(\mathbb{E}\left(Y\right)\)</span> ja varianssi <span class="math inline">\(\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)\)</span>. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: <em>vinous</em>, <em>huipukkuus</em>, <em>kvantiilit</em>, <span class="math inline">\(\ldots\)</span> Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos <span class="math inline">\(y_1,\ldots, y_n\)</span> satunnaismuuttujasta <span class="math inline">\(Y\)</span> eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan <span class="math inline">\(Y\)</span> jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla <span class="math inline">\(\bar y = \frac{1}{n}\sum_{i = 1}^n y_i\)</span> ja varianssi voidaan estimoida otosvarianssilla <span class="math inline">\(\frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2\)</span>. Kertaa tarvittaessa edellämainittuja asioita kurssilta <em>Tilastotieteen perusteet</em>.</p>
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo <span class="math inline">\(\mathbb{E}\left(Y\right)\)</span> ja varianssi <span class="math inline">\(\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)\)</span>. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: <em>vinous</em>, <em>huipukkuus</em>, <em>kvantiilit</em>, <span class="math inline">\(\ldots\)</span> Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos <span class="math inline">\(y_1,\ldots, y_n\)</span> satunnaismuuttujasta <span class="math inline">\(Y\)</span> eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan <span class="math inline">\(Y\)</span> jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
+<span class="math display">\[\begin{equation*}
+  \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
+\end{equation*}\]</span>
+ja varianssi voidaan estimoida otosvarianssilla
+<span class="math display">\[\begin{equation*}
+  s_Y^2 = \frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2.
+\end{equation*}\]</span>
+Kertaa tarvittaessa edellämainittuja asioita kurssilta <em>Tilastotieteen perusteet</em>.</p>
 <p>Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.</p>
 
 <div class="example">
@@ -260,7 +268,7 @@ Kuva 2.1: Hajontakuviot muuttujista pareittain.
 </ul>
 <p>Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa <a href="moniulotteiset-jakaumat.html#sec:dep">2.1</a> määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa <a href="moniulotteiset-jakaumat.html#sec:cond">2.3</a> syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku <a href="moniulotteiset-jakaumat.html#sec:normal">2.4</a>. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a>. Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.</p>
 <div id="sec:dep" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Stokastinen riippuvuus<a href="moniulotteiset-jakaumat.html#sec:dep" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">2.1</span> Stokastinen riippumattomuus<a href="moniulotteiset-jakaumat.html#sec:dep" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Intuitiivisesti ajateltuna kaksi satunnaismuuttujaa <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippumattomia, jos tieto muuttujan <span class="math inline">\(X\)</span> arvosta ei anna mitään lisätietoa muuttujan <span class="math inline">\(Y\)</span> arvosta ja päinvastoin. Toisaalta satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippuvia, jos tieto <span class="math inline">\(X\)</span>:n arvosta antaa jotain lisätietoa <span class="math inline">\(Y\)</span>:n arvosta ja päinvastoin.</p>
 <div class="example">
 <p><span id="exm:ind" class="example"><strong>Esimerkki 2.2  (Riippuvuus intuitiivisesti) </strong></span></p>
@@ -277,11 +285,11 @@ Kuva 2.1: Hajontakuviot muuttujista pareittain.
 \end{equation*}\]</span>
 Määritellään satunnaismuuttuja <span class="math inline">\(Y = X_1 X_2\)</span>. Ovatko satunnaismuuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> stokastisesti riippumattomia?
 <ul>
-<li>Intuitiivisesti ajateltuna muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> eivät välttämättä ole riippumattomia, koska <span class="math inline">\(Y\)</span>:n arvo riippuu suoraan <span class="math inline">\(X_1\)</span> arvosta siinä mielessä, että <span class="math inline">\(Y\)</span> määritellään muuttujan <span class="math inline">\(X_1\)</span> avulla. Tästä huolimatta muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> ovat stokastisesti riippumattomia!</li>
+<li>Intuitiivisesti ajateltuna muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> eivät välttämättä ole riippumattomia, koska <span class="math inline">\(Y\)</span> määritellään muuttujan <span class="math inline">\(X_1\)</span> avulla. Tästä huolimatta muuttujat <span class="math inline">\(Y\)</span> ja <span class="math inline">\(X_1\)</span> ovat stokastisesti riippumattomia!</li>
 </ul></li>
 </ul>
 </div>
-<p>Alla annamme stokastisen riippumattomuuden/riippuvuuden määritelmän kahdelle satunnaismuuttujalle.</p>
+<p>Seuraavaksi annamme stokastisen riippumattomuuden/riippuvuuden määritelmän kahden satunnaismuuttujan välillä.</p>
 <div class="definition">
 <p><span id="def:ind" class="definition"><strong>Määritelmä 2.1  (Stokastinen riippumattomuus) </strong></span>Satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(x\in\mathbb{R}\)</span> ja <span class="math inline">\(y\in\mathbb{R}\)</span> pätee
 <span class="math display">\[\begin{equation*}
@@ -339,8 +347,44 @@ Jokaisen heittosarjan <span class="math inline">\(s_i\)</span> todennäköisyys 
 \end{equation*}\]</span>
 joten muuttuvat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia.</p>
 </div>
+<p>Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muoto. Kahden satunnaismuuttujan <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välistä lineaarista riippuvuutta mittaa kovarianssi,
+<span class="math display">\[\begin{equation*}
+  \mathrm{Cov}\left(X, Y\right) =
+  \mathbb{E}\left(\left(X - \mathbb{E}\left(X\right)\right)
+  \left(Y - \mathbb{E}\left(Y\right)\right)\right).
+\end{equation*}\]</span>
+Jos satunnaismuuttujista <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> on otokset <span class="math inline">\(x_1, \ldots, x_n\)</span> ja <span class="math inline">\(y_1, \ldots, y_n\)</span>, niin kovarianssia voidaan estimoida otoskovarianssilla
+<span class="math display">\[\begin{equation*}
+  s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
+  \left(y_i - \bar y\right),
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\bar y\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava keskiarvo. Kovarianssia voidaan tulkita seuraavasti:</p>
+<ul>
+<li><p>Kun <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) &gt; 0\)</span>, niin muuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välillä on kasvava lineaarinen riippuvuus</p></li>
+<li><p>Kun <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) &lt; 0\)</span>, niin muuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välillä on vähenevä lineaarinen riippuvuus</p></li>
+</ul>
+<p>Kovarianssin suuruuteen vaikuttaan muuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> skaalat, joten kovarianssin suuruutta <span class="math inline">\(\left|\mathrm{Cov}\left(X, Y\right)\right|\)</span> on vaikea tulkita. Tämän vuoksi kovarianssi usein normalisoidaan jakamalla satunnaismuuttujia vastaavilla keskihajonnoilla, jolloin päädytään (Pearsonin) korrelaatiokertoimeen,
+<span class="math display">\[\begin{equation*}
+  \mathrm{Cor}\left(X, Y\right) = \frac{\mathrm{Cov}\left(X, Y\right)}
+  {\sqrt{\mathrm{Var}\left(X\right)\mathrm{Var}\left(Y\right)}}.
+\end{equation*}\]</span>
+Korrelaatiokertoimen estimaattori on
+<span class="math display">\[\begin{equation*}
+  \hat\rho_{XY} = \frac{s_{XY}}{\sqrt{s_X^2s_Y^2}},
+\end{equation*}\]</span>
+jossa <span class="math inline">\(s_Y^2\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava otosvarianssi. Korrelaation <span class="math inline">\(\mathrm{Cor}\left(X, Y\right)\)</span> arvo on aina välillä <span class="math inline">\([-1, 1].\)</span> Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus <span class="math inline">\(\left|\mathrm{Cor}\left(X, Y\right)\right|\)</span> kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat <em>eivät</em> ole riippumattomia ja <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan <a href="moniulotteiset-jakaumat.html#fig:cor">2.2</a> oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.</p>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-2" class="exercise"><strong>Tehtävä 2.1  (Viikko 2, tehtävä 2) </strong></span>Olkoon <span class="math inline">\(X\sim \mathrm{Tas}\left([-1,1]\right)\)</span> eli <span class="math inline">\(X\)</span> on satunnaismuuttuja, joka noudattaa tasajakaumaa välillä <span class="math inline">\([-1, 1]\)</span>. Määritellään toinen satunnaismuuttuja muunnoksen <span class="math inline">\(Y = X^2\)</span> mukaan. Tällöin satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia mutta <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>.</p>
+</div>
+
+<div class="figure"><span style="display:block;" id="fig:cor"></span>
+<img src="images/correlation.jpg" alt="Otoskorrelaation \(\hat\rho_{XY}\) suuruusluokka erilaisille havaintoaineistoille." width="858" />
+<p class="caption">
+Kuva 2.2: Otoskorrelaation <span class="math inline">\(\hat\rho_{XY}\)</span> suuruusluokka erilaisille havaintoaineistoille.
+</p>
+</div>
 <div class="remark">
-<p><span id="unlabeled-div-2" class="remark"><em>Huomautus</em>. </span>Vapaaehtoisena lisätehtävänä voit määritelmän <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> avulla tarkistaa, että esimerkin <a href="moniulotteiset-jakaumat.html#exm:ind">2.2</a> viimeinen väite pätee.</p>
+<p><span id="unlabeled-div-3" class="remark"><em>Huomautus</em>. </span>Vapaaehtoisena lisätehtävänä voit määritelmän <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> avulla tarkistaa, että esimerkin <a href="moniulotteiset-jakaumat.html#exm:ind">2.2</a> viimeinen väite pätee.</p>
 </div>
 </div>
 <div id="sec:rvec" class="section level2 hasAnchor" number="2.2">

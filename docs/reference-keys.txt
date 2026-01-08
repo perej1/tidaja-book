@@ -30,3 +30,5 @@ sec:cond
 sec:normal
 sec:statistic
 exm:unlabeled-div-1
+fig:cor
+exr:unlabeled-div-2
