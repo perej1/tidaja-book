@@ -1,6 +1,6 @@
 # Moniulotteiset jakaumat
 
-Kurssilla *Tilastotieteen perusteet* käsiteltiin (yksiulotteiset) satunnaismuuttujat. Satunnaismuuttuja on funktio, joka saa lukuarvon (kokonaislukuluku $\mathbb{Z}$, rationaaliluku $\mathbb{Q}$, Reaaliluku $\mathbb{R}$) satunnaisilmiön toteuman perusteella. Satunnaismuuttuja voi olla diskreetti kuten $X_1 = \mathrm{nopanheiton\  tulos}$ tai jatkuva kuten $X_2 = \mathrm{Bussin\ saapumisaika\ pysäkille}$. Satunnaismuuttujan $Y$ käyttäytymistä mallintaa sen jakauma $\mathbb{P}\left(Y\in A\right)$, jossa $\{Y\in A\}$ on mahdollinen tapahtuma. Esimerkiksi tapahtumaa "nopanheiton tulos on 1 tai 5" vastaava todennäköisyys on $\mathbb{P}\left(X_1\in \{2, 5\}\right) = 2/6 = 1/3$, jos noppa on reilu. Kaiken informaation satunnaismuuttujan $Y$ jakaumasta sisältää kertymäfunktio $F_Y(y) = \mathbb{P}\left(Y \leq y\right)$. Jos satunnaismuuttuja $Y$ on diskreetti, niin sen kertymäfunktio voidaan kirjoittaa pistetodennäköisyysfunktion $p_Y(x) = \mathbb{P}\left(Y = x\right)$ avulla
+Kurssilla *Tilastotieteen perusteet* käsiteltiin (yksiulotteiset) satunnaismuuttujat. Satunnaismuuttuja on funktio, joka saa lukuarvon (kokonaislukuluku $\mathbb{Z}$, rationaaliluku $\mathbb{Q}$, Reaaliluku $\mathbb{R}$) satunnaisilmiön toteuman perusteella. Satunnaismuuttuja voi olla diskreetti kuten $X_1 = \mathrm{nopanheiton\  tulos}$ tai jatkuva kuten $X_2 = \mathrm{Bussin\ saapumisaika\ pysäkille}$. Satunnaismuuttujan $Y$ käyttäytymistä mallintaa sen jakauma $\mathbb{P}\left(Y\in A\right)$, jossa $\{Y\in A\}$ on mahdollinen tapahtuma. Esimerkiksi tapahtumaa "nopanheiton tulos on 1 tai 5" vastaava todennäköisyys on $\mathbb{P}\left(X_1\in \{2, 5\}\right) = 2/6 = 1/3$, kunhan noppa on reilu. Kaiken informaation satunnaismuuttujan $Y$ jakaumasta sisältää kertymäfunktio $F_Y(y) = \mathbb{P}\left(Y \leq y\right)$. Jos satunnaismuuttuja $Y$ on diskreetti, niin sen kertymäfunktio voidaan kirjoittaa pistetodennäköisyysfunktion $p_Y(x) = \mathbb{P}\left(Y = x\right)$ avulla
 \begin{equation*}
   F_Y(y) = \sum_{x\leq y} p_Y(x).
 \end{equation*}
@@ -8,26 +8,60 @@ Jos taas satunnaismuuttuja $Y$ on jatkuva, niin sen kertymäfunktio voidaan kirj
 \begin{equation*}
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}
-Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$ ja varianssi voidaan estimoida otosvarianssilla $\frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2$. Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$ ja varianssi voidaan estimoida otosvarianssilla $\frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2$. Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
 
-## Tilastollinen riippuvuus
+Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.
+
+(ref:body-caption) Hajontakuviot muuttujista pareittain.
+
+::: {.example}
+
+Taulukossa \@ref(tab:body) näkyy neliulotteinen aineisto ihmisen kehon eri osien mittauksista (yksikkö: tuuma). Kaikki mitatut muuttujat `ShoulderWidth`, `Belly`, `ArmLength` ja `TotalHeight` ovat tässä tapauksessa jatkuvia. Tuntuisi luonnolliselta, että muuttujien välillä on riippuvuussuhteita. Esimerkiksi ehkä pidemmällä ihmisellä on pidemmät kädet? Jos näin on, niin menetämme informaatiota analysoidessa muuttujia erikseen.
+
+```{r body, echo=FALSE, message=FALSE}
+library(dplyr)
+coltypes <- stringr::str_c(rep("i", 13), collapse = "")
+body <- readr::read_csv("data/body_measurements.csv", col_names = TRUE,
+                        col_types = coltypes) %>%
+  select(ShoulderWidth, Belly, ArmLength, TotalHeight)
+
+knitr::kable(head(body), caption = "Neliulotteinen aineisto ihmisen kehon dimensioista. Rivi vastaa yhtä havaintoa (ihmistä) ja sarake vastaa yhtä muuttujaa.")
+```
+
+Hyvä vaihtoehto visualisoida dataa voisi olla hajontakuvio. Kuvaajassa olisi kuitenkin tällöin neljä akselia (ulottuvuutta), joten meidän ihmisten (ainakin minun) on mahdoton tulkita hajontakuviota! Vaihtoehtoisesti hajontakuviot voi piirtää pareittain kuten kuvassa \@ref(fig:body-pairs).
+```{r body-pairs, fig.cap="(ref:body-caption)"}
+pairs(body, lower.panel = NULL)
+```
+
+Esimerkiksi kuvan \@ref(fig:body-pairs) alareunassa olevassa hajontakuviossa muuttuja `TotalHeight` on $x$-akselilla ja muuttuja `ArmLength` on $y$-akselilla. Kyseisen hajontakuvion perusteella näyttää, että muuttujien `ArmLength` ja `TotalHeight` välillä tosiaan on lineaarinen riippuvuus -- keskimäärin pidemmällä ihmisellä on pidemmät kädet. Toki hajontakuviossa näkyy myös muutamia oudokkeja (eng: *outlier*), jotka ovat poikkeus säännöstä. Huomaa, että pareittaiset hajontakuviot eivät kerro koko tarinaa. Voi nimittäin olla, että tietynlaiset muuttujien väliset riippuvuudet eivät näy hajontakuvioissa.
+:::
+
+Kurssilla käymme läpi perusmenetelmiä, joilla voi tehdä tilastollista analyysiä moniulotteisiin aineistoihin liittyen. Kurssin menetelmät toimivat pohjana vaativimille moniulotteisille data-analyyseille. Moniulotteisen data-analyysin tavoitteena voi esimerkiksi olla
+
+- Muuttujien riippuvuussuhteiden ymmärtäminen
+- Yhden muuttujan ennustaminen muilla muuttujilla
+- Dimensioiden pienennys (eng: *dimension reduction*) ennen varsinaista analyysiä
+
+Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan  moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa \@ref(sec:dep) määrittelemme tilastollisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa \@ref(sec:rvec) määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa \@ref(sec:cond) syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku \@ref(sec:normal). Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa \@ref(sec:statistic). Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.
+
+## Tilastollinen riippuvuus {#sec:dep}
+
+## Perusteet {#sec:rvec}
 
 - Vektorit ja satunnaisvektorit
 
 - kertymäfunktio
 
-## Perusteet
+### Diskreetit jakaumat {-}
+
+### Jatkuvat jakaumat {-}
+
+## Ehdolliset jakaumat  {#sec:cond}
 
 ### Diskreetit jakaumat {-}
 
 ### Jatkuvat jakaumat {-}
 
-## Ehdolliset jakaumat
+## Moniulotteinen normaalijakauma {#sec:normal}
 
-### Diskreetit jakaumat {-}
-
-### Jatkuvat jakaumat {-}
-
-## Moniulotteinen normaalijakauma
-
-## Tunnusluvuista
+## Tunnusluvuista {#sec:statistic}

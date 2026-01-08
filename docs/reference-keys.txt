@@ -23,3 +23,14 @@ perusteet
 ehdolliset-jakaumat
 moniulotteinen-normaalijakauma
 tunnusluvuista
+exm:unlabeled-div-1
+tab:unnamed-chunk-1
+tab:body
+fig:body-pairs
+tilastollinen-riippuvuus-dep
+tilastollinen-riippuvuus-secdep
+sec:dep
+sec:rvec
+sec:cond
+sec:normal
+sec:statistic
