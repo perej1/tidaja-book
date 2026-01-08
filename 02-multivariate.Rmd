@@ -1,12 +1,20 @@
 # Moniulotteiset jakaumat
 
-- Motivaatio
+Kurssilla *Tilastotieteen perusteet* käsiteltiin (yksiulotteiset) satunnaismuuttujat. Satunnaismuuttuja on funktio, joka saa lukuarvon (kokonaislukuluku $\mathbb{Z}$, rationaaliluku $\mathbb{Q}$, Reaaliluku $\mathbb{R}$) satunnaisilmiön toteuman perusteella. Satunnaismuuttuja voi olla diskreetti kuten $X_1 = \mathrm{nopanheiton\  tulos}$ tai jatkuva kuten $X_2 = \mathrm{Bussin\ saapumisaika\ pysäkille}$. Satunnaismuuttujan $Y$ käyttäytymistä mallintaa sen jakauma $\mathbb{P}\left(Y\in A\right)$, jossa $\{Y\in A\}$ on mahdollinen tapahtuma. Esimerkiksi tapahtumaa "nopanheiton tulos on 1 tai 5" vastaava todennäköisyys on $\mathbb{P}\left(X_1\in \{2, 5\}\right) = 2/6 = 1/3$, jos noppa on reilu. Kaiken informaation satunnaismuuttujan $Y$ jakaumasta sisältää kertymäfunktio $F_Y(y) = \mathbb{P}\left(Y \leq y\right)$. Jos satunnaismuuttuja $Y$ on diskreetti, niin sen kertymäfunktio voidaan kirjoittaa pistetodennäköisyysfunktion $p_Y(x) = \mathbb{P}\left(Y = x\right)$ avulla
+\begin{equation*}
+  F_Y(y) = \sum_{x\leq y} p_Y(x).
+\end{equation*}
+Jos taas satunnaismuuttuja $Y$ on jatkuva, niin sen kertymäfunktio voidaan kirjoittaa tiheysfunktion $f_Y(x)$ avulla integraalina
+\begin{equation*}
+  F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
+\end{equation*}
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$ ja varianssi voidaan estimoida otosvarianssilla $\frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2$. Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
+
+## Tilastollinen riippuvuus
 
 - Vektorit ja satunnaisvektorit
 
 - kertymäfunktio
-
-## Tilastollinen riippuvuus
 
 ## Perusteet
 
