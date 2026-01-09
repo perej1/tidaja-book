@@ -476,14 +476,97 @@ $100$ euroa tai vähemmän on
 
 ### Jatkuva satunnaisvektori {-}
 
+Kuten diskreetit muuttujat, myös jatkuvat muuttujat voidaan yleistää useampaan ulottuvuuteen. Jatkuvia moniulotteisia satunnaismuuttujia käsitellään samaan tapaan kuin diskreettejä mutta summat $\left(\sum\right)$ täytyy korvata integraaleilla $\left(\int\right)$. Jatkuvien jakaumien todennäköisyysteorian rajoitamme kahteen ulottuvuuteen $d = 2$, vaikka alla olevat määritelmät ja faktat yleistyvät suoraviivaisesti kun ulottuvuuksia on enemmän  kuin kaksi $d > 2$ (täytyy vain integroida useamman dimension yli).
 
+::: {.definition #continuous name="Jatkuva satunnaisvektori"}
+Olkoon $\boldsymbol X = (X_1, X_2)^T$ satunnaisvektori. Satunnaisvektori $\boldsymbol X = (X_1, X_2)^T:S\times S\to \mathbb{R}^2$ on jatkuva, jos on olemassa funktio $f_{\boldsymbol X}:\mathbb{R}^2\to\mathbb{R}$  siten, että mille tahansa tarpeeksi "kivalle"^[Tässä "kiva" tarkoittaa *mitattavaa* joukkoa. Tämäntyyppisten yksityiskohtien hallinta vaatii edistyneempää matematiikkaa (mittateoriaa), joka on täysin kurssin ulkopuolella.] joukolle $I\subset\mathbb{R}^2$, todennäköisyys, että $\boldsymbol X$ saa arvonsa joukossa $I$ saadaan integroimalla funktiota $f_{\boldsymbol X}$  joukon $I$ yli eli
+\begin{equation}
+  \mathbb{P}\left(\boldsymbol X\in I\right) = \int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x
+  (#eq:density)
+\end{equation}
+Tällöin funktiota $f_{\boldsymbol X}$ kutsutaan satunnaisvektorin $\boldsymbol X$ tiheysfunktioksi.
+:::
+
+Esimerkiksi, jos joukko $I$ on suorakaide eli $I = [a,b]\times[c,d]$, niin kaava \@ref(eq:density) voidaan kirjoittaa muodossa
+\begin{equation*}
+  \mathbb{P}\left(\boldsymbol X\in I\right)
+  = \mathbb{P}\left(a\leq X_1\leq b, c\leq X_2\leq d\right)
+  = \int_a^b\int_c^d  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
+\end{equation*}
+Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien pistetodennäköisyysfunktio. Tällöin luonnollisesti tiheysfunktio täyttää samantyyppiset ehdot kuin pistetodennäköisyysfunktio mutta summat täytyy korvata integraaleilla.
+
+::: {.theorem name="Tiheysfunktion ominaisuudet"}
+Olkoon $\boldsymbol X = (X_1, X_2)^T$ jatkuva satunnaisvektori, jolla on tiheysfunktio $f_{\boldsymbol X}$. Tiheysfunktio toteuttaa seuraavat ehdot:
+
+1. $f_{\boldsymbol X}\left(x_1, x_2\right)  \geq 0$ kaikilla $(x_1, x_2)^T\in\mathbb{R}^2$ (epänegatiivisuus)
+
+2. $\int_\mathbb{R}\int_\mathbb{R} f_{\boldsymbol X}(x_1,  x_2)\,\mathrm{d}x_1 \,\mathrm{d}x_2 = 1$ (integroituu ykköseen)
+
+Vastaavasti, jos joku mielivaltainen funktio $g:\mathbb{R}^2\to \mathbb{R}$ toteuttaa ehdot 1 ja 2, niin se on jonkin jatkuvan satunnaismuuttujan tiheysfunktio.
+:::
+
+Kuten yksiulotteisten jatkuvien satunnaismuuttujien tapauksessa, myös jatkuvien satunnaisvektorien kertymäfunktio (ja jakauma) saadaan tiheysfunktion avulla.
+
+::: {.theorem #continuouscdf name="Tiheys- ja kertymäfunktion yhteys"}
+Olkoon $\boldsymbol X = (X_1, X_2)^T$ jatkuva satunnaisvektori, jolla on tiheysfunktio $f_{\boldsymbol X}$. Tiheys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2)\in\mathbb{R}^2$ pätee
+\begin{equation}
+  \begin{split}
+    F_{\boldsymbol X}\left(\boldsymbol x\right)
+    &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right) \\
+    &= \int_{-\infty}^{x_1}\int_{-\infty}^{x_2}  f(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
+  \end{split}
+  (\#eq:continuous-multi-cdf)
+\end{equation}
+:::
+
+Kaava \@ref(eq:continuous-multi-cdf) näyttää siis hyvin samankaltaiselta kuin \@ref(eq:continuous-uni-cdf) -- yhden integraalin sijasta on $d = 2$ integraalia.
+
+Integrointi ei sisälly tälle kurssille, joten emme sisällytä yhtä paljon esimerkkejä jatkuvista satunnaisvektoreista kuin diskreeteistä. Integrointi käydään tarkemmin kurssilla *Mathematical tools for analytics*. Jatkuvien (ja diskreettien) muuttujien tapauksissa todennäköisyyksiä voidaan kuitenkin estimoida empiirisen todennäköisyyden avulla kunhan otos on tarpeeksi suuri.
+
+(ref:outlier-cap) Hajontakuvio muuttujaa $(X, Y)^T$ vastaavasta otoksesta. Havainnot jotka sisältyvät joukkoon $A$ ollaan merkitty suurilla punaisilla pisteillä. 
+
+::: {.example name="Empiirinen todennäköisyys"}
+Käsittelemme esimerkin \@ref(exm:body) havaintoaineistoa
+```{r}
+body
+```
+
+Merkitään $X = \texttt{TotalHeight}$ ja $Y = \texttt{ArmLength}$. Havaintoaineiston avulla haluamme estimoida todennäköisyyden $\mathbb{P}\left(X \leq 40, Y\geq 30\right)$ muuttujasta `body` saatavan otoksen $(x_1, y_1), (x_2, y_2)\ldots, (x_{716}, y_{716})$ avulla. Kyseessä on jonkinlainen ääritapahtuma (eng: *extreme event*), koska tarkastelemme ihmisiä, jotka ovat lyhyitä mutta heillä on pitkät kädet. Kyseisen todennäköisyyden voi estimoida empiirisellä jakaumalla eli
+\begin{equation*}
+  \mathbb{P}\left(X \leq 40, Y\geq 30\right)\approx \frac{\#\overbrace{\left\{(x_i, y_i) : x_i\leq 40\ \text{ja}\ y_i\geq 30\right\}}^{=A}}{716},
+\end{equation*}
+jossa notaatio $\# A$ tarkoittaa joukon $A$ alkioiden lukumäärää. Nyt kaavan oikeanpuoleinen lauseke tarvitsee vain kirjoittaa R:llä.
+```{r}
+condition <- (body$TotalHeight <= 40 & body$ArmLength >= 30)
+p_empirical <- sum(condition) / nrow(body)
+p_empirical
+```
+Saamme siis estimoitua, että $\mathbb{P}\left(X \leq 40, Y\geq 30\right)\approx `r round(p_empirical, 4)`$. Huomaa kuitenkin, että estimaatti on epäluotettava joukon $A$ pienuuden vuoksi. Kuva \@ref(fig:outlier) näyttää, että vain kaksi ihmistä  (väritetty punaisella) sisältyy joukkoon $A$.
+```{r outlier, fig.cap="(ref:outlier-cap)"}
+plot(body$TotalHeight,
+     body$ArmLength,
+     col = c("skyblue", "tomato4")[condition + 1], # Point color according to condition
+     pch = c(4, 16)[condition + 1], # Point type according to condition
+     cex = c(1, 2)[condition + 1], # Point size according to condition
+     xlab = "Height",
+     ylab = "Arm Length")
+abline(h = 30, v = 40)
+```
+Selitämme vielä hieman kuvan \@ref(fig:outlier) tuottavan koodinpätkän logiikasta. Argumenteilla `col`, `pch` ja `cex` voidaan muokata hajontakuvion väriä, pistetyyppiä ja pisteiden kokoa. Esimerkiksi `pch = 4` vastaa rastia. Haluamme asettaa joukon $A$  alkioille oman värin `tomato4`, pistetyypin `16` ja pistekoon `2`. Vektori `condition` on `TRUE/FALSE` vektori, jossa arvo `TRUE` on asetettu vain joukon $A$ havainnoille. Huomaa myös, että R tulkitsee `TRUE = 1` ja `FALSE = 0` tehdessä operaatioita lukujen ja totuusarvojen välillä. Esimerkiksi
+```{r}
+TRUE + FALSE + FALSE + 2
+```
+Nyt siis `condition  + 1` on kokonaislukuvektori, jossa kaikki alkiot ovat ykkösiä paitsi joukon $A$ havaintoja vastaavat alkiot ovat kakkosia. Eli komento `c(4, 16)[condition + 1]` valitsee vektorista $(4,  16)$ alkioita $4$ ja $16$ riippuen siitä, onko havainto joukossa $A$ vai ei.
+:::
+
+Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jakaumista.
+
+## Moniulotteinen normaalijakauma {#sec:normal}
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
 ### Diskreetit jakaumat {-}
 
 ### Jatkuvat jakaumat {-}
-
-## Moniulotteinen normaalijakauma {#sec:normal}
 
 ## Tunnusluvuista {#sec:statistic}

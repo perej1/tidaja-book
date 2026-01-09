@@ -49,3 +49,15 @@ sec:rvec
 sec:cond
 sec:normal
 sec:statistic
+exr:unlabeled-div-1
+exm:unlabeled-div-4
+exm:unlabeled-div-5
+thm:unlabeled-div-6
+exm:unlabeled-div-8
+exm:unlabeled-div-9
+def:continuous
+eq:density
+thm:unlabeled-div-12
+thm:continuouscdf
+eq:continuous-multi-cdf
+fig:outlier
