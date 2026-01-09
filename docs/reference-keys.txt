@@ -40,3 +40,12 @@ sec:rvec
 sec:cond
 sec:normal
 sec:statistic
+exr:unlabeled-div-1
+exm:unlabeled-div-4
+exm:unlabeled-div-5
+thm:unlabeled-div-6
+def:discrete
+exm:unlabeled-div-8
+thm:pointmass
+exm:unlabeled-div-9
+thm:discretecdf

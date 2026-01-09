@@ -262,40 +262,49 @@ Seuraavaksi käsittelemme konkreettisempia esimerkkejä satunnaisvektoreista. Al
 
 ### Diskreetti satunnaisvektori {-}
 
-Kuten yksiulotteisten diskreettien satunnaismuuttujien tapauksessa, myös diskreettien satunnaisvektorien jakauma saadaan pistetodennäköisyysfunktion avulla.
+Diskreetit satunnaisvektorit tarjoavat todennäköisyysteoreettisen mallin monille yksinkertaisille sekä monimutkaisille moniulotteisille ilmiölle:
 
-::: {.theorem #discrete name="Diskreetti satunnaisvektori"}
-Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori. Satunnaisvektori $\boldsymbol X$ on diskreetti, jos sen arvojoukko on $\mathbb{Z}^d$ eli $X_i\in\mathbb{Z}$ kaikilla $i$. Diskreetin satunnaisvektorin $\boldsymbol X$ yhteispistetodennäköisyysfunktio $f:\mathbb{Z}^d\to[0,1]$ on
+- Peräkkäiset kolikonheitot
+
+- 
+
+::: {.definition #discrete name="Diskreetti satunnaisvektori"}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori. Satunnaisvektori $\boldsymbol X$ on diskreetti, jos sen arvojoukko on $\mathbb{Z}^d$ eli $X_i\in\mathbb{Z}$ kaikilla $i$. Diskreetin satunnaisvektorin $\boldsymbol X$ yhteispistetodennäköisyysfunktio $p_{\boldsymbol X}:\mathbb{Z}^d\to[0,1]$ määritellään kaavan
 \begin{equation*}
-  f(x_1, x_2,\ldots, x_d) = \mathbb{P}\left(X_1 = x_1, X_2 = x_2,
-  \ldots, X_d = x_d\right).
+  p_{\boldsymbol X}(x_1, x_2,\ldots, x_d)
+  = \mathbb{P}\left(X_1 = x_1, X_2 = x_2, \ldots, X_d = x_d\right)
 \end{equation*}
-Pistetodennäköisyysfunktio $f$ toteuttaa seuraavat ehdot:
-
-1. $f(x_1, x_2,\ldots, x_d) \geq 0$ kaikille vektoreille $(x_1, x_2, \ldots, x_d)\in\mathbb{Z}^d$ (epänegatiivisuus)
-
-2. $\sum_{x_1, x_2, \ldots, x_d} f(x_1, x_2,\ldots, x_d) = \sum_{x_1\in\mathbb{Z}}\sum_{x_2\in\mathbb{Z}} \cdots \sum_{x_d\in\mathbb{Z}} f(x_1, x_2,\ldots, x_d) = 1$ (summautuu ykköseen)
-
-Vastaavasti, jos $f$ toteuttaa ehdot 1 ja 2, niin se on diskreetin satunnaismuuttujan pistetodennäköisyysfunktio.
-
-Pistetodennäköisyys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2, \ldots, x_d)\in\mathbb{R}^d$ pätee 
-\begin{equation*}
-  \begin{split}
-    F_{\boldsymbol X}\left(\boldsymbol x\right)
-    &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right) \\
-    &= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
-    f(x_1, x_2,\ldots, x_d).
-  \end{split}
-\end{equation*}
+mukaan.
 :::
 
-Faktan \@ref(thm:discrete) kaavat (esim. kertymäfunktio pistetodennäköisyysfunktion avulla) näyttävät siis hyvin samankaltaiselta kuin yksiulotteiset vastineet luvun 2 alussa -- yhden summan sijasta on $d$ summaa.
+Alla on pari esimerkkiä diskreeteistä satunnaisvektoreista. Huomaa, että diskreetin satunnaisvektorin arvojoukko ei tarvitse olla $\mathbb{Z} = \{\ldots,-2, -1, 0, 1, 2,\ldots\}$ kokonaisuudessaan vaan se voi olla myös joukon $\mathbb{Z}$ osajoukko.
 
 ::: {.example name="Diskreetti satunnaisvektori"}
-Olkoon $X$ ja $Y$ kuten esimerkissä \@ref(exm:coin). Tällöin $(X, Y)^T$ on $2$-ulotteinen diskreetti satunnaisvektori.
+- Olkoon $X$ ja $Y$ kuten esimerkissä \@ref(exm:coin). Tällöin $(X, Y)^T$ on $2$-ulotteinen diskreetti satunnaisvektori, jonka arvojoukko on
+\begin{equation*}
+  \{(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)\}
+  \subset \mathbb{Z}.
+\end{equation*}
+
+- Heitetään noppaa viisi kertaa peräkkäin ($\boldsymbol X_i = \mathrm{Heiton}\ i\ \mathrm{tulos}$, $i\in\{1,2,3,4,5\}$). Tällöin $(X_1, X_2, X_3, X_4, X_5)^T$ on $5$-ulotteinen diskreetti satunnaisvektori, jonka arvojoukko on $\{(j_1, j_2, j_3, j_4, j_5) : j_i\in\{1,2,3,4,5,6\}\}$.
 :::
 
-::: {.example name="Pistetodennäköisyysfunktio"}
+Määritelmässä \@ref(def:discrete) annettu pistetodennäköisyysfunktio on tärkeä työkalu diskreetin satunnaisvektorin jakauman tutkimisessa. Alla annamme pistetodennäköisyysfunktion ominaisuudet (epänegatiivisuus ja summautuminen ykköseen). Huomaa myös että jos joku mielivaltainen funktio $g$ toteuttaa pistetodennäköisyysfunktion ehdot, niin $g = g_{\boldsymbol Y}$ tosiaan on jonkin satunnaisvektorin $\boldsymbol Y$ pistetodennäköisyysfunktio.
+
+::: {.theorem #pointmass name="Pistetodennäköisyysfunktion ominaisuudet"}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ diskreetti satunnaisvektori, jolla on pistetodennäköisyysfunktio $p_{\boldsymbol X}$.
+Pistetodennäköisyysfunktio $p_{\boldsymbol X}$ toteuttaa seuraavat ehdot:
+
+1. $p_{\boldsymbol X}(x_1, x_2,\ldots, x_d) \geq 0$ kaikille vektoreille $(x_1, x_2, \ldots, x_d)\in\mathbb{Z}^d$ (epänegatiivisuus)
+
+2. $\sum_{x_1, x_2, \ldots, x_d} p_{\boldsymbol X}(x_1, x_2,\ldots, x_d) = \sum_{x_1\in\mathbb{Z}}\sum_{x_2\in\mathbb{Z}} \cdots \sum_{x_d\in\mathbb{Z}} p_{\boldsymbol X}(x_1, x_2,\ldots, x_d) = 1$ (summautuu ykköseen)
+
+Vastaavasti, jos joku mielivaltainen funktio $g:\mathbb{Z}^d\to[0,1]$ toteuttaa ehdot 1 ja 2, niin se on jonkun diskreetin satunnaisvektorin pistetodennäköisyysfunktio.
+:::
+
+Alla on esimerkki pistetodennäköisyysfunktion ehtojen 1 ja 2 tarkistamisesta.
+
+::: {.example name="Pistetodennäköisyysfunktion ehdot"}
 Olkoon $C > 0$ ja määritellään funktio $f:\mathbb{Z^2}\to \mathbb{R}$ kaavalla
 \begin{equation*}
   f(x,y) =
@@ -307,7 +316,7 @@ Olkoon $C > 0$ ja määritellään funktio $f:\mathbb{Z^2}\to \mathbb{R}$ kaaval
     0, & \text{muulloin}.
   \end{cases}
 \end{equation*}
-Määritetään vakio $C$ siten, että $f$ on diskreetin satunnaisvektorin pistetodennäköisyysfunktio. Eli vakio $C$ tulee valita niin, että faktan \@ref(thm:discrete) ehdot 1 ja 2 täyttyvät. Kunhan $C \geq 0$, niin ehto 1 täyttyy selvästi. Tarkistetaan siis ehto 2. Sievennetään ensin summa $\sum_{x,y} f(x,y)$,
+Määritetään vakio $C$ siten, että $f$ on diskreetin satunnaisvektorin pistetodennäköisyysfunktio. Eli vakio $C$ tulee valita niin, että faktan \@ref(thm:pointmass) ehdot 1 ja 2 täyttyvät. Kunhan $C \geq 0$, niin ehto 1 täyttyy selvästi. Tarkistetaan siis ehto 2. Sievennetään ensin summa $\sum_{x,y} f(x,y)$,
 \begin{equation*}
   \begin{split}
     \sum_{x\in\mathbb{Z}}\sum_{y\in\mathbb{Z}} f(x,y)
@@ -328,9 +337,13 @@ asiakastyytyväisyyttä (tyytymätön / tyytyväinen). Nyt voimme esimerkiksi la
 \end{equation*}
 :::
 
-Seuraavaksi jatkamme esimerkkiä \@ref(exm:coin).
+::: {.remark}
+Huomaa, että esimerkiksi notaatiolla $\mathbb{P}\left(X = i, Y = j, Z = k\right)$ tarkoitamme todennäköisyyttä $\mathbb{P}\left(X = i\ \text{ja}\ Y = j\ \text{ja}\ Z = k\right)$.
+:::
 
-::: {.example #coincont name="Yhteisjakauman määrittäminen"}
+Seuraavaksi jatkamme esimerkkiä \@ref(exm:coin). Kyseisen esimerkin tapauksessa määritämme satunnaisvektorin pistetodennäköisyysfunktion
+
+::: {.example #coincont name="Pistetodennäköisyysfunktion määrittäminen"}
 Oletetaan sama asetelma kuin esimerkissä \@ref(exm:coin). Tarkoitus on nyt määrittää satunnaisvektorin $(X,Y)^T$ yhteisjakauma kun satunnaismuuttujat $X$ ja $Y$ määriteltiin seuraavasti:
 
 - $X = \mathrm{Klaavojen\ määrä\ kahdella\ ensimmäisellä\ heitolla}$ ja
@@ -359,8 +372,25 @@ ja tällöin pistetodennäköisyysfunktion $f(x,y) = \mathbb{P}\left(X = x, Y = 
 \end{equation*}
 :::
 
+Kuten yksiulotteisten diskreettien satunnaismuuttujien tapauksessa, myös diskreettien satunnaisvektorien jakauma saadaan pistetodennäköisyysfunktion avulla.
+
+::: {.theorem #discretecdf name="Pistetodennäköisyys- ja kertymäfunktion yhteys"}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori, jolla on pistetodennäköisyysfunktio $f$. Pistetodennäköisyys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2, \ldots, x_d)\in\mathbb{R}^d$ pätee 
+\begin{equation*}
+  \begin{split}
+    F_{\boldsymbol X}\left(\boldsymbol x\right)
+    &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right) \\
+    &= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
+    f(x_1, x_2,\ldots, x_d).
+  \end{split}
+\end{equation*}
+:::
+
+Faktan \@ref(thm:discretecdf) kaavat (esim. kertymäfunktio näyttävät siis hyvin samankaltaiselta kuin yksiulotteiset vastineet luvun 2 alussa -- yhden summan sijasta on $d$ summaa.
+
 ### Jatkuva satunnaisvektori {-}
 
+Tällä kurssilla moniulotteisia jatkuvia jakaumia ei käydä yhtä tarkasti kuin diskreettejä. Syy tähän on se, että
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
