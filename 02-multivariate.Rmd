@@ -102,7 +102,7 @@ Kuten luvussa \@ref(sec:rvec) tullaan näkemään, niin satunnaisvektoreiden kä
 
 Seuraavaksi annamme esimerkin, jossa tarkistetaan kahden satunnaismuuttujan välinen riippumattomuus/riippuvuus.
 
-::: {.example name="Kolikonheitto"}
+::: {.example #coin name="Kolikonheitto"}
 Heitetään kolikkoa kolme kertaa. Yhden kolikonheiton tulos on joko klaava ($T$) tai kruuna ($H$) js kolikko on reilu eli
 \begin{equation*}
   \mathbb{P}\left(T\right) = \mathbb{P}\left(H\right) = \frac{1}{2}.
@@ -260,11 +260,109 @@ Yllä puhumme satunnaisvektorin $\boldsymbol X$ *yhteis*jakaumasta, *yhteis*kert
 Seuraavaksi käsittelemme konkreettisempia esimerkkejä satunnaisvektoreista. Aloitamme diskreeteistä moniulotteisista satunnaismuuttujista, minkä jälkeen sanomme muutaman sanan jatkuvista moniulotteisista satunnaismuuttujista.
 
 
-### Diskreetit jakaumat {-}
+### Diskreetti satunnaisvektori {-}
 
-### Jatkuvat jakaumat {-}
+Kuten yksiulotteisten diskreettien satunnaismuuttujien tapauksessa, myös diskreettien satunnaisvektorien jakauma saadaan pistetodennäköisyysfunktion avulla.
 
-## Ehdolliset jakaumat  {#sec:cond}
+::: {.theorem #discrete name="Diskreetti satunnaisvektori"}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori. Satunnaisvektori $\boldsymbol X$ on diskreetti, jos sen arvojoukko on $\mathbb{Z}^d$ eli $X_i\in\mathbb{Z}$ kaikilla $i$. Diskreetin satunnaisvektorin $\boldsymbol X$ yhteispistetodennäköisyysfunktio $f:\mathbb{Z}^d\to[0,1]$ on
+\begin{equation*}
+  f(x_1, x_2,\ldots, x_d) = \mathbb{P}\left(X_1 = x_1, X_2 = x_2,
+  \ldots, X_d = x_d\right).
+\end{equation*}
+Pistetodennäköisyysfunktio $f$ toteuttaa seuraavat ehdot:
+
+1. $f(x_1, x_2,\ldots, x_d) \geq 0$ kaikille vektoreille $(x_1, x_2, \ldots, x_d)\in\mathbb{Z}^d$ (epänegatiivisuus)
+
+2. $\sum_{x_1, x_2, \ldots, x_d} f(x_1, x_2,\ldots, x_d) = \sum_{x_1\in\mathbb{Z}}\sum_{x_2\in\mathbb{Z}} \cdots \sum_{x_d\in\mathbb{Z}} f(x_1, x_2,\ldots, x_d) = 1$ (summautuu ykköseen)
+
+Vastaavasti, jos $f$ toteuttaa ehdot 1 ja 2, niin se on diskreetin satunnaismuuttujan pistetodennäköisyysfunktio.
+
+Pistetodennäköisyys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2, \ldots, x_d)\in\mathbb{R}^d$ pätee 
+\begin{equation*}
+  \begin{split}
+    F_{\boldsymbol X}\left(\boldsymbol x\right)
+    &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right) \\
+    &= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
+    f(x_1, x_2,\ldots, x_d).
+  \end{split}
+\end{equation*}
+:::
+
+Faktan \@ref(thm:discrete) kaavat (esim. kertymäfunktio pistetodennäköisyysfunktion avulla) näyttävät siis hyvin samankaltaiselta kuin yksiulotteiset vastineet luvun 2 alussa -- yhden summan sijasta on $d$ summaa.
+
+::: {.example name="Diskreetti satunnaisvektori"}
+Olkoon $X$ ja $Y$ kuten esimerkissä \@ref(exm:coin). Tällöin $(X, Y)^T$ on $2$-ulotteinen diskreetti satunnaisvektori.
+:::
+
+::: {.example name="Pistetodennäköisyysfunktio"}
+Olkoon $C > 0$ ja määritellään funktio $f:\mathbb{Z^2}\to \mathbb{R}$ kaavalla
+\begin{equation*}
+  f(x,y) =
+  \begin{cases}
+    \frac{1}{5}C, & x = 1, y = 1, \\
+    \frac{1}{3}C, & x = 1, y = 2, \\
+    \frac{2}{5}C, & x = 2, y = 1, \\
+    \frac{1}{2}C, & x = 2, y = 2, \\
+    0, & \text{muulloin}.
+  \end{cases}
+\end{equation*}
+Määritetään vakio $C$ siten, että $f$ on diskreetin satunnaisvektorin pistetodennäköisyysfunktio. Eli vakio $C$ tulee valita niin, että faktan \@ref(thm:discrete) ehdot 1 ja 2 täyttyvät. Kunhan $C \geq 0$, niin ehto 1 täyttyy selvästi. Tarkistetaan siis ehto 2. Sievennetään ensin summa $\sum_{x,y} f(x,y)$,
+\begin{equation*}
+  \begin{split}
+    \sum_{x\in\mathbb{Z}}\sum_{y\in\mathbb{Z}} f(x,y)
+    &= \sum_{x\in\{1, 2\}}\sum_{y\in\{1, 2\}} f(x,y) \\
+    &= \sum_{x\in\{1, 2\}} f(x, 1) + f(x, 2) \\
+    &= f(1,1) + f(1,2) + f(2,1) + f(2,2) \\
+    &= C\left(\frac{1}{5} + \frac{1}{3} + \frac{2}{5} + \frac{1}{2}\right) \\
+    &= \frac{43}{30} C.
+  \end{split}
+\end{equation*}
+Ehdon 2 yhtälö $\sum_{x,y} f(x,y) = 1$ voidaan siis kirjoittaa muodossa $\frac{43}{30} C = 1$, josta saadaan $C = \frac{30}{43}$.
+
+Tämä pistetodennäköisyysfunktio sopisi vaikka kuvaamaan yrityksen yksinkertaistettua asiakastyytyväisyyskartoituksen tulosta, jossa ensimmäinen komponenttimuuttuja $X$ kuvaa asiakkaan tekemien ostotapahtumien yleisyyttä (harvoin / usein) ja toinen komponenttimuuttuja $Y$ kuvaa
+asiakastyytyväisyyttä (tyytymätön / tyytyväinen). Nyt voimme esimerkiksi laskea
+\begin{equation*}
+  \mathbb{P}\left(X = 1, Y = 2\right) = f(1,2)
+  = \frac{1}{3}\cdot \frac{30}{43} \approx 0.23.
+\end{equation*}
+:::
+
+Seuraavaksi jatkamme esimerkkiä \@ref(exm:coin).
+
+::: {.example #coincont name="Yhteisjakauman määrittäminen"}
+Oletetaan sama asetelma kuin esimerkissä \@ref(exm:coin). Tarkoitus on nyt määrittää satunnaisvektorin $(X,Y)^T$ yhteisjakauma kun satunnaismuuttujat $X$ ja $Y$ määriteltiin seuraavasti:
+
+- $X = \mathrm{Klaavojen\ määrä\ kahdella\ ensimmäisellä\ heitolla}$ ja
+
+- $Y = \mathrm{Klaavojen\ määrä\ kahdella\ viimeisellä\ heitolla}$.
+
+Muistakaamme, että kaikki mahdolliset kolmen kolikonheiton ($T = \text{klaava}$ ja $H = \text{kruuna}$) sarjat ovat
+\begin{equation*}
+  \{\underbrace{(HHH)}_{s_1}, \underbrace{(HHT)}_{s_2},
+  \underbrace{(HTH)}_{s_3}, \underbrace{(THH)}_{s_4},
+  \underbrace{(TTH)}_{s_5}, \underbrace{(THT)}_{s_6},
+  \underbrace{(HTT)}_{s_7}, \underbrace{(TTT)}_{s_8}\}
+\end{equation*}
+ja jokaisen sarjan $s_i$ todennäköisyys on $1/8$. Nähdään, että jos esimerkiksi $X = 2$, niin silloin $Y\in\{1,2\}$ (ainakin 1 klaava viimeisen kahden heiton aikana). Esimerkiksi jos $s_8$ tapahtuu, niin tällöin
+$X = Y = 2$. Toisaalta jos $s_5$ tapahtuu, niin $X = 2$ ja $Y = 1$. Siten
+satunnaisvektorin $(X, Y)^T$ saamat kaikki mahdolliset arvot ovat
+\begin{equation*}
+  (0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2) 
+\end{equation*}
+ja tällöin pistetodennäköisyysfunktion $f(x,y) = \mathbb{P}\left(X = x, Y = y\right)$ saamat arvot ovat
+\begin{equation*}
+  \begin{split}
+    &f(0,0) = 1/8, f(0,1) = 1/8, f(0,2) = 0, f(1,0) = 1/8, f(1,1) = 1/4 \\
+    &f(1,2) = 1/8, f(2,0) = 0, f(2,1) = 1/8, f(2,2) = 1/8.
+  \end{split}
+\end{equation*}
+:::
+
+### Jatkuva satunnaisvektori {-}
+
+
+## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
 ### Diskreetit jakaumat {-}
 
