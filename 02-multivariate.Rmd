@@ -1,11 +1,13 @@
 # Moniulotteiset jakaumat
 
 Kurssilla *Tilastotieteen perusteet* käsiteltiin (yksiulotteiset) satunnaismuuttujat. Satunnaismuuttuja on funktio, joka saa lukuarvon (kokonaislukuluku $\mathbb{Z}$, rationaaliluku $\mathbb{Q}$, Reaaliluku $\mathbb{R}$) satunnaisilmiön toteuman perusteella. Satunnaismuuttuja voi olla diskreetti kuten $X_1 = \mathrm{nopanheiton\  tulos}$ tai jatkuva kuten $X_2 = \mathrm{Bussin\ saapumisaika\ pysäkille}$. Satunnaismuuttujan $Y$ käyttäytymistä mallintaa sen jakauma $\mathbb{P}\left(Y\in A\right)$, jossa $\{Y\in A\}$ on mahdollinen tapahtuma. Esimerkiksi tapahtumaa "nopanheiton tulos on 1 tai 5" vastaava todennäköisyys on $\mathbb{P}\left(X_1\in \{2, 5\}\right) = 2/6 = 1/3$, kunhan noppa on reilu. Kaiken informaation satunnaismuuttujan $Y$ jakaumasta sisältää kertymäfunktio $F_Y(y) = \mathbb{P}\left(Y \leq y\right)$. Jos satunnaismuuttuja $Y$ on diskreetti, niin sen kertymäfunktio voidaan kirjoittaa pistetodennäköisyysfunktion $p_Y(x) = \mathbb{P}\left(Y = x\right)$ avulla
-\begin{equation*}
+\begin{equation}
+  (\#eq:discrete-uni-cdf)
   F_Y(y) = \sum_{x\leq y} p_Y(x).
-\end{equation*}
+\end{equation}
 Jos taas satunnaismuuttuja $Y$ on jatkuva, niin sen kertymäfunktio voidaan kirjoittaa tiheysfunktion $f_Y(x)$ avulla integraalina
 \begin{equation*}
+  (\#eq:continuous-uni-cdf)
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}
 Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
@@ -266,7 +268,11 @@ Diskreetit satunnaisvektorit tarjoavat todennäköisyysteoreettisen mallin monil
 
 - Peräkkäiset kolikonheitot
 
-- 
+- Jonotusmallit
+    - esim.\ asiakkaiden määrät useammassa jonossa
+
+- Luonnollisen kielen prosessointi (eng: *natural language processing*)
+    - esim.\ tilastollinen malli (tai teköälymalli) saattaa ottaa sisäänsä vektoreita, joiden alkiot kuvaavat sanojen lukumääriä dokumentissa (eng: *bag-of-words model*)
 
 ::: {.definition #discrete name="Diskreetti satunnaisvektori"}
 Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori. Satunnaisvektori $\boldsymbol X$ on diskreetti, jos sen arvojoukko on $\mathbb{Z}^d$ eli $X_i\in\mathbb{Z}$ kaikilla $i$. Diskreetin satunnaisvektorin $\boldsymbol X$ yhteispistetodennäköisyysfunktio $p_{\boldsymbol X}:\mathbb{Z}^d\to[0,1]$ määritellään kaavan
@@ -286,7 +292,7 @@ Alla on pari esimerkkiä diskreeteistä satunnaisvektoreista. Huomaa, että disk
   \subset \mathbb{Z}.
 \end{equation*}
 
-- Heitetään noppaa viisi kertaa peräkkäin ($\boldsymbol X_i = \mathrm{Heiton}\ i\ \mathrm{tulos}$, $i\in\{1,2,3,4,5\}$). Tällöin $(X_1, X_2, X_3, X_4, X_5)^T$ on $5$-ulotteinen diskreetti satunnaisvektori, jonka arvojoukko on $\{(j_1, j_2, j_3, j_4, j_5) : j_i\in\{1,2,3,4,5,6\}\}$.
+- Heitetään noppaa viisi kertaa peräkkäin ($X_i = \mathrm{Heiton}\ i\ \mathrm{tulos}$, $i\in\{1,2,3,4,5\}$). Tällöin $(X_1, X_2, X_3, X_4, X_5)^T$ on $5$-ulotteinen diskreetti satunnaisvektori, jonka arvojoukko on $\{(j_1, j_2, j_3, j_4, j_5) : j_i\in\{1,2,3,4,5,6\}\}$.
 :::
 
 Määritelmässä \@ref(def:discrete) annettu pistetodennäköisyysfunktio on tärkeä työkalu diskreetin satunnaisvektorin jakauman tutkimisessa. Alla annamme pistetodennäköisyysfunktion ominaisuudet (epänegatiivisuus ja summautuminen ykköseen). Huomaa myös että jos joku mielivaltainen funktio $g$ toteuttaa pistetodennäköisyysfunktion ehdot, niin $g = g_{\boldsymbol Y}$ tosiaan on jonkin satunnaisvektorin $\boldsymbol Y$ pistetodennäköisyysfunktio.
@@ -299,7 +305,7 @@ Pistetodennäköisyysfunktio $p_{\boldsymbol X}$ toteuttaa seuraavat ehdot:
 
 2. $\sum_{x_1, x_2, \ldots, x_d} p_{\boldsymbol X}(x_1, x_2,\ldots, x_d) = \sum_{x_1\in\mathbb{Z}}\sum_{x_2\in\mathbb{Z}} \cdots \sum_{x_d\in\mathbb{Z}} p_{\boldsymbol X}(x_1, x_2,\ldots, x_d) = 1$ (summautuu ykköseen)
 
-Vastaavasti, jos joku mielivaltainen funktio $g:\mathbb{Z}^d\to[0,1]$ toteuttaa ehdot 1 ja 2, niin se on jonkun diskreetin satunnaisvektorin pistetodennäköisyysfunktio.
+Vastaavasti, jos joku mielivaltainen funktio $g:\mathbb{Z}^d\to[0,1]$ toteuttaa ehdot 1 ja 2, niin se on jonkin diskreetin satunnaisvektorin pistetodennäköisyysfunktio.
 :::
 
 Alla on esimerkki pistetodennäköisyysfunktion ehtojen 1 ja 2 tarkistamisesta.
@@ -341,7 +347,7 @@ asiakastyytyväisyyttä (tyytymätön / tyytyväinen). Nyt voimme esimerkiksi la
 Huomaa, että esimerkiksi notaatiolla $\mathbb{P}\left(X = i, Y = j, Z = k\right)$ tarkoitamme todennäköisyyttä $\mathbb{P}\left(X = i\ \text{ja}\ Y = j\ \text{ja}\ Z = k\right)$.
 :::
 
-Seuraavaksi jatkamme esimerkkiä \@ref(exm:coin). Kyseisen esimerkin tapauksessa määritämme satunnaisvektorin pistetodennäköisyysfunktion
+Seuraavaksi jatkamme esimerkkiä \@ref(exm:coin). Kyseisen esimerkin tapauksessa määritämme satunnaisvektorin pistetodennäköisyysfunktion.
 
 ::: {.example #coincont name="Pistetodennäköisyysfunktion määrittäminen"}
 Oletetaan sama asetelma kuin esimerkissä \@ref(exm:coin). Tarkoitus on nyt määrittää satunnaisvektorin $(X,Y)^T$ yhteisjakauma kun satunnaismuuttujat $X$ ja $Y$ määriteltiin seuraavasti:
@@ -357,40 +363,120 @@ Muistakaamme, että kaikki mahdolliset kolmen kolikonheiton ($T = \text{klaava}$
   \underbrace{(TTH)}_{s_5}, \underbrace{(THT)}_{s_6},
   \underbrace{(HTT)}_{s_7}, \underbrace{(TTT)}_{s_8}\}
 \end{equation*}
-ja jokaisen sarjan $s_i$ todennäköisyys on $1/8$. Nähdään, että jos esimerkiksi $X = 2$, niin silloin $Y\in\{1,2\}$ (ainakin 1 klaava viimeisen kahden heiton aikana). Esimerkiksi jos $s_8$ tapahtuu, niin tällöin
+ja että jokaisen sarjan $s_i$ todennäköisyys on $1/8$. Nähdään, että jos esimerkiksi $X = 2$, niin silloin $Y\in\{1,2\}$ (ainakin 1 klaava viimeisen kahden heiton aikana). Esimerkiksi jos $s_8$ tapahtuu, niin tällöin
 $X = Y = 2$. Toisaalta jos $s_5$ tapahtuu, niin $X = 2$ ja $Y = 1$. Siten
-satunnaisvektorin $(X, Y)^T$ saamat kaikki mahdolliset arvot ovat
+satunnaisvektorin $\boldsymbol Z = (X, Y)^T$ saamat kaikki mahdolliset arvot ovat
 \begin{equation*}
   (0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2) 
 \end{equation*}
-ja tällöin pistetodennäköisyysfunktion $f(x,y) = \mathbb{P}\left(X = x, Y = y\right)$ saamat arvot ovat
+ja tällöin pistetodennäköisyysfunktion $p_{\boldsymbol Z}(x,y) = \mathbb{P}\left(X = x, Y = y\right)$ saamat arvot ovat
+\begin{align*}
+    p_{\boldsymbol Z}(0,0) &= 1/8,& p_{\boldsymbol Z}(0,1) &= 1/8,& p_{\boldsymbol Z}(0,2) &= 0,& p_{\boldsymbol Z}(1,0) &= 1/8,
+    & p_{\boldsymbol Z}(1,1) = 1/4 \\
+    p_{\boldsymbol Z}(1,2) &= 1/8,& p_{\boldsymbol Z}(2,0) &= 0,& p_{\boldsymbol Z}(2,1) &= 1/8,& p_{\boldsymbol Z}(2,2) &= 1/8.
+\end{align*}
+
+Pistetodennäköisyysfunktion arvot voidaan myös taulukoida kuten taulukossa \@ref(tab:coinxy).
+```{r coinxy, echo=FALSE}
+tab <- data.frame(
+  X = c("$0$", "$1$", "$2$"),
+  Y0 = c("$1/8$", "$1/8$", "$0$"),
+  Y1 = c("$1/8$", "$1/4$", "$1/8$"),
+  Y2 = c("$0$", "$1/8$", "$1/8$")
+)
+names(tab) <- c("$X$" ,"$Y = 0$", "$Y = 1$", "$Y = 2$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{\\boldsymbol Z}$ arvot taulukoituna."
+)
+```
+
+Yksittäisten satunnaismuuttujien $X$ ja $Y$ pistetodennäköisyysfunktiot $p_{X}(x) = \mathbb{P}\left(X = x\right)$ ja $p_{X}(x) = \mathbb{P}\left(X = x\right)$ saadaan myös pääteltyä heittosarjojen $s_1, \ldots, s_8$ avulla. Esimerkiksi $X = 1$ heittosarjojen $s_3$, $s_4$, $s_6$ ja $s_7$ toteutuessa eli $p_{X}(1) = 1/8 + 1/8 + 1/8 + 1/8 = 1/4$.  Samalla päättelyketjulla saadaan
 \begin{equation*}
-  \begin{split}
-    &f(0,0) = 1/8, f(0,1) = 1/8, f(0,2) = 0, f(1,0) = 1/8, f(1,1) = 1/4 \\
-    &f(1,2) = 1/8, f(2,0) = 0, f(2,1) = 1/8, f(2,2) = 1/8.
-  \end{split}
+  p_{X}(0) = p_{Y}(0) = 1/4,\quad p_{X}(1) = p_{Y}(1) = 1/2,\quad p_{X}(2) = p_{Y}(2) = 1/4.
 \end{equation*}
+Myös yksittäisten satunnaismuuttujien pistetodennäköisyysfunktiot voidaan taulukoida. Taulukossa \@ref(tab:coinx) näkyy muuttujan $X$ pistetodennäköisyysfunktion arvot.
+```{r coinx, echo=FALSE}
+tab <- data.frame(
+  X0 = c("$1/4$"),
+  X1 = c("$1/2$"),
+  X2 = c("$1/4$")
+)
+names(tab) <- c("$X = 0$", "$X = 1$", "$X = 2$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{X}$ arvot taulukoituna. Muuttujaa $Y$ vastaava taulukko näyttää täysin samanlaiselta."
+)
+```
+
+Koska muuttujat $X$ ja $Y$ **eivät** ole riippumattomia, niin pistetodennäköisyysfunktiosta $p_{X}$ ja $p_{Y}$ ei voi päätellä pistetodennäköisyysfunktion $p_{\boldsymbol Z}$ arvoa.
 :::
 
-Kuten yksiulotteisten diskreettien satunnaismuuttujien tapauksessa, myös diskreettien satunnaisvektorien jakauma saadaan pistetodennäköisyysfunktion avulla.
+Kuten yksiulotteisten diskreettien satunnaismuuttujien tapauksessa, myös diskreettien satunnaisvektorien kertymäfunktio (ja jakauma) saadaan pistetodennäköisyysfunktion avulla.
 
 ::: {.theorem #discretecdf name="Pistetodennäköisyys- ja kertymäfunktion yhteys"}
-Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori, jolla on pistetodennäköisyysfunktio $f$. Pistetodennäköisyys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2, \ldots, x_d)\in\mathbb{R}^d$ pätee 
-\begin{equation*}
+Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori, jolla on pistetodennäköisyysfunktio $p_{\boldsymbol X}$. Pistetodennäköisyys- ja kertymäfunktiolla on seuraava yhteys. Kaikille $\boldsymbol x = (x_1, x_2, \ldots, x_d)\in\mathbb{R}^d$ pätee 
+\begin{equation}
   \begin{split}
     F_{\boldsymbol X}\left(\boldsymbol x\right)
     &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right) \\
     &= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
-    f(x_1, x_2,\ldots, x_d).
+    p_{\boldsymbol X}(x_1, x_2,\ldots, x_d).
+  \end{split}
+  (\#eq:discrete-multi-cdf)
+\end{equation}
+:::
+
+Kaava \@ref(eq:discrete-multi-cdf) näyttää siis hyvin samankaltaiselta kuin \@ref(eq:discrete-uni-cdf) -- yhden summan sijasta on $d$ summaa.
+
+::: {.example name="Pistetodennäköisyysfunktiosta kertymäfunktioon"}
+Vakuutusyritys tarjoaa asiakkailleen sekä ajoneuvo- että kotivakuutusta. Molemmille vakuutustyypeille asiakkaan tulee valita omavastuu. Ajoneuvovakuutuksen omavastuu on joko $100$ tai $250$ euroa. Kotivakuutuksen omavastuu on joko $0$, $100$ tai $200$ euroa. Valitaan asiakas umpimähkään, ja merkitään
+
+- $X_1 = \mathrm{asiakkaan\ omavastuun\ määrä\ autovakuutuksessa}$,
+
+- $X_2 = \mathrm{asiakkaan\ omavastuun\ määrä\ kotivakuutuksessa}$,
+
+ja tarkastellaan näiden yhteisjakaumaa eli satunnaisvektoria $\boldsymbol X = (X_1,  X_2)^T$. Taulukossa \@ref(tab:insurance) näkyy satunnaismuuttujan $\boldsymbol X$ pistetodennäköisyysfunktio taulukoituna.
+
+```{r insurance, echo=FALSE}
+
+tab <- data.frame(
+  X = c("$100$", "$250$"),
+  Y0 = c("$0.20$", "$0.05$"),
+  Y1 = c("$0.10$", "$0.15$"),
+  Y2 = c("$0.20$", "$0.30$")
+)
+names(tab) <- c("$X_1$" ,"$X_2 = 0$", "$X_2 = 100$", "$X_2 = 200$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{\\boldsymbol X}$ arvot taulukoituna."
+)
+```
+
+Todennäköisyys, että satunnaisesti valitun asiakkaan autovakuutuksen omavastuun määrä on $250$ euroa ja kotivakuutuksen omavastuun määrä on $100$ euroa, on
+\begin{equation*}
+  \mathbb{P}\left(X_1 = 250, X_2 = 100\right) = 0.15.
+\end{equation*}
+Todennäköisyys, että satunnaisesti valitulla asiakkaalla on autovakuutuksen omavastuu $250$ euroa tai vähemmän, ja kotivakuutuksen omavastuu
+$100$ euroa tai vähemmän on
+\begin{equation*}
+  \begin{split}
+    \mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)
+    &= \sum_{u_1\leq 250} \sum_{u_2\leq 100} p_{\boldsymbol X}\left(u_1, u_2\right) \\
+    &= \sum_{u_1\leq 250} p_{\boldsymbol X}\left(u_1, 0\right) + p_{\boldsymbol X}\left(u_1, 100\right) \\
+    &= p_{\boldsymbol X}\left(100, 0\right) + p_{\boldsymbol X}\left(100, 100\right) + p_{\boldsymbol X}\left(250, 0\right) + p_{\boldsymbol X}\left(250, 100\right) \\
+    &= 0.20 + 0.10 + 0.05 + 0.15 = 0.50.
   \end{split}
 \end{equation*}
 :::
 
-Faktan \@ref(thm:discretecdf) kaavat (esim. kertymäfunktio näyttävät siis hyvin samankaltaiselta kuin yksiulotteiset vastineet luvun 2 alussa -- yhden summan sijasta on $d$ summaa.
 
 ### Jatkuva satunnaisvektori {-}
 
-Tällä kurssilla moniulotteisia jatkuvia jakaumia ei käydä yhtä tarkasti kuin diskreettejä. Syy tähän on se, että
+
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
