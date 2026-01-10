@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-09" />
+<meta name="date" content="2026-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -333,10 +333,10 @@ niin satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="m
   \mathbb{P}\left(X\in A \cap Y\in B\right)
   = \mathbb{P}\left(X\in A\right) \mathbb{P}\left(Y\in B\right).
 \end{equation*}\]</span>
-Toisaalta määritelmä <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> yleistyy myös useammalle satunnaismuuttujalle. Eli muuttujat <span class="math inline">\(X_1, \ldots, X_n\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(x_1\in\mathbb{R}, \ldots, x_n\in\mathbb{R}\)</span> pätee
+Toisaalta määritelmä <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> yleistyy myös useammalle satunnaismuuttujalle. Eli muuttujat <span class="math inline">\(X_1, \ldots, X_d\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(x_1\in\mathbb{R}, \ldots, x_d\in\mathbb{R}\)</span> pätee
 <span class="math display">\[\begin{equation*}
-  \mathbb{P}\left(X_1\leq x_1 \cap \cdots  \cap X_n\leq x_n\right)
-  = \mathbb{P}\left(X_1\leq x_1\right) \cdots \mathbb{P}\left(X_n\leq x_n\right).
+  \mathbb{P}\left(X_1\leq x_1 \cap \cdots  \cap X_d\leq x_d\right)
+  = \mathbb{P}\left(X_1\leq x_1\right) \cdots \mathbb{P}\left(X_d\leq x_d\right).
 \end{equation*}\]</span>
 Kuten luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> tullaan näkemään, niin satunnaisvektoreiden käsittely yksinkertaistuu huomattavasti, jos kaikki vektorin muuttujat ovat riippumattomia.</p>
 <p>Seuraavaksi annamme esimerkin, jossa tarkistetaan kahden satunnaismuuttujan välinen riippumattomuus/riippuvuus.</p>
@@ -528,7 +528,7 @@ Pistetodennäköisyysfunktio <span class="math inline">\(p_{\boldsymbol X}\)</sp
 </div>
 <p>Alla on esimerkki pistetodennäköisyysfunktion ehtojen 1 ja 2 tarkistamisesta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-11" class="example"><strong>Esimerkki 2.7  (Pistetodennäköisyysfunktion ehdot) </strong></span>Olkoon <span class="math inline">\(C &gt; 0\)</span> ja määritellään funktio <span class="math inline">\(f:\mathbb{Z^2}\to \mathbb{R}\)</span> kaavalla
+<p><span id="exm:unlabeled-div-11" class="example"><strong>Esimerkki 2.7  (Pistetodennäköisyysfunktion ehdot) </strong></span>Olkoon <span class="math inline">\(C &gt; 0\)</span> ja määritellään funktio <span class="math inline">\(f:\mathbb{Z}^2\to \mathbb{R}\)</span> kaavalla
 <span class="math display">\[\begin{equation*}
   f(x,y) =
   \begin{cases}

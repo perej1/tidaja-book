@@ -95,10 +95,10 @@ Eli satunnaismuuttujat ovat riippumattomia, jos niitä vastaava "yhteistodennäk
   \mathbb{P}\left(X\in A \cap Y\in B\right)
   = \mathbb{P}\left(X\in A\right) \mathbb{P}\left(Y\in B\right).
 \end{equation*}
-Toisaalta määritelmä \@ref(def:ind) yleistyy myös useammalle satunnaismuuttujalle. Eli muuttujat $X_1, \ldots, X_n$ ovat riippumattomia, jos kaikille $x_1\in\mathbb{R}, \ldots, x_n\in\mathbb{R}$ pätee
+Toisaalta määritelmä \@ref(def:ind) yleistyy myös useammalle satunnaismuuttujalle. Eli muuttujat $X_1, \ldots, X_d$ ovat riippumattomia, jos kaikille $x_1\in\mathbb{R}, \ldots, x_d\in\mathbb{R}$ pätee
 \begin{equation*}
-  \mathbb{P}\left(X_1\leq x_1 \cap \cdots  \cap X_n\leq x_n\right)
-  = \mathbb{P}\left(X_1\leq x_1\right) \cdots \mathbb{P}\left(X_n\leq x_n\right).
+  \mathbb{P}\left(X_1\leq x_1 \cap \cdots  \cap X_d\leq x_d\right)
+  = \mathbb{P}\left(X_1\leq x_1\right) \cdots \mathbb{P}\left(X_d\leq x_d\right).
 \end{equation*}
 Kuten luvussa \@ref(sec:rvec) tullaan näkemään, niin satunnaisvektoreiden käsittely yksinkertaistuu huomattavasti, jos kaikki vektorin muuttujat ovat riippumattomia.
 
@@ -311,7 +311,7 @@ Vastaavasti, jos joku mielivaltainen funktio $g:\mathbb{Z}^d\to[0,1]$ toteuttaa 
 Alla on esimerkki pistetodennäköisyysfunktion ehtojen 1 ja 2 tarkistamisesta.
 
 ::: {.example name="Pistetodennäköisyysfunktion ehdot"}
-Olkoon $C > 0$ ja määritellään funktio $f:\mathbb{Z^2}\to \mathbb{R}$ kaavalla
+Olkoon $C > 0$ ja määritellään funktio $f:\mathbb{Z}^2\to \mathbb{R}$ kaavalla
 \begin{equation*}
   f(x,y) =
   \begin{cases}
