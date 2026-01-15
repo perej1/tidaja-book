@@ -10,7 +10,12 @@ Jos taas satunnaismuuttuja $Y$ on jatkuva, niin sen kertymäfunktio voidaan kirj
   (\#eq:continuous-uni-cdf)
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}
-Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi $\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)$. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo $\mathbb{E}\left(Y\right)$ ja varianssi
+\begin{equation}
+  (\#eq:var)
+  \mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right).
+\end{equation}
+Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huipukkuus*, *kvantiilit*, $\ldots$ Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos $y_1,\ldots, y_n$ satunnaismuuttujasta $Y$ eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan $Y$ jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
 \begin{equation*}
   \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
 \end{equation*}
@@ -142,11 +147,12 @@ joten muuttuvat $X$ ja $Y$ *eivät* ole riippumattomia.
 :::
 
 Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muoto. Kahden satunnaismuuttujan $X$ ja $Y$ välistä lineaarista riippuvuutta mittaa kovarianssi,
-\begin{equation*}
+\begin{equation}
+  (\#eq:cov)
   \mathrm{Cov}\left(X, Y\right) =
   \mathbb{E}\left(\left(X - \mathbb{E}\left(X\right)\right)
   \left(Y - \mathbb{E}\left(Y\right)\right)\right).
-\end{equation*}
+\end{equation}
 Jos satunnaismuuttujista $X$ ja $Y$ on otokset $x_1, \ldots, x_n$ ja $y_1, \ldots, y_n$, niin kovarianssia voidaan estimoida otoskovarianssilla
 \begin{equation*}
   s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
@@ -457,6 +463,8 @@ Esimerkiksi, jos joukko $I$ on suorakaide eli $I = [a,b]\times[c,d]$, niin kaava
   = \mathbb{P}\left(a\leq X_1\leq b, c\leq X_2\leq d\right)
   = \int_a^b\int_c^d  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
 \end{equation*}
+Todennäköisyyttä $\mathbb{P}\left(\boldsymbol X\in I\right)$ vastaava integraali voidaan tulkita eräänlaisen kappaleen tilavuutena. Kahdessa ulottuvuudessa kappaleen pohjan muodostaa joukko $I$ ja katon joukko $\{f_{\boldsymbol X}(x): x\in I\}$. Havainnollistus todennäköisyyden tulkinnasta tilavuuden kautta näkyy kuvassa \@ref(fig:mvnormal).
+
 Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien pistetodennäköisyysfunktio. Tällöin luonnollisesti tiheysfunktio täyttää samantyyppiset ehdot kuin pistetodennäköisyysfunktio mutta summat täytyy korvata integraaleilla.
 
 ::: {.theorem name="Tiheysfunktion ominaisuudet"}
@@ -530,7 +538,7 @@ Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaa
 
 Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään jokin muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007--2009 finanssikriisin eräs juurisyy oli se, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet [@taleb2012].
 
-Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun $2$-ulotteisiin normaalijakaumiin, vaikka $d$-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen $2$-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla *Johdatus data-analytiikkaan* käytyjä perusasioita matriiseista. Tarpeellisia asioita tämän luvun kannalta ovat esimerkiksi $2\times 2$ matriisin determinantti, käänteismatriisi ja matriisikertolasku. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta \@ref(sec:matrix).
+Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun $2$-ulotteisiin normaalijakaumiin, vaikka $d$-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen $2$-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla *Johdatus data-analytiikkaan* käytyjä perusasioita matriiseista. Esimerkiksi kaksiulotteisen normaalijakauman määritelmä sisältää $2\times 2$ matriisin determinantin, käänteismatriisin ja matriisikertolaskuja. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta \@ref(sec:matrix).
 
 
 ::: {.definition #bvnormal name="Kaksiulotteinen normaalijakauma"} 
@@ -546,6 +554,28 @@ Satunnaisvektori $\boldsymbol X = (X_1,  X_2)^T$ noudattaa kaksiulotteista norma
 \end{equation*}
 Tällöin käytämme notaatiota $\boldsymbol X\sim N\left(\boldsymbol\mu, \boldsymbol\Sigma\right)$.
 :::
+
+Sijainti(parametri) $\boldsymbol\mu$, joka on vektori, antaa yksittäisiä satunnaismuuttujia $X_i$ vastaavat odotusarvot eli
+\begin{equation*}
+  \boldsymbol\mu
+  = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right)\right)^T.
+\end{equation*}
+Toisaalta hajontaparametri, joka on matriisi, kuvaa yksittäisten satunnaismuuttujien $X_i$ hajontaa ja muuttujien $X_1$ sekä $X_2$  välistä riippuvuutta, sillä
+\begin{equation*}
+  \boldsymbol\Sigma =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right)  & \mathrm{Cov}\left(X_1,  X_2\right) \\
+    \mathrm{Cov}\left(X_2,  X_1\right) & \mathrm{Var}\left(X_2\right) \\
+  \end{pmatrix}.
+\end{equation*}
+Varianssin ja kovarianssin määritelmät näet kaavoista \@ref(eq:var) ja \@ref(eq:cov). Jos lokaatio on nollavektori $\boldsymbol\mu = \boldsymbol 0 = (0,  0)^T$ ja hajonta on identiteettimatriisi $\boldsymbol\Sigma = \boldsymbol I = \begin{pmatrix} 1 & 0  \\ 0 & 1  \end{pmatrix}$, niin jakaumaa $N(\boldsymbol  0,  \boldsymbol I)$ kutsutaan standardinormaalijakaumaksi. Kuvassa \@ref(fig:mvnormal) näkyy havainnollistus standardinormaalijakauman tiheysfunktion muodosta, joka on kumpu. Tapauksessa $\boldsymbol\mu = \boldsymbol 0$ kummun keskikohta on origossa ja tapauksessa $\boldsymbol\Sigma = \boldsymbol I$ kummun muoto on symmetrinen.
+
+(ref:mvnormal-cap) Havainnollistus standardinormaalijakauman $N\left(\boldsymbol  0, \boldsymbol I\right)$ tiheysfunktiosta $f_{\boldsymbol X}(x)$. Kuvassa näkyy myös todennäköisyyden $\mathbb{P}\left(\boldsymbol X\in I\right)$ tulkinta keltaisen kappaleen tilavuutena. Eli keltaisen kappaleen tilavuus saadaan laskemalla integraali $\int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x$.
+
+```{r mvnormal, echo=FALSE, fig.cap="(ref:mvnormal-cap)"}
+knitr::include_graphics("images/mvnormal.jpg")
+```
+
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 3 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 3 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 3 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 3 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="r-ohjelmointikielestä.html"/>
+<link rel="prev" href="moniulotteiset-jakaumat.html"/>
+<link rel="next" href="lähteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -206,98 +206,71 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Tilastotieteen ja data-analytiikan jatkokurssi</h1>
-<p class="author"><em>Jaakko Pere</em></p>
-<p class="date"><em>2026-01-15</em></p>
+<div id="liitteet" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Luku 3</span> Liitteet<a href="liitteet.html#liitteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="sec:vector" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Vektoreista<a href="liitteet.html#sec:vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="liitteet.html#fig:vec">3.1</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
+<div class="remark">
+<p><span id="unlabeled-div-14" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
+<ul>
+<li><p>Joskus vektorit erotetaan luvuista lihavoimalla vektorit. Tässä monisteessa käytämme kyseistä periaatetta eli <span class="math inline">\(\boldsymbol x\)</span> tulkitaan vektorina ja <span class="math inline">\(x\)</span> lukuna.</p></li>
+<li><p>Usein oletuksena vektorit tulkitaan pystyvektoreina. Sillä onko <span class="math inline">\(\boldsymbol x\)</span> pysty- vai vaakavektori on merkitystä vektoreiden välisissä laskutoimituksissa. Muista, että notaatio <span class="math inline">\(\boldsymbol x^T\)</span> tarkoittaa transpoosia, joka muuttaa vaakavektorin pystyvektoriksi ja toisinpäin. Eli esimerkiksi <span class="math inline">\((1, 4, 2.4)^T\)</span> on <span class="math inline">\(3\)</span>-ulotteinen pystyvektori
+<span class="math display">\[\begin{equation*}
+\begin{pmatrix}
+1 \\ 4 \\ 2.4
+\end{pmatrix},
+\end{equation*}\]</span>
+joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla <span class="math inline">\(\boldsymbol y = (4, 1, 8, 2)^T\)</span>.</p></li>
+</ul>
 </div>
-<div id="alustava-kurssiohjelma" class="section level1 unnumbered hasAnchor">
-<h1>Alustava kurssiohjelma<a href="index.html#alustava-kurssiohjelma" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table>
-<colgroup>
-<col width="12%" />
-<col width="67%" />
-<col width="19%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Viikko</th>
-<th align="left">Aihe</th>
-<th align="left">Luku</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Viikko 1</td>
-<td align="left">R ohjelmoinnista</td>
-<td align="left">Luku 1</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 2</td>
-<td align="left">Moniulotteiset jakaumat 1</td>
-<td align="left">Luvut 2.1–2.2</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 3</td>
-<td align="left">Moniulotteiset jakaumat 2</td>
-<td align="left">Luvut 2.3–2.5</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 4</td>
-<td align="left">Moniulotteinen lineaarinen regressio 1</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 5</td>
-<td align="left">Moniulotteinen lineaarinen regressio 2</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 6</td>
-<td align="left">ANOVA</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 7</td>
-<td align="left">Uusiomenetelmä ja permutaatiotesti</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 8</td>
-<td align="left">Estimoinnista (jatkoa <em>tilastotieteen perusteista</em>)</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 9</td>
-<td align="left">Epäparametrisia testejä</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 10</td>
-<td align="left">Logistinen regressio</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="odd">
-<td align="left">Viikko 11</td>
-<td align="left">Klusterointi</td>
-<td align="left">TODO</td>
-</tr>
-<tr class="even">
-<td align="left">Viikko 12</td>
-<td align="left">Kertaus</td>
-<td align="left">TODO</td>
-</tr>
-</tbody>
-</table>
+<p>Vektorin <span class="math inline">\(\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d\)</span> suuruutta tai pituutta voidaan mitata sen normin <span class="math inline">\(\|\boldsymbol x\|\)</span> avulla,
+<span class="math display">\[\begin{equation*}
+  \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
+\end{equation*}\]</span>
+Yllä olevassa yhtälössä esitetty normi on nimeltään Euklidinen normi (eng: <em>Euclidean norm</em>), joka on yksi yleisimmistä normeista. Muitakin normeja on kuitenkin olemassa:</p>
+<ul>
+<li><span class="math inline">\(\|\boldsymbol x\|_1 = \sum_{i=1}^n |x_i|\)</span>
+<ul>
+<li>Kyseiselle normille on useita nimityksiä kuten taksikuskin normi (eng: <em>taxicab norm</em>) ja Manhattanin normi (eng: <em>Manhattan norm</em>).</li>
+</ul></li>
+<li>Olkoon <span class="math inline">\(A\in\mathbb{R}^{d\times d}\)</span> positiivisesti definiitti matriisi. Tällöin matriisia vastaavan käänteismatriisin <span class="math inline">\(\boldsymbol A^{-1}\)</span> avulla voidaan määritellä normi <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol A} = \sqrt{\boldsymbol x^T \boldsymbol A^{-1} \boldsymbol x}\)</span>.
+<ul>
+<li>Tätä jo hieman monimutkaisempaa normia käytetään esimerkiksi moniulotteisen normaalijakauman tiheysfunktion määritelmässä. Tällä kurssilla ei tarvitse tietää, mitä “positiivisesti definiitti” tarkoittaa. On kuitenkin hyvä huomata, että normin määritelmässä käytetty matriisi <span class="math inline">\(\boldsymbol A\)</span> ei voi olla aivan mikä tahansa matriisi. Kuitenkin esimerkiksi luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a> määritellyt kovarianssimatriisit ovat aina positiivisesti definiittejä. Kyseisen normin avulla laskettua vektoreiden <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> välistä etäisyyttä <span class="math inline">\(\|\boldsymbol x - \boldsymbol y\|_{\boldsymbol A}\)</span> tilastotietelijät kutsuvat usein Mahalanobisin etäisyydeksi (eng: <em>Mahalanobis distance</em>). Etäisyys on siis nimetty kuuluisan intialaisen tilastotieteilijän Prasanta Chandra Mahalanobisin mukaan.</li>
+</ul></li>
+</ul>
+<p>Suuruuden lisäksi vektorilla on suunta. Työkalu vektorin suunnan määrittämiseen on pistetulo. Jos vektorin suuruutta mitataan Euklidisella normilla, niin kahden vektorin <span class="math inline">\(\boldsymbol x\in\mathbb{R}^d\)</span> ja <span class="math inline">\(\boldsymbol y\in\mathbb{R}^d\)</span> välinen pistetulo määritellään seuraavasti,
+<span class="math display">\[\begin{equation*}
+  \langle \boldsymbol x, \boldsymbol y\rangle = \sum_{i = 1}^d x_i y_i.
+\end{equation*}\]</span>
+Erityisesti kaksi vektoria <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> ovat suorassa kulmassa toisiinsa nähden jos ja vain jos <span class="math inline">\(\langle \boldsymbol x, \boldsymbol y\rangle = 0\)</span>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-15" class="example"><strong>Esimerkki 3.1  (Vektorin suuruus ja suunta) </strong></span></p>
+<ul>
+<li><p>Kuvan <a href="liitteet.html#fig:vec">3.1</a> vektoreilla <span class="math inline">\((2,2)^T\)</span> ja <span class="math inline">\((-1, \sqrt{7})^T\)</span> on sama normi.</p></li>
+<li><p>Kuvan <a href="liitteet.html#fig:vec">3.1</a> vektoreiden <span class="math inline">\((2, 2)^T\)</span> ja <span class="math inline">\((-1, 1)^T\)</span> välinen pistetulo on nolla.</p></li>
+</ul>
+</div>
 
+<div class="figure"><span style="display:block;" id="fig:vec"></span>
+<img src="images/vectors.jpg" alt="Vektoreita karteesisessa koordinaatistossa." width="730" />
+<p class="caption">
+Kuva 3.1: Vektoreita karteesisessa koordinaatistossa.
+</p>
+</div>
+</div>
+<div id="sec:matrix" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Matriiseista<a href="liitteet.html#sec:matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="r-ohjelmointikielestä.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="moniulotteiset-jakaumat.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lähteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

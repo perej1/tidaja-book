@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="r-ohjelmointikielestä.html"/>
-<link rel="next" href="lähteet.html"/>
+<link rel="next" href="liitteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -181,6 +181,11 @@ div.csl-indent {
 <li class="chapter" data-level="2.4" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:cond"><i class="fa fa-check"></i><b>2.4</b> Ehdolliset jakaumat ja reunajakaumat</a></li>
 <li class="chapter" data-level="2.5" data-path="moniulotteiset-jakaumat.html"><a href="moniulotteiset-jakaumat.html#sec:statistic"><i class="fa fa-check"></i><b>2.5</b> Tunnusluvuista</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>3</b> Liitteet</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="liitteet.html"><a href="liitteet.html#sec:vector"><i class="fa fa-check"></i><b>3.1</b> Vektoreista</a></li>
+<li class="chapter" data-level="3.2" data-path="liitteet.html"><a href="liitteet.html#sec:matrix"><i class="fa fa-check"></i><b>3.2</b> Matriiseista</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="lähteet.html"><a href="lähteet.html"><i class="fa fa-check"></i>Lähteet</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Julkaistu bookdownin avulla</a></li>
@@ -213,7 +218,12 @@ Jos taas satunnaismuuttuja <span class="math inline">\(Y\)</span> on jatkuva, ni
   \tag{2.2}
   F_Y(y) = \int_{-\infty}^{y} f_Y(x)\, \mathrm{d}x.
 \end{equation*}\]</span>
-Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo <span class="math inline">\(\mathbb{E}\left(Y\right)\)</span> ja varianssi <span class="math inline">\(\mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right)\)</span>. Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: <em>vinous</em>, <em>huipukkuus</em>, <em>kvantiilit</em>, <span class="math inline">\(\ldots\)</span> Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos <span class="math inline">\(y_1,\ldots, y_n\)</span> satunnaismuuttujasta <span class="math inline">\(Y\)</span> eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan <span class="math inline">\(Y\)</span> jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
+Jakauman sijainnnista ja hajonnasta antavat tietoa teoreettiset suureet kuten odotusarvo <span class="math inline">\(\mathbb{E}\left(Y\right)\)</span> ja varianssi
+<span class="math display" id="eq:var">\[\begin{equation}
+  \tag{2.3}
+  \mathrm{Var}\left(Y\right) = \mathbb{E}\left(\left(Y - \mathbb{E}\left(Y\right)\right)^2\right).
+\end{equation}\]</span>
+Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: <em>vinous</em>, <em>huipukkuus</em>, <em>kvantiilit</em>, <span class="math inline">\(\ldots\)</span> Tilastotieteen sovelluksissa on kuitenkin yleensä saatavilla vain otos <span class="math inline">\(y_1,\ldots, y_n\)</span> satunnaismuuttujasta <span class="math inline">\(Y\)</span> eikä satunnaismuuttujan teoreettisia ominaisuuksia tunneta. Tällöin satunnaismuuttujan <span class="math inline">\(Y\)</span> jakaumaa vastaavat teoreettiset suureet täytyy estimoida otoksen avulla. Esimerkiksi odotusarvo voidaan estimoida keskiarvolla
 <span class="math display">\[\begin{equation*}
   \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
 \end{equation*}\]</span>
@@ -291,7 +301,7 @@ Kuva 2.1: Hajontakuviot muuttujista pareittain.
 <li>Yhden muuttujan ennustaminen muilla muuttujilla</li>
 <li>Dimensioiden pienennys (eng: <em>dimension reduction</em>) ennen varsinaista analyysiä</li>
 </ul>
-<p>Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa <a href="moniulotteiset-jakaumat.html#sec:dep">2.1</a> määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa <a href="moniulotteiset-jakaumat.html#sec:cond">2.4</a> syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku <a href="moniulotteiset-jakaumat.html#sec:normal">2.3</a>. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a>. Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.</p>
+<p>Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa <a href="moniulotteiset-jakaumat.html#sec:dep">2.1</a> määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa <a href="moniulotteiset-jakaumat.html#sec:rvec">2.2</a> määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku <a href="moniulotteiset-jakaumat.html#sec:normal">2.3</a>. Luvussa <a href="moniulotteiset-jakaumat.html#sec:cond">2.4</a> syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa <a href="moniulotteiset-jakaumat.html#sec:statistic">2.5</a>. Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.</p>
 <div id="sec:dep" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Stokastinen riippumattomuus<a href="moniulotteiset-jakaumat.html#sec:dep" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Intuitiivisesti ajateltuna kaksi satunnaismuuttujaa <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippumattomia, jos tieto muuttujan <span class="math inline">\(X\)</span> arvosta ei anna mitään lisätietoa muuttujan <span class="math inline">\(Y\)</span> arvosta ja päinvastoin. Toisaalta satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat stokastisesti riippuvia, jos tieto <span class="math inline">\(X\)</span>:n arvosta antaa jotain lisätietoa <span class="math inline">\(Y\)</span>:n arvosta ja päinvastoin.</p>
@@ -373,11 +383,12 @@ Jokaisen heittosarjan <span class="math inline">\(s_i\)</span> todennäköisyys 
 joten muuttuvat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia.</p>
 </div>
 <p>Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muoto. Kahden satunnaismuuttujan <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välistä lineaarista riippuvuutta mittaa kovarianssi,
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:cov">\[\begin{equation}
+  \tag{2.4}
   \mathrm{Cov}\left(X, Y\right) =
   \mathbb{E}\left(\left(X - \mathbb{E}\left(X\right)\right)
   \left(Y - \mathbb{E}\left(Y\right)\right)\right).
-\end{equation*}\]</span>
+\end{equation}\]</span>
 Jos satunnaismuuttujista <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> on otokset <span class="math inline">\(x_1, \ldots, x_n\)</span> ja <span class="math inline">\(y_1, \ldots, y_n\)</span>, niin kovarianssia voidaan estimoida otoskovarianssilla
 <span class="math display">\[\begin{equation*}
   s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
@@ -414,47 +425,11 @@ Kuva 2.2: Otoskorrelaation <span class="math inline">\(\hat\rho_{XY}\)</span> su
 </div>
 <div id="sec:rvec" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Perusteet<a href="moniulotteiset-jakaumat.html#sec:rvec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="moniulotteiset-jakaumat.html#fig:vec">2.3</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
-<div class="remark">
-<p><span id="unlabeled-div-5" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
-<ul>
-<li><p>Joskus vektorit erotetaan luvuista lihavoimalla vektorit. Tässä monisteessa käytämme kyseistä periaatetta eli <span class="math inline">\(\boldsymbol x\)</span> tulkitaan vektorina ja <span class="math inline">\(x\)</span> lukuna.</p></li>
-<li><p>Usein oletuksena vektorit tulkitaan pystyvektoreina. Sillä onko <span class="math inline">\(\boldsymbol x\)</span> pysty- vai vaakavektori on merkitystä vektoreiden välisissä laskutoimituksissa. Muista, että notaatio <span class="math inline">\(\boldsymbol x^T\)</span> tarkoittaa transpoosia, joka muuttaa vaakavektorin pystyvektoriksi ja toisinpäin. Eli esimerkiksi <span class="math inline">\((1, 4, 2.4)^T\)</span> on <span class="math inline">\(3\)</span>-ulotteinen pystyvektori
-<span class="math display">\[\begin{equation*}
-\begin{pmatrix}
-1 \\ 4 \\ 2.4
-\end{pmatrix},
-\end{equation*}\]</span>
-joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla <span class="math inline">\(\boldsymbol y = (4, 1, 8, 2)^T\)</span>.</p></li>
-</ul>
-</div>
-<p>Vektorin <span class="math inline">\(\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d\)</span> suuruutta tai pituutta voidaan mitata sen normin <span class="math inline">\(\|\boldsymbol x\|\)</span> avulla,
-<span class="math display">\[\begin{equation*}
-  \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
-\end{equation*}\]</span>
-Suuruuden lisäksi vektorilla on suunta. Työkalu vektorin suunnan määrittämiseen on pistetulo. Kahden vektorin <span class="math inline">\(\boldsymbol x\in\mathbb{R}^d\)</span> ja <span class="math inline">\(\boldsymbol y\in\mathbb{R}^d\)</span> välinen pistetulo määritellään seuraavasti,
-<span class="math display">\[\begin{equation*}
-  \langle \boldsymbol x, \boldsymbol y\rangle = \sum_{i = 1}^d x_i y_i.
-\end{equation*}\]</span>
-Erityisesti kaksi vektoria <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> ovat suorassa kulmassa toisiinsa nähden jos ja vain jos <span class="math inline">\(\langle \boldsymbol x, \boldsymbol y\rangle = 0\)</span>.</p>
+<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina. Muista, että vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Vektoreilla on suuruus ja suunta. Kurssin kannalta tarpeelliset esitiedot vektoreista ja vektoreihin liittyvät notaatiot voit kerrata liitteiden kappaleesta <a href="liitteet.html#sec:vector">3.1</a>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-6" class="example"><strong>Esimerkki 2.4  (Vektorin suuruus ja suunta) </strong></span></p>
+<p><span id="exm:unlabeled-div-5" class="example"><strong>Esimerkki 2.4  (Havaintoaineisto ja vektorit) </strong></span></p>
 <ul>
-<li><p>Kuvan <a href="moniulotteiset-jakaumat.html#fig:vec">2.3</a> vektoreilla <span class="math inline">\((2,2)^T\)</span> ja <span class="math inline">\((-1, \sqrt{7})^T\)</span> on sama normi.</p></li>
-<li><p>Kuvan <a href="moniulotteiset-jakaumat.html#fig:vec">2.3</a> vektoreiden <span class="math inline">\((2, 2)^T\)</span> ja <span class="math inline">\((-1, 1)^T\)</span> välinen pistetulo on nolla.</p></li>
-</ul>
-</div>
-
-<div class="figure"><span style="display:block;" id="fig:vec"></span>
-<img src="images/vectors.jpg" alt="Vektoreita karteesisessa koordinaatistossa." width="730" />
-<p class="caption">
-Kuva 2.3: Vektoreita karteesisessa koordinaatistossa.
-</p>
-</div>
-<div class="example">
-<p><span id="exm:unlabeled-div-7" class="example"><strong>Esimerkki 2.5  (Havaintoaineisto ja vektorit) </strong></span></p>
-<ul>
-<li>Esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> aineiston havainnot (rivit) voidaan tulkita <span class="math inline">\(4\)</span>-ulotteisina vektoreina eli pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^4\)</span>.</li>
+<li>Esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> aineiston havainnot (rivit) voidaan tulkita <span class="math inline">\(4\)</span>-ulotteisina vektoreina eli pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^4\)</span>. Teoriassa havaintoaineistoa vastaava hajontakuvio voitaisiin piirtää neljässä ulottuvuudessa. Käytännössä ihmiset eivät kuitenkaan voi tämäntyyppistä kuvaajaa tehdä tai tulkita.</li>
 </ul>
 </div>
 <p>Nyt olemme valmiita määrittelemään satunnaisvektorit.</p>
@@ -471,7 +446,7 @@ jolle voidaan käyttää myös tiiviimpää notaatiota <span class="math inline"
 <p>Yksiulotteisen satunnaismuuttujan <span class="math inline">\(X\)</span> tapauksessa kertymäfunktio <span class="math inline">\(F_X(x), x\in\mathbb{R}\)</span> antaa kaiken informaation kyseisen satunnaismuuttujan jakaumasta <span class="math inline">\(\mathbb{P}\left(X\in A\right), A\subset\mathbb{R}\)</span>. Samoin moniulotteisen satunnaisvektorin tapauksessa yhteiskertymäfunktio <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x)\)</span> antaa kaiken informaation kyseisen satunnaisvektorin jakaumasta <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in B\right), B\subset\mathbb{R}^d\)</span>. Sanomme siis, että kaksi satunnaisvektoria <span class="math inline">\(\boldsymbol X\)</span> ja <span class="math inline">\(\boldsymbol Y\)</span> ovat samoin jakautuneet, jos <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x) = F_{\boldsymbol Y}(\boldsymbol x)\)</span> pätee kaikille <span class="math inline">\(\boldsymbol x\in\mathbb{R}^d\)</span>.</p>
 <p>Huomautamme jo tässä kohtaa, että usein informaatio yksittäisistä komponenttimuuttujista <span class="math inline">\(X_1, \ldots, X_d\)</span> kertoo varsin vähän satunnaisvektorista <span class="math inline">\(\boldsymbol X = (X_1, \ldots, X_d)\)</span> – yleisesti ottaen satunnaismuuttujien <span class="math inline">\(X_i\)</span> kertymäfunktioista <span class="math inline">\(F_{X_i}\)</span> <strong>ei</strong> voida päätellä satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> yhteiskertymäfunktiota <span class="math inline">\(F_{\boldsymbol X}\)</span>. Sääntöön löytyy kuitenkin yksi poikkeus.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-8" class="theorem"><strong>Fakta 2.1  (Riippumattomat komponenttivektorit) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2, \ldots, X_d)\)</span> satunnaisvektori niin, että satunnaismuuttujat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span> ovat riippumattomia. Tällöin riippumattomuuden määritelmästä seuraa, että kohdassa <span class="math inline">\(\boldsymbol x = (x_1, x_2,\ldots, x_d)\)</span> satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> kertymäfunktio voidaan kirjoittaa muodossa
+<p><span id="thm:unlabeled-div-6" class="theorem"><strong>Fakta 2.1  (Riippumattomat komponenttivektorit) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2, \ldots, X_d)\)</span> satunnaisvektori niin, että satunnaismuuttujat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span> ovat riippumattomia. Tällöin riippumattomuuden määritelmästä seuraa, että kohdassa <span class="math inline">\(\boldsymbol x = (x_1, x_2,\ldots, x_d)\)</span> satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> kertymäfunktio voidaan kirjoittaa muodossa
 <span class="math display">\[\begin{equation*}
   F_{\boldsymbol X}(\boldsymbol x) = F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_d}(x_d)
   = \prod_{i = 1}^d F_{X_1}(x_i).
@@ -479,7 +454,7 @@ jolle voidaan käyttää myös tiiviimpää notaatiota <span class="math inline"
 Eli satunnaisvektoria vastaava yhteiskertymäfunktio <span class="math inline">\(F_{\boldsymbol X}(\boldsymbol x)\)</span> on tulo komponenttimuuttujien <span class="math inline">\(X_i\)</span> kertymäfunktioista <span class="math inline">\(F_{X_i}(x_i)\)</span>.</p>
 </div>
 <div class="remark">
-<p><span id="unlabeled-div-9" class="remark"><em>Huomautus</em>. </span>Yllä puhumme satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> <em>yhteis</em>jakaumasta, <em>yhteis</em>kertymäfunktiosta jne. Tästä eteenpäin tiputamme etuliitteen “yhteis”, kun on selkeää mistä puhutaan.</p>
+<p><span id="unlabeled-div-7" class="remark"><em>Huomautus</em>. </span>Yllä puhumme satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> <em>yhteis</em>jakaumasta, <em>yhteis</em>kertymäfunktiosta jne. Tästä eteenpäin tiputamme etuliitteen “yhteis”, kun on selkeää mistä puhutaan.</p>
 </div>
 <p>Seuraavaksi käsittelemme konkreettisempia esimerkkejä satunnaisvektoreista. Aloitamme diskreeteistä moniulotteisista satunnaismuuttujista, minkä jälkeen sanomme muutaman sanan jatkuvista moniulotteisista satunnaismuuttujista.</p>
 <div id="diskreetti-satunnaisvektori" class="section level3 unnumbered hasAnchor">
@@ -506,7 +481,7 @@ mukaan.</p>
 </div>
 <p>Alla on pari esimerkkiä diskreeteistä satunnaisvektoreista. Huomaa, että diskreetin satunnaisvektorin arvojoukko ei tarvitse olla <span class="math inline">\(\mathbb{Z} = \{\ldots,-2, -1, 0, 1, 2,\ldots\}\)</span> kokonaisuudessaan vaan se voi olla myös joukon <span class="math inline">\(\mathbb{Z}\)</span> osajoukko.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-10" class="example"><strong>Esimerkki 2.6  (Diskreetti satunnaisvektori) </strong></span></p>
+<p><span id="exm:unlabeled-div-8" class="example"><strong>Esimerkki 2.5  (Diskreetti satunnaisvektori) </strong></span></p>
 <ul>
 <li><p>Olkoon <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> kuten esimerkissä <a href="moniulotteiset-jakaumat.html#exm:coin">2.3</a>. Tällöin <span class="math inline">\((X, Y)^T\)</span> on <span class="math inline">\(2\)</span>-ulotteinen diskreetti satunnaisvektori, jonka arvojoukko on
 <span class="math display">\[\begin{equation*}
@@ -528,7 +503,7 @@ Pistetodennäköisyysfunktio <span class="math inline">\(p_{\boldsymbol X}\)</sp
 </div>
 <p>Alla on esimerkki pistetodennäköisyysfunktion ehtojen 1 ja 2 tarkistamisesta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-11" class="example"><strong>Esimerkki 2.7  (Pistetodennäköisyysfunktion ehdot) </strong></span>Olkoon <span class="math inline">\(C &gt; 0\)</span> ja määritellään funktio <span class="math inline">\(f:\mathbb{Z}^2\to \mathbb{R}\)</span> kaavalla
+<p><span id="exm:unlabeled-div-9" class="example"><strong>Esimerkki 2.6  (Pistetodennäköisyysfunktion ehdot) </strong></span>Olkoon <span class="math inline">\(C &gt; 0\)</span> ja määritellään funktio <span class="math inline">\(f:\mathbb{Z}^2\to \mathbb{R}\)</span> kaavalla
 <span class="math display">\[\begin{equation*}
   f(x,y) =
   \begin{cases}
@@ -559,11 +534,11 @@ asiakastyytyväisyyttä (tyytymätön / tyytyväinen). Nyt voimme esimerkiksi la
 \end{equation*}\]</span></p>
 </div>
 <div class="remark">
-<p><span id="unlabeled-div-12" class="remark"><em>Huomautus</em>. </span>Huomaa, että esimerkiksi notaatiolla <span class="math inline">\(\mathbb{P}\left(X = i, Y = j, Z = k\right)\)</span> tarkoitamme todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(X = i\ \text{ja}\ Y = j\ \text{ja}\ Z = k\right)\)</span>.</p>
+<p><span id="unlabeled-div-10" class="remark"><em>Huomautus</em>. </span>Huomaa, että esimerkiksi notaatiolla <span class="math inline">\(\mathbb{P}\left(X = i, Y = j, Z = k\right)\)</span> tarkoitamme todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(X = i\ \text{ja}\ Y = j\ \text{ja}\ Z = k\right)\)</span>.</p>
 </div>
 <p>Seuraavaksi jatkamme esimerkkiä <a href="moniulotteiset-jakaumat.html#exm:coin">2.3</a>. Kyseisen esimerkin tapauksessa määritämme satunnaisvektorin pistetodennäköisyysfunktion.</p>
 <div class="example">
-<p><span id="exm:coincont" class="example"><strong>Esimerkki 2.8  (Pistetodennäköisyysfunktion määrittäminen) </strong></span>Oletetaan sama asetelma kuin esimerkissä <a href="moniulotteiset-jakaumat.html#exm:coin">2.3</a>. Tarkoitus on nyt määrittää satunnaisvektorin <span class="math inline">\((X,Y)^T\)</span> yhteisjakauma kun satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> määriteltiin seuraavasti:</p>
+<p><span id="exm:coincont" class="example"><strong>Esimerkki 2.7  (Pistetodennäköisyysfunktion määrittäminen) </strong></span>Oletetaan sama asetelma kuin esimerkissä <a href="moniulotteiset-jakaumat.html#exm:coin">2.3</a>. Tarkoitus on nyt määrittää satunnaisvektorin <span class="math inline">\((X,Y)^T\)</span> yhteisjakauma kun satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> määriteltiin seuraavasti:</p>
 <ul>
 <li><p><span class="math inline">\(X = \mathrm{Klaavojen\ määrä\ kahdella\ ensimmäisellä\ heitolla}\)</span> ja</p></li>
 <li><p><span class="math inline">\(Y = \mathrm{Klaavojen\ määrä\ kahdella\ viimeisellä\ heitolla}\)</span>.</p></li>
@@ -653,12 +628,12 @@ Myös yksittäisten satunnaismuuttujien pistetodennäköisyysfunktiot voidaan ta
     &amp;= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
     p_{\boldsymbol X}(u_1, u_2,\ldots, u_d).
   \end{split}
-  \tag{2.3}
+  \tag{2.5}
 \end{equation}\]</span></p>
 </div>
-<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:discrete-multi-cdf">(2.3)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:discrete-uni-cdf">(2.1)</a> – yhden summan sijasta on <span class="math inline">\(d\)</span> summaa.</p>
+<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:discrete-multi-cdf">(2.5)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:discrete-uni-cdf">(2.1)</a> – yhden summan sijasta on <span class="math inline">\(d\)</span> summaa.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-13" class="example"><strong>Esimerkki 2.9  (Pistetodennäköisyysfunktiosta kertymäfunktioon) </strong></span>Vakuutusyritys tarjoaa asiakkailleen sekä ajoneuvo- että kotivakuutusta. Molemmille vakuutustyypeille asiakkaan tulee valita omavastuu. Ajoneuvovakuutuksen omavastuu on joko <span class="math inline">\(100\)</span> tai <span class="math inline">\(250\)</span> euroa. Kotivakuutuksen omavastuu on joko <span class="math inline">\(0\)</span>, <span class="math inline">\(100\)</span> tai <span class="math inline">\(200\)</span> euroa. Valitaan asiakas umpimähkään, ja merkitään</p>
+<p><span id="exm:unlabeled-div-11" class="example"><strong>Esimerkki 2.8  (Pistetodennäköisyysfunktiosta kertymäfunktioon) </strong></span>Vakuutusyritys tarjoaa asiakkailleen sekä ajoneuvo- että kotivakuutusta. Molemmille vakuutustyypeille asiakkaan tulee valita omavastuu. Ajoneuvovakuutuksen omavastuu on joko <span class="math inline">\(100\)</span> tai <span class="math inline">\(250\)</span> euroa. Kotivakuutuksen omavastuu on joko <span class="math inline">\(0\)</span>, <span class="math inline">\(100\)</span> tai <span class="math inline">\(200\)</span> euroa. Valitaan asiakas umpimähkään, ja merkitään</p>
 <ul>
 <li><p><span class="math inline">\(X_1 = \mathrm{asiakkaan\ omavastuun\ määrä\ autovakuutuksessa}\)</span>,</p></li>
 <li><p><span class="math inline">\(X_2 = \mathrm{asiakkaan\ omavastuun\ määrä\ kotivakuutuksessa}\)</span>,</p></li>
@@ -713,19 +688,20 @@ Todennäköisyys, että satunnaisesti valitulla asiakkaalla on autovakuutuksen o
 <p><span id="def:continuous" class="definition"><strong>Määritelmä 2.4  (Jatkuva satunnaisvektori) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> satunnaisvektori. Satunnaisvektori <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T:S\times S\to \mathbb{R}^2\)</span> on jatkuva, jos on olemassa funktio <span class="math inline">\(f_{\boldsymbol X}:\mathbb{R}^2\to\mathbb{R}\)</span> siten, että mille tahansa tarpeeksi “kivalle”<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> joukolle <span class="math inline">\(I\subset\mathbb{R}^2\)</span>, todennäköisyys, että <span class="math inline">\(\boldsymbol X\)</span> saa arvonsa joukossa <span class="math inline">\(I\)</span> saadaan integroimalla funktiota <span class="math inline">\(f_{\boldsymbol X}\)</span> joukon <span class="math inline">\(I\)</span> yli eli
 <span class="math display" id="eq:density">\[\begin{equation}
   \mathbb{P}\left(\boldsymbol X\in I\right) = \int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x
-  \tag{2.4}
+  \tag{2.6}
 \end{equation}\]</span>
 Tällöin funktiota <span class="math inline">\(f_{\boldsymbol X}\)</span> kutsutaan satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> tiheysfunktioksi.</p>
 </div>
-<p>Esimerkiksi, jos joukko <span class="math inline">\(I\)</span> on suorakaide eli <span class="math inline">\(I = [a,b]\times[c,d]\)</span>, niin kaava <a href="moniulotteiset-jakaumat.html#eq:density">(2.4)</a> voidaan kirjoittaa muodossa
+<p>Esimerkiksi, jos joukko <span class="math inline">\(I\)</span> on suorakaide eli <span class="math inline">\(I = [a,b]\times[c,d]\)</span>, niin kaava <a href="moniulotteiset-jakaumat.html#eq:density">(2.6)</a> voidaan kirjoittaa muodossa
 <span class="math display">\[\begin{equation*}
   \mathbb{P}\left(\boldsymbol X\in I\right)
   = \mathbb{P}\left(a\leq X_1\leq b, c\leq X_2\leq d\right)
   = \int_a^b\int_c^d  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
 \end{equation*}\]</span>
-Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien pistetodennäköisyysfunktio. Tällöin luonnollisesti tiheysfunktio täyttää samantyyppiset ehdot kuin pistetodennäköisyysfunktio mutta summat täytyy korvata integraaleilla.</p>
+Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in I\right)\)</span> vastaava integraali voidaan tulkita eräänlaisen kappaleen tilavuutena. Kahdessa ulottuvuudessa kappaleen pohjan muodostaa joukko <span class="math inline">\(I\)</span> ja katon joukko <span class="math inline">\(\{f_{\boldsymbol X}(x): x\in I\}\)</span>. Havainnollistus todennäköisyyden tulkinnasta tilavuuden kautta näkyy kuvassa <a href="moniulotteiset-jakaumat.html#fig:mvnormal">2.4</a>.</p>
+<p>Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien pistetodennäköisyysfunktio. Tällöin luonnollisesti tiheysfunktio täyttää samantyyppiset ehdot kuin pistetodennäköisyysfunktio mutta summat täytyy korvata integraaleilla.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-14" class="theorem"><strong>Fakta 2.4  (Tiheysfunktion ominaisuudet) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> jatkuva satunnaisvektori, jolla on tiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tiheysfunktio toteuttaa seuraavat ehdot:</p>
+<p><span id="thm:unlabeled-div-12" class="theorem"><strong>Fakta 2.4  (Tiheysfunktion ominaisuudet) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> jatkuva satunnaisvektori, jolla on tiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tiheysfunktio toteuttaa seuraavat ehdot:</p>
 <ol style="list-style-type: decimal">
 <li><p><span class="math inline">\(f_{\boldsymbol X}\left(x_1, x_2\right)  \geq 0\)</span> kaikilla <span class="math inline">\((x_1, x_2)^T\in\mathbb{R}^2\)</span> (epänegatiivisuus)</p></li>
 <li><p><span class="math inline">\(\int_\mathbb{R}\int_\mathbb{R} f_{\boldsymbol X}(x_1,  x_2)\,\mathrm{d}x_1 \,\mathrm{d}x_2 = 1\)</span> (integroituu ykköseen)</p></li>
@@ -741,14 +717,14 @@ Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien
     &amp;:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right) \\
     &amp;= \int_{-\infty}^{x_1}\int_{-\infty}^{x_2}  f(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
   \end{split}
-  \tag{2.5}
+  \tag{2.7}
 \end{equation}\]</span></p>
 </div>
-<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:continuous-multi-cdf">(2.5)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:continuous-uni-cdf">(2.2)</a> – yhden integraalin sijasta on <span class="math inline">\(d = 2\)</span> integraalia.</p>
+<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:continuous-multi-cdf">(2.7)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:continuous-uni-cdf">(2.2)</a> – yhden integraalin sijasta on <span class="math inline">\(d = 2\)</span> integraalia.</p>
 <p>Integrointi ei sisälly tälle kurssille, joten emme sisällytä yhtä paljon esimerkkejä jatkuvista satunnaisvektoreista kuin diskreeteistä. Integrointi käydään tarkemmin kurssilla <em>Mathematical tools for analytics</em>. Jatkuvien (ja diskreettien) muuttujien tapauksissa todennäköisyyksiä voidaan kuitenkin estimoida empiirisen todennäköisyyden avulla kunhan otos on tarpeeksi suuri.</p>
 
 <div class="example">
-<p><span id="exm:unlabeled-div-15" class="example"><strong>Esimerkki 2.10  (Empiirinen todennäköisyys) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> havaintoaineistoa</p>
+<p><span id="exm:unlabeled-div-13" class="example"><strong>Esimerkki 2.9  (Empiirinen todennäköisyys) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> havaintoaineistoa</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="moniulotteiset-jakaumat.html#cb47-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -773,7 +749,7 @@ jossa notaatio <span class="math inline">\(\# A\)</span> tarkoittaa joukon <span
 <span id="cb49-2"><a href="moniulotteiset-jakaumat.html#cb49-2" tabindex="-1"></a>p_empirical <span class="ot">&lt;-</span> <span class="fu">sum</span>(condition) <span class="sc">/</span> <span class="fu">nrow</span>(body)</span>
 <span id="cb49-3"><a href="moniulotteiset-jakaumat.html#cb49-3" tabindex="-1"></a>p_empirical</span></code></pre></div>
 <pre><code>## [1] 0.002793296</code></pre>
-<p>Saamme siis estimoitua, että <span class="math inline">\(\mathbb{P}\left(X \leq 40, Y\geq 30\right)\approx 0.0028\)</span>. Huomaa kuitenkin, että estimaatti on epäluotettava joukon <span class="math inline">\(A\)</span> pienuuden vuoksi. Kuva <a href="moniulotteiset-jakaumat.html#fig:outlier">2.4</a> näyttää, että vain kaksi ihmistä (väritetty punaisella) sisältyy joukkoon <span class="math inline">\(A\)</span>.</p>
+<p>Saamme siis estimoitua, että <span class="math inline">\(\mathbb{P}\left(X \leq 40, Y\geq 30\right)\approx 0.0028\)</span>. Huomaa kuitenkin, että estimaatti on epäluotettava joukon <span class="math inline">\(A\)</span> pienuuden vuoksi. Kuva <a href="moniulotteiset-jakaumat.html#fig:outlier">2.3</a> näyttää, että vain kaksi ihmistä (väritetty punaisella) sisältyy joukkoon <span class="math inline">\(A\)</span>.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="moniulotteiset-jakaumat.html#cb51-1" tabindex="-1"></a><span class="fu">plot</span>(body<span class="sc">$</span>TotalHeight,</span>
 <span id="cb51-2"><a href="moniulotteiset-jakaumat.html#cb51-2" tabindex="-1"></a>     body<span class="sc">$</span>ArmLength,</span>
 <span id="cb51-3"><a href="moniulotteiset-jakaumat.html#cb51-3" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;skyblue&quot;</span>, <span class="st">&quot;tomato4&quot;</span>)[condition <span class="sc">+</span> <span class="dv">1</span>], <span class="co"># Point color according to condition</span></span>
@@ -785,19 +761,55 @@ jossa notaatio <span class="math inline">\(\# A\)</span> tarkoittaa joukon <span
 <div class="figure"><span style="display:block;" id="fig:outlier"></span>
 <img src="tidaja-book_files/figure-html/outlier-1.png" alt="Hajontakuvio muuttujaa \((X, Y)^T\) vastaavasta otoksesta. Havainnot jotka sisältyvät joukkoon \(A\) ollaan merkitty suurilla punaisilla pisteillä." width="672" />
 <p class="caption">
-Kuva 2.4: Hajontakuvio muuttujaa <span class="math inline">\((X, Y)^T\)</span> vastaavasta otoksesta. Havainnot jotka sisältyvät joukkoon <span class="math inline">\(A\)</span> ollaan merkitty suurilla punaisilla pisteillä.
+Kuva 2.3: Hajontakuvio muuttujaa <span class="math inline">\((X, Y)^T\)</span> vastaavasta otoksesta. Havainnot jotka sisältyvät joukkoon <span class="math inline">\(A\)</span> ollaan merkitty suurilla punaisilla pisteillä.
 </p>
 </div>
-<p>Selitämme vielä hieman kuvan <a href="moniulotteiset-jakaumat.html#fig:outlier">2.4</a> tuottavan koodinpätkän logiikasta. Argumenteilla <code>col</code>, <code>pch</code> ja <code>cex</code> voidaan muokata hajontakuvion väriä, pistetyyppiä ja pisteiden kokoa. Esimerkiksi <code>pch = 4</code> vastaa rastia. Haluamme asettaa joukon <span class="math inline">\(A\)</span> alkioille oman värin <code>tomato4</code>, pistetyypin <code>16</code> ja pistekoon <code>2</code>. Vektori <code>condition</code> on <code>TRUE/FALSE</code> vektori, jossa arvo <code>TRUE</code> on asetettu vain joukon <span class="math inline">\(A\)</span> havainnoille. Huomaa myös, että R tulkitsee <code>TRUE = 1</code> ja <code>FALSE = 0</code> tehdessä operaatioita lukujen ja totuusarvojen välillä. Esimerkiksi</p>
+<p>Selitämme vielä hieman kuvan <a href="moniulotteiset-jakaumat.html#fig:outlier">2.3</a> tuottavan koodinpätkän logiikasta. Argumenteilla <code>col</code>, <code>pch</code> ja <code>cex</code> voidaan muokata hajontakuvion väriä, pistetyyppiä ja pisteiden kokoa. Esimerkiksi <code>pch = 4</code> vastaa rastia. Haluamme asettaa joukon <span class="math inline">\(A\)</span> alkioille oman värin <code>tomato4</code>, pistetyypin <code>16</code> ja pistekoon <code>2</code>. Vektori <code>condition</code> on <code>TRUE/FALSE</code> vektori, jossa arvo <code>TRUE</code> on asetettu vain joukon <span class="math inline">\(A\)</span> havainnoille. Huomaa myös, että R tulkitsee <code>TRUE = 1</code> ja <code>FALSE = 0</code> tehdessä operaatioita lukujen ja totuusarvojen välillä. Esimerkiksi</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="moniulotteiset-jakaumat.html#cb52-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">+</span> <span class="cn">FALSE</span> <span class="sc">+</span> <span class="cn">FALSE</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Nyt siis <code>condition  + 1</code> on kokonaislukuvektori, jossa kaikki alkiot ovat ykkösiä paitsi joukon <span class="math inline">\(A\)</span> havaintoja vastaavat alkiot ovat kakkosia. Eli komento <code>c(4, 16)[condition + 1]</code> valitsee vektorista <span class="math inline">\((4,  16)\)</span> alkioita <span class="math inline">\(4\)</span> ja <span class="math inline">\(16\)</span> riippuen siitä, onko havainto joukossa <span class="math inline">\(A\)</span> vai ei.</p>
 </div>
-<p>Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jakaumista.</p>
 </div>
 </div>
 <div id="sec:normal" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Moniulotteinen normaalijakauma<a href="moniulotteiset-jakaumat.html#sec:normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jatkuvista jakaumista. Moniulotteinen normaalijakauma on tärkeä todennäköisyysteorian näkökulmasta. Esimerkiksi <em>Tilastotieteen perusteista</em> tuttu keskeinen raja-arvolause (eng: <em>central limit theorem</em>) sanoo, että suurella otoskoolla <span class="math inline">\(n\)</span>, riippumattomien ja samoin jakautuneiden satunnaismuuttujien <span class="math inline">\(X_1, \ldots, X_n\)</span> summan <span class="math inline">\(\sum_{i=1}^n X_i\)</span> jakaumaa voidaan approksimoida normaalijakauman avulla. Tulos voidaan yleistää satunnaisvektoreille – suurella otoskoolla <span class="math inline">\(n\)</span>, riippumattomien ja samoin jakautuneiden satunnaisvektoreiden <span class="math inline">\(\boldsymbol X_1, \ldots, \boldsymbol X_n\)</span> summan<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> <span class="math inline">\(\sum_{i=1}^n \boldsymbol X_i\)</span> jakaumaa voidaan approksimoida moniulotteisella normaalijakaumalla.</p>
+<p>Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään jokin muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007–2009 finanssikriisin eräs juurisyy oli se, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet <span class="citation">(<a href="#ref-taleb2012">Taleb and Martin 2012</a>)</span>.</p>
+<p>Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun <span class="math inline">\(2\)</span>-ulotteisiin normaalijakaumiin, vaikka <span class="math inline">\(d\)</span>-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen <span class="math inline">\(2\)</span>-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla <em>Johdatus data-analytiikkaan</em> käytyjä perusasioita matriiseista. Esimerkiksi kaksiulotteisen normaalijakauman määritelmä sisältää <span class="math inline">\(2\times 2\)</span> matriisin determinantin, käänteismatriisin ja matriisikertolaskuja. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta <a href="liitteet.html#sec:matrix">3.2</a>.</p>
+<div class="definition">
+<p><span id="def:bvnormal" class="definition"><strong>Määritelmä 2.5  (Kaksiulotteinen normaalijakauma) </strong></span>Satunnaisvektori <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> noudattaa kaksiulotteista normaalijakaumaa (eng: <em>bivariate normal distribution</em>) sijantiparametrilla <span class="math inline">\(\boldsymbol\mu\in\mathbb{R}^2\)</span> ja hajontaparametrilla <span class="math inline">\(\boldsymbol\Sigma\in\mathbb{R}^{2\times 2}\)</span>, jos sen yhteisjakauman tiheysfunktio on muotoa
+<span class="math display">\[\begin{equation*}
+  f_{\boldsymbol X}\left(\boldsymbol x\right)
+  = \frac{1}{2\pi\sqrt{\mathrm{Det}\left(\boldsymbol\Sigma\right)}}
+  \exp\left(-\frac{1}{2}
+  \left(\boldsymbol x - \boldsymbol\mu\right)^T
+  \boldsymbol\Sigma^{-1}
+  \left(\boldsymbol x - \boldsymbol\mu\right)\right),
+  \quad \boldsymbol x\in\mathbb{R}^2.
+\end{equation*}\]</span>
+Tällöin käytämme notaatiota <span class="math inline">\(\boldsymbol X\sim N\left(\boldsymbol\mu, \boldsymbol\Sigma\right)\)</span>.</p>
+</div>
+<p>Sijainti(parametri) <span class="math inline">\(\boldsymbol\mu\)</span>, joka on vektori, antaa yksittäisiä satunnaismuuttujia <span class="math inline">\(X_i\)</span> vastaavat odotusarvot eli
+<span class="math display">\[\begin{equation*}
+  \boldsymbol\mu
+  = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right)\right)^T.
+\end{equation*}\]</span>
+Toisaalta hajontaparametri, joka on matriisi, kuvaa yksittäisten satunnaismuuttujien <span class="math inline">\(X_i\)</span> hajontaa ja muuttujien <span class="math inline">\(X_1\)</span> sekä <span class="math inline">\(X_2\)</span> välistä riippuvuutta, sillä
+<span class="math display">\[\begin{equation*}
+  \boldsymbol\Sigma =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right)  &amp; \mathrm{Cov}\left(X_1,  X_2\right) \\
+    \mathrm{Cov}\left(X_2,  X_1\right) &amp; \mathrm{Var}\left(X_2\right) \\
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Varianssin ja kovarianssin määritelmät näet kaavoista <a href="moniulotteiset-jakaumat.html#eq:var">(2.3)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov">(2.4)</a>. Jos lokaatio on nollavektori <span class="math inline">\(\boldsymbol\mu = \boldsymbol 0 = (0,  0)^T\)</span> ja hajonta on identiteettimatriisi <span class="math inline">\(\boldsymbol\Sigma = \boldsymbol I = \begin{pmatrix} 1 &amp; 0  \\ 0 &amp; 1  \end{pmatrix}\)</span>, niin jakaumaa <span class="math inline">\(N(\boldsymbol  0,  \boldsymbol I)\)</span> kutsutaan standardinormaalijakaumaksi. Kuvassa <a href="moniulotteiset-jakaumat.html#fig:mvnormal">2.4</a> näkyy havainnollistus standardinormaalijakauman tiheysfunktion muodosta, joka on kumpu. Tapauksessa <span class="math inline">\(\boldsymbol\mu = \boldsymbol 0\)</span> kummun keskikohta on origossa ja tapauksessa <span class="math inline">\(\boldsymbol\Sigma = \boldsymbol I\)</span> kummun muoto on symmetrinen.</p>
+
+<div class="figure"><span style="display:block;" id="fig:mvnormal"></span>
+<img src="images/mvnormal.jpg" alt="Havainnollistus standardinormaalijakauman \(N\left(\boldsymbol 0, \boldsymbol I\right)\) tiheysfunktiosta \(f_{\boldsymbol X}(x)\). Kuvassa näkyy myös todennäköisyyden \(\mathbb{P}\left(\boldsymbol X\in I\right)\) tulkinta keltaisen kappaleen tilavuutena. Eli keltaisen kappaleen tilavuus saadaan laskemalla integraali \(\int_I f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x\)." width="786" />
+<p class="caption">
+Kuva 2.4: Havainnollistus standardinormaalijakauman <span class="math inline">\(N\left(\boldsymbol  0, \boldsymbol I\right)\)</span> tiheysfunktiosta <span class="math inline">\(f_{\boldsymbol X}(x)\)</span>. Kuvassa näkyy myös todennäköisyyden <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in I\right)\)</span> tulkinta keltaisen kappaleen tilavuutena. Eli keltaisen kappaleen tilavuus saadaan laskemalla integraali <span class="math inline">\(\int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x\)</span>.
+</p>
+</div>
 </div>
 <div id="sec:cond" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Ehdolliset jakaumat ja reunajakaumat<a href="moniulotteiset-jakaumat.html#sec:cond" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -813,10 +825,17 @@ Kuva 2.4: Hajontakuvio muuttujaa <span class="math inline">\((X, Y)^T\)</span> v
 
 </div>
 </div>
+<h3>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-taleb2012" class="csl-entry">
+Taleb, Nassim Nicholas, and George A. Martin. 2012. <span>“How to <span>P</span>revent <span>O</span>ther <span>F</span>inancial <span>C</span>rises.”</span> <em>SAIS Review of International Affairs</em> 32 (1): 49–60. <a href="https://doi.org/10.1353/sais.2012.0010">https://doi.org/10.1353/sais.2012.0010</a>.
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="8">
 <li id="fn8"><p>Tässä “kiva” tarkoittaa <em>mitattavaa</em> joukkoa. Tämäntyyppisten yksityiskohtien hallinta vaatii edistyneempää matematiikkaa (mittateoriaa), joka on täysin kurssin ulkopuolella.<a href="moniulotteiset-jakaumat.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Muista, että vektoreiden <span class="math inline">\(\boldsymbol a = (a_1, \ldots, a_d)\)</span> ja <span class="math inline">\(\boldsymbol b  = (b_1, \ldots, b_d)\)</span> summa suoritetaan alkioittain <span class="math inline">\(\boldsymbol a + \boldsymbol b  = (a_1 + b_1, \ldots, a_d + b_d)\)</span>.<a href="moniulotteiset-jakaumat.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -825,7 +844,7 @@ Kuva 2.4: Hajontakuvio muuttujaa <span class="math inline">\((X, Y)^T\)</span> v
         </div>
       </div>
 <a href="r-ohjelmointikielestä.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lähteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="liitteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
