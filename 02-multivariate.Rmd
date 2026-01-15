@@ -423,7 +423,7 @@ Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori, jolla on pi
     F_{\boldsymbol X}\left(\boldsymbol x\right)
     &:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2, \ldots, X_d\leq x_d\right) \\
     &= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
-    p_{\boldsymbol X}(x_1, x_2,\ldots, x_d).
+    p_{\boldsymbol X}(u_1, u_2,\ldots, u_d).
   \end{split}
   (\#eq:discrete-multi-cdf)
 \end{equation}
