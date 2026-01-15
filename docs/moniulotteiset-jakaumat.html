@@ -701,7 +701,7 @@ Tällöin funktiota <span class="math inline">\(f_{\boldsymbol X}\)</span> kutsu
 Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in I\right)\)</span> vastaava integraali voidaan tulkita eräänlaisen kappaleen tilavuutena. Kahdessa ulottuvuudessa kappaleen pohjan muodostaa joukko <span class="math inline">\(I\)</span> ja katon joukko <span class="math inline">\(\{f_{\boldsymbol X}(x): x\in I\}\)</span>. Havainnollistus todennäköisyyden tulkinnasta tilavuuden kautta näkyy kuvassa <a href="moniulotteiset-jakaumat.html#fig:mvnormal">2.4</a>.</p>
 <p>Jatkuville jakaumille tiheysfunktio ajaa saman asian kuin diskreettien jakaumien pistetodennäköisyysfunktio. Tällöin luonnollisesti tiheysfunktio täyttää samantyyppiset ehdot kuin pistetodennäköisyysfunktio mutta summat täytyy korvata integraaleilla.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-11" class="theorem"><strong>Fakta 2.4  (Tiheysfunktion ominaisuudet) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> jatkuva satunnaisvektori, jolla on tiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tiheysfunktio toteuttaa seuraavat ehdot:</p>
+<p><span id="thm:density" class="theorem"><strong>Fakta 2.4  (Tiheysfunktion ominaisuudet) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> jatkuva satunnaisvektori, jolla on tiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tiheysfunktio toteuttaa seuraavat ehdot:</p>
 <ol style="list-style-type: decimal">
 <li><p><span class="math inline">\(f_{\boldsymbol X}\left(x_1, x_2\right)  \geq 0\)</span> kaikilla <span class="math inline">\((x_1, x_2)^T\in\mathbb{R}^2\)</span> (epänegatiivisuus)</p></li>
 <li><p><span class="math inline">\(\int_\mathbb{R}\int_\mathbb{R} f_{\boldsymbol X}(x_1,  x_2)\,\mathrm{d}x_1 \,\mathrm{d}x_2 = 1\)</span> (integroituu ykköseen)</p></li>
@@ -724,7 +724,7 @@ Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in
 <p>Integrointi ei sisälly tälle kurssille, joten emme sisällytä yhtä paljon esimerkkejä jatkuvista satunnaisvektoreista kuin diskreeteistä. Integrointi käydään tarkemmin kurssilla <em>Mathematical tools for analytics</em>. Jatkuvien (ja diskreettien) muuttujien tapauksissa todennäköisyyksiä voidaan kuitenkin estimoida empiirisen todennäköisyyden avulla kunhan otos on tarpeeksi suuri.</p>
 
 <div class="example">
-<p><span id="exm:unlabeled-div-12" class="example"><strong>Esimerkki 2.9  (Empiirinen todennäköisyys) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> havaintoaineistoa</p>
+<p><span id="exm:unlabeled-div-11" class="example"><strong>Esimerkki 2.9  (Empiirinen todennäköisyys) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> havaintoaineistoa</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="moniulotteiset-jakaumat.html#cb47-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -885,6 +885,37 @@ Kuva 2.4: Havainnollistus standardinormaalijakauman <span class="math inline">\(
 Kuva 2.5: Vasemmanpuoleisessa kuvassa näkyy satunnaisvektoria <span class="math inline">\(\boldsymbol X\sim N(\boldsymbol 0, \boldsymbol I)\)</span> vastaavan tiheysfunktion korkeuskäyriä. Saman kuvan pisteet ovat satunnaisvektorista <span class="math inline">\(\boldsymbol X\)</span> generoituja havaintoja. Oikeanpuoleisessa kuvassa näkyy satunnaisvektoria <span class="math inline">\(\boldsymbol Y\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> vastaavan tiheysfunktion korkeuskäyriä. Saman kuvan pisteet ovat satunnaisvektorista <span class="math inline">\(\boldsymbol Y\)</span> generoituja havaintoja. Simulaatioissa asetettiin <span class="math inline">\(\boldsymbol\mu = (10,  -10)^T\)</span> ja <span class="math inline">\(\boldsymbol\Sigma = \begin{pmatrix}5 &amp; -3 \\ -3 &amp; 5\end{pmatrix}\)</span>.
 </p>
 </div>
+<p>Kaksiulotteisen normaalijakauman tiheysfunktio voidaan kirjoittaa muodossa
+<span class="math display">\[\begin{equation*}
+  f_{\boldsymbol X}\left(\boldsymbol x\right)
+  = C_{2, \boldsymbol\Sigma}
+  \exp\left(-\frac{1}{2}\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}\right),
+  \quad \boldsymbol x\in\mathbb{R}^2,
+\end{equation*}\]</span>
+jossa</p>
+<ul>
+<li>vakio <span class="math inline">\(C_{2, \boldsymbol\Sigma}\)</span> riippuu dimensiosta <span class="math inline">\(d = 2\)</span> ja hajonnasta <span class="math inline">\(\boldsymbol\Sigma\)</span>,
+<ul>
+<li>Kyseisen vakion rooli ei ole kovin oleellinen normaalijakauman määritelmässä – vakio <span class="math inline">\(C_{d, \boldsymbol\Sigma}\)</span> ollaan valittu siten, että faktan <a href="moniulotteiset-jakaumat.html#thm:density">2.4</a> ehto 2 (integroituvuus ykköseen) täyttyy.</li>
+</ul></li>
+<li>normi <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> mittaa vektorin <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> välistä etäisyyttä, joka syötetään funktioon <span class="math inline">\(\exp(z) = e^z\)</span>.
+<ul>
+<li>Tosiaan matriisikertolaskujen <span class="math inline">\(\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos <span class="math inline">\(\boldsymbol\Sigma = \begin{pmatrix}c_1 &amp; 0 \\ 0 &amp; c_2\end{pmatrix}\)</span>, niin
+<span class="math display">\[\begin{equation*}
+\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}
+= \sqrt{\sum_{i=1}^2 \frac{(x_i  - \mu_i)^2}{c_i}},
+\end{equation*}\]</span>
+joka on vektoria <span class="math inline">\(\boldsymbol x - \boldsymbol\mu\)</span> vastaava painotettu Euklidinen normi (vertaa yhtälöön <a href="liitteet.html#eq:euclidean">(3.1)</a>).</li>
+</ul></li>
+</ul>
+<p>Normin <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> tulkintaan auttaa kuva <a href="moniulotteiset-jakaumat.html#fig:maha">2.6</a>. Eli vektoreille <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> pätee <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma} = \|\boldsymbol y\|_{\boldsymbol\Sigma}\)</span>, jos molemmat vektorit sijaitsevat samalla ellipsillä, jonka muodon määrää matriisi <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tästä tulkinnasta seuraa myös se, että normaalijakauman korkeuskäyrät ovat ympyrän tai ellipsin muotoisia. Samoin jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> generoitu otos muodostaa ellipsin muotoisen hajontakuvion. Ellipsin sijainnin määrää <span class="math inline">\(\boldsymbol\mu\)</span> ja muodon määrää <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tätä ilmiötä havainnollistaa kuva <a href="moniulotteiset-jakaumat.html#fig:scatters-normal">2.5</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:maha"></span>
+<img src="images/mahalanobis.jpg" alt="Punaisia pisteitä vastaavat normit \(\|\boldsymbol x\|_{\boldsymbol\Sigma}\) ovat yhtäsuuria jollekin hajontamatriisille \(\boldsymbol\Sigma\). Sinisten pisteiden Euklidiset normit (katso kaava (3.1)) ovat yhtäsuuria." width="785" />
+<p class="caption">
+Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> ovat yhtäsuuria jollekin hajontamatriisille <span class="math inline">\(\boldsymbol\Sigma\)</span>. Sinisten pisteiden Euklidiset normit (katso kaava <a href="liitteet.html#eq:euclidean">(3.1)</a>) ovat yhtäsuuria.
+</p>
+</div>
+
 </div>
 <div id="sec:cond" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Ehdolliset jakaumat ja reunajakaumat<a href="moniulotteiset-jakaumat.html#sec:cond" class="anchor-section" aria-label="Anchor link to header"></a></h2>

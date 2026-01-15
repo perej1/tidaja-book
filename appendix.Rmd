@@ -18,16 +18,19 @@ joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla $\boldsymb
 :::
 
 Vektorin $\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d$ suuruutta tai pituutta voidaan mitata sen normin $\|\boldsymbol x\|$ avulla,
-\begin{equation*}
+\begin{equation}
   \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
-\end{equation*}
+  (\#eq:euclidean)
+\end{equation}
 Yllä olevassa yhtälössä esitetty normi on nimeltään Euklidinen normi (eng: *Euclidean norm*), joka on yksi yleisimmistä normeista. Muitakin normeja on kuitenkin olemassa:
 
-- $\|\boldsymbol x\|_1 = \sum_{i=1}^n |x_i|$
+- $\|\boldsymbol x\|_1 = \sum_{i=1}^d |x_i|$
   -  Kyseiselle normille on useita nimityksiä kuten taksikuskin normi (eng: *taxicab norm*) ja Manhattanin normi (eng: *Manhattan norm*).
 
 - Olkoon $A\in\mathbb{R}^{d\times d}$ positiivisesti definiitti matriisi. Tällöin matriisia vastaavan käänteismatriisin $\boldsymbol A^{-1}$ avulla voidaan määritellä normi $\|\boldsymbol x\|_{\boldsymbol A} = \sqrt{\boldsymbol x^T \boldsymbol A^{-1} \boldsymbol x}$.
   - Tätä jo hieman monimutkaisempaa normia käytetään esimerkiksi moniulotteisen normaalijakauman tiheysfunktion määritelmässä. Tällä kurssilla ei tarvitse tietää, mitä "positiivisesti definiitti" tarkoittaa. On kuitenkin hyvä huomata, että normin määritelmässä käytetty matriisi $\boldsymbol A$ ei voi olla aivan mikä tahansa matriisi. Kuitenkin esimerkiksi luvussa \@ref(sec:statistic) määritellyt kovarianssimatriisit ovat aina positiivisesti definiittejä. Kyseisen normin avulla laskettua vektoreiden $\boldsymbol x$ ja $\boldsymbol y$ välistä etäisyyttä $\|\boldsymbol x - \boldsymbol y\|_{\boldsymbol A}$ tilastotietelijät  kutsuvat usein Mahalanobisin etäisyydeksi (eng: *Mahalanobis distance*). Etäisyys on siis nimetty kuuluisan intialaisen tilastotieteilijän Prasanta Chandra Mahalanobisin mukaan.
+
+Normin valinta riippuu kontekstista eikä tuttu Euklidinen normi ole välttämättä paras valinta kaikissa tilanteissa. Painotetaan myös vielä, että normin ($\|\boldsymbol x - \boldsymbol y\|$, $\|\boldsymbol x - \boldsymbol y\|_1$ tai $\|\boldsymbol x - \boldsymbol y\|_{\boldsymbol A}$) avulla voidaan mitata kahden vektorin $\boldsymbol x$ ja $\boldsymbol y$ välistä etäisyyttä. Etäisyys tulkitaan hieman eri tavalla riippuen valitusta normista.
 
 Suuruuden lisäksi vektorilla on suunta. Työkalu vektorin suunnan määrittämiseen on pistetulo. Jos vektorin suuruutta mitataan Euklidisella normilla, niin kahden vektorin $\boldsymbol x\in\mathbb{R}^d$ ja $\boldsymbol y\in\mathbb{R}^d$ välinen pistetulo määritellään seuraavasti,
 \begin{equation*}
