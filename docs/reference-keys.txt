@@ -14,6 +14,7 @@ fig:ggplot-regression
 eq:discrete-uni-cdf
 eq:continuous-uni-cdf
 eq:var
+eq:samplevar
 exm:body
 tab:body
 fig:body-pairs
@@ -21,6 +22,8 @@ exm:ind
 def:ind
 exm:coin
 eq:cov
+eq:samplecovuni
+eq:samplecoruni
 exr:cov
 fig:cor
 exm:unlabeled-div-4
@@ -45,13 +48,18 @@ eq:continuous-multi-cdf
 exm:unlabeled-div-11
 fig:outlier
 def:bvnormal
+eq:sigma
 thm:normalcov
 fig:mvnormal
 fig:scatters-normal
 fig:maha
 exm:unlabeled-div-12
-eq:euclidean
+eq:samplecov
+eq:cov22
+exm:unlabeled-div-13
 exm:unlabeled-div-14
+eq:euclidean
+exm:unlabeled-div-16
 fig:vec
 r-ohjelmointikielestä
 sec:inst

@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-15" />
+<meta name="date" content="2026-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -228,9 +228,10 @@ Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: <em>vinous</em>
   \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
 \end{equation*}\]</span>
 ja varianssi voidaan estimoida otosvarianssilla
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:samplevar">\[\begin{equation}
+\tag{2.4}
   s_Y^2 = \frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2.
-\end{equation*}\]</span>
+\end{equation}\]</span>
 Kertaa tarvittaessa edellämainittuja asioita kurssilta <em>Tilastotieteen perusteet</em>.</p>
 <p>Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.</p>
 
@@ -384,16 +385,17 @@ joten muuttuvat <span class="math inline">\(X\)</span> ja <span class="math inli
 </div>
 <p>Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muoto. Kahden satunnaismuuttujan <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välistä lineaarista riippuvuutta mittaa kovarianssi,
 <span class="math display" id="eq:cov">\[\begin{equation}
-  \tag{2.4}
+  \tag{2.5}
   \mathrm{Cov}\left(X, Y\right) =
   \mathbb{E}\left(\left(X - \mathbb{E}\left(X\right)\right)
   \left(Y - \mathbb{E}\left(Y\right)\right)\right).
 \end{equation}\]</span>
 Jos satunnaismuuttujista <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> on otokset <span class="math inline">\(x_1, \ldots, x_n\)</span> ja <span class="math inline">\(y_1, \ldots, y_n\)</span>, niin kovarianssia voidaan estimoida otoskovarianssilla
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:samplecovuni">\[\begin{equation}
+  \tag{2.6}
   s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
   \left(y_i - \bar y\right),
-\end{equation*}\]</span>
+\end{equation}\]</span>
 jossa <span class="math inline">\(\bar y\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava keskiarvo. Kovarianssia voidaan tulkita seuraavasti:</p>
 <ul>
 <li><p>Kun <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) &gt; 0\)</span>, niin muuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> välillä on kasvava lineaarinen riippuvuus</p></li>
@@ -405,9 +407,10 @@ jossa <span class="math inline">\(\bar y\)</span> on otosta <span class="math in
   {\sqrt{\mathrm{Var}\left(X\right)\mathrm{Var}\left(Y\right)}}.
 \end{equation*}\]</span>
 Korrelaatiokertoimen estimaattori on
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:samplecoruni">\[\begin{equation}
+  \tag{2.7}
   \hat\rho_{XY} = \frac{s_{XY}}{\sqrt{s_X^2s_Y^2}},
-\end{equation*}\]</span>
+\end{equation}\]</span>
 jossa <span class="math inline">\(s_Y^2\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava otosvarianssi. Korrelaation <span class="math inline">\(\mathrm{Cor}\left(X, Y\right)\)</span> arvo on aina välillä <span class="math inline">\([-1, 1].\)</span> Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus <span class="math inline">\(\left|\mathrm{Cor}\left(X, Y\right)\right|\)</span> kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat <em>eivät</em> ole riippumattomia ja <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan <a href="moniulotteiset-jakaumat.html#fig:cor">2.2</a> oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.</p>
 <div class="exercise">
 <p><span id="exr:cov" class="exercise"><strong>Tehtävä 2.1  (Viikko 2, tehtävä 2) </strong></span>Olkoon <span class="math inline">\(X\sim \mathrm{Tas}\left([-1,1]\right)\)</span> eli <span class="math inline">\(X\)</span> on satunnaismuuttuja, joka noudattaa tasajakaumaa välillä <span class="math inline">\([-1, 1]\)</span>. Määritellään toinen satunnaismuuttuja muunnoksen <span class="math inline">\(Y = X^2\)</span> mukaan. Tällöin satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia mutta <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>.</p>
@@ -628,10 +631,10 @@ Myös yksittäisten satunnaismuuttujien pistetodennäköisyysfunktiot voidaan ta
     &amp;= \sum_{u_1\leq x_1} \sum_{u_2\leq x_2} \cdots \sum_{u_d\leq x_d}
     p_{\boldsymbol X}(u_1, u_2,\ldots, u_d).
   \end{split}
-  \tag{2.5}
+  \tag{2.8}
 \end{equation}\]</span></p>
 </div>
-<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:discrete-multi-cdf">(2.5)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:discrete-uni-cdf">(2.1)</a> – yhden summan sijasta on <span class="math inline">\(d\)</span> summaa.</p>
+<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:discrete-multi-cdf">(2.8)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:discrete-uni-cdf">(2.1)</a> – yhden summan sijasta on <span class="math inline">\(d\)</span> summaa.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-10" class="example"><strong>Esimerkki 2.8  (Pistetodennäköisyysfunktiosta kertymäfunktioon) </strong></span>Vakuutusyritys tarjoaa asiakkailleen sekä ajoneuvo- että kotivakuutusta. Molemmille vakuutustyypeille asiakkaan tulee valita omavastuu. Ajoneuvovakuutuksen omavastuu on joko <span class="math inline">\(100\)</span> tai <span class="math inline">\(250\)</span> euroa. Kotivakuutuksen omavastuu on joko <span class="math inline">\(0\)</span>, <span class="math inline">\(100\)</span> tai <span class="math inline">\(200\)</span> euroa. Valitaan asiakas umpimähkään, ja merkitään</p>
 <ul>
@@ -688,11 +691,11 @@ Todennäköisyys, että satunnaisesti valitulla asiakkaalla on autovakuutuksen o
 <p><span id="def:continuous" class="definition"><strong>Määritelmä 2.4  (Jatkuva satunnaisvektori) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T\)</span> satunnaisvektori. Satunnaisvektori <span class="math inline">\(\boldsymbol X = (X_1, X_2)^T:S\times S\to \mathbb{R}^2\)</span> on jatkuva, jos on olemassa funktio <span class="math inline">\(f_{\boldsymbol X}:\mathbb{R}^2\to\mathbb{R}\)</span> siten, että mille tahansa tarpeeksi “kivalle”<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> joukolle <span class="math inline">\(I\subset\mathbb{R}^2\)</span>, todennäköisyys, että <span class="math inline">\(\boldsymbol X\)</span> saa arvonsa joukossa <span class="math inline">\(I\)</span> saadaan integroimalla funktiota <span class="math inline">\(f_{\boldsymbol X}\)</span> joukon <span class="math inline">\(I\)</span> yli eli
 <span class="math display" id="eq:density">\[\begin{equation}
   \mathbb{P}\left(\boldsymbol X\in I\right) = \int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x
-  \tag{2.6}
+  \tag{2.9}
 \end{equation}\]</span>
 Tällöin funktiota <span class="math inline">\(f_{\boldsymbol X}\)</span> kutsutaan satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> tiheysfunktioksi.</p>
 </div>
-<p>Esimerkiksi, jos joukko <span class="math inline">\(I\)</span> on suorakaide eli <span class="math inline">\(I = [a,b]\times[c,d]\)</span>, niin kaava <a href="moniulotteiset-jakaumat.html#eq:density">(2.6)</a> voidaan kirjoittaa muodossa
+<p>Esimerkiksi, jos joukko <span class="math inline">\(I\)</span> on suorakaide eli <span class="math inline">\(I = [a,b]\times[c,d]\)</span>, niin kaava <a href="moniulotteiset-jakaumat.html#eq:density">(2.9)</a> voidaan kirjoittaa muodossa
 <span class="math display">\[\begin{equation*}
   \mathbb{P}\left(\boldsymbol X\in I\right)
   = \mathbb{P}\left(a\leq X_1\leq b, c\leq X_2\leq d\right)
@@ -717,10 +720,10 @@ Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\boldsymbol X\in
     &amp;:= \mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right) \\
     &amp;= \int_{-\infty}^{x_1}\int_{-\infty}^{x_2}  f(x_1, x_2) \,\mathrm{d}x_2 \,\mathrm{d}x_1.
   \end{split}
-  \tag{2.7}
+  \tag{2.10}
 \end{equation}\]</span></p>
 </div>
-<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:continuous-multi-cdf">(2.7)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:continuous-uni-cdf">(2.2)</a> – yhden integraalin sijasta on <span class="math inline">\(d = 2\)</span> integraalia.</p>
+<p>Kaava <a href="moniulotteiset-jakaumat.html#eq:continuous-multi-cdf">(2.10)</a> näyttää siis hyvin samankaltaiselta kuin <a href="moniulotteiset-jakaumat.html#eq:continuous-uni-cdf">(2.2)</a> – yhden integraalin sijasta on <span class="math inline">\(d = 2\)</span> integraalia.</p>
 <p>Integrointi ei sisälly tälle kurssille, joten emme sisällytä yhtä paljon esimerkkejä jatkuvista satunnaisvektoreista kuin diskreeteistä. Integrointi käydään tarkemmin kurssilla <em>Mathematical tools for analytics</em>. Jatkuvien (ja diskreettien) muuttujien tapauksissa todennäköisyyksiä voidaan kuitenkin estimoida empiirisen todennäköisyyden avulla kunhan otos on tarpeeksi suuri.</p>
 
 <div class="example">
@@ -795,14 +798,15 @@ Tällöin käytämme notaatiota <span class="math inline">\(\boldsymbol X\sim N\
   = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right)\right)^T.
 \end{equation*}\]</span>
 Toisaalta hajontaparametri, joka on matriisi, kuvaa yksittäisten satunnaismuuttujien <span class="math inline">\(X_i\)</span> hajontaa ja muuttujien <span class="math inline">\(X_1\)</span> sekä <span class="math inline">\(X_2\)</span> välistä riippuvuutta, sillä
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:sigma">\[\begin{equation}
+  \tag{2.11}
   \boldsymbol\Sigma =
   \begin{pmatrix}
     \mathrm{Var}\left(X_1\right)  &amp; \mathrm{Cov}\left(X_1,  X_2\right) \\
     \mathrm{Cov}\left(X_2,  X_1\right) &amp; \mathrm{Var}\left(X_2\right) \\
   \end{pmatrix}.
-\end{equation*}\]</span>
-Varianssin ja kovarianssin määritelmät näet kaavoista <a href="moniulotteiset-jakaumat.html#eq:var">(2.3)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov">(2.4)</a>. Kovarianssi on symmetrinen eli <span class="math inline">\(\mathrm{Cov}\left(X_1,  X_2\right) = \mathrm{Cov}\left(X_2,  X_1\right)\)</span>. Tästä voimme päätellä, että</p>
+\end{equation}\]</span>
+Varianssin ja kovarianssin määritelmät näet kaavoista <a href="moniulotteiset-jakaumat.html#eq:var">(2.3)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov">(2.5)</a>. Kovarianssi on symmetrinen eli <span class="math inline">\(\mathrm{Cov}\left(X_1,  X_2\right) = \mathrm{Cov}\left(X_2,  X_1\right)\)</span>. Tästä voimme päätellä, että</p>
 <ul>
 <li><p><span class="math inline">\(\boldsymbol\Sigma_{11} = \mathrm{Var}\left(X_1\right)\)</span> kertoo satunnaismuuttujan <span class="math inline">\(X_1\)</span> hajonnasta,</p></li>
 <li><p><span class="math inline">\(\boldsymbol\Sigma_{22} = \mathrm{Var}\left(X_2\right)\)</span> kertoo satunnaismuuttujan <span class="math inline">\(X_2\)</span> hajonnasta ja</p></li>
@@ -939,12 +943,13 @@ Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\bol
   \frac{1}{n} \sum_{i = 1}^n x_2^{(i)}, \ldots,
   \frac{1}{n} \sum_{i = 1}^n x_d^{(i)}\right)^T \in\mathbb{R}^d.
 \end{equation*}\]</span>
-Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurelle otoskoolle <span class="math inline">\(n\)</span> pätee
+Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurella otoskoolle <span class="math inline">\(n\)</span> pätee
 <span class="math display">\[\begin{equation*}
   \bar{\boldsymbol x}\approx \mathbb{E}\left(\boldsymbol X\right)
   = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right),
   \ldots, \mathbb{E}\left(X_d\right)\right)^T.
-\end{equation*}\]</span></p>
+\end{equation*}\]</span>
+Toisin sanoen komponenttikohtainen keskiarvo <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi moniulotteisen satunnaismuuttujan <span class="math inline">\(\boldsymbol{X}\)</span> odotusarvoa <span class="math inline">\(\mathbb{E}\left(\boldsymbol{X}\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\mu\)</span>.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-12" class="example"><strong>Esimerkki 2.10  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="moniulotteiset-jakaumat.html#cb55-1" tabindex="-1"></a>body</span></code></pre></div>
@@ -981,7 +986,7 @@ Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukuj
 <span id="cb63-5"><a href="moniulotteiset-jakaumat.html#cb63-5" tabindex="-1"></a>body_mean2</span></code></pre></div>
 <pre><code>## [1] 14.31704 20.19972 18.81704 48.11872</code></pre>
 <p>Viimeisessä <code>for</code>-silmukka toteutuksessa käytämme tuplahakasulkeita <code>[[</code>, joilla voi eristää listan (<code>list</code>) alkion. Tietotyyppiä <code>data.frame</code> ja <code>tibble</code> olevat muuttujat ovat eritystapauksia listoista, joten syntaksi <code>[[</code> toimii.</p>
-<p>Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:<em>(non)robust</em>). Tämä tarkoittaa sitä, poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan <code>body</code> lisäämällä oudokin <span class="math inline">\((10000, 43564, 3452, 75656)\)</span> ja laskemalla keskiarvon uudestaan.</p>
+<p>Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:<em>(non)robust</em>). Tämä tarkoittaa sitä, että poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan <code>body</code> lisäämällä oudokin <span class="math inline">\((10000, 43564, 3452, 75656)\)</span> ja laskemalla keskiarvon uudestaan.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="moniulotteiset-jakaumat.html#cb65-1" tabindex="-1"></a>body <span class="sc">|&gt;</span></span>
 <span id="cb65-2"><a href="moniulotteiset-jakaumat.html#cb65-2" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">add_row</span>(</span>
 <span id="cb65-3"><a href="moniulotteiset-jakaumat.html#cb65-3" tabindex="-1"></a>    <span class="at">ShoulderWidth =</span> <span class="dv">10000</span>,</span>
@@ -1011,10 +1016,135 @@ Tällöin tuntuisi luonnolliselta käyttää komponenttikohtaista mediaania
 <span class="math display">\[\begin{equation*}
   \mathrm{Median} = \left(\mathrm{Median}_1, \mathrm{Median}_2, \ldots, \mathrm{Median}_d\right)\in\mathbb{R}^d
 \end{equation*}\]</span>
-moniulotteisen datan sijainnin kuvaamiseen. <strong>Komponenttikohtaisen mediaanin käyttö ei kuitenkaan ole teoreettisesti perusteltua. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).</strong> Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.</p>
+moniulotteisen datan sijainnin kuvaamiseen. <strong>Komponenttikohtaisen mediaanin käyttö voi kuitenkin olla vaarallista. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).</strong> Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.</p>
 </div>
 <div id="jakauman-hajonta-ja-riippuvuussuhteet" class="section level3 unnumbered hasAnchor">
 <h3>Jakauman hajonta ja riippuvuussuhteet<a href="moniulotteiset-jakaumat.html#jakauman-hajonta-ja-riippuvuussuhteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Yksi yleisimpiä hajontaa ja riippuvuuksia kuvaava tunnusluku on otoskovarianssimatriisi
+<span class="math display" id="eq:samplecov">\[\begin{equation*}
+  \tag{2.12}
+  \hat{\boldsymbol\Sigma} = \frac{1}{n - 1}\sum_{i = 1}^n
+  \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)
+  \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)^T
+  \in\mathbb{R}^{d\times d}.
+\end{equation*}\]</span>
+Otoskovarianssin alkiot ovat muotoa
+<span class="math display">\[\begin{equation*}
+  \hat{\boldsymbol\Sigma}_{jk} =
+  \begin{cases}
+    s_{X_jX_k}, &amp; j\neq k, \\
+    s_{X_j}^2, &amp;\text{muuten}.
+  \end{cases}
+\end{equation*}\]</span>
+Tarkista otosvarianssin <span class="math inline">\(s^2_{X_j}\)</span> määritelmä yhtälöstä <a href="moniulotteiset-jakaumat.html#eq:samplevar">(2.4)</a> ja otoskovarianssin <span class="math inline">\(s_{X_jX_k}\)</span> määritelmä yhtälöstä <a href="moniulotteiset-jakaumat.html#eq:samplecovuni">(2.6)</a>. Eli matriisin <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> diagonaalilla on otosvariansseja ja muut alkiot ovat muuttujapareja vastaavia otoskovariansseja.</p>
+<p>Teoreettinen peruste otoskovarianssimatriisin käytölle on se, että lievien oletusten alla suurelle otoskoolle <span class="math inline">\(n\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \hat{\boldsymbol\Sigma}_{jk} \approx
+  \begin{cases}
+    \mathrm{Cov}\left(X_i, X_j\right), &amp; j\neq k, \\
+    \mathrm{Var}\left(X_j\right), &amp;\text{muuten}.
+  \end{cases}
+\end{equation*}\]</span>
+Toisin sanoen otoskovarianssimatriisi <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> estimoi kovarianssimatriisia <span class="math inline">\(\mathrm{Cov}\left(\boldsymbol X\right)\)</span>, joka määritellään
+<span class="math display">\[\begin{equation*}
+  \mathrm{Cov}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right) &amp; \cdots &amp; \mathrm{Cov}\left(X_1, X_d\right) \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \mathrm{Cov}\left(X_d, X_1\right) &amp; \cdots &amp; \mathrm{Var}\left(X_d\right)
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Esimerkiksi <span class="math inline">\(2\times 2\)</span> kovarianssimatriisi on muotoa
+<span class="math display" id="eq:cov22">\[\begin{equation}
+  \tag{2.13}
+  \mathrm{Cov}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right) &amp; \mathrm{Cov}\left(X_1, X_2\right) \\
+    \mathrm{Cov}\left(X_2, X_1\right) &amp; \mathrm{Var}\left(X_2\right)
+  \end{pmatrix}.
+\end{equation}\]</span>
+Kovarianssille pätee <span class="math inline">\(\mathrm{Cov}\left(X_i, X_j\right) = \mathrm{Cov}\left(X_j, X_i\right)\)</span>, kuten jo luvussa <a href="moniulotteiset-jakaumat.html#sec:normal">2.3</a> todettiin (kovarianssin symmetrisyys). Tästä seuraa, että kovarianssimatriisi on symmetrinen eli <span class="math inline">\(\mathrm{Cov}\left(\boldsymbol X\right) = \left(\mathrm{Cov}\left(\boldsymbol X\right)\right)^T\)</span>. Kovarianssimatriisilla (ja otoskovarianssimatriisilla) on muitakin toivottuja ominaisuuksia, joita ei kuitenkaan tällä kurssilla käydä läpi.</p>
+<p>Vertaamalla yhtälöitä <a href="moniulotteiset-jakaumat.html#eq:sigma">(2.11)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov22">(2.13)</a> huomataan että jos <span class="math inline">\(\boldsymbol X\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin <span class="math inline">\(\boldsymbol\Sigma = \mathrm{Cov}\left(\boldsymbol X\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\Sigma\)</span>.</p>
+<p>Vaikka kaavan <a href="moniulotteiset-jakaumat.html#eq:samplecov">(2.12)</a> otoskovarianssimatriisi on työläs laskea käsin, niin R:llä homma hoituu helpommin.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-13" class="example"><strong>Esimerkki 2.11  (Otoskovarianssin laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="moniulotteiset-jakaumat.html#cb67-1" tabindex="-1"></a>body</span></code></pre></div>
+<pre><code>## # A tibble: 716 × 4
+##    ShoulderWidth Belly ArmLength TotalHeight
+##            &lt;int&gt; &lt;int&gt;     &lt;int&gt;       &lt;int&gt;
+##  1            18    18        22          52
+##  2            22    18        28          56
+##  3            18    14        21          53
+##  4            20    11        24          45
+##  5            14    13        25          47
+##  6            19    14        20          60
+##  7            17    17        23          49
+##  8            15    17        19          58
+##  9            16    18        15          40
+## 10            20    18        16          55
+## # ℹ 706 more rows</code></pre>
+<p>Havaintoaineistoa vastaavan otoskovarianssimatriisin voi laskea helposti funktiolla <code>cov()</code>.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="moniulotteiset-jakaumat.html#cb69-1" tabindex="-1"></a><span class="fu">cov</span>(body)</span></code></pre></div>
+<pre><code>##               ShoulderWidth      Belly ArmLength TotalHeight
+## ShoulderWidth     22.678367   3.440089  8.434311    25.26161
+## Belly              3.440089 102.677538  7.271557    36.96926
+## ArmLength          8.434311   7.271557 28.907737    34.29728
+## TotalHeight       25.261611  36.969264 34.297275   147.78589</code></pre>
+<p>Tulostetun matriisin mukaan muuttujalla <code>TotalHeight</code> vaikuttaa olevan suurin hajonta. Kaikki arvot, jotka eivät ole diagonaalilla (matriisin lävistäjä) ovat suurempia kuin nolla. Tästä voimme päätellä, että kaikkien muuttujaparien esimerkiksi <code>TotalHeight</code> ja <code>ArmLength</code> välillä on kasvava lineaarinen riippuvuus. Muuttujaparien väliset kasvavat lineaariset riippuvuudet näkyvät myös kuvassa <a href="moniulotteiset-jakaumat.html#fig:body-pairs">2.1</a>.</p>
+</div>
+<p>Kahden muuttujan välistä kovarianssin suuruutta on vaikea tulkita. Tämän vuoksi usein kovarianssimatriisin sijasta halutaan estimoida korrelaatiomatriisi
+<span class="math display">\[\begin{equation*}
+  \mathrm{Cor}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    1 &amp; \cdots &amp; \mathrm{Cor}\left(X_1, X_d\right) \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \mathrm{Cor}\left(X_d, X_1\right) &amp; \cdots &amp; 1
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Esimerkiksi <span class="math inline">\(2\times 2\)</span> korrelaatiomatriisi on muotoa
+<span class="math display">\[\begin{equation*}
+  \mathrm{Cor}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    1 &amp; \mathrm{Cor}\left(X_1, X_2\right) \\
+    \mathrm{Cor}\left(X_2, X_1\right) &amp; 1
+  \end{pmatrix}.
+\end{equation*}\]</span></p>
+<p>Tunnusluku estimoimaan korrelaatiomatriisia on matriisi <span class="math inline">\(\boldsymbol C\)</span>, jonka alkiot ovat muotoa
+<span class="math display">\[\begin{equation*}
+  \boldsymbol C_{jk} =
+  \begin{cases}
+    \hat{\rho}_{X_jX_k}, &amp; j\neq k, \\
+    1, &amp;\text{muuten}.
+  \end{cases}
+\end{equation*}\]</span>
+Tarkista korrelaatiokertoimen estimaattorin <span class="math inline">\(\hat{\rho}_{X_jX_k}\)</span> määritelmä yhtälöstä <a href="moniulotteiset-jakaumat.html#eq:samplecoruni">(2.7)</a>.</p>
+<p>Myös korrelaatiomatriisin estimaattorin <span class="math inline">\(\boldsymbol C\)</span> laskeminen on suhteellisen vaivatonta R:ssä</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-14" class="example"><strong>Esimerkki 2.12  (Korrelaatiomatriisin estimointi) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="moniulotteiset-jakaumat.html#cb71-1" tabindex="-1"></a>body</span></code></pre></div>
+<pre><code>## # A tibble: 716 × 4
+##    ShoulderWidth Belly ArmLength TotalHeight
+##            &lt;int&gt; &lt;int&gt;     &lt;int&gt;       &lt;int&gt;
+##  1            18    18        22          52
+##  2            22    18        28          56
+##  3            18    14        21          53
+##  4            20    11        24          45
+##  5            14    13        25          47
+##  6            19    14        20          60
+##  7            17    17        23          49
+##  8            15    17        19          58
+##  9            16    18        15          40
+## 10            20    18        16          55
+## # ℹ 706 more rows</code></pre>
+<p>Havaintoaineistoa vastaavan korrelaatiomatriisin voi estimoida helposti funktiolla <code>cor()</code>.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="moniulotteiset-jakaumat.html#cb73-1" tabindex="-1"></a><span class="fu">cor</span>(body)</span></code></pre></div>
+<pre><code>##               ShoulderWidth      Belly ArmLength TotalHeight
+## ShoulderWidth    1.00000000 0.07128958 0.3294099   0.4363537
+## Belly            0.07128958 1.00000000 0.1334697   0.3001142
+## ArmLength        0.32940991 0.13346969 1.0000000   0.5247302
+## TotalHeight      0.43635371 0.30011424 0.5247302   1.0000000</code></pre>
+<p>Suurin korrelaatio näyttää olevan muuttujien <code>TotalHeight</code> ja <code>ArmLength</code> välillä.</p>
+</div>
 
 </div>
 </div>

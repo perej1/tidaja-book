@@ -20,9 +20,10 @@ Myös muita jakaumaa kuvaavia teoreettisia suureita on olemassa: *vinous*, *huip
   \bar y = \frac{1}{n}\sum_{i = 1}^n y_i
 \end{equation*}
 ja varianssi voidaan estimoida otosvarianssilla
-\begin{equation*}
+\begin{equation}
+(\#eq:samplevar)
   s_Y^2 = \frac{1}{n-1}\sum_{i = 1}^n\left(y_i - \bar  y\right)^2.
-\end{equation*}
+\end{equation}
 Kertaa tarvittaessa edellämainittuja asioita kurssilta *Tilastotieteen perusteet*.
 
 Yllä kuvattu asetelma on usein liian yksinkertainen käytännön datatietieteen sovelluksissa, sillä monesti dataa on saatavilla useista eri muuttujista.
@@ -154,10 +155,11 @@ Lineaarinen riippuvuus on tilastotieteessä erityisen tärkeä riippuvuuden muot
   \left(Y - \mathbb{E}\left(Y\right)\right)\right).
 \end{equation}
 Jos satunnaismuuttujista $X$ ja $Y$ on otokset $x_1, \ldots, x_n$ ja $y_1, \ldots, y_n$, niin kovarianssia voidaan estimoida otoskovarianssilla
-\begin{equation*}
+\begin{equation}
+  (\#eq:samplecovuni)
   s_{XY} = \frac{1}{n - 1}\sum_{i = 1}^n\left(x_i - \bar x\right)
   \left(y_i - \bar y\right),
-\end{equation*}
+\end{equation}
 jossa $\bar y$ on otosta $y_1, \ldots, y_n$ vastaava keskiarvo. Kovarianssia voidaan tulkita seuraavasti:
 
 - Kun $\mathrm{Cov}\left(X, Y\right) > 0$, niin muuttujien $X$ ja $Y$ välillä on kasvava lineaarinen riippuvuus
@@ -170,9 +172,10 @@ Kovarianssin suuruuteen vaikuttaan muuttujien $X$ ja $Y$ skaalat, joten kovarian
   {\sqrt{\mathrm{Var}\left(X\right)\mathrm{Var}\left(Y\right)}}.
 \end{equation*}
 Korrelaatiokertoimen estimaattori on
-\begin{equation*}
+\begin{equation}
+  (\#eq:samplecoruni)
   \hat\rho_{XY} = \frac{s_{XY}}{\sqrt{s_X^2s_Y^2}},
-\end{equation*}
+\end{equation}
 jossa $s_Y^2$ on otosta $y_1, \ldots, y_n$ vastaava otosvarianssi. Korrelaation $\mathrm{Cor}\left(X, Y\right)$ arvo on aina välillä $[-1, 1].$ Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus $\left|\mathrm{Cor}\left(X, Y\right)\right|$ kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat *eivät* ole riippumattomia ja $\mathrm{Cov}\left(X, Y\right) = 0$. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan \@ref(fig:cor) oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.
 
 ::: {.exercise #cov name="Viikko 2, tehtävä 2"}
@@ -561,13 +564,14 @@ Sijainti(parametri) $\boldsymbol\mu$, joka on vektori, antaa yksittäisiä satun
   = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right)\right)^T.
 \end{equation*}
 Toisaalta hajontaparametri, joka on matriisi, kuvaa yksittäisten satunnaismuuttujien $X_i$ hajontaa ja muuttujien $X_1$ sekä $X_2$  välistä riippuvuutta, sillä
-\begin{equation*}
+\begin{equation}
+  (\#eq:sigma)
   \boldsymbol\Sigma =
   \begin{pmatrix}
     \mathrm{Var}\left(X_1\right)  & \mathrm{Cov}\left(X_1,  X_2\right) \\
     \mathrm{Cov}\left(X_2,  X_1\right) & \mathrm{Var}\left(X_2\right) \\
   \end{pmatrix}.
-\end{equation*}
+\end{equation}
 Varianssin ja kovarianssin määritelmät näet kaavoista \@ref(eq:var) ja \@ref(eq:cov). Kovarianssi on  symmetrinen eli $\mathrm{Cov}\left(X_1,  X_2\right) = \mathrm{Cov}\left(X_2,  X_1\right)$. Tästä voimme päätellä, että
 
 - $\boldsymbol\Sigma_{11} = \mathrm{Var}\left(X_1\right)$ kertoo satunnaismuuttujan $X_1$ hajonnasta,
@@ -700,9 +704,8 @@ Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havai
 
 Formaalisti tunnusluku (eng: *statistic*) $T = T\left(\mathcal{X}\right)$ on funktio saatavilla olevasta otoksesta $\mathcal{X} = \{\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\}$. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita. Tässä $\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}$ tarkoittaa kooltaan $n$ otosta $d$-ulotteisia vektoreita, jotka ollaan generoitu jostain tuntemattomasta satunnaisvektorista $\boldsymbol X = \left(X_1, \ldots, X_d\right)^T$. Havainnon $i$ alkioille $j$ käytämme merkintää $\boldsymbol x_j^{(i)}$ eli esimerkiksi $\boldsymbol x^{(3)} = \left(x_1^{(3)}, x_2^{(3)}, \ldots, x_d^{(3)}\right)^T$.
 
+
 ### Jakauman sijainti {-}
-
-
 
 Yksi yleisimpiä sijaintia kuvaavia tunnuslukuja on komponenttikohtainen (eng: *componentwise*) keskiarvo
 \begin{equation*}
@@ -711,13 +714,13 @@ Yksi yleisimpiä sijaintia kuvaavia tunnuslukuja on komponenttikohtainen (eng: *
   \frac{1}{n} \sum_{i = 1}^n x_2^{(i)}, \ldots,
   \frac{1}{n} \sum_{i = 1}^n x_d^{(i)}\right)^T \in\mathbb{R}^d.
 \end{equation*}
-Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurelle otoskoolle $n$ pätee
+Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurella otoskoolle $n$ pätee
 \begin{equation*}
   \bar{\boldsymbol x}\approx \mathbb{E}\left(\boldsymbol X\right)
   = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right),
   \ldots, \mathbb{E}\left(X_d\right)\right)^T.
 \end{equation*}
-
+Toisin sanoen komponenttikohtainen keskiarvo $\bar{\boldsymbol x}$ estimoi moniulotteisen satunnaismuuttujan $\boldsymbol{X}$ odotusarvoa $\mathbb{E}\left(\boldsymbol{X}\right)$. Tästä seuraa, että jos otos $\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}$ ollaan generoitu jakaumasta $N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin tunnusluku $\bar{\boldsymbol x}$ estimoi parametria $\boldsymbol\mu$.
 
 ::: {.example name="Komponenttikohtaisen keskiarvon laskeminen"}
 Käsittelemme esimerkin \@ref(exm:body) dataa.
@@ -745,7 +748,7 @@ body_mean2
 
 Viimeisessä `for`-silmukka toteutuksessa käytämme tuplahakasulkeita `[[`, joilla voi eristää listan (`list`) alkion. Tietotyyppiä `data.frame` ja `tibble` olevat muuttujat ovat eritystapauksia listoista, joten syntaksi `[[` toimii. 
 
-Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:*(non)robust*). Tämä tarkoittaa sitä, poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan `body` lisäämällä oudokin $(10000, 43564, 3452, 75656)$ ja laskemalla keskiarvon uudestaan.
+Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:*(non)robust*). Tämä tarkoittaa sitä, että poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan `body` lisäämällä oudokin $(10000, 43564, 3452, 75656)$ ja laskemalla keskiarvon uudestaan.
 ```{r}
 body |>
   tibble::add_row(
@@ -776,8 +779,111 @@ Tällöin tuntuisi luonnolliselta käyttää komponenttikohtaista mediaania
 \begin{equation*}
   \mathrm{Median} = \left(\mathrm{Median}_1, \mathrm{Median}_2, \ldots, \mathrm{Median}_d\right)\in\mathbb{R}^d
 \end{equation*}
-moniulotteisen datan sijainnin kuvaamiseen. **Komponenttikohtaisen mediaanin käyttö ei kuitenkaan ole teoreettisesti perusteltua. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).** Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.
+moniulotteisen datan sijainnin kuvaamiseen. **Komponenttikohtaisen mediaanin käyttö voi kuitenkin olla vaarallista. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).** Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.
 
 
 ### Jakauman hajonta ja riippuvuussuhteet {-}
 
+Yksi yleisimpiä hajontaa ja riippuvuuksia kuvaava tunnusluku on otoskovarianssimatriisi
+\begin{equation*}
+  (\#eq:samplecov)
+  \hat{\boldsymbol\Sigma} = \frac{1}{n - 1}\sum_{i = 1}^n
+  \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)
+  \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)^T
+  \in\mathbb{R}^{d\times d}.
+\end{equation*}
+Otoskovarianssin alkiot ovat muotoa
+\begin{equation*}
+  \hat{\boldsymbol\Sigma}_{jk} =
+  \begin{cases}
+    s_{X_jX_k}, & j\neq k, \\
+    s_{X_j}^2, &\text{muuten}.
+  \end{cases}
+\end{equation*}
+Tarkista otosvarianssin $s^2_{X_j}$ määritelmä yhtälöstä \@ref(eq:samplevar) ja otoskovarianssin $s_{X_jX_k}$ määritelmä yhtälöstä \@ref(eq:samplecovuni). Eli matriisin $\hat{\boldsymbol\Sigma}$ diagonaalilla on otosvariansseja ja muut alkiot ovat muuttujapareja vastaavia otoskovariansseja.
+
+Teoreettinen peruste otoskovarianssimatriisin käytölle on se, että lievien oletusten alla suurelle otoskoolle $n$ pätee
+\begin{equation*}
+  \hat{\boldsymbol\Sigma}_{jk} \approx
+  \begin{cases}
+    \mathrm{Cov}\left(X_i, X_j\right), & j\neq k, \\
+    \mathrm{Var}\left(X_j\right), &\text{muuten}.
+  \end{cases}
+\end{equation*}
+Toisin sanoen otoskovarianssimatriisi $\hat{\boldsymbol\Sigma}$ estimoi kovarianssimatriisia $\mathrm{Cov}\left(\boldsymbol X\right)$, joka määritellään
+\begin{equation*}
+  \mathrm{Cov}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right) & \cdots & \mathrm{Cov}\left(X_1, X_d\right) \\
+    \vdots & \ddots & \vdots \\
+    \mathrm{Cov}\left(X_d, X_1\right) & \cdots & \mathrm{Var}\left(X_d\right)
+  \end{pmatrix}.
+\end{equation*}
+Esimerkiksi $2\times 2$ kovarianssimatriisi on muotoa
+\begin{equation}
+  (\#eq:cov22)
+  \mathrm{Cov}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    \mathrm{Var}\left(X_1\right) & \mathrm{Cov}\left(X_1, X_2\right) \\
+    \mathrm{Cov}\left(X_2, X_1\right) & \mathrm{Var}\left(X_2\right)
+  \end{pmatrix}.
+\end{equation}
+Kovarianssille pätee $\mathrm{Cov}\left(X_i, X_j\right) = \mathrm{Cov}\left(X_j, X_i\right)$, kuten jo luvussa \@ref(sec:normal) todettiin (kovarianssin symmetrisyys). Tästä seuraa, että kovarianssimatriisi on symmetrinen eli $\mathrm{Cov}\left(\boldsymbol X\right) = \left(\mathrm{Cov}\left(\boldsymbol X\right)\right)^T$. Kovarianssimatriisilla (ja otoskovarianssimatriisilla) on muitakin toivottuja ominaisuuksia, joita ei kuitenkaan tällä kurssilla käydä läpi.
+
+Vertaamalla yhtälöitä \@ref(eq:sigma) ja \@ref(eq:cov22) huomataan että jos $\boldsymbol X\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin $\boldsymbol\Sigma = \mathrm{Cov}\left(\boldsymbol X\right)$. Tästä seuraa, että jos otos $\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}$ ollaan generoitu jakaumasta $N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin tunnusluku $\hat{\boldsymbol\Sigma}$ estimoi parametria $\boldsymbol\Sigma$.
+
+Vaikka kaavan \@ref(eq:samplecov) otoskovarianssimatriisi on työläs laskea käsin, niin R:llä homma hoituu helpommin.
+
+:::{.example name="Otoskovarianssin laskeminen"}
+Käsittelemme esimerkin \@ref(exm:body) dataa.
+```{r}
+body
+```
+Havaintoaineistoa vastaavan otoskovarianssimatriisin voi laskea helposti funktiolla `cov()`.
+```{r}
+cov(body)
+```
+Tulostetun matriisin mukaan muuttujalla `TotalHeight` vaikuttaa olevan suurin hajonta. Kaikki arvot, jotka eivät ole diagonaalilla (matriisin lävistäjä) ovat suurempia kuin nolla. Tästä voimme päätellä, että kaikkien muuttujaparien esimerkiksi `TotalHeight` ja `ArmLength` välillä on kasvava lineaarinen riippuvuus. Muuttujaparien väliset kasvavat lineaariset riippuvuudet näkyvät myös kuvassa \@ref(fig:body-pairs).
+:::
+
+Kahden muuttujan välistä kovarianssin suuruutta on vaikea tulkita. Tämän vuoksi usein kovarianssimatriisin sijasta halutaan estimoida korrelaatiomatriisi
+\begin{equation*}
+  \mathrm{Cor}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    1 & \cdots & \mathrm{Cor}\left(X_1, X_d\right) \\
+    \vdots & \ddots & \vdots \\
+    \mathrm{Cor}\left(X_d, X_1\right) & \cdots & 1
+  \end{pmatrix}.
+\end{equation*}
+Esimerkiksi $2\times 2$ korrelaatiomatriisi on muotoa
+\begin{equation*}
+  \mathrm{Cor}\left(\boldsymbol X\right) =
+  \begin{pmatrix}
+    1 & \mathrm{Cor}\left(X_1, X_2\right) \\
+    \mathrm{Cor}\left(X_2, X_1\right) & 1
+  \end{pmatrix}.
+\end{equation*}
+
+Tunnusluku estimoimaan korrelaatiomatriisia on matriisi $\boldsymbol C$, jonka alkiot ovat muotoa
+\begin{equation*}
+  \boldsymbol C_{jk} =
+  \begin{cases}
+    \hat{\rho}_{X_jX_k}, & j\neq k, \\
+    1, &\text{muuten}.
+  \end{cases}
+\end{equation*}
+Tarkista korrelaatiokertoimen estimaattorin $\hat{\rho}_{X_jX_k}$ määritelmä yhtälöstä \@ref(eq:samplecoruni).
+
+Myös korrelaatiomatriisin estimaattorin $\boldsymbol C$ laskeminen on suhteellisen vaivatonta R:ssä
+
+:::{.example name="Korrelaatiomatriisin estimointi"}
+Käsittelemme esimerkin \@ref(exm:body) dataa.
+```{r}
+body
+```
+Havaintoaineistoa vastaavan korrelaatiomatriisin voi estimoida helposti funktiolla `cor()`.
+```{r}
+cor(body)
+```
+Suurin korrelaatio näyttää olevan muuttujien `TotalHeight` ja `ArmLength` välillä.
+:::
