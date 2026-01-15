@@ -175,7 +175,7 @@ Korrelaatiokertoimen estimaattori on
 \end{equation*}
 jossa $s_Y^2$ on otosta $y_1, \ldots, y_n$ vastaava otosvarianssi. Korrelaation $\mathrm{Cor}\left(X, Y\right)$ arvo on aina välillä $[-1, 1].$ Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus $\left|\mathrm{Cor}\left(X, Y\right)\right|$ kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat *eivät* ole riippumattomia ja $\mathrm{Cov}\left(X, Y\right) = 0$. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan \@ref(fig:cor) oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.
 
-::: {.exercise name="Viikko 2, tehtävä 2"}
+::: {.exercise #cov name="Viikko 2, tehtävä 2"}
 Olkoon $X\sim \mathrm{Tas}\left([-1,1]\right)$ eli $X$ on satunnaismuuttuja, joka noudattaa tasajakaumaa välillä $[-1, 1]$. Määritellään toinen satunnaismuuttuja muunnoksen $Y = X^2$ mukaan. Tällöin satunnaismuuttujat $X$ ja $Y$ *eivät* ole riippumattomia mutta $\mathrm{Cov}\left(X, Y\right) = 0$.
 :::
 
@@ -568,12 +568,96 @@ Toisaalta hajontaparametri, joka on matriisi, kuvaa yksittäisten satunnaismuutt
     \mathrm{Cov}\left(X_2,  X_1\right) & \mathrm{Var}\left(X_2\right) \\
   \end{pmatrix}.
 \end{equation*}
-Varianssin ja kovarianssin määritelmät näet kaavoista \@ref(eq:var) ja \@ref(eq:cov). Jos lokaatio on nollavektori $\boldsymbol\mu = \boldsymbol 0 = (0,  0)^T$ ja hajonta on identiteettimatriisi $\boldsymbol\Sigma = \boldsymbol I = \begin{pmatrix} 1 & 0  \\ 0 & 1  \end{pmatrix}$, niin jakaumaa $N(\boldsymbol  0,  \boldsymbol I)$ kutsutaan standardinormaalijakaumaksi. Kuvassa \@ref(fig:mvnormal) näkyy havainnollistus standardinormaalijakauman tiheysfunktion muodosta, joka on kumpu. Tapauksessa $\boldsymbol\mu = \boldsymbol 0$ kummun keskikohta on origossa ja tapauksessa $\boldsymbol\Sigma = \boldsymbol I$ kummun muoto on symmetrinen.
+Varianssin ja kovarianssin määritelmät näet kaavoista \@ref(eq:var) ja \@ref(eq:cov). Kovarianssi on  symmetrinen eli $\mathrm{Cov}\left(X_1,  X_2\right) = \mathrm{Cov}\left(X_2,  X_1\right)$. Tästä voimme päätellä, että
+
+- $\boldsymbol\Sigma_{11} = \mathrm{Var}\left(X_1\right)$ kertoo satunnaismuuttujan $X_1$ hajonnasta,
+
+- $\boldsymbol\Sigma_{22} = \mathrm{Var}\left(X_2\right)$ kertoo satunnaismuuttujan $X_2$ hajonnasta ja
+
+- $\boldsymbol\Sigma_{12} = \boldsymbol\Sigma_{21} = \mathrm{Cov}\left(X_1,  X_2\right)$ kertovat satunnaismuuttujien $X_1$  ja $X_2$ välisestä riippuvuudesta.
+
+Tehtävässä \@ref(exr:cov) huomautimme, että satunnaismuuttujat $X_1$ ja $X_2$ voivat olla riippuvaisia, vaikka $\mathrm{Cov}\left(X_1,  X_2\right) = 0$. Normaalijakauma on kuitenkin erityistapaus.
+
+::: {.theorem #normalcov}
+Olkoon $X = (X_1, X_2)^T \sim N\left(\boldsymbol\mu, \boldsymbol\Sigma\right)$. Tällöin $X_1$ ja $X_2$ ovat riippumattomia, jos $\mathrm{Cov}\left(X_1,  X_2\right) = 0$.
+:::
+
+Faktasta \@ref(thm:normalcov) seuraa, että hajonta $\boldsymbol\Sigma$ tosiaan sisältää kaiken informaation yksittäisten komponenttien $X_i$ hajonnasta ja niiden välisistä riippuvuuksista.
+
+Jos lokaatio on nollavektori $\boldsymbol\mu = \boldsymbol 0 = (0,  0)^T$ ja hajonta on identiteettimatriisi $\boldsymbol\Sigma = \boldsymbol I = \begin{pmatrix} 1 & 0  \\ 0 & 1  \end{pmatrix}$, niin jakaumaa $N(\boldsymbol  0,  \boldsymbol I)$ kutsutaan standardinormaalijakaumaksi. Kuvassa \@ref(fig:mvnormal) näkyy havainnollistus standardinormaalijakauman tiheysfunktion muodosta, joka on kumpu. Tapauksessa $\boldsymbol\mu = \boldsymbol 0$ kummun keskikohta on origossa ja tapauksessa $\boldsymbol\Sigma = \boldsymbol I$ kummun muoto on symmetrinen.
 
 (ref:mvnormal-cap) Havainnollistus standardinormaalijakauman $N\left(\boldsymbol  0, \boldsymbol I\right)$ tiheysfunktiosta $f_{\boldsymbol X}(x)$. Kuvassa näkyy myös todennäköisyyden $\mathbb{P}\left(\boldsymbol X\in I\right)$ tulkinta keltaisen kappaleen tilavuutena. Eli keltaisen kappaleen tilavuus saadaan laskemalla integraali $\int_I  f_{\boldsymbol X}(x_1, x_2) \,\mathrm{d}\boldsymbol x$.
 
 ```{r mvnormal, echo=FALSE, fig.cap="(ref:mvnormal-cap)"}
 knitr::include_graphics("images/mvnormal.jpg")
+```
+
+Jakauman sijainnin $\boldsymbol\mu$ muuttaminen siirtää tiheysfunktiota vastaavan kummun paikkaa. Hajonnan $\boldsymbol\Sigma$ muuttaminen taas vaikuttaa kummun muotoon mutta tiheysfunktion muodon päättely ei ole yksinkertaista, jos $\boldsymbol\Sigma\neq \boldsymbol I$. Esimerkiksi jos $\boldsymbol\Sigma_{12} = \boldsymbol\Sigma_{21}\neq 0$ eli satunnaismuuttujien $X_1$ ja $X_2$ välillä on riippuvuutta, niin kummun orientaatio $xy$-koordinaatistossa muuttuu ja kumpu litistyy. Tällöin tiheysfunktiota vastaava kumpu on ellipsin muotoinen ylhäältä katsottuna. Kuvassa \@ref(fig:scatters-normal) näkyy tiheysfunktion korkeuskäyriä ja generoidut otokset normaalijakaumasta erilaisilla parametreilla $\boldsymbol\mu$ ja $\boldsymbol\Sigma$.
+
+Vaikka kuvan \@ref(fig:scatters-normal) tuottava koodi on melko monimutkainen, niin huomio kannattaa kiinnittää muutamaan valittuun kohtaan. Rivillä `25` generoidaan otos kaksiulotteisesta standardinormaalijakaumasta paketin `mvtnorm` funktiolla `rmvnorm`. Lisäksi toinen otos normaalijakaumasta eri parametreilla generoidaan rivillä `29`. Toisin sanoen paketti `mvtnorm` on hyödyllinen, jos täytyy esimerkiksi simuloida otoksia moniulotteisesta normaalijakaumasta.
+
+(ref:scatters-normal-caption) Vasemmanpuoleisessa kuvassa näkyy satunnaisvektoria $\boldsymbol X\sim N(\boldsymbol 0, \boldsymbol I)$ vastaavan tiheysfunktion korkeuskäyriä. Saman kuvan pisteet ovat satunnaisvektorista $\boldsymbol X$ generoituja havaintoja. Oikeanpuoleisessa kuvassa näkyy satunnaisvektoria $\boldsymbol Y\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$ vastaavan tiheysfunktion korkeuskäyriä. Saman kuvan pisteet ovat satunnaisvektorista $\boldsymbol Y$ generoituja havaintoja. Simulaatioissa asetettiin $\boldsymbol\mu = (10,  -10)^T$ ja $\boldsymbol\Sigma = \begin{pmatrix}5 & -3 \\ -3 & 5\end{pmatrix}$.
+
+```{r, echo=FALSE}
+set.seed(123)
+```
+
+```{r scatters-normal, attr.source='.numberLines', fig.show="hold", out.width="50%", fig.cap="(ref:scatters-normal-caption)"}
+library(ggplot2)
+
+# Set marginals for figs in the pdf
+par(mar = c(4, 4, .1, .1))
+
+# Global parameters
+n <-  100
+grid1 <-  tidyr::expand_grid(x = seq(-5, 5, length.out = 1000), y = x)
+mu <- c(10, -10)
+sigma <- matrix(c(5, -3, -3, 5), byrow = TRUE, ncol = 2)
+grid2 <-  tidyr::expand_grid(x = seq(mu[1] - 5, mu[1]  + 5, length.out =  1000),
+                             y = seq(mu[2] - 5, mu[2]  + 5, length.out =  1000))
+
+#  Compute values of density on a grid
+dens_spherical <- mvtnorm::dmvnorm(grid1, sigma = diag(2))
+dens_elliptical <- mvtnorm::dmvnorm(grid2, mean = mu, sigma = sigma)
+dens_spherical <- tibble::tibble(x = grid1$x,
+                                 y = grid1$y,
+                                 dens = dens_spherical)
+dens_elliptical <- tibble::tibble(x = grid2$x,
+                                  y = grid2$y,
+                                  dens = dens_elliptical)
+
+# Generate samples
+data_spherical <- mvtnorm::rmvnorm(n,  sigma = diag(2))
+colnames(data_spherical) <- c("x",  "y")
+data_spherical <- tibble::as_tibble(data_spherical)
+
+data_elliptical <- mvtnorm::rmvnorm(n, mean = mu, sigma = sigma)
+colnames(data_elliptical) <- c("x",  "y")
+data_elliptical <- tibble::as_tibble(data_elliptical)
+
+# Plot density contours and sample for spherical distribution
+data_spherical |>
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  geom_contour(data = dens_spherical,
+               mapping = aes(x = x,  y = y, z = dens),
+               color = "black",
+               alpha = 0.5,
+               linetype = "dashed") +
+  coord_fixed()  +
+  labs(x = expression(X[1]), y = expression(X[2]))
+
+# Plot density contours and sample for elliptical distribution
+data_elliptical |>
+  ggplot(aes(x = x, y = y)) +
+  geom_point() +
+  geom_contour(data = dens_elliptical,
+               mapping = aes(x = x,  y = y, z = dens),
+               color = "black",
+               alpha = 0.5,
+               linetype = "dashed") +
+  coord_fixed() +
+  labs(x = expression(X[1]), y = expression(X[2]))
 ```
 
 
