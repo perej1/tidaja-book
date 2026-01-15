@@ -12,4 +12,4 @@ language:
     exr: "Tehtävä "
   ui:
     chapter_name: "Luku "
-rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "references.Rmd"]
+rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "appendix.Rmd", "references.Rmd"]

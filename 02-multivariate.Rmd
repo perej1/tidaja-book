@@ -187,46 +187,10 @@ Vapaaehtoisena lisätehtävänä voit määritelmän \@ref(def:ind) avulla tarki
 
 ## Perusteet {#sec:rvec}
 
-Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina, joten kerrataan vektorin käsite. Vektori ($d$-ulotteinen) on **järjestetty** lista lukuja $(x_1, x_2, \ldots, x_d)$, $x_i\in\mathbb{R}$. Eli vektori voidaan tulkita avaruuden $\mathbb{R}^d$ alkiona. Esimerkiksi $2$-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa $\mathbb{R}^2$ kuten kuvassa \@ref(fig:vec). Samoin $d$-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa $\mathbb{R}^d$ mutta visualisointi muuttuu mahdottomaksi kun $d > 3$. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi $(1, 2) \neq (2, 1)$.
-
-::: {.remark name="Vektorinotaatioista"}
-
-- Joskus vektorit erotetaan luvuista lihavoimalla vektorit. Tässä monisteessa käytämme kyseistä periaatetta eli $\boldsymbol x$ tulkitaan vektorina ja $x$ lukuna.
-
-- Usein oletuksena vektorit tulkitaan pystyvektoreina. Sillä onko $\boldsymbol x$ pysty- vai vaakavektori on merkitystä vektoreiden välisissä laskutoimituksissa. Muista, että notaatio $\boldsymbol x^T$ tarkoittaa transpoosia, joka muuttaa vaakavektorin pystyvektoriksi ja toisinpäin. Eli esimerkiksi $(1, 4, 2.4)^T$ on $3$-ulotteinen pystyvektori
-\begin{equation*}
-\begin{pmatrix}
-  1 \\ 4 \\ 2.4
-\end{pmatrix},
-\end{equation*}
-joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla $\boldsymbol y = (4, 1, 8, 2)^T$.
-:::
-
-Vektorin $\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d$ suuruutta tai pituutta voidaan mitata sen normin $\|\boldsymbol x\|$ avulla,
-\begin{equation*}
-  \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
-\end{equation*}
-Suuruuden lisäksi vektorilla on suunta. Työkalu vektorin suunnan määrittämiseen on pistetulo. Kahden vektorin $\boldsymbol x\in\mathbb{R}^d$ ja $\boldsymbol y\in\mathbb{R}^d$ välinen pistetulo määritellään seuraavasti,
-\begin{equation*}
-  \langle \boldsymbol x, \boldsymbol y\rangle = \sum_{i = 1}^d x_i y_i.
-\end{equation*}
-Erityisesti kaksi vektoria $\boldsymbol x$ ja $\boldsymbol y$ ovat suorassa kulmassa toisiinsa nähden jos ja vain jos $\langle \boldsymbol x, \boldsymbol y\rangle = 0$.
-
-::: {.example name="Vektorin suuruus ja suunta"}
-- Kuvan \@ref(fig:vec) vektoreilla $(2,2)^T$ ja $(-1, \sqrt{7})^T$ on sama normi.
-
-- Kuvan \@ref(fig:vec) vektoreiden $(2, 2)^T$ ja $(-1, 1)^T$ välinen pistetulo on nolla.
-:::
-
-(ref:vec-cap) Vektoreita karteesisessa koordinaatistossa.
-
-```{r vec, echo=FALSE, fig.cap="(ref:vec-cap)"}
-knitr::include_graphics("images/vectors.jpg")
-```
-
+Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina. Muista, että vektori ($d$-ulotteinen) on **järjestetty** lista lukuja $(x_1, x_2, \ldots, x_d)$, $x_i\in\mathbb{R}$. Eli vektori voidaan tulkita avaruuden $\mathbb{R}^d$ alkiona. Vektoreilla on suuruus ja suunta. Kurssin kannalta tarpeelliset esitiedot vektoreista ja vektoreihin liittyvät notaatiot voit kerrata liitteiden kappaleesta \@ref(sec:vector).
 
 ::: {.example name="Havaintoaineisto ja vektorit"}
-- Esimerkin \@ref(exm:body) aineiston havainnot (rivit) voidaan tulkita $4$-ulotteisina vektoreina eli pisteinä avaruudessa $\mathbb{R}^4$.
+- Esimerkin \@ref(exm:body) aineiston havainnot (rivit) voidaan tulkita $4$-ulotteisina vektoreina eli pisteinä avaruudessa $\mathbb{R}^4$. Teoriassa havaintoaineistoa vastaava hajontakuvio voitaisiin piirtää neljässä ulottuvuudessa. Käytännössä ihmiset eivät kuitenkaan voi tämäntyyppistä kuvaajaa tehdä tai tulkita.
 :::
 
 Nyt olemme valmiita määrittelemään satunnaisvektorit.
@@ -562,9 +526,26 @@ Nyt siis `condition  + 1` on kokonaislukuvektori, jossa kaikki alkiot ovat ykkö
 
 ## Moniulotteinen normaalijakauma {#sec:normal}
 
-Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jatkuvista jakaumista. Moniulotteinen normaalijakauma on tärkeä todennäköisyysteorian näkökulmasta. Esimerkiksi *Tilastotieteen perusteista* tuttu keskeinen raja-arvolause (eng: *central limit theorem*) sanoo, että suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaismuttujien $X_1, \ldots, X_n$ summan $\sum_{i=1}^n X_i$ jakaumaa  voidaan approksimoida normaalijakauman avulla. Tulos voidaan yleistää satunnaisvektoreille -- suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaisvektoreiden $\boldsymbol X_1, \ldots, \boldsymbol X_n$ summan^[Muista, että vektoreiden $\boldsymbol a = (a_1, \ldots, a_d)$ ja $\boldsymbol b  = (b_1, \ldots, b_d)$ summa suoritetaan alkioittain $\boldsymbol a + \boldsymbol b  = (a_1 + b_1, \ldots, a_d + b_d)$] $\sum_{i=1}^n \boldsymbol X_i$ jakaumaa voidaan approksimoida moniulotteisella jakaumalla. Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa käytännön sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään joku muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007--2009 finanssikriisin yksi juurisyy oli, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet [@taleb2012].
+Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jatkuvista jakaumista. Moniulotteinen normaalijakauma on tärkeä todennäköisyysteorian näkökulmasta. Esimerkiksi *Tilastotieteen perusteista* tuttu keskeinen raja-arvolause (eng: *central limit theorem*) sanoo, että suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaismuuttujien $X_1, \ldots, X_n$ summan $\sum_{i=1}^n X_i$ jakaumaa  voidaan approksimoida normaalijakauman avulla. Tulos voidaan yleistää satunnaisvektoreille -- suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaisvektoreiden $\boldsymbol X_1, \ldots, \boldsymbol X_n$ summan^[Muista, että vektoreiden $\boldsymbol a = (a_1, \ldots, a_d)$ ja $\boldsymbol b  = (b_1, \ldots, b_d)$ summa suoritetaan alkioittain $\boldsymbol a + \boldsymbol b  = (a_1 + b_1, \ldots, a_d + b_d)$.] $\sum_{i=1}^n \boldsymbol X_i$ jakaumaa voidaan approksimoida moniulotteisella normaalijakaumalla.
+
+Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään jokin muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007--2009 finanssikriisin eräs juurisyy oli se, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet [@taleb2012].
+
+Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun $2$-ulotteisiin normaalijakaumiin, vaikka $d$-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen $2$-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla *Johdatus data-analytiikkaan* käytyjä perusasioita matriiseista. Tarpeellisia asioita tämän luvun kannalta ovat esimerkiksi $2\times 2$ matriisin determinantti, käänteismatriisi ja matriisikertolasku. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta \@ref(sec:matrix).
 
 
+::: {.definition #bvnormal name="Kaksiulotteinen normaalijakauma"} 
+Satunnaisvektori $\boldsymbol X = (X_1,  X_2)^T$ noudattaa kaksiulotteista normaalijakaumaa (eng: *bivariate normal distribution*) sijantiparametrilla $\boldsymbol\mu\in\mathbb{R}^2$ ja hajontaparametrilla $\boldsymbol\Sigma\in\mathbb{R}^{2\times 2}$, jos sen yhteisjakauman tiheysfunktio on muotoa
+\begin{equation*}
+  f_{\boldsymbol X}\left(\boldsymbol x\right)
+  = \frac{1}{2\pi\sqrt{\mathrm{Det}\left(\boldsymbol\Sigma\right)}}
+  \exp\left(-\frac{1}{2}
+  \left(\boldsymbol x - \boldsymbol\mu\right)^T
+  \boldsymbol\Sigma^{-1}
+  \left(\boldsymbol x - \boldsymbol\mu\right)\right),
+  \quad \boldsymbol x\in\mathbb{R}^2.
+\end{equation*}
+Tällöin käytämme notaatiota $\boldsymbol X\sim N\left(\boldsymbol\mu, \boldsymbol\Sigma\right)$.
+:::
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
