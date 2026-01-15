@@ -52,7 +52,7 @@ Kurssilla käymme läpi perusmenetelmiä, joilla voi tehdä tilastollista analyy
 - Yhden muuttujan ennustaminen muilla muuttujilla
 - Dimensioiden pienennys (eng: *dimension reduction*) ennen varsinaista analyysiä
 
-Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan  moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa \@ref(sec:dep) määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa \@ref(sec:rvec) määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Luvussa \@ref(sec:cond) syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku \@ref(sec:normal). Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa \@ref(sec:statistic). Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.
+Kuitenkin ensin täytyy ymmärtää moniulotteiseen dataan liittyvää todennäköisyyslaskentaa, sillä moniulotteista dataa mallinnetaan  moniulotteisten satunnaismuuttujien eli satunnaisvektoreiden avulla. Luvussa \@ref(sec:dep) määrittelemme stokastisen riippuvuuden käsitteen formaalisti, jotta voimme ymmärtää satunnaismuuttujien välisiä riippuvuussuhteita. Luvussa \@ref(sec:rvec) määrittelemme satunnaisvektorin, ja siihen liittyvät peruskäsitteet. Erittäin tärkeälle jakaumaperheelle eli moniulotteiselle normaalijakaumalle omistetaan oma luku \@ref(sec:normal). Luvussa \@ref(sec:cond) syvennämme satunnaisvektoreihin liittyvää todennäköisyysteoriaa käsittelemällä ehdolliset jakaumat. Tärkeimmät moniulotteista jakaumaa kuvaavat teoreettiset suureet kuten odotusarvo ja kovarianssi määritellään luvussa \@ref(sec:statistic). Samassa luvussa käydään estimoinnin perusteita liittyen moniulotteisiin jakaumiin.
 
 ## Stokastinen riippumattomuus {#sec:dep}
 
@@ -559,9 +559,12 @@ TRUE + FALSE + FALSE + 2
 Nyt siis `condition  + 1` on kokonaislukuvektori, jossa kaikki alkiot ovat ykkösiä paitsi joukon $A$ havaintoja vastaavat alkiot ovat kakkosia. Eli komento `c(4, 16)[condition + 1]` valitsee vektorista $(4,  16)$ alkioita $4$ ja $16$ riippuen siitä, onko havainto joukossa $A$ vai ei.
 :::
 
-Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jakaumista.
 
 ## Moniulotteinen normaalijakauma {#sec:normal}
+
+Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jatkuvista jakaumista. Moniulotteinen normaalijakauma on tärkeä todennäköisyysteorian näkökulmasta. Esimerkiksi *Tilastotieteen perusteista* tuttu keskeinen raja-arvolause (eng: *central limit theorem*) sanoo, että suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaismuttujien $X_1, \ldots, X_n$ summan $\sum_{i=1}^n X_i$ jakaumaa  voidaan approksimoida normaalijakauman avulla. Tulos voidaan yleistää satunnaisvektoreille -- suurella otoskoolla $n$, riippumattomien ja samoin jakautuneiden satunnaisvektoreiden $\boldsymbol X_1, \ldots, \boldsymbol X_n$ summan^[Muista, että vektoreiden $\boldsymbol a = (a_1, \ldots, a_d)$ ja $\boldsymbol b  = (b_1, \ldots, b_d)$ summa suoritetaan alkioittain $\boldsymbol a + \boldsymbol b  = (a_1 + b_1, \ldots, a_d + b_d)$] $\sum_{i=1}^n \boldsymbol X_i$ jakaumaa voidaan approksimoida moniulotteisella jakaumalla. Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa käytännön sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään joku muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007--2009 finanssikriisin yksi juurisyy oli, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet [@taleb2012].
+
+
 
 ## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
 
