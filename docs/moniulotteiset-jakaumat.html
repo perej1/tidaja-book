@@ -928,10 +928,90 @@ Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\bol
 </div>
 <div id="sec:statistic" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Tunnusluvuista<a href="moniulotteiset-jakaumat.html#sec:statistic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havaintoaineisto – tämän luvun moniulotteisessa viitekehyksessä havaintoaineisto koostuu <span class="math inline">\(d\)</span>-ulotteisista vektoreista <span class="math inline">\(\boldsymbol x_1, \ldots, \boldsymbol x_n\)</span>. Sitten havaintoaineiston perusteella on tarkoitus selvittää datan generoivan mallin ominaisuuksia. Esimerkiksi jos oletamme, että data generoidaan moniulotteisesta normaalijakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tavoitteena voi olla parametrien <span class="math inline">\(\boldsymbol\mu\)</span> ja <span class="math inline">\(\boldsymbol\Sigma\)</span> estimointi saatavilla olevan otoksen avulla. Huomioi siis, että vaikka käytännön sovelluksissa oletettaisiin joku tietty jakauma, niin jakauman parametrit ovat käytännössä tuntemattomat. Toisaalta vaikka datalle ei oletettaisi mitään tiettyä jakaumaa, niin esimerkiksi datan sijaintia tai hajontaa kuvaavat tunnusluvut tarjoavat arvokasta informaatiota.</p>
-<p>Formaalisti tunnusluku (eng: <em>statistic</em>) <span class="math inline">\(T = T\left(\mathcal{X}\right)\)</span> on funktio saatavilla olevasta otoksesta <span class="math inline">\(\mathcal{X} = \{\boldsymbol x_1, \ldots, \boldsymbol x_n\}\)</span>. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita.</p>
+<p>Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havaintoaineisto – tämän luvun moniulotteisessa viitekehyksessä havaintoaineisto koostuu <span class="math inline">\(d\)</span>-ulotteisista vektoreista <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span>. Sitten havaintoaineiston perusteella on tarkoitus selvittää datan generoivan mallin ominaisuuksia. Esimerkiksi jos oletamme, että data generoidaan moniulotteisesta normaalijakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tavoitteena voi olla parametrien <span class="math inline">\(\boldsymbol\mu\)</span> ja <span class="math inline">\(\boldsymbol\Sigma\)</span> estimointi saatavilla olevan otoksen avulla. Huomioi siis, että vaikka käytännön sovelluksissa oletettaisiin joku tietty jakauma, niin jakauman parametrit ovat käytännössä tuntemattomat. Toisaalta vaikka datalle ei oletettaisi mitään tiettyä jakaumaa, niin esimerkiksi datan sijaintia tai hajontaa kuvaavat tunnusluvut tarjoavat arvokasta informaatiota.</p>
+<p>Formaalisti tunnusluku (eng: <em>statistic</em>) <span class="math inline">\(T = T\left(\mathcal{X}\right)\)</span> on funktio saatavilla olevasta otoksesta <span class="math inline">\(\mathcal{X} = \{\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\}\)</span>. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita. Tässä <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> tarkoittaa kooltaan <span class="math inline">\(n\)</span> otosta <span class="math inline">\(d\)</span>-ulotteisia vektoreita, jotka ollaan generoitu jostain tuntemattomasta satunnaisvektorista <span class="math inline">\(\boldsymbol X = \left(X_1, \ldots, X_d\right)^T\)</span>. Havainnon <span class="math inline">\(i\)</span> alkioille <span class="math inline">\(j\)</span> käytämme merkintää <span class="math inline">\(\boldsymbol x_j^{(i)}\)</span> eli esimerkiksi <span class="math inline">\(\boldsymbol x^{(3)} = \left(x_1^{(3)}, x_2^{(3)}, \ldots, x_d^{(3)}\right)^T\)</span>.</p>
 <div id="jakauman-sijainti" class="section level3 unnumbered hasAnchor">
 <h3>Jakauman sijainti<a href="moniulotteiset-jakaumat.html#jakauman-sijainti" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Yksi yleisimpiä sijaintia kuvaavia tunnuslukuja on komponenttikohtainen (eng: <em>componentwise</em>) keskiarvo
+<span class="math display">\[\begin{equation*}
+  \bar{\boldsymbol x} = \frac{1}{n} \sum_{i = 1}^n \boldsymbol x^{(i)}
+  = \left(\frac{1}{n} \sum_{i = 1}^n x_1^{(i)},
+  \frac{1}{n} \sum_{i = 1}^n x_2^{(i)}, \ldots,
+  \frac{1}{n} \sum_{i = 1}^n x_d^{(i)}\right)^T \in\mathbb{R}^d.
+\end{equation*}\]</span>
+Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurelle otoskoolle <span class="math inline">\(n\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \bar{\boldsymbol x}\approx \mathbb{E}\left(\boldsymbol X\right)
+  = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right),
+  \ldots, \mathbb{E}\left(X_d\right)\right)^T.
+\end{equation*}\]</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-12" class="example"><strong>Esimerkki 2.10  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="moniulotteiset-jakaumat.html#cb55-1" tabindex="-1"></a>body</span></code></pre></div>
+<pre><code>## # A tibble: 716 × 4
+##    ShoulderWidth Belly ArmLength TotalHeight
+##            &lt;int&gt; &lt;int&gt;     &lt;int&gt;       &lt;int&gt;
+##  1            18    18        22          52
+##  2            22    18        28          56
+##  3            18    14        21          53
+##  4            20    11        24          45
+##  5            14    13        25          47
+##  6            19    14        20          60
+##  7            17    17        23          49
+##  8            15    17        19          58
+##  9            16    18        15          40
+## 10            20    18        16          55
+## # ℹ 706 more rows</code></pre>
+<p>Komponenttikohtaisen keskiarvon saa kätevästi laskettua komennolla <code>colMeans()</code>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="moniulotteiset-jakaumat.html#cb57-1" tabindex="-1"></a>body_mean <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(body)</span>
+<span id="cb57-2"><a href="moniulotteiset-jakaumat.html#cb57-2" tabindex="-1"></a>body_mean</span></code></pre></div>
+<pre><code>## ShoulderWidth         Belly     ArmLength   TotalHeight 
+##      14.31704      20.19972      18.81704      48.11872</code></pre>
+<p>Saman tuloksen saa monella muulla tavalla.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="moniulotteiset-jakaumat.html#cb59-1" tabindex="-1"></a><span class="fu">colSums</span>(body) <span class="sc">/</span> <span class="fu">nrow</span>(body)</span></code></pre></div>
+<pre><code>## ShoulderWidth         Belly     ArmLength   TotalHeight 
+##      14.31704      20.19972      18.81704      48.11872</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="moniulotteiset-jakaumat.html#cb61-1" tabindex="-1"></a><span class="fu">apply</span>(body, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## ShoulderWidth         Belly     ArmLength   TotalHeight 
+##      14.31704      20.19972      18.81704      48.11872</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="moniulotteiset-jakaumat.html#cb63-1" tabindex="-1"></a>body_mean2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">ncol</span>(body))</span>
+<span id="cb63-2"><a href="moniulotteiset-jakaumat.html#cb63-2" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(body)) {</span>
+<span id="cb63-3"><a href="moniulotteiset-jakaumat.html#cb63-3" tabindex="-1"></a>  body_mean2[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(body[[j]]) <span class="co"># Extract column j, compute mean</span></span>
+<span id="cb63-4"><a href="moniulotteiset-jakaumat.html#cb63-4" tabindex="-1"></a>}</span>
+<span id="cb63-5"><a href="moniulotteiset-jakaumat.html#cb63-5" tabindex="-1"></a>body_mean2</span></code></pre></div>
+<pre><code>## [1] 14.31704 20.19972 18.81704 48.11872</code></pre>
+<p>Viimeisessä <code>for</code>-silmukka toteutuksessa käytämme tuplahakasulkeita <code>[[</code>, joilla voi eristää listan (<code>list</code>) alkion. Tietotyyppiä <code>data.frame</code> ja <code>tibble</code> olevat muuttujat ovat eritystapauksia listoista, joten syntaksi <code>[[</code> toimii.</p>
+<p>Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:<em>(non)robust</em>). Tämä tarkoittaa sitä, poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan <code>body</code> lisäämällä oudokin <span class="math inline">\((10000, 43564, 3452, 75656)\)</span> ja laskemalla keskiarvon uudestaan.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="moniulotteiset-jakaumat.html#cb65-1" tabindex="-1"></a>body <span class="sc">|&gt;</span></span>
+<span id="cb65-2"><a href="moniulotteiset-jakaumat.html#cb65-2" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">add_row</span>(</span>
+<span id="cb65-3"><a href="moniulotteiset-jakaumat.html#cb65-3" tabindex="-1"></a>    <span class="at">ShoulderWidth =</span> <span class="dv">10000</span>,</span>
+<span id="cb65-4"><a href="moniulotteiset-jakaumat.html#cb65-4" tabindex="-1"></a>    <span class="at">Belly =</span> <span class="dv">43564</span>,</span>
+<span id="cb65-5"><a href="moniulotteiset-jakaumat.html#cb65-5" tabindex="-1"></a>    <span class="at">ArmLength =</span> <span class="dv">3452</span>,</span>
+<span id="cb65-6"><a href="moniulotteiset-jakaumat.html#cb65-6" tabindex="-1"></a>    <span class="at">TotalHeight =</span> <span class="dv">75656</span></span>
+<span id="cb65-7"><a href="moniulotteiset-jakaumat.html#cb65-7" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb65-8"><a href="moniulotteiset-jakaumat.html#cb65-8" tabindex="-1"></a>  <span class="fu">colMeans</span>()</span></code></pre></div>
+<pre><code>## ShoulderWidth         Belly     ArmLength   TotalHeight 
+##      28.24407      80.93026      23.60530     153.56904</code></pre>
+<p>Keskiarvo oudokin lisäämisen jälkeen poikkeaa merkittävästi alkuperäisestä keskiarvosta.</p>
+</div>
+<p>Joissain tilanteissa oudokkien vaikutus sijaintitunnuslukuun halutaan poistaa tai vaimentaa. Eli on tarve vakaille tunnusluvuille, joiden arvo muuttuu vain vähän tai ei lainkaan muutaman poikkeavan havainnon vaikutuksesta. Yksiulotteisessa tapauksessa mediaani on esimerkki vakaasta sijainnin tunnusluvusta. Muista, että mediaani on suuruusjärjestetyn otoksen keskimmäinen luku (tai keskiarvo kahdesta keskimmäisestä luvusta jos otoskoko on parillinen). Esimerkiksi otosta <span class="math inline">\(\{2, 5, 1, 2, -100\}\)</span> vastaava mediaani on
+<span class="math display">\[\begin{equation*}
+  \mathrm{Median}\left(\{2, 5, 1, 2, -100\}\right) = 2
+\end{equation*}\]</span>
+ja otosta <span class="math inline">\(\{2, 5, 1, 2, -100, 1\}\)</span> vastaava mediaani on
+<span class="math display">\[\begin{equation*}
+  \mathrm{Median}\left(\{2, 5, 1, 2, -100, 1\}\right) = \frac{1 + 2}{2} = 1.5.
+\end{equation*}\]</span>
+Määritellään
+<span class="math display">\[\begin{equation*}
+  \mathrm{Median}_j = \mathrm{Median}\left(\{x_j^{(1)}, x_j^{(2)},
+  \ldots, x_j^{(n)}\}\right)\in\mathbb{R}, \quad j\in\{1,2, \ldots, d\}.
+\end{equation*}\]</span>
+Tällöin tuntuisi luonnolliselta käyttää komponenttikohtaista mediaania
+<span class="math display">\[\begin{equation*}
+  \mathrm{Median} = \left(\mathrm{Median}_1, \mathrm{Median}_2, \ldots, \mathrm{Median}_d\right)\in\mathbb{R}^d
+\end{equation*}\]</span>
+moniulotteisen datan sijainnin kuvaamiseen. <strong>Komponenttikohtaisen mediaanin käyttö ei kuitenkaan ole teoreettisesti perusteltua. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).</strong> Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.</p>
 </div>
 <div id="jakauman-hajonta-ja-riippuvuussuhteet" class="section level3 unnumbered hasAnchor">
 <h3>Jakauman hajonta ja riippuvuussuhteet<a href="moniulotteiset-jakaumat.html#jakauman-hajonta-ja-riippuvuussuhteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>

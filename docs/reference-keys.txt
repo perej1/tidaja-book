@@ -49,8 +49,9 @@ thm:normalcov
 fig:mvnormal
 fig:scatters-normal
 fig:maha
+exm:unlabeled-div-12
 eq:euclidean
-exm:unlabeled-div-13
+exm:unlabeled-div-14
 fig:vec
 r-ohjelmointikielestä
 sec:inst

@@ -696,11 +696,88 @@ knitr::include_graphics("images/mahalanobis.jpg")
 
 ## Tunnusluvuista {#sec:statistic}
 
-Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havaintoaineisto -- tämän luvun moniulotteisessa viitekehyksessä havaintoaineisto koostuu $d$-ulotteisista vektoreista $\boldsymbol x_1, \ldots, \boldsymbol x_n$. Sitten havaintoaineiston perusteella on tarkoitus selvittää datan generoivan mallin ominaisuuksia. Esimerkiksi jos oletamme, että data generoidaan moniulotteisesta normaalijakaumasta $N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin tavoitteena voi olla parametrien $\boldsymbol\mu$ ja $\boldsymbol\Sigma$ estimointi saatavilla olevan otoksen avulla. Huomioi siis, että vaikka käytännön sovelluksissa oletettaisiin joku tietty jakauma, niin jakauman parametrit ovat käytännössä tuntemattomat. Toisaalta vaikka datalle ei oletettaisi mitään tiettyä jakaumaa, niin esimerkiksi datan sijaintia tai hajontaa kuvaavat tunnusluvut tarjoavat arvokasta informaatiota.
+Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havaintoaineisto -- tämän luvun moniulotteisessa viitekehyksessä havaintoaineisto koostuu $d$-ulotteisista vektoreista $\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}$. Sitten havaintoaineiston perusteella on tarkoitus selvittää datan generoivan mallin ominaisuuksia. Esimerkiksi jos oletamme, että data generoidaan moniulotteisesta normaalijakaumasta $N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin tavoitteena voi olla parametrien $\boldsymbol\mu$ ja $\boldsymbol\Sigma$ estimointi saatavilla olevan otoksen avulla. Huomioi siis, että vaikka käytännön sovelluksissa oletettaisiin joku tietty jakauma, niin jakauman parametrit ovat käytännössä tuntemattomat. Toisaalta vaikka datalle ei oletettaisi mitään tiettyä jakaumaa, niin esimerkiksi datan sijaintia tai hajontaa kuvaavat tunnusluvut tarjoavat arvokasta informaatiota.
 
-Formaalisti tunnusluku (eng: *statistic*) $T = T\left(\mathcal{X}\right)$ on funktio saatavilla olevasta otoksesta $\mathcal{X} = \{\boldsymbol x_1, \ldots, \boldsymbol x_n\}$. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita.
-
+Formaalisti tunnusluku (eng: *statistic*) $T = T\left(\mathcal{X}\right)$ on funktio saatavilla olevasta otoksesta $\mathcal{X} = \{\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\}$. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita. Tässä $\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}$ tarkoittaa kooltaan $n$ otosta $d$-ulotteisia vektoreita, jotka ollaan generoitu jostain tuntemattomasta satunnaisvektorista $\boldsymbol X = \left(X_1, \ldots, X_d\right)^T$. Havainnon $i$ alkioille $j$ käytämme merkintää $\boldsymbol x_j^{(i)}$ eli esimerkiksi $\boldsymbol x^{(3)} = \left(x_1^{(3)}, x_2^{(3)}, \ldots, x_d^{(3)}\right)^T$.
 
 ### Jakauman sijainti {-}
 
+
+
+Yksi yleisimpiä sijaintia kuvaavia tunnuslukuja on komponenttikohtainen (eng: *componentwise*) keskiarvo
+\begin{equation*}
+  \bar{\boldsymbol x} = \frac{1}{n} \sum_{i = 1}^n \boldsymbol x^{(i)}
+  = \left(\frac{1}{n} \sum_{i = 1}^n x_1^{(i)},
+  \frac{1}{n} \sum_{i = 1}^n x_2^{(i)}, \ldots,
+  \frac{1}{n} \sum_{i = 1}^n x_d^{(i)}\right)^T \in\mathbb{R}^d.
+\end{equation*}
+Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukujen laki. Eli lievien oletusten alla suurelle otoskoolle $n$ pätee
+\begin{equation*}
+  \bar{\boldsymbol x}\approx \mathbb{E}\left(\boldsymbol X\right)
+  = \left(\mathbb{E}\left(X_1\right), \mathbb{E}\left(X_2\right),
+  \ldots, \mathbb{E}\left(X_d\right)\right)^T.
+\end{equation*}
+
+
+::: {.example name="Komponenttikohtaisen keskiarvon laskeminen"}
+Käsittelemme esimerkin \@ref(exm:body) dataa.
+```{r}
+body
+```
+
+Komponenttikohtaisen keskiarvon saa kätevästi laskettua komennolla `colMeans()`.
+```{r}
+body_mean <- colMeans(body)
+body_mean
+```
+
+Saman tuloksen saa monella muulla tavalla.
+```{r}
+colSums(body) / nrow(body)
+apply(body, 2, mean)
+
+body_mean2 <- rep(NA, ncol(body))
+for (j in 1:ncol(body)) {
+  body_mean2[j] <- mean(body[[j]]) # Extract column j, compute mean
+}
+body_mean2
+```
+
+Viimeisessä `for`-silmukka toteutuksessa käytämme tuplahakasulkeita `[[`, joilla voi eristää listan (`list`) alkion. Tietotyyppiä `data.frame` ja `tibble` olevat muuttujat ovat eritystapauksia listoista, joten syntaksi `[[` toimii. 
+
+Huomaa, että komponenttikohtainen keskiarvo on erittäin epävakaa (eng:*(non)robust*). Tämä tarkoittaa sitä, poikkeavat havainnot vaikuttavat merkittävästi keskiarvoon. Voimme havainnollistaa tätä saastuttamalla alkuperäisen datan `body` lisäämällä oudokin $(10000, 43564, 3452, 75656)$ ja laskemalla keskiarvon uudestaan.
+```{r}
+body |>
+  tibble::add_row(
+    ShoulderWidth = 10000,
+    Belly = 43564,
+    ArmLength = 3452,
+    TotalHeight = 75656
+    ) |>
+  colMeans()
+```
+Keskiarvo oudokin lisäämisen jälkeen poikkeaa merkittävästi alkuperäisestä keskiarvosta.
+:::
+
+Joissain tilanteissa oudokkien vaikutus sijaintitunnuslukuun halutaan poistaa tai vaimentaa. Eli on tarve vakaille tunnusluvuille, joiden arvo muuttuu vain vähän tai ei lainkaan muutaman poikkeavan havainnon vaikutuksesta. Yksiulotteisessa tapauksessa mediaani on esimerkki vakaasta sijainnin tunnusluvusta. Muista, että mediaani on suuruusjärjestetyn otoksen keskimmäinen luku (tai keskiarvo kahdesta keskimmäisestä luvusta jos otoskoko on parillinen). Esimerkiksi otosta $\{2, 5, 1, 2, -100\}$ vastaava mediaani on
+\begin{equation*}
+  \mathrm{Median}\left(\{2, 5, 1, 2, -100\}\right) = 2
+\end{equation*}
+ja otosta $\{2, 5, 1, 2, -100, 1\}$ vastaava mediaani on
+\begin{equation*}
+  \mathrm{Median}\left(\{2, 5, 1, 2, -100, 1\}\right) = \frac{1 + 2}{2} = 1.5.
+\end{equation*}
+Määritellään
+\begin{equation*}
+  \mathrm{Median}_j = \mathrm{Median}\left(\{x_j^{(1)}, x_j^{(2)},
+  \ldots, x_j^{(n)}\}\right)\in\mathbb{R}, \quad j\in\{1,2, \ldots, d\}.
+\end{equation*}
+Tällöin tuntuisi luonnolliselta käyttää komponenttikohtaista mediaania
+\begin{equation*}
+  \mathrm{Median} = \left(\mathrm{Median}_1, \mathrm{Median}_2, \ldots, \mathrm{Median}_d\right)\in\mathbb{R}^d
+\end{equation*}
+moniulotteisen datan sijainnin kuvaamiseen. **Komponenttikohtaisen mediaanin käyttö ei kuitenkaan ole teoreettisesti perusteltua. Esimerkiksi tietyissä erityistapauksissa komponettikohtainen mediaani voi olla itse havaintoaineiston ulkopuolella (viikko 3, tehtävä 5).** Vakaa sijainnin tunnusluvun kehittäminen moniulotteiselle aineistolle ei siis ole yksinkertaista, vaikka erilaisia kehitelmiä on olemassa. Nämä tunnusluvut ovat kuitenkin kurssin ulkopuolista asiaa.
+
+
 ### Jakauman hajonta ja riippuvuussuhteet {-}
+
