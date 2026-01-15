@@ -695,3 +695,12 @@ knitr::include_graphics("images/mahalanobis.jpg")
 ### Jatkuvat jakaumat {-}
 
 ## Tunnusluvuista {#sec:statistic}
+
+Usein lähtökohtana data-analyysissä on se, että saatavilla on otos tai havaintoaineisto -- tämän luvun moniulotteisessa viitekehyksessä havaintoaineisto koostuu $d$-ulotteisista vektoreista $\boldsymbol x_1, \ldots, \boldsymbol x_n$. Sitten havaintoaineiston perusteella on tarkoitus selvittää datan generoivan mallin ominaisuuksia. Esimerkiksi jos oletamme, että data generoidaan moniulotteisesta normaalijakaumasta $N(\boldsymbol\mu, \boldsymbol\Sigma)$, niin tavoitteena voi olla parametrien $\boldsymbol\mu$ ja $\boldsymbol\Sigma$ estimointi saatavilla olevan otoksen avulla. Huomioi siis, että vaikka käytännön sovelluksissa oletettaisiin joku tietty jakauma, niin jakauman parametrit ovat käytännössä tuntemattomat. Toisaalta vaikka datalle ei oletettaisi mitään tiettyä jakaumaa, niin esimerkiksi datan sijaintia tai hajontaa kuvaavat tunnusluvut tarjoavat arvokasta informaatiota.
+
+Formaalisti tunnusluku (eng: *statistic*) $T = T\left(\mathcal{X}\right)$ on funktio saatavilla olevasta otoksesta $\mathcal{X} = \{\boldsymbol x_1, \ldots, \boldsymbol x_n\}$. Tässä luvussa olemme kiinnostuneita niistä tunnusluvuista, jotka kuvaavat moniulotteisen datan sijaintia, hajontaa ja riippuvuussuhteita.
+
+
+### Jakauman sijainti {-}
+
+### Jakauman hajonta ja riippuvuussuhteet {-}
