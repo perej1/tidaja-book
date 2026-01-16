@@ -694,18 +694,20 @@ knitr::include_graphics("images/mahalanobis.jpg")
 
 ## Yhteisjakaumaan koodattu informaatio {#sec:cond}
 
+Satunnaisvektoria $\boldsymbol X = (X_1, X_2, \ldots, X_d)$ vastaava yhteisjakauma sisältää informaation
 
+1. yksittäisten komponenttien $X_i$, $i\in\{1, 2, \ldots, d\}$, jakaumista ja
 
+2. komponenttien välisistä riippuvuussuhteista.
 
+Tässä luvussa näemme käytännössä, kuinka kohdissa 1 ja 2 kuvattu informaatio voidaan eristää yhteisjakaumasta. Aluksi käsittelemme yksittäisten komponenttien jakaumia, joita kutsutaan reunajakaumiksi (eng: *marginal distribution*). Tämän jälkeen analysoimme muuttujien välisiä riippuvuussuhteita ehdollisten jakaumien avulla. Keskitymme pääasiassa $2$-ulotteisiin satunnaisvektoreihin, vaikka monet tuloksista yleistyvät useampaan ulottuvuuteen $d > 2$.
 
 
 ### Reunajakaumat {-}
 
 Esimerkissä \@ref(exm:pointfromcdf) laskettiin muotoa^[Tarkalleen ottaen esimerkissä laskettiin todennäköisyys $\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)$] $\mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right)$ oleva todennäköisyys summaamalla diskreettiä satunnaisvektoria $X = (X_1,  X_2)^T$ vastaavaan pistetodennäköisyysfunktion $p_{\boldsymbol X}$ arvoja sopivasti. Samoin diskreeteille satunnaismuuttujille voimme laskea muotoa $\mathbb{P}\left(X_i = x\right)$ olevia todennäköisyyksiä summaamalla yhteispistetodennäköisyysfunktion arvoja.
 
-
-
-::: {.theorem name="Diskreetin satunnaisvektorin reunajakaumat"}
+::: {.definition name="Diskreetin satunnaisvektorin reunajakaumat"}
 Olkoon $\boldsymbol X = (X_1,  X_2)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{\boldsymbol X}$. Tällöin satunnaismuuttujien $X_1$ ja $X_2$ reunajakaumat ovat pistetodennäköisyysfunktioiden
 \begin{align*}
   &p_{X_1}\left(x\right) = \mathbb{P}\left(X_1 = x\right)
@@ -825,7 +827,7 @@ Huomaa, että taulukon \@ref(tab:insurance-marginal1) arvot summautuvat ykkösee
 
 Myös moniulotteisille jatkuville jakaumille voidaan laskea reunajakaumia. Jatkuvan yhteisjakauman reunajakauman määritelmä muistuttaa diskreetin reunajakauman määritelmää -- erona on taas kerran se, että summat täytyy  korvata integraaleilla.
 
-:::{.theorem name="Jatkuvan satunnaisvektorin reunajakaumat"}
+:::{.definition name="Jatkuvan satunnaisvektorin reunajakaumat"}
 Olkoon $\boldsymbol X = (X_1,  X_2)^T$ jatkuva satunnaisvektori, jolla on yhteistiheysfunktio $f_{\boldsymbol X}$. Tällöin satunnaismuuttujien $X_1$ ja $X_2$ reunajakaumat ovat tiheysfunktioiden
 \begin{align*}
   &f_{X_1}(x) = \int_\mathbb{R} f_{\boldsymbol X}(x, x_2) \,\mathrm{d}x_2 \\
@@ -854,6 +856,30 @@ Yllä käsittelimme $2$-ulotteisten jakaumien reunajakaumia, jotka ovat aina yks
 \end{equation*}
 
 ### Ehdolliset jakaumat {-}
+
+::: {.definition name="Diskreetin satunnaisvektorin ehdollinen jakauma"}
+Olkoon $(X,  Y)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{(X, Y)} = p_{(X, Y)}(x, y)$,  $x,y\in\mathbb{Z}$. Satunnaismuuttujan $X$  ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{Z}$, määritellään ehdollisen pistetodennäköisyysfunktion  $p_{X|Y=y}(x|y)$ avulla
+\begin{equation*}
+  p_{X|Y=y}(x|y) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
+\end{equation*}
+aina kun $p_Y(y) = \mathbb{P}\left(Y = y\right) > 0$.
+:::
+
+::: {.definition name="Jatkuvan satunnaisvektorin ehdollinen jakauma"}
+Olkoon $(X, Y)^T$ jatkuva satunnaisvektori, jolla on yhteistiheysfunktio $f_{(X, Y)} = f_{(X, Y)}(x, y)$,  $x,y\in\mathbb{R}$. Satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{R}$, määritellään ehdollisen tiheysfunktion $f_{X|Y=y}(x|y)$ avulla
+\begin{equation*}
+  f_{X|Y=y}(x|y) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
+\end{equation*}
+aina kun $f_Y(y) > 0$.
+:::
+
+::: {.theorem name="Moniulotteinen normaalijakauma ja ehdollisuus"}
+Olkoon $(X,Y)^T\in N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli satunnaisvektori $(X, Y)^T$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$ eli $X|Y=y$ noudattaa yksiulotteista normaalijakaumaa kaikilla $y\in\mathbb{R}$.
+:::
+
+:::  {.theorem  name="Riippumattomuus ja ehdollinen jakauma"}
+Olkoon $X$ ja $Y$ satunnaismuuttujia. Satunnaismuuttujat $X$  ja $Y$ ovat riippumattomia, jos kaikille $y$ satunnaismuuttujat $X|Y = y$ ja $X$ ovat samoin jakautuneet.
+:::
 
 ## Tunnusluvuista {#sec:statistic}
 

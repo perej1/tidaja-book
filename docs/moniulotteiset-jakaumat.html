@@ -923,11 +923,17 @@ Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\bol
 </div>
 <div id="sec:cond" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Yhteisjakaumaan koodattu informaatio<a href="moniulotteiset-jakaumat.html#sec:cond" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Satunnaisvektoria <span class="math inline">\(\boldsymbol X = (X_1, X_2, \ldots, X_d)\)</span> vastaava yhteisjakauma sisältää informaation</p>
+<ol style="list-style-type: decimal">
+<li><p>yksittäisten komponenttien <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i\in\{1, 2, \ldots, d\}\)</span>, jakaumista ja</p></li>
+<li><p>komponenttien välisistä riippuvuussuhteista.</p></li>
+</ol>
+<p>Tässä luvussa näemme käytännössä, kuinka kohdissa 1 ja 2 kuvattu informaatio voidaan eristää yhteisjakaumasta. Aluksi käsittelemme yksittäisten komponenttien jakaumia, joita kutsutaan reunajakaumiksi (eng: <em>marginal distribution</em>). Tämän jälkeen analysoimme muuttujien välisiä riippuvuussuhteita ehdollisten jakaumien avulla. Keskitymme pääasiassa <span class="math inline">\(2\)</span>-ulotteisiin satunnaisvektoreihin, vaikka monet tuloksista yleistyvät useampaan ulottuvuuteen <span class="math inline">\(d &gt; 2\)</span>.</p>
 <div id="reunajakaumat" class="section level3 unnumbered hasAnchor">
 <h3>Reunajakaumat<a href="moniulotteiset-jakaumat.html#reunajakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Esimerkissä <a href="moniulotteiset-jakaumat.html#exm:pointfromcdf">2.8</a> laskettiin muotoa<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> <span class="math inline">\(\mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right)\)</span> oleva todennäköisyys summaamalla diskreettiä satunnaisvektoria <span class="math inline">\(X = (X_1,  X_2)^T\)</span> vastaavaan pistetodennäköisyysfunktion <span class="math inline">\(p_{\boldsymbol X}\)</span> arvoja sopivasti. Samoin diskreeteille satunnaismuuttujille voimme laskea muotoa <span class="math inline">\(\mathbb{P}\left(X_i = x\right)\)</span> olevia todennäköisyyksiä summaamalla yhteispistetodennäköisyysfunktion arvoja.</p>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-10" class="theorem"><strong>Fakta 2.7  (Diskreetin satunnaisvektorin reunajakaumat) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio <span class="math inline">\(p_{\boldsymbol X}\)</span>. Tällöin satunnaismuuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> reunajakaumat ovat pistetodennäköisyysfunktioiden
+<div class="definition">
+<p><span id="def:unlabeled-div-10" class="definition"><strong>Määritelmä 2.6  (Diskreetin satunnaisvektorin reunajakaumat) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio <span class="math inline">\(p_{\boldsymbol X}\)</span>. Tällöin satunnaismuuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> reunajakaumat ovat pistetodennäköisyysfunktioiden
 <span class="math display">\[\begin{align*}
   &amp;p_{X_1}\left(x\right) = \mathbb{P}\left(X_1 = x\right)
   = \sum_{x_2\in\mathbb{Z}} p_{\boldsymbol X}(x, x_2) \\
@@ -1056,8 +1062,8 @@ Satunnaismuuttujaa <span class="math inline">\(X_2\)</span> vastaavan pistetoden
 <p>Huomaa, että taulukon <a href="moniulotteiset-jakaumat.html#tab:insurance-marginal1">2.6</a> arvot summautuvat ykköseen ja taulukon <a href="moniulotteiset-jakaumat.html#tab:insurance-marginal2">2.7</a> arvot summautuvat ykköseen, koska <span class="math inline">\(p_{X_1}\)</span> ja <span class="math inline">\(p_{X_2}\)</span> ovat pistetodennäköisyysfunktioita. Laskettaessa diskreettien moniulotteisten jakaumien reunajakaumia kannattaa siis aina pikaisesti tarkistaa summautuvuus ykköseen. Jos reunajakaumaa vastaavat pistetodennäköisyysfunktion arvot eivät summaudu ykköseen, niin jokin on mennyt laskuissa pieleen.</p>
 </div>
 <p>Myös moniulotteisille jatkuville jakaumille voidaan laskea reunajakaumia. Jatkuvan yhteisjakauman reunajakauman määritelmä muistuttaa diskreetin reunajakauman määritelmää – erona on taas kerran se, että summat täytyy korvata integraaleilla.</p>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-12" class="theorem"><strong>Fakta 2.8  (Jatkuvan satunnaisvektorin reunajakaumat) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> jatkuva satunnaisvektori, jolla on yhteistiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tällöin satunnaismuuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> reunajakaumat ovat tiheysfunktioiden
+<div class="definition">
+<p><span id="def:unlabeled-div-12" class="definition"><strong>Määritelmä 2.7  (Jatkuvan satunnaisvektorin reunajakaumat) </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> jatkuva satunnaisvektori, jolla on yhteistiheysfunktio <span class="math inline">\(f_{\boldsymbol X}\)</span>. Tällöin satunnaismuuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> reunajakaumat ovat tiheysfunktioiden
 <span class="math display">\[\begin{align*}
   &amp;f_{X_1}(x) = \int_\mathbb{R} f_{\boldsymbol X}(x, x_2) \,\mathrm{d}x_2 \\
   &amp;f_{X_2}(x) = \int_\mathbb{R} f_{\boldsymbol X}(x_1, x) \,\mathrm{d}x_1
@@ -1066,7 +1072,7 @@ määrittämät todennäköisyysjakaumat.</p>
 </div>
 <p>Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin <span class="math inline">\(\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)\)</span> jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span>. Tätä havainollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-13" class="theorem"><strong>Fakta 2.9  </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli <span class="math inline">\(\boldsymbol X\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> vastaavat reunajakaumat ovat normaalijakaumia.</p>
+<p><span id="thm:unlabeled-div-13" class="theorem"><strong>Fakta 2.7  </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli <span class="math inline">\(\boldsymbol X\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> vastaavat reunajakaumat ovat normaalijakaumia.</p>
 </div>
 <p>Herää kysymys, onko päättely toiseen suuntaan mahdollista? Jos tiedämme komponenttien <span class="math inline">\(X_1,  X_2, \ldots, X_d\)</span> jakaumat, niin voimmeko päätellä vastaavan satunnaisvektorin <span class="math inline">\(\boldsymbol X\)</span> jakauman. Faktan <a href="moniulotteiset-jakaumat.html#thm:ind">2.1</a> mukaan <strong>riippumattomista</strong> komponenteista voidaan päätellä satunnaisvektorin jakauma. Painotamme kuitenkin, että yleensä näin ei voi tehdä!</p>
 <div class="exercise">
@@ -1080,6 +1086,26 @@ määrittämät todennäköisyysjakaumat.</p>
 </div>
 <div id="ehdolliset-jakaumat" class="section level3 unnumbered hasAnchor">
 <h3>Ehdolliset jakaumat<a href="moniulotteiset-jakaumat.html#ehdolliset-jakaumat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-14" class="definition"><strong>Määritelmä 2.8  (Diskreetin satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X,  Y)^T\)</span> diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio <span class="math inline">\(p_{(X, Y)} = p_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{Z}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{Z}\)</span>, määritellään ehdollisen pistetodennäköisyysfunktion <span class="math inline">\(p_{X|Y=y}(x|y)\)</span> avulla
+<span class="math display">\[\begin{equation*}
+  p_{X|Y=y}(x|y) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
+\end{equation*}\]</span>
+aina kun <span class="math inline">\(p_Y(y) = \mathbb{P}\left(Y = y\right) &gt; 0\)</span>.</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-15" class="definition"><strong>Määritelmä 2.9  (Jatkuvan satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X, Y)^T\)</span> jatkuva satunnaisvektori, jolla on yhteistiheysfunktio <span class="math inline">\(f_{(X, Y)} = f_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{R}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{R}\)</span>, määritellään ehdollisen tiheysfunktion <span class="math inline">\(f_{X|Y=y}(x|y)\)</span> avulla
+<span class="math display">\[\begin{equation*}
+  f_{X|Y=y}(x|y) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
+\end{equation*}\]</span>
+aina kun <span class="math inline">\(f_Y(y) &gt; 0\)</span>.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-16" class="theorem"><strong>Fakta 2.8  (Moniulotteinen normaalijakauma ja ehdollisuus) </strong></span>Olkoon <span class="math inline">\((X,Y)^T\in N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli satunnaisvektori <span class="math inline">\((X, Y)^T\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span> eli <span class="math inline">\(X|Y=y\)</span> noudattaa yksiulotteista normaalijakaumaa kaikilla <span class="math inline">\(y\in\mathbb{R}\)</span>.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-17" class="theorem"><strong>Fakta 2.9  (Riippumattomuus ja ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> satunnaismuuttujia. Satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(y\)</span> satunnaismuuttujat <span class="math inline">\(X|Y = y\)</span> ja <span class="math inline">\(X\)</span> ovat samoin jakautuneet.</p>
+</div>
 </div>
 </div>
 <div id="sec:statistic" class="section level2 hasAnchor" number="2.5">
@@ -1103,7 +1129,7 @@ Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukuj
 \end{equation*}\]</span>
 Toisin sanoen komponenttikohtainen keskiarvo <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi moniulotteisen satunnaismuuttujan <span class="math inline">\(\boldsymbol{X}\)</span> odotusarvoa <span class="math inline">\(\mathbb{E}\left(\boldsymbol{X}\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\mu\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-14" class="example"><strong>Esimerkki 2.11  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-18" class="example"><strong>Esimerkki 2.11  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="moniulotteiset-jakaumat.html#cb55-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -1219,7 +1245,7 @@ Kovarianssille pätee <span class="math inline">\(\mathrm{Cov}\left(X_i, X_j\rig
 <p>Vertaamalla yhtälöitä <a href="moniulotteiset-jakaumat.html#eq:sigma">(2.11)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov22">(2.13)</a> huomataan että jos <span class="math inline">\(\boldsymbol X\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin <span class="math inline">\(\boldsymbol\Sigma = \mathrm{Cov}\left(\boldsymbol X\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\Sigma\)</span>.</p>
 <p>Vaikka kaavan <a href="moniulotteiset-jakaumat.html#eq:samplecov">(2.12)</a> otoskovarianssimatriisi on työläs laskea käsin, niin R:llä homma hoituu helpommin.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-15" class="example"><strong>Esimerkki 2.12  (Otoskovarianssin laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-19" class="example"><strong>Esimerkki 2.12  (Otoskovarianssin laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="moniulotteiset-jakaumat.html#cb67-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -1272,7 +1298,7 @@ Esimerkiksi <span class="math inline">\(2\times 2\)</span> korrelaatiomatriisi o
 Tarkista korrelaatiokertoimen estimaattorin <span class="math inline">\(\hat{\rho}_{X_jX_k}\)</span> määritelmä yhtälöstä <a href="moniulotteiset-jakaumat.html#eq:samplecoruni">(2.7)</a>.</p>
 <p>Myös korrelaatiomatriisin estimaattorin <span class="math inline">\(\boldsymbol C\)</span> laskeminen on suhteellisen vaivatonta R:ssä</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-16" class="example"><strong>Esimerkki 2.13  (Korrelaatiomatriisin estimointi) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-20" class="example"><strong>Esimerkki 2.13  (Korrelaatiomatriisin estimointi) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="moniulotteiset-jakaumat.html#cb71-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
