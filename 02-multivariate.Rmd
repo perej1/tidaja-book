@@ -857,6 +857,122 @@ Yllä käsittelimme $2$-ulotteisten jakaumien reunajakaumia, jotka ovat aina yks
 
 ### Ehdolliset jakaumat {-}
 
+Ennen ehdollisten jakaumien määrittelemistä muistellaan ehdollisen todennäköisyyden määritelmää kurssilta *tilastotieteen perusteet*. Olkoon $X$ ja $Y$ satunnaismuuttujia. Tapahtuman $\{X\in A\}$ ehdollinen todennäköisyys tapahtuman $\{Y\in B\}$ toteutuessa määritellään kaavalla
+\begin{equation*}
+  \mathbb{P}\left(X\in A | Y\in B\right)
+  = \frac{\mathbb{P}\left(X\in A, Y\in B\right)}
+  {\mathbb{P}\left(Y\in B\right)}, \quad\mathbb{P}\left(Y\in B\right)\neq 0.
+\end{equation*}
+Ehdollisista todennäköisyyttä voidaan havainnollistaa yksinkertaisella esimerkillä.
+
+::: {.example name="Ehdollinen todennäköisyys"}
+Taulukossa \@ref(tab:hockey) näkyy kuvitteellisen kyselyn tulokset, jossa sadalta ihmiseltä (mies tai nainen) kysyttiin, mitä urheilulajia (jääkiekko, koripallo tai jalkapallo) he mieluiten seuraavat. Valitaan satunnaisesti kyselyyn vastannut henkilö ja merkitään
+
+- $X = \mathrm{sukupuoli}$,
+
+- $Y = \mathrm{suosikkilaji}$.
+
+```{r hockey, echo=FALSE, message=FALSE}
+library(kableExtra)
+
+tab <- data.frame(
+  X = c("Mies", "Nainen", "Yhteensä"),
+  Y0 = c("$13$", "$12$", "$25$"),
+  Y1 = c("$15$", "$14$", "$29$"),
+  Y2 = c("$20$", "$26$", "$46$"),
+  Y3 = c("$48$", "$52$", "$100$")
+)
+names(tab) <- c("" ,"Jääkiekko", "Koripallo", "Jalkapallo", "Yhteensä")
+
+kbl(
+  tab,
+  caption = "Sukupuolen ja urheilulajien ristiintaulukointi. Esimerkin kysymystä 1 vastaavat ehdolliset todennäköisyydet saadaan laskettua ensimmäisen rivin avulla, joka on väritetty siniseksi. Esimerkin kysymystä 2 vastaavat ehdolliset todennäköisyydet saadaan laskettua toisen sarakkeen avulla, jonka arvot on väritetty oranssilla."
+) %>%
+  row_spec(1, background = "skyblue") %>%
+  column_spec(3, color = "orange")
+```
+
+Taulukon avulla voimme laskea esimerkiksi todennäköisyydet $\mathbb{P}\left(X=\text{mies}\right)$ ja $\mathbb{P}\left(Y = \text{koripallo}\right)$ klassisen todennäköisyyden määritelmän $\frac{\#\text{suotuisat tapahtumat}}{\#\text{kaikki tapahtumat}}$ avulla
+\begin{align*}
+  &\mathbb{P}\left(X=\text{mies}\right) = \frac{48}{100} = 0.48, \\
+  &\mathbb{P}\left(Y = \text{koripallo}\right) = \frac{29}{100} = 0.29.
+\end{align*}
+Toisaalta voimme käyttää taulukkoa vastaamaan seuraaviin kysymyksiin:
+
+1. Millä todennäköisyydellä satunnaisesti valittu vastaaja seuraa mieluiten määrättyä urheilulajia (esimerkiksi koripalloa) sillä oletuksella, että vastaaja on mies?
+
+2. Millä todennäköisyydellä satunnaisesti valittu vastaaja on ilmoittanut määrätyn sukupuolen (mies tai nainen) sillä oletuksella, että hän seuraa mieluiten koripalloa?
+
+Esimerkiksi ensimmäinen kysymys vastaa tilannetta, jossa satunnaismuuttujan $X$ (sukupuoli) arvo on tunnettu ja satunnaismuuttujaan $Y$ (urheilulaji) liittyy epävarmuutta. Kysymystä 1 vastaavat ehdolliset todennäköisyydet saadaan ratkaistua taulukon \@ref(tab:hockey) ensimmäisen rivin (väritetty siniseksi) avulla käyttäen klassisen todennäköisyyden periaatteita
+\begin{equation}
+  \small
+  (\#eq:hockeyman)
+  \begin{split}
+    \mathbb{P}\left(Y = \text{jääkiekko} | X = \text{mies}\right)
+    &= \text{"Jääkiekon seuraajien osuus miehistä"} \\
+    &= \frac{13}{48} \approx 0.27,
+  \end{split}
+\end{equation}
+\begin{equation}
+  \small
+  (\#eq:basketman)
+  \begin{split}
+    \mathbb{P}\left(Y = \text{koripallo} | X = \text{mies}\right)
+    &= \text{"Koripallon seuraajien osuus miehistä"} \\
+    &= \frac{15}{48} \approx 0.31 \quad\text{ja}
+  \end{split}
+\end{equation}
+\begin{equation}
+  \small
+  (\#eq:footman)
+  \begin{split}
+    \mathbb{P}\left(Y = \text{jalkapallo} | X = \text{mies}\right)
+    &= \text{"Jalkapallon seuraajien osuus miehistä"} \\
+    &= \frac{20}{48} \approx 0.42.
+  \end{split}
+\end{equation}
+Huomaa että yllä olevat todennäköisyydet summautuvat ykköseen
+\begin{equation*}
+  \frac{13}{48} + \frac{15}{48} + \frac{20}{48} = 1.
+\end{equation*}
+Joten kaavojen \@ref(eq:hockeyman), \@ref(eq:basketman) ja \@ref(eq:footman) antamien todennäköisyyksien voidaan ajatella antavan ehdollisen jakauman $\mathbb{P}\left(Y\in B|X = \text{mies}\right)$.
+
+Samoin kysymystä 2 vastaavat ehdolliset todennäköisyydet saadaan ratkaistua taulukon \@ref(tab:hockey) toisen sarakkeen (väritetty oranssiksi) avulla
+\begin{equation}
+  \small
+  \begin{split}
+    \mathbb{P}\left(X = \text{mies} | Y = \text{koripallo}\right)
+    &= \text{"Miesten osuus koripallon seuraajista"} \\
+    &= \frac{15}{29} \approx 0.52 \quad\text{ja}
+  \end{split}
+\end{equation}
+\begin{equation}
+  \small
+  \begin{split}
+    \mathbb{P}\left(X = \text{nainen} | Y = \text{koripallo}\right)
+    &= \text{"Naisten osuus koripallon seuraajista"} \\
+    &= \frac{14}{29} \approx 0.48,
+  \end{split}
+\end{equation}
+jotka määräävät ehdollisen jakauman $\mathbb{P}\left(X\in A|Y = \text{koripallo}\right)$
+:::
+
+Liiketoiminta-analytiikassa ehdollisilla todennäköisyyksillä voi olla esimerkiksi seuraavanlainen rooli. Eräs yritys tuottaa tilausperusteista palveluntarjontaa ja haluaa analysoida asiakkaidensa tilausten peruutuksia. Olkoon $X$ asiakkaan ikä ja $Y$ tilauksen status
+\begin{equation*}
+  Y =
+  \begin{cases}
+    1, & \text{asiakas peruutti tilauksen}, \\
+    0 & \text{asiakas ei peruuttanut tilausta}.
+  \end{cases}
+\end{equation*}
+Yritykselle mielekkäitä kysymyksiä ovat esimerkiksi seuraavat.
+
+- Millä todennäköisyydellä asiakas kuuluu määrättyyn asiakasryhmään (esimerkiksi 18--25), jos hän peruutti tilauksen? Eli mikä on todennäköisyys $\mathbb{P}\left(18\leq X\leq 25|Y = 1\right)$?
+
+- Onko tilauksien peruutuksissa eri asiakasryhmien välisiä eroja?
+
+Näihin kysymyksiin vastaamalla yritys voi esimerkiksi tehostaa markkinointia, kehittää tuotesuunnittelua, tai allokoida resursseja paremmin. Jotta pääsemme helpommin käsiksi ehdollisiin todennäköisyyksiin, määrittelemme ehdollisen pistetodennäköisyysfunktion käsitteen.
+
 ::: {.definition name="Diskreetin satunnaisvektorin ehdollinen jakauma"}
 Olkoon $(X,  Y)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{(X, Y)} = p_{(X, Y)}(x, y)$,  $x,y\in\mathbb{Z}$. Satunnaismuuttujan $X$  ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{Z}$, määritellään ehdollisen pistetodennäköisyysfunktion  $p_{X|Y=y}(x|y)$ avulla
 \begin{equation*}
