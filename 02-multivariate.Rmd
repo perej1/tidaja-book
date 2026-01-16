@@ -705,7 +705,7 @@ Tässä luvussa näemme käytännössä, kuinka kohdissa 1 ja 2 kuvattu informaa
 
 ### Reunajakaumat {-}
 
-Esimerkissä \@ref(exm:pointfromcdf) laskettiin muotoa^[Tarkalleen ottaen esimerkissä laskettiin todennäköisyys $\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)$] $\mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right)$ oleva todennäköisyys summaamalla diskreettiä satunnaisvektoria $X = (X_1,  X_2)^T$ vastaavaan pistetodennäköisyysfunktion $p_{\boldsymbol X}$ arvoja sopivasti. Samoin diskreeteille satunnaismuuttujille voimme laskea muotoa $\mathbb{P}\left(X_i = x\right)$ olevia todennäköisyyksiä summaamalla yhteispistetodennäköisyysfunktion arvoja.
+Esimerkissä \@ref(exm:pointfromcdf) laskettiin muotoa^[Tarkalleen ottaen esimerkissä laskettiin todennäköisyys $\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)$.] $\mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right)$ oleva todennäköisyys summaamalla diskreettiä satunnaisvektoria $X = (X_1,  X_2)^T$ vastaavaan pistetodennäköisyysfunktion $p_{\boldsymbol X}$ arvoja sopivasti. Samoin diskreeteille satunnaismuuttujille voimme laskea muotoa $\mathbb{P}\left(X_i = x\right)$ olevia todennäköisyyksiä summaamalla yhteispistetodennäköisyysfunktion arvoja.
 
 ::: {.definition name="Diskreetin satunnaisvektorin reunajakaumat"}
 Olkoon $\boldsymbol X = (X_1,  X_2)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{\boldsymbol X}$. Tällöin satunnaismuuttujien $X_1$ ja $X_2$ reunajakaumat ovat pistetodennäköisyysfunktioiden
@@ -836,7 +836,7 @@ Olkoon $\boldsymbol X = (X_1,  X_2)^T$ jatkuva satunnaisvektori, jolla on yhteis
 määrittämät todennäköisyysjakaumat.
 :::
 
-Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin $\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)$  jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat $X_1, X_2, \ldots, X_d$. Tätä havainollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.
+Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin $\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)$  jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat $X_1, X_2, \ldots, X_d$. Tätä havainnollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.
 
 ::: {.theorem}
 Olkoon $\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli $\boldsymbol X$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia $X_1$ ja $X_2$ vastaavat reunajakaumat ovat normaalijakaumia.
@@ -847,7 +847,6 @@ Herää kysymys, onko päättely toiseen suuntaan mahdollista? Jos tiedämme kom
 ::: {.exercise #cdffrommarginal name="Viikko 3, tehtävä 3"}
 On mahdollista, että $X_1\sim N(0,1)$ ja $X_2\sim N(0,1)$  mutta satunnaisvektori $\boldsymbol X = (X_1, X_2)^T$  **ei** noudata $2$-ulotteista normaalijakaumaa.
 :::
-
 
 Yllä käsittelimme $2$-ulotteisten jakaumien reunajakaumia, jotka ovat aina yksiulotteisia. Kuitenkin $d$-ulotteisille satunnaisvektoreille näin ei tarvitse olla kun $d > 2$. Esimerkiksi olkoon $\boldsymbol X = (X_1,  X_2, X_3, X_4, X_5)$ diskreetti satunnaisvektori. Tällöin vektoria $\boldsymbol Y = (X_1, X_4, X_5)$ vastaava reunajakauma saadaan kaavasta
 \begin{equation*}
@@ -865,7 +864,7 @@ Ennen ehdollisten jakaumien määrittelemistä muistellaan ehdollisen todennäk�
 \end{equation*}
 Ehdollisista todennäköisyyttä voidaan havainnollistaa yksinkertaisella esimerkillä.
 
-::: {.example name="Ehdollinen todennäköisyys"}
+::: {.example #cpoint name="Ehdollinen todennäköisyys"}
 Taulukossa \@ref(tab:hockey) näkyy kuvitteellisen kyselyn tulokset, jossa sadalta ihmiseltä (mies tai nainen) kysyttiin, mitä urheilulajia (jääkiekko, koripallo tai jalkapallo) he mieluiten seuraavat. Valitaan satunnaisesti kyselyyn vastannut henkilö ja merkitään
 
 - $X = \mathrm{sukupuoli}$,
@@ -933,28 +932,28 @@ Esimerkiksi ensimmäinen kysymys vastaa tilannetta, jossa satunnaismuuttujan $X$
 \end{equation}
 Huomaa että yllä olevat todennäköisyydet summautuvat ykköseen
 \begin{equation*}
-  \frac{13}{48} + \frac{15}{48} + \frac{20}{48} = 1.
+  \frac{13}{48} + \frac{15}{48} + \frac{20}{48} = 1,
 \end{equation*}
-Joten kaavojen \@ref(eq:hockeyman), \@ref(eq:basketman) ja \@ref(eq:footman) antamien todennäköisyyksien voidaan ajatella antavan ehdollisen jakauman $\mathbb{P}\left(Y\in B|X = \text{mies}\right)$.
+joten kaavojen \@ref(eq:hockeyman), \@ref(eq:basketman) ja \@ref(eq:footman) antamien todennäköisyyksien voidaan ajatella antavan ehdollisen jakauman $\mathbb{P}\left(Y\in B|X = \text{mies}\right)$.
 
 Samoin kysymystä 2 vastaavat ehdolliset todennäköisyydet saadaan ratkaistua taulukon \@ref(tab:hockey) toisen sarakkeen (väritetty oranssiksi) avulla
-\begin{equation}
+\begin{equation*}
   \small
   \begin{split}
     \mathbb{P}\left(X = \text{mies} | Y = \text{koripallo}\right)
     &= \text{"Miesten osuus koripallon seuraajista"} \\
     &= \frac{15}{29} \approx 0.52 \quad\text{ja}
   \end{split}
-\end{equation}
-\begin{equation}
+\end{equation*}
+\begin{equation*}
   \small
   \begin{split}
     \mathbb{P}\left(X = \text{nainen} | Y = \text{koripallo}\right)
     &= \text{"Naisten osuus koripallon seuraajista"} \\
     &= \frac{14}{29} \approx 0.48,
   \end{split}
-\end{equation}
-jotka määräävät ehdollisen jakauman $\mathbb{P}\left(X\in A|Y = \text{koripallo}\right)$
+\end{equation*}
+jotka määräävät ehdollisen jakauman $\mathbb{P}\left(X\in A|Y = \text{koripallo}\right)$.
 :::
 
 Liiketoiminta-analytiikassa ehdollisilla todennäköisyyksillä voi olla esimerkiksi seuraavanlainen rooli. Eräs yritys tuottaa tilausperusteista palveluntarjontaa ja haluaa analysoida asiakkaidensa tilausten peruutuksia. Olkoon $X$ asiakkaan ikä ja $Y$ tilauksen status
@@ -974,27 +973,89 @@ Yritykselle mielekkäitä kysymyksiä ovat esimerkiksi seuraavat.
 Näihin kysymyksiin vastaamalla yritys voi esimerkiksi tehostaa markkinointia, kehittää tuotesuunnittelua, tai allokoida resursseja paremmin. Jotta pääsemme helpommin käsiksi ehdollisiin todennäköisyyksiin, määrittelemme ehdollisen pistetodennäköisyysfunktion käsitteen.
 
 ::: {.definition name="Diskreetin satunnaisvektorin ehdollinen jakauma"}
-Olkoon $(X,  Y)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{(X, Y)} = p_{(X, Y)}(x, y)$,  $x,y\in\mathbb{Z}$. Satunnaismuuttujan $X$  ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{Z}$, määritellään ehdollisen pistetodennäköisyysfunktion  $p_{X|Y=y}(x|y)$ avulla
-\begin{equation*}
-  p_{X|Y=y}(x|y) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
-\end{equation*}
+Olkoon $(X,  Y)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{(X, Y)} = p_{(X, Y)}(x, y)$,  $x,y\in\mathbb{Z}$. Satunnaismuuttujan $X$  ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{Z}$, määritellään ehdollisen pistetodennäköisyysfunktion  $p_{X|Y=y}(x)$ avulla
+\begin{equation}
+  (\#eq:cpoint)
+  p_{X|Y=y}(x) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
+\end{equation}
 aina kun $p_Y(y) = \mathbb{P}\left(Y = y\right) > 0$.
 :::
 
-::: {.definition name="Jatkuvan satunnaisvektorin ehdollinen jakauma"}
-Olkoon $(X, Y)^T$ jatkuva satunnaisvektori, jolla on yhteistiheysfunktio $f_{(X, Y)} = f_{(X, Y)}(x, y)$,  $x,y\in\mathbb{R}$. Satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{R}$, määritellään ehdollisen tiheysfunktion $f_{X|Y=y}(x|y)$ avulla
+Huomioidaan vielä yllä olevasta määritelmästä se, että yleensä yhtälössä \@ref(eq:cpoint) $y$ on kiinnitetty ja $x$ vaihtelee. Eli $p_{X|Y=y}(x)$ todella on $x$:n funktio ja $y$ pidetään vakiona. Alla on konkreettinen esimerkki ehdollisen pistetodennäköisyysfunktion muodostamisesta.
+
+:::{.example name="Ehdollisen pistetodennäköisyysfunktion laskeminen"}
+Jatketaan esimerkkiä \@ref(exm:cpoint). Taulukko \@ref(tab:hockey2) näyttää esimerkin datan uudestaan. Käytetään urheilulajeille notaatioita $y_1 = \text{jääkiekko}$, $y_2 = \text{koripallo}$ ja $y_3 = \text{jalkapallo}$. Käytetään myös sukupuolelle notaatioita $1 = \text{Nainen}$ ja $0 = \text{Mies}$.
+
+```{r hockey2, echo=FALSE, message=FALSE}
+library(kableExtra)
+
+tab <- data.frame(
+  X = c("Mies", "Nainen", "Yhteensä"),
+  Y0 = c("$13$", "$12$", "$25$"),
+  Y1 = c("$15$", "$14$", "$29$"),
+  Y2 = c("$20$", "$26$", "$46$"),
+  Y3 = c("$48$", "$52$", "$100$")
+)
+names(tab) <- c("" ,"Jääkiekko", "Koripallo", "Jalkapallo", "Yhteensä")
+
+kbl(
+  tab,
+  caption = "Sukupuolen ja urheilulajien ristiintaulukointi. Sinisen rivin avulla saadaan ehdolliset todennäköisyydet $\\mathbb{P}(Y=\\text{laji} | X = \\text{mies})$. Pinkin rivin avulla saadaan ehdolliset todennäköisyydet $\\mathbb{P}(Y=\\text{laji} | X = \\text{nainen})$."
+) %>%
+  row_spec(1, background = "skyblue") %>%
+  row_spec(2, background = "pink")
+```
+
+Esimerkissä \@ref(exm:cpoint) laskimme jo ehdollisen pistetodennäköisyysfunktion $p_{Y|X=0}$ arvot, sillä kaavasta \@ref(eq:hockeyman) saadaan
 \begin{equation*}
-  f_{X|Y=y}(x|y) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
+  p_{Y|X=0}(y_1)
+  = \mathbb{P}\left(Y = \text{jääkiekko} | X = \text{mies}\right)
+  = \frac{13}{48},
+\end{equation*}
+kaavasta \@ref(eq:basketman) saadaan $p_{Y|X = 0}(y_2) = 15/48$ ja kaavasta \@ref(eq:footman) saadaan $p_{Y|X = 0}(y_3) = 20/48$. Samoin taulukon \@ref(tab:hockey2) toisen rivin (pinkki) avulla voidaan laskea $p_{Y|X = 1}(y_1) = 12/52$, $p_{Y|X = 1}(y_2) = 14/52$ ja $p_{Y|X = 1}(y_3) = 26/52$. Ehdolliset pistetodennäköisyysfunktiot $p_{Y|X = 0}$ ja $p_{Y|X = 0}$ näkyvät taulukossa \@ref(tab:hockeycond). Ensimäinen rivi (sininen) kuvaa urheilulajin $y_i$ seuraajien osuutta miehistä. Toinen rivi (pinkki) kuvaa urheilulajin $y_i$ seuraajien osuutta naisista. **Huomaa, että rivit kuvaavat ehdollisia jakaumia ja yhden rivin arvot summautuvat ykköseen. Tämä ei päde sarakkeille tässä tapauksessa.**
+```{r hockeycond, echo=FALSE, message=FALSE}
+library(kableExtra)
+
+tab <- data.frame(
+  X = c("$p_{Y|X = 0}(y)$", "$p_{Y|X = 1}(y)$"),
+  Y0 = c("$13/48$", "$12/52$"),
+  Y1 = c("$15/48$", "$14/52$"),
+  Y2 = c("$20/48$", "$26/52$")
+)
+names(tab) <- c("" ,"$y = y_1$", "$y = y_2$", "$y = y_3$")
+
+kbl(
+  tab,
+  caption = "Ehdolliset jakaumat $p_{Y|X = 0}$ ja $p_{Y|X = 0}$ taulukoituna."
+) %>%
+  row_spec(1, background = "skyblue") %>%
+  row_spec(2, background = "pink")
+```
+:::
+
+Voimme määritellä ehdollisen jakauman jatkuville satunnaismuuttujille samalla idealla kuin diskreeteille jakaumille.
+
+::: {.definition name="Jatkuvan satunnaisvektorin ehdollinen jakauma"}
+Olkoon $(X, Y)^T$ jatkuva satunnaisvektori, jolla on yhteistiheysfunktio $f_{(X, Y)} = f_{(X, Y)}(x, y)$,  $x,y\in\mathbb{R}$. Satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$, kun $y\in\mathbb{R}$, määritellään ehdollisen tiheysfunktion $f_{X|Y=y}(x)$ avulla
+\begin{equation*}
+  f_{X|Y=y}(x) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
 \end{equation*}
 aina kun $f_Y(y) > 0$.
 :::
 
+Tällä kurssilla emme juurikaan laske jatkuvia satunnaismuuttujia vastaavia ehdollisia jakaumia. Myös useissa tapauksissa jatkuvan satunnaisvektorin ehdollinen jakauma voi olla hyvinkin mutkikas, eikä edes mitään yleisesti tunnettua muotoa. Kuitenkin moniulotteisen normaalijakauman tapauksessa ehdollisen jakauman muoto on yksinkertainen -- nimittäin myös ehdollinen jakauma on normaalijakauma.
+
 ::: {.theorem name="Moniulotteinen normaalijakauma ja ehdollisuus"}
-Olkoon $(X,Y)^T\in N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli satunnaisvektori $(X, Y)^T$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$ eli $X|Y=y$ noudattaa yksiulotteista normaalijakaumaa kaikilla $y\in\mathbb{R}$.
+Olkoon $(X,Y)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli satunnaisvektori $(X, Y)^T$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan $X$ ehdollinen jakauma ehdolla $Y = y$ eli $\mathbb{P}\left(X\in A|Y=y\right)$ on yksiulotteinen normaalijakauma kaikilla $y\in\mathbb{R}$.
 :::
 
+Ehdollinen jakauma tarjoaa myös toisenlaisen "testin" satunnaismuuttujien riippumattomuudelle määritelmän \@ref(def:ind) lisäksi.
+
 :::  {.theorem  name="Riippumattomuus ja ehdollinen jakauma"}
-Olkoon $X$ ja $Y$ satunnaismuuttujia. Satunnaismuuttujat $X$  ja $Y$ ovat riippumattomia, jos kaikille $y$ satunnaismuuttujat $X|Y = y$ ja $X$ ovat samoin jakautuneet.
+Olkoon $X$ ja $Y$ satunnaismuuttujia. Satunnaismuuttujat $X$  ja $Y$ ovat riippumattomia, jos kaikille tapahtumille $\{X\in A\}$ ja $\{Y\in B\}$ pätee
+\begin{equation*}
+  \mathbb{P}\left(X\in A|Y \in B\right) = \mathbb{P}\left(X\in A\right).
+\end{equation*}
 :::
 
 ## Tunnusluvuista {#sec:statistic}

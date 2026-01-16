@@ -1072,7 +1072,7 @@ Satunnaismuuttujaa <span class="math inline">\(X_2\)</span> vastaavan pistetoden
 \end{align*}\]</span>
 määrittämät todennäköisyysjakaumat.</p>
 </div>
-<p>Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin <span class="math inline">\(\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)\)</span> jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span>. Tätä havainollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.</p>
+<p>Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin <span class="math inline">\(\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)\)</span> jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span>. Tätä havainnollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.</p>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-13" class="theorem"><strong>Fakta 2.7  </strong></span>Olkoon <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli <span class="math inline">\(\boldsymbol X\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> vastaavat reunajakaumat ovat normaalijakaumia.</p>
 </div>
@@ -1096,7 +1096,7 @@ määrittämät todennäköisyysjakaumat.</p>
 \end{equation*}\]</span>
 Ehdollisista todennäköisyyttä voidaan havainnollistaa yksinkertaisella esimerkillä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-14" class="example"><strong>Esimerkki 2.11  (Ehdollinen todennäköisyys) </strong></span>Taulukossa <a href="moniulotteiset-jakaumat.html#tab:hockey">2.8</a> näkyy kuvitteellisen kyselyn tulokset, jossa sadalta ihmiseltä (mies tai nainen) kysyttiin, mitä urheilulajia (jääkiekko, koripallo tai jalkapallo) he mieluiten seuraavat. Valitaan satunnaisesti kyselyyn vastannut henkilö ja merkitään</p>
+<p><span id="exm:cpoint" class="example"><strong>Esimerkki 2.11  (Ehdollinen todennäköisyys) </strong></span>Taulukossa <a href="moniulotteiset-jakaumat.html#tab:hockey">2.8</a> näkyy kuvitteellisen kyselyn tulokset, jossa sadalta ihmiseltä (mies tai nainen) kysyttiin, mitä urheilulajia (jääkiekko, koripallo tai jalkapallo) he mieluiten seuraavat. Valitaan satunnaisesti kyselyyn vastannut henkilö ja merkitään</p>
 <ul>
 <li><p><span class="math inline">\(X = \mathrm{sukupuoli}\)</span>,</p></li>
 <li><p><span class="math inline">\(Y = \mathrm{suosikkilaji}\)</span>.</p></li>
@@ -1217,27 +1217,27 @@ Toisaalta voimme käyttää taulukkoa vastaamaan seuraaviin kysymyksiin:</p>
 \end{equation}\]</span>
 Huomaa että yllä olevat todennäköisyydet summautuvat ykköseen
 <span class="math display">\[\begin{equation*}
-  \frac{13}{48} + \frac{15}{48} + \frac{20}{48} = 1.
+  \frac{13}{48} + \frac{15}{48} + \frac{20}{48} = 1,
 \end{equation*}\]</span>
-Joten kaavojen <a href="moniulotteiset-jakaumat.html#eq:hockeyman">(2.12)</a>, <a href="moniulotteiset-jakaumat.html#eq:basketman">(2.13)</a> ja <a href="moniulotteiset-jakaumat.html#eq:footman">(2.14)</a> antamien todennäköisyyksien voidaan ajatella antavan ehdollisen jakauman <span class="math inline">\(\mathbb{P}\left(Y\in B|X = \text{mies}\right)\)</span>.</p>
+joten kaavojen <a href="moniulotteiset-jakaumat.html#eq:hockeyman">(2.12)</a>, <a href="moniulotteiset-jakaumat.html#eq:basketman">(2.13)</a> ja <a href="moniulotteiset-jakaumat.html#eq:footman">(2.14)</a> antamien todennäköisyyksien voidaan ajatella antavan ehdollisen jakauman <span class="math inline">\(\mathbb{P}\left(Y\in B|X = \text{mies}\right)\)</span>.</p>
 <p>Samoin kysymystä 2 vastaavat ehdolliset todennäköisyydet saadaan ratkaistua taulukon <a href="moniulotteiset-jakaumat.html#tab:hockey">2.8</a> toisen sarakkeen (väritetty oranssiksi) avulla
-<span class="math display">\[\begin{equation}
+<span class="math display">\[\begin{equation*}
   \small
   \begin{split}
     \mathbb{P}\left(X = \text{mies} | Y = \text{koripallo}\right)
     &amp;= \text{&quot;Miesten osuus koripallon seuraajista&quot;} \\
     &amp;= \frac{15}{29} \approx 0.52 \quad\text{ja}
   \end{split}
-\end{equation}\]</span>
-<span class="math display">\[\begin{equation}
+\end{equation*}\]</span>
+<span class="math display">\[\begin{equation*}
   \small
   \begin{split}
     \mathbb{P}\left(X = \text{nainen} | Y = \text{koripallo}\right)
     &amp;= \text{&quot;Naisten osuus koripallon seuraajista&quot;} \\
     &amp;= \frac{14}{29} \approx 0.48,
   \end{split}
-\end{equation}\]</span>
-jotka määräävät ehdollisen jakauman <span class="math inline">\(\mathbb{P}\left(X\in A|Y = \text{koripallo}\right)\)</span></p>
+\end{equation*}\]</span>
+jotka määräävät ehdollisen jakauman <span class="math inline">\(\mathbb{P}\left(X\in A|Y = \text{koripallo}\right)\)</span>.</p>
 </div>
 <p>Liiketoiminta-analytiikassa ehdollisilla todennäköisyyksillä voi olla esimerkiksi seuraavanlainen rooli. Eräs yritys tuottaa tilausperusteista palveluntarjontaa ja haluaa analysoida asiakkaidensa tilausten peruutuksia. Olkoon <span class="math inline">\(X\)</span> asiakkaan ikä ja <span class="math inline">\(Y\)</span> tilauksen status
 <span class="math display">\[\begin{equation*}
@@ -1254,24 +1254,168 @@ Yritykselle mielekkäitä kysymyksiä ovat esimerkiksi seuraavat.</p>
 </ul>
 <p>Näihin kysymyksiin vastaamalla yritys voi esimerkiksi tehostaa markkinointia, kehittää tuotesuunnittelua, tai allokoida resursseja paremmin. Jotta pääsemme helpommin käsiksi ehdollisiin todennäköisyyksiin, määrittelemme ehdollisen pistetodennäköisyysfunktion käsitteen.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-15" class="definition"><strong>Määritelmä 2.8  (Diskreetin satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X,  Y)^T\)</span> diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio <span class="math inline">\(p_{(X, Y)} = p_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{Z}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{Z}\)</span>, määritellään ehdollisen pistetodennäköisyysfunktion <span class="math inline">\(p_{X|Y=y}(x|y)\)</span> avulla
-<span class="math display">\[\begin{equation*}
-  p_{X|Y=y}(x|y) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
-\end{equation*}\]</span>
+<p><span id="def:unlabeled-div-14" class="definition"><strong>Määritelmä 2.8  (Diskreetin satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X,  Y)^T\)</span> diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio <span class="math inline">\(p_{(X, Y)} = p_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{Z}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{Z}\)</span>, määritellään ehdollisen pistetodennäköisyysfunktion <span class="math inline">\(p_{X|Y=y}(x)\)</span> avulla
+<span class="math display" id="eq:cpoint">\[\begin{equation}
+  \tag{2.15}
+  p_{X|Y=y}(x) = \frac{p_{(X,Y)}(x,y)}{p_Y(y)}
+\end{equation}\]</span>
 aina kun <span class="math inline">\(p_Y(y) = \mathbb{P}\left(Y = y\right) &gt; 0\)</span>.</p>
 </div>
-<div class="definition">
-<p><span id="def:unlabeled-div-16" class="definition"><strong>Määritelmä 2.9  (Jatkuvan satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X, Y)^T\)</span> jatkuva satunnaisvektori, jolla on yhteistiheysfunktio <span class="math inline">\(f_{(X, Y)} = f_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{R}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{R}\)</span>, määritellään ehdollisen tiheysfunktion <span class="math inline">\(f_{X|Y=y}(x|y)\)</span> avulla
+<p>Huomioidaan vielä yllä olevasta määritelmästä se, että yleensä yhtälössä <a href="moniulotteiset-jakaumat.html#eq:cpoint">(2.15)</a> <span class="math inline">\(y\)</span> on kiinnitetty ja <span class="math inline">\(x\)</span> vaihtelee. Eli <span class="math inline">\(p_{X|Y=y}(x)\)</span> todella on <span class="math inline">\(x\)</span>:n funktio ja <span class="math inline">\(y\)</span> pidetään vakiona. Alla on konkreettinen esimerkki ehdollisen pistetodennäköisyysfunktion muodostamisesta.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-15" class="example"><strong>Esimerkki 2.12  (Ehdollisen pistetodennäköisyysfunktion laskeminen) </strong></span>Jatketaan esimerkkiä <a href="moniulotteiset-jakaumat.html#exm:cpoint">2.11</a>. Taulukko <a href="moniulotteiset-jakaumat.html#tab:hockey2">2.9</a> näyttää esimerkin datan uudestaan. Käytetään urheilulajeille notaatioita <span class="math inline">\(y_1 = \text{jääkiekko}\)</span>, <span class="math inline">\(y_2 = \text{koripallo}\)</span> ja <span class="math inline">\(y_3 = \text{jalkapallo}\)</span>. Käytetään myös sukupuolelle notaatioita <span class="math inline">\(1 = \text{Nainen}\)</span> ja <span class="math inline">\(0 = \text{Mies}\)</span>.</p>
+<table>
+<caption>
+<span id="tab:hockey2">Taulukko 2.9: </span>Sukupuolen ja urheilulajien ristiintaulukointi. Sinisen rivin avulla saadaan ehdolliset todennäköisyydet <span class="math inline">\(\mathbb{P}(Y=\text{laji} | X = \text{mies})\)</span>. Pinkin rivin avulla saadaan ehdolliset todennäköisyydet <span class="math inline">\(\mathbb{P}(Y=\text{laji} | X = \text{nainen})\)</span>.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Jääkiekko
+</th>
+<th style="text-align:left;">
+Koripallo
+</th>
+<th style="text-align:left;">
+Jalkapallo
+</th>
+<th style="text-align:left;">
+Yhteensä
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: skyblue !important;">
+Mies
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(13\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(15\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(20\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(48\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: pink !important;">
+Nainen
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(12\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(14\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(26\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(52\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yhteensä
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(25\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(29\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(46\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(100\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+Esimerkissä <a href="moniulotteiset-jakaumat.html#exm:cpoint">2.11</a> laskimme jo ehdollisen pistetodennäköisyysfunktion <span class="math inline">\(p_{Y|X=0}\)</span> arvot, sillä kaavasta <a href="moniulotteiset-jakaumat.html#eq:hockeyman">(2.12)</a> saadaan
 <span class="math display">\[\begin{equation*}
-  f_{X|Y=y}(x|y) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
+  p_{Y|X=0}(y_1)
+  = \mathbb{P}\left(Y = \text{jääkiekko} | X = \text{mies}\right)
+  = \frac{13}{48},
+\end{equation*}\]</span>
+kaavasta <a href="moniulotteiset-jakaumat.html#eq:basketman">(2.13)</a> saadaan <span class="math inline">\(p_{Y|X = 0}(y_2) = 15/48\)</span> ja kaavasta <a href="moniulotteiset-jakaumat.html#eq:footman">(2.14)</a> saadaan <span class="math inline">\(p_{Y|X = 0}(y_3) = 20/48\)</span>. Samoin taulukon <a href="moniulotteiset-jakaumat.html#tab:hockey2">2.9</a> toisen rivin (pinkki) avulla voidaan laskea <span class="math inline">\(p_{Y|X = 1}(y_1) = 12/52\)</span>, <span class="math inline">\(p_{Y|X = 1}(y_2) = 14/52\)</span> ja <span class="math inline">\(p_{Y|X = 1}(y_3) = 26/52\)</span>. Ehdolliset pistetodennäköisyysfunktiot <span class="math inline">\(p_{Y|X = 0}\)</span> ja <span class="math inline">\(p_{Y|X = 0}\)</span> näkyvät taulukossa <a href="moniulotteiset-jakaumat.html#tab:hockeycond">2.10</a>. Ensimäinen rivi (sininen) kuvaa urheilulajin <span class="math inline">\(y_i\)</span> seuraajien osuutta miehistä. Toinen rivi (pinkki) kuvaa urheilulajin <span class="math inline">\(y_i\)</span> seuraajien osuutta naisista. <strong>Huomaa, että rivit kuvaavat ehdollisia jakaumia ja yhden rivin arvot summautuvat ykköseen. Tämä ei päde sarakkeille tässä tapauksessa.</strong>
+<table>
+<caption>
+<span id="tab:hockeycond">Taulukko 2.10: </span>Ehdolliset jakaumat <span class="math inline">\(p_{Y|X = 0}\)</span> ja <span class="math inline">\(p_{Y|X = 0}\)</span> taulukoituna.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y = y_1\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y = y_2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y = y_3\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(p_{Y|X = 0}(y)\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(13/48\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(15/48\)</span>
+</td>
+<td style="text-align:left;background-color: skyblue !important;">
+<span class="math inline">\(20/48\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(p_{Y|X = 1}(y)\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(12/52\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(14/52\)</span>
+</td>
+<td style="text-align:left;background-color: pink !important;">
+<span class="math inline">\(26/52\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Voimme määritellä ehdollisen jakauman jatkuville satunnaismuuttujille samalla idealla kuin diskreeteille jakaumille.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-16" class="definition"><strong>Määritelmä 2.9  (Jatkuvan satunnaisvektorin ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\((X, Y)^T\)</span> jatkuva satunnaisvektori, jolla on yhteistiheysfunktio <span class="math inline">\(f_{(X, Y)} = f_{(X, Y)}(x, y)\)</span>, <span class="math inline">\(x,y\in\mathbb{R}\)</span>. Satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span>, kun <span class="math inline">\(y\in\mathbb{R}\)</span>, määritellään ehdollisen tiheysfunktion <span class="math inline">\(f_{X|Y=y}(x)\)</span> avulla
+<span class="math display">\[\begin{equation*}
+  f_{X|Y=y}(x) = \frac{f_{(X,Y)}(x,y)}{f_Y(y)}
 \end{equation*}\]</span>
 aina kun <span class="math inline">\(f_Y(y) &gt; 0\)</span>.</p>
 </div>
+<p>Tällä kurssilla emme juurikaan laske jatkuvia satunnaismuuttujia vastaavia ehdollisia jakaumia. Myös useissa tapauksissa jatkuvan satunnaisvektorin ehdollinen jakauma voi olla hyvinkin mutkikas, eikä edes mitään yleisesti tunnettua muotoa. Kuitenkin moniulotteisen normaalijakauman tapauksessa ehdollisen jakauman muoto on yksinkertainen – nimittäin myös ehdollinen jakauma on normaalijakauma.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-17" class="theorem"><strong>Fakta 2.8  (Moniulotteinen normaalijakauma ja ehdollisuus) </strong></span>Olkoon <span class="math inline">\((X,Y)^T\in N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli satunnaisvektori <span class="math inline">\((X, Y)^T\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span> eli <span class="math inline">\(X|Y=y\)</span> noudattaa yksiulotteista normaalijakaumaa kaikilla <span class="math inline">\(y\in\mathbb{R}\)</span>.</p>
+<p><span id="thm:unlabeled-div-17" class="theorem"><strong>Fakta 2.8  (Moniulotteinen normaalijakauma ja ehdollisuus) </strong></span>Olkoon <span class="math inline">\((X,Y)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> eli satunnaisvektori <span class="math inline">\((X, Y)^T\)</span> noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujan <span class="math inline">\(X\)</span> ehdollinen jakauma ehdolla <span class="math inline">\(Y = y\)</span> eli <span class="math inline">\(\mathbb{P}\left(X\in A|Y=y\right)\)</span> on yksiulotteinen normaalijakauma kaikilla <span class="math inline">\(y\in\mathbb{R}\)</span>.</p>
 </div>
+<p>Ehdollinen jakauma tarjoaa myös toisenlaisen “testin” satunnaismuuttujien riippumattomuudelle määritelmän <a href="moniulotteiset-jakaumat.html#def:ind">2.1</a> lisäksi.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-18" class="theorem"><strong>Fakta 2.9  (Riippumattomuus ja ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> satunnaismuuttujia. Satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille <span class="math inline">\(y\)</span> satunnaismuuttujat <span class="math inline">\(X|Y = y\)</span> ja <span class="math inline">\(X\)</span> ovat samoin jakautuneet.</p>
+<p><span id="thm:unlabeled-div-18" class="theorem"><strong>Fakta 2.9  (Riippumattomuus ja ehdollinen jakauma) </strong></span>Olkoon <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> satunnaismuuttujia. Satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> ovat riippumattomia, jos kaikille tapahtumille <span class="math inline">\(\{X\in A\}\)</span> ja <span class="math inline">\(\{Y\in B\}\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(X\in A|Y \in B\right) = \mathbb{P}\left(X\in A\right).
+\end{equation*}\]</span></p>
 </div>
 </div>
 </div>
@@ -1296,7 +1440,7 @@ Teoreettinen peruste komponenttikohtaisen keskiarvon käytölle on suurten lukuj
 \end{equation*}\]</span>
 Toisin sanoen komponenttikohtainen keskiarvo <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi moniulotteisen satunnaismuuttujan <span class="math inline">\(\boldsymbol{X}\)</span> odotusarvoa <span class="math inline">\(\mathbb{E}\left(\boldsymbol{X}\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\bar{\boldsymbol x}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\mu\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-19" class="example"><strong>Esimerkki 2.12  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-19" class="example"><strong>Esimerkki 2.13  (Komponenttikohtaisen keskiarvon laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="moniulotteiset-jakaumat.html#cb55-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -1367,7 +1511,7 @@ moniulotteisen datan sijainnin kuvaamiseen. <strong>Komponenttikohtaisen mediaan
 <h3>Jakauman hajonta ja riippuvuussuhteet<a href="moniulotteiset-jakaumat.html#jakauman-hajonta-ja-riippuvuussuhteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Yksi yleisimpiä hajontaa ja riippuvuuksia kuvaava tunnusluku on otoskovarianssimatriisi
 <span class="math display" id="eq:samplecov">\[\begin{equation*}
-  \tag{2.15}
+  \tag{2.16}
   \hat{\boldsymbol\Sigma} = \frac{1}{n - 1}\sum_{i = 1}^n
   \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)
   \left(\boldsymbol x^{(i)} - \bar{\boldsymbol x}\right)^T
@@ -1401,7 +1545,7 @@ Toisin sanoen otoskovarianssimatriisi <span class="math inline">\(\hat{\boldsymb
 \end{equation*}\]</span>
 Esimerkiksi <span class="math inline">\(2\times 2\)</span> kovarianssimatriisi on muotoa
 <span class="math display" id="eq:cov22">\[\begin{equation}
-  \tag{2.16}
+  \tag{2.17}
   \mathrm{Cov}\left(\boldsymbol X\right) =
   \begin{pmatrix}
     \mathrm{Var}\left(X_1\right) &amp; \mathrm{Cov}\left(X_1, X_2\right) \\
@@ -1409,10 +1553,10 @@ Esimerkiksi <span class="math inline">\(2\times 2\)</span> kovarianssimatriisi o
   \end{pmatrix}.
 \end{equation}\]</span>
 Kovarianssille pätee <span class="math inline">\(\mathrm{Cov}\left(X_i, X_j\right) = \mathrm{Cov}\left(X_j, X_i\right)\)</span>, kuten jo luvussa <a href="moniulotteiset-jakaumat.html#sec:normal">2.3</a> todettiin (kovarianssin symmetrisyys). Tästä seuraa, että kovarianssimatriisi on symmetrinen eli <span class="math inline">\(\mathrm{Cov}\left(\boldsymbol X\right) = \left(\mathrm{Cov}\left(\boldsymbol X\right)\right)^T\)</span>. Kovarianssimatriisilla (ja otoskovarianssimatriisilla) on muitakin toivottuja ominaisuuksia, joita ei kuitenkaan tällä kurssilla käydä läpi.</p>
-<p>Vertaamalla yhtälöitä <a href="moniulotteiset-jakaumat.html#eq:sigma">(2.11)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov22">(2.16)</a> huomataan että jos <span class="math inline">\(\boldsymbol X\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin <span class="math inline">\(\boldsymbol\Sigma = \mathrm{Cov}\left(\boldsymbol X\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\Sigma\)</span>.</p>
-<p>Vaikka kaavan <a href="moniulotteiset-jakaumat.html#eq:samplecov">(2.15)</a> otoskovarianssimatriisi on työläs laskea käsin, niin R:llä homma hoituu helpommin.</p>
+<p>Vertaamalla yhtälöitä <a href="moniulotteiset-jakaumat.html#eq:sigma">(2.11)</a> ja <a href="moniulotteiset-jakaumat.html#eq:cov22">(2.17)</a> huomataan että jos <span class="math inline">\(\boldsymbol X\sim N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin <span class="math inline">\(\boldsymbol\Sigma = \mathrm{Cov}\left(\boldsymbol X\right)\)</span>. Tästä seuraa, että jos otos <span class="math inline">\(\boldsymbol x^{(1)}, \ldots, \boldsymbol x^{(n)}\)</span> ollaan generoitu jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span>, niin tunnusluku <span class="math inline">\(\hat{\boldsymbol\Sigma}\)</span> estimoi parametria <span class="math inline">\(\boldsymbol\Sigma\)</span>.</p>
+<p>Vaikka kaavan <a href="moniulotteiset-jakaumat.html#eq:samplecov">(2.16)</a> otoskovarianssimatriisi on työläs laskea käsin, niin R:llä homma hoituu helpommin.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-20" class="example"><strong>Esimerkki 2.13  (Otoskovarianssin laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-20" class="example"><strong>Esimerkki 2.14  (Otoskovarianssin laskeminen) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="moniulotteiset-jakaumat.html#cb67-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -1465,7 +1609,7 @@ Esimerkiksi <span class="math inline">\(2\times 2\)</span> korrelaatiomatriisi o
 Tarkista korrelaatiokertoimen estimaattorin <span class="math inline">\(\hat{\rho}_{X_jX_k}\)</span> määritelmä yhtälöstä <a href="moniulotteiset-jakaumat.html#eq:samplecoruni">(2.7)</a>.</p>
 <p>Myös korrelaatiomatriisin estimaattorin <span class="math inline">\(\boldsymbol C\)</span> laskeminen on suhteellisen vaivatonta R:ssä</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-21" class="example"><strong>Esimerkki 2.14  (Korrelaatiomatriisin estimointi) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
+<p><span id="exm:unlabeled-div-21" class="example"><strong>Esimerkki 2.15  (Korrelaatiomatriisin estimointi) </strong></span>Käsittelemme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> dataa.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="moniulotteiset-jakaumat.html#cb71-1" tabindex="-1"></a>body</span></code></pre></div>
 <pre><code>## # A tibble: 716 × 4
 ##    ShoulderWidth Belly ArmLength TotalHeight
@@ -1505,7 +1649,7 @@ Taleb, Nassim Nicholas, and George A. Martin. 2012. <span>“How to <span>P</spa
 <ol start="8">
 <li id="fn8"><p>Tässä “kiva” tarkoittaa <em>mitattavaa</em> joukkoa. Tämäntyyppisten yksityiskohtien hallinta vaatii edistyneempää matematiikkaa (mittateoriaa), joka on täysin kurssin ulkopuolella.<a href="moniulotteiset-jakaumat.html#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p>Muista, että vektoreiden <span class="math inline">\(\boldsymbol a = (a_1, \ldots, a_d)\)</span> ja <span class="math inline">\(\boldsymbol b  = (b_1, \ldots, b_d)\)</span> summa suoritetaan alkioittain <span class="math inline">\(\boldsymbol a + \boldsymbol b  = (a_1 + b_1, \ldots, a_d + b_d)\)</span>.<a href="moniulotteiset-jakaumat.html#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Tarkalleen ottaen esimerkissä laskettiin todennäköisyys <span class="math inline">\(\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)\)</span><a href="moniulotteiset-jakaumat.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Tarkalleen ottaen esimerkissä laskettiin todennäköisyys <span class="math inline">\(\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)\)</span>.<a href="moniulotteiset-jakaumat.html#fnref10" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
