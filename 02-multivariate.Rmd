@@ -219,7 +219,7 @@ Yksiulotteisen satunnaismuuttujan $X$ tapauksessa kertymäfunktio $F_X(x), x\in\
 
 Huomautamme jo tässä kohtaa, että usein informaatio yksittäisistä komponenttimuuttujista $X_1, \ldots, X_d$ kertoo varsin vähän satunnaisvektorista $\boldsymbol X = (X_1, \ldots, X_d)$ -- yleisesti ottaen satunnaismuuttujien $X_i$ kertymäfunktioista $F_{X_i}$ **ei** voida päätellä satunnaisvektorin $\boldsymbol X$ yhteiskertymäfunktiota $F_{\boldsymbol X}$. Sääntöön löytyy kuitenkin yksi poikkeus.
 
-::: {.theorem name="Riippumattomat komponenttivektorit"}
+::: {.theorem #ind name="Riippumattomat komponenttivektorit"}
 Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)$ satunnaisvektori niin, että satunnaismuuttujat $X_1, X_2, \ldots, X_d$ ovat riippumattomia. Tällöin riippumattomuuden määritelmästä seuraa, että kohdassa $\boldsymbol x = (x_1, x_2,\ldots, x_d)$ satunnaisvektorin $\boldsymbol X$ kertymäfunktio voidaan kirjoittaa muodossa
 \begin{equation*}
   F_{\boldsymbol X}(\boldsymbol x) = F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_d}(x_d)
@@ -404,7 +404,7 @@ Olkoon $\boldsymbol X = (X_1, X_2, \ldots, X_d)^T$ satunnaisvektori, jolla on pi
 
 Kaava \@ref(eq:discrete-multi-cdf) näyttää siis hyvin samankaltaiselta kuin \@ref(eq:discrete-uni-cdf) -- yhden summan sijasta on $d$ summaa.
 
-::: {.example name="Pistetodennäköisyysfunktiosta kertymäfunktioon"}
+::: {.example #pointfromcdf name="Pistetodennäköisyysfunktiosta kertymäfunktioon"}
 Vakuutusyritys tarjoaa asiakkailleen sekä ajoneuvo- että kotivakuutusta. Molemmille vakuutustyypeille asiakkaan tulee valita omavastuu. Ajoneuvovakuutuksen omavastuu on joko $100$ tai $250$ euroa. Kotivakuutuksen omavastuu on joko $0$, $100$ tai $200$ euroa. Valitaan asiakas umpimähkään, ja merkitään
 
 - $X_1 = \mathrm{asiakkaan\ omavastuun\ määrä\ autovakuutuksessa}$,
@@ -692,11 +692,168 @@ knitr::include_graphics("images/mahalanobis.jpg")
 
 (ref:maha-cap) Punaisia pisteitä vastaavat normit $\|\boldsymbol x\|_{\boldsymbol\Sigma}$  ovat yhtäsuuria jollekin hajontamatriisille $\boldsymbol\Sigma$. Sinisten pisteiden Euklidiset normit (katso kaava \@ref(eq:euclidean)) ovat yhtäsuuria.
 
-## Ehdolliset jakaumat ja reunajakaumat {#sec:cond}
+## Yhteisjakaumaan koodattu informaatio {#sec:cond}
 
-### Diskreetit jakaumat {-}
 
-### Jatkuvat jakaumat {-}
+
+
+
+
+### Reunajakaumat {-}
+
+Esimerkissä \@ref(exm:pointfromcdf) laskettiin muotoa^[Tarkalleen ottaen esimerkissä laskettiin todennäköisyys $\mathbb{P}\left(X_1\leq 250, X_2\leq 100\right)$] $\mathbb{P}\left(X_1\leq x_1, X_2\leq x_2\right)$ oleva todennäköisyys summaamalla diskreettiä satunnaisvektoria $X = (X_1,  X_2)^T$ vastaavaan pistetodennäköisyysfunktion $p_{\boldsymbol X}$ arvoja sopivasti. Samoin diskreeteille satunnaismuuttujille voimme laskea muotoa $\mathbb{P}\left(X_i = x\right)$ olevia todennäköisyyksiä summaamalla yhteispistetodennäköisyysfunktion arvoja.
+
+
+
+::: {.theorem name="Diskreetin satunnaisvektorin reunajakaumat"}
+Olkoon $\boldsymbol X = (X_1,  X_2)^T$ diskreetti satunnaisvektori, jolla on yhteispistetodennäköisyysfunktio $p_{\boldsymbol X}$. Tällöin satunnaismuuttujien $X_1$ ja $X_2$ reunajakaumat ovat pistetodennäköisyysfunktioiden
+\begin{align*}
+  &p_{X_1}\left(x\right) = \mathbb{P}\left(X_1 = x\right)
+  = \sum_{x_2\in\mathbb{Z}} p_{\boldsymbol X}(x, x_2) \\
+  &p_{X_2}\left(x\right) = \mathbb{P}\left(X_2 = x\right)
+  = \sum_{x_1\in\mathbb{Z}} p_{\boldsymbol X}(x_1, x)
+\end{align*}
+määräämät diskreetit todennäköisyysjakaumat.
+:::
+
+Eli satunnaisvektorin $X = \left(X_1,  \ldots, X_d\right)$ komponentin $X_i$ jakaumaa kutsutaan reunajakaumaksi (eng: *marginal distribution*). Alla olevassa esimerkissä näytämme, miten reunajakaumia lasketaan käytännössä.
+
+::: {.example name="Vakuutusesimerkki jatkuu"}
+Oletetaan esimerkin \@ref(exm:pointfromcdf) tilanne eli ajoneuvovakuutuksen omavastuu on joko $100$ tai $250$ euroa. Kotivakuutuksen omavastuu on joko $0$, $100$ tai $200$ euroa. Valitaan asiakas umpimähkään, ja merkitään
+
+- $X_1 = \mathrm{asiakkaan\ omavastuun\ määrä\ autovakuutuksessa}$,
+
+- $X_2 = \mathrm{asiakkaan\ omavastuun\ määrä\ kotivakuutuksessa}$.
+
+Satunnaisvektorin $\boldsymbol X = (X_1,  X_2)^T$ yhteisjakauma (yhteispistetodennäköisyysfunktio) näkyy taulukossa \@ref(tab:insurance2).
+
+```{r insurance2, echo=FALSE}
+
+tab <- data.frame(
+  X = c("$100$", "$250$"),
+  Y0 = c("$0.20$", "$0.05$"),
+  Y1 = c("$0.10$", "$0.15$"),
+  Y2 = c("$0.20$", "$0.30$")
+)
+names(tab) <- c("$X_1$" ,"$X_2 = 0$", "$X_2 = 100$", "$X_2 = 200$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{\\boldsymbol X}$ arvot taulukoituna."
+)
+```
+
+Todennäköisyys, että satunnaisesti valitun asiakkaan autovakuutuksen omavastuu on $100$ euroa saadaan rivisumman avulla. Eli summataan riviä $X_1 = 100$ vastaavat todennäköisyydet yhteen
+\begin{equation*}
+  \begin{split}
+    p_{X_1}\left(100\right) &= \mathbb{P}\left(X_1 = 100\right)
+    = \sum_{x_2\in\{0, 100, 200\}} p_{\boldsymbol X}(100, x_2)  \\
+    &= p_{\boldsymbol X}\left(100, 0\right) + p_{\boldsymbol X}\left(100, 100\right)
+    +  p_{\boldsymbol X}\left(100, 200\right) \\
+    &= 0.20 + 0.10 + 0.20 = 0.5.
+  \end{split}
+\end{equation*}
+Todennäköisyys, että satunnaisesti valitun asiakkaan autovakuutuksen omavastuu on $250$ euroa saadaan samaan tyyliin. Eli summataan riviä $X_1 = 250$ vastaavat todennäköisyydet yhteen
+\begin{equation*}
+  \begin{split}
+    p_{X_1}\left(250\right) &= \mathbb{P}\left(X_1 = 250\right)
+    = \sum_{x_2\in\{0, 100, 200\}} p_{\boldsymbol X}(250, x_2)  \\
+    &= p_{\boldsymbol X}\left(250, 0\right) + p_{\boldsymbol X}\left(250, 100\right)
+    +  p_{\boldsymbol X}\left(250, 200\right) \\
+    &= 0.05 + 0.15 + 0.30 = 0.5.
+  \end{split}
+\end{equation*}
+Eli satunnaismuuttujaa $X_1$ vastaava pistetodennäköisyysfunktio on taulukon \@ref(tab:insurance-marginal1) mukainen. Taulukon \@ref(tab:insurance-marginal1) määräämää jakaumaa kutsutaan satunnaisvektorin $\boldsymbol X$  komponentin $X_1$ reunajakaumaksi.
+```{r insurance-marginal1, echo=FALSE}
+
+tab <- data.frame(
+  X = c("$100$", "$250$"),
+  Y0 = c("$0.5$", "$0.5$")
+)
+names(tab) <- c("$X_1$" ,"$p_{X_1}(x)$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{X_1}$ arvot taulukoituna."
+)
+```
+
+Huomaa, että satunnaismuuttujaa $X_2$ vastaava pistetodennäköisyysfunktio saadaan sarakesummien kautta eli
+\begin{equation*}
+  \begin{split}
+    p_{X_2}\left(0\right) &= \mathbb{P}\left(X_2 = 0\right)
+    = \sum_{x_1\in\{100, 250\}} p_{\boldsymbol X}(x_1, 0)  \\
+    &= p_{\boldsymbol X}\left(100, 0\right) + p_{\boldsymbol X}\left(250, 0\right) \\
+    &= 0.20 + 0.05 = 0.25,
+  \end{split}
+\end{equation*}
+\begin{equation*}
+  \begin{split}
+    p_{X_2}\left(100\right) &= \mathbb{P}\left(X_2 = 100\right)
+    = \sum_{x_1\in\{100, 250\}} p_{\boldsymbol X}(x_1, 100)  \\
+    &= p_{\boldsymbol X}\left(100, 100\right) + p_{\boldsymbol X}\left(250, 100\right) \\
+    &= 0.10 + 0.15 = 0.25
+  \end{split}
+\end{equation*}
+ja
+\begin{equation*}
+  \begin{split}
+    p_{X_2}\left(200\right) &= \mathbb{P}\left(X_2 = 200\right)
+    = \sum_{x_1\in\{100, 250\}} p_{\boldsymbol X}(x_1, 200)  \\
+    &= p_{\boldsymbol X}\left(100, 200\right) + p_{\boldsymbol X}\left(250, 200\right) \\
+    &= 0.20 + 0.30 = 0.50.
+  \end{split}
+\end{equation*}
+Satunnaismuuttujaa $X_2$ vastaavan pistetodennäköisyysfunktion arvot voidaan myös kerätä taulukkoon. Taulukon \@ref(tab:insurance-marginal2) määräämää jakaumaa kutsutaan satunnaisvektorin $\boldsymbol X$  komponentin $X_2$ reunajakaumaksi.
+```{r insurance-marginal2, echo=FALSE}
+
+tab <- data.frame(
+  Y0 = c("$0.25$"),
+  Y1 = c("$0.25$"),
+  Y2 = c("$0.50$")
+)
+names(tab) <- c("$X_2 = 0$", "$X_2 = 100$", "$X_2 = 200$")
+
+knitr::kable(
+  tab,
+  caption = "Pistetodennäköisyysfunktion $p_{X_2}$ arvot taulukoituna."
+)
+```
+
+Huomaa, että taulukon \@ref(tab:insurance-marginal1) arvot summautuvat ykköseen ja taulukon \@ref(tab:insurance-marginal2) arvot summautuvat ykköseen, koska $p_{X_1}$ ja $p_{X_2}$ ovat pistetodennäköisyysfunktioita. Laskettaessa diskreettien moniulotteisten jakaumien reunajakaumia kannattaa siis aina pikaisesti tarkistaa summautuvuus ykköseen. Jos reunajakaumaa vastaavat pistetodennäköisyysfunktion arvot eivät summaudu ykköseen, niin jokin on mennyt laskuissa pieleen.
+:::
+
+Myös moniulotteisille jatkuville jakaumille voidaan laskea reunajakaumia. Jatkuvan yhteisjakauman reunajakauman määritelmä muistuttaa diskreetin reunajakauman määritelmää -- erona on taas kerran se, että summat täytyy  korvata integraaleilla.
+
+:::{.theorem name="Jatkuvan satunnaisvektorin reunajakaumat"}
+Olkoon $\boldsymbol X = (X_1,  X_2)^T$ jatkuva satunnaisvektori, jolla on yhteistiheysfunktio $f_{\boldsymbol X}$. Tällöin satunnaismuuttujien $X_1$ ja $X_2$ reunajakaumat ovat tiheysfunktioiden
+\begin{align*}
+  &f_{X_1}(x) = \int_\mathbb{R} f_{\boldsymbol X}(x, x_2) \,\mathrm{d}x_2 \\
+  &f_{X_2}(x) = \int_\mathbb{R} f_{\boldsymbol X}(x_1, x) \,\mathrm{d}x_1
+\end{align*}
+määrittämät todennäköisyysjakaumat.
+:::
+
+Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin $\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)$  jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat $X_1, X_2, \ldots, X_d$. Tätä havainollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.
+
+::: {.theorem}
+Olkoon $\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli $\boldsymbol X$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia $X_1$ ja $X_2$ vastaavat reunajakaumat ovat normaalijakaumia.
+:::
+
+Herää kysymys, onko päättely toiseen suuntaan mahdollista? Jos tiedämme komponenttien $X_1,  X_2, \ldots, X_d$ jakaumat, niin voimmeko päätellä vastaavan satunnaisvektorin $\boldsymbol X$ jakauman. Faktan \@ref(thm:ind) mukaan **riippumattomista** komponenteista voidaan päätellä satunnaisvektorin jakauma. Painotamme kuitenkin, että yleensä näin ei voi tehdä!
+
+::: {.exercise #cdffrommarginal name="Viikko 3, tehtävä 3"}
+On mahdollista, että $X_1\sim N(0,1)$ ja $X_2\sim N(0,1)$  mutta satunnaisvektori $\boldsymbol X = (X_1, X_2)^T$  **ei** noudata $2$-ulotteista normaalijakaumaa.
+:::
+
+
+Yllä käsittelimme $2$-ulotteisten jakaumien reunajakaumia, jotka ovat aina yksiulotteisia. Kuitenkin $d$-ulotteisille satunnaisvektoreille näin ei tarvitse olla kun $d > 2$. Esimerkiksi olkoon $\boldsymbol X = (X_1,  X_2, X_3, X_4, X_5)$ diskreetti satunnaisvektori. Tällöin vektoria $\boldsymbol Y = (X_1, X_4, X_5)$ vastaava reunajakauma saadaan kaavasta
+\begin{equation*}
+  f_{\boldsymbol Y}(x_1,  x_4,  x_5) = \sum_{x_2, x_3\in\mathbb{Z}}
+  f_{\boldsymbol X}(x_1,  x_2,  x_3,  x_4, x_5).
+\end{equation*}
+
+### Ehdolliset jakaumat {-}
 
 ## Tunnusluvuista {#sec:statistic}
 
