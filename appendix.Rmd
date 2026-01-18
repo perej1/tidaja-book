@@ -71,7 +71,7 @@ Jos matriisi nimetään jonkun muuttujan kuten $\boldsymbol A$ mukaan, niin kyse
     2 & 8
   \end{pmatrix},
 \end{equation*}
-niin $\boldsymbol A_{11} = 3$, $\boldsymbol A_{12} = 6$, $\boldsymbol A_{21} = 2$ ja $\boldsymbol A_{22} = 8$.Matriisia $A\in\mathbb{R}^{n\times n}$, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on $n\times 1$ matriisi ja vaakavektori on $1\times d$ matriisi.
+niin $\boldsymbol A_{11} = 3$, $\boldsymbol A_{12} = 6$, $\boldsymbol A_{21} = 2$ ja $\boldsymbol A_{22} = 8$. Matriisia $A\in\mathbb{R}^{n\times n}$, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on $n\times 1$ matriisi ja vaakavektori on $1\times d$ matriisi.
 
 Seuraavaksi kertaamme matriiseihin liittyviä laskutoimituksia. Esitysteknisistä syistä rajoitumme $2\times 2$ matriiseihin, vaikka alla olevat laskutoimitukset toimivat myös $(n\times d)$-matriiseille. Matriisien peruslaskutoimitukset kuten summa
 \begin{equation*}
@@ -143,4 +143,55 @@ niin matriisia vastaava determinantti lasketaan kaavalla
   = \boldsymbol A_{11}\boldsymbol A_{22}
   - \boldsymbol A_{21}\boldsymbol A_{12}.
 \end{equation*}
-Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin "tunnusluku".
+Determinantin laskukaavaa tapauksille $d > 2$ emme käy tällä kurssilla. Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin "tunnusluku". Alla on kuvattu muutama determinantin keskeinen ominaisuus. Olkoon $\boldsymbol A$ ja $\boldsymbol B$ neliömatriiseja.
+
+- $\mathrm{Det}\left(\boldsymbol A\right) = 0$ tarkoittaa, että matriisi $\boldsymbol A$ on singulaarinen eli $\boldsymbol A$ ei ole kääntyvä.
+
+- $\mathrm{Det}\left(\boldsymbol A \boldsymbol B\right) = \mathrm{Det}\left(\boldsymbol A\right) \mathrm{Det}\left(\boldsymbol B\right)$.
+
+Kun $\boldsymbol A$ on neliömatriisi, niin sen käänteismatriisi $\boldsymbol A^{-1}$ toteuttaa
+\begin{equation*}
+  \boldsymbol A \boldsymbol A^{-1} = \boldsymbol A^{-1} \boldsymbol A = \boldsymbol I,
+\end{equation*}
+jossa $\boldsymbol I$ on identiteettimatriisi. Esimerkiksi $2\times 2$ identiteettimatriisi on
+\begin{equation*}
+  \boldsymbol I =
+  \begin{pmatrix}
+    1 & 0 \\
+    0 & 1
+  \end{pmatrix}.
+\end{equation*}
+Jos $2\times 2$ matriisin $\boldsymbol A$ käänteismatriisi on olemassa eli $\mathrm{Det}\left(\boldsymbol A\right) \neq 0$, niin se voidaan laskea kaavalla
+\begin{equation*}
+  \boldsymbol A^{-1} = \frac{1}{\mathrm{Det}\left(\boldsymbol A\right)}
+  \begin{pmatrix}
+    \boldsymbol A_{22} & -\boldsymbol A_{12} \\
+    -\boldsymbol A_{21} & \boldsymbol A_{11}
+  \end{pmatrix}.
+\end{equation*}
+Huomaa, että identiteettimatriisi on erityinen. Esimerkiksi matriisien kertolaskun suhteen identiteettimatriisi toimii kuten luku 1 eli $\boldsymbol A \boldsymbol I = \boldsymbol I \boldsymbol A = \boldsymbol A$.
+
+Transpoosi operaatio voidaan yleistää myös matriiseille. Eli matriisin $\boldsymbol A$ transpoosi $\boldsymbol A^T$ vaihtaa rivit sarakkeiksi ja sarakkeet riveiksi. Esimerkiksi jos
+\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6
+  \end{pmatrix},
+\end{equation*}
+niin
+\begin{equation*}
+  \boldsymbol A^T =
+  \begin{pmatrix}
+    1 & 4 \\
+    2 & 5 \\
+    3 & 6 \\
+  \end{pmatrix}.
+\end{equation*}
+Alla on muutamia keskeisiä transpoosin ominaisuuksia.
+
+- $\left(\boldsymbol A^T\right)^T = \boldsymbol A$,
+
+- $\left(\boldsymbol A + \boldsymbol B\right)^T = \boldsymbol A^T + \boldsymbol B^T$ ja
+
+- $\left(\boldsymbol A \boldsymbol B\right)^T = \boldsymbol B^T \boldsymbol A^T$.

@@ -283,7 +283,7 @@ Jos matriisi nimetään jonkun muuttujan kuten <span class="math inline">\(\bold
     2 &amp; 8
   \end{pmatrix},
 \end{equation*}\]</span>
-niin <span class="math inline">\(\boldsymbol A_{11} = 3\)</span>, <span class="math inline">\(\boldsymbol A_{12} = 6\)</span>, <span class="math inline">\(\boldsymbol A_{21} = 2\)</span> ja <span class="math inline">\(\boldsymbol A_{22} = 8\)</span>.Matriisia <span class="math inline">\(A\in\mathbb{R}^{n\times n}\)</span>, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on <span class="math inline">\(n\times 1\)</span> matriisi ja vaakavektori on <span class="math inline">\(1\times d\)</span> matriisi.</p>
+niin <span class="math inline">\(\boldsymbol A_{11} = 3\)</span>, <span class="math inline">\(\boldsymbol A_{12} = 6\)</span>, <span class="math inline">\(\boldsymbol A_{21} = 2\)</span> ja <span class="math inline">\(\boldsymbol A_{22} = 8\)</span>. Matriisia <span class="math inline">\(A\in\mathbb{R}^{n\times n}\)</span>, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on <span class="math inline">\(n\times 1\)</span> matriisi ja vaakavektori on <span class="math inline">\(1\times d\)</span> matriisi.</p>
 <p>Seuraavaksi kertaamme matriiseihin liittyviä laskutoimituksia. Esitysteknisistä syistä rajoitumme <span class="math inline">\(2\times 2\)</span> matriiseihin, vaikka alla olevat laskutoimitukset toimivat myös <span class="math inline">\((n\times d)\)</span>-matriiseille. Matriisien peruslaskutoimitukset kuten summa
 <span class="math display">\[\begin{equation*}
   \boldsymbol A + \boldsymbol B =
@@ -351,7 +351,55 @@ niin matriisia vastaava determinantti lasketaan kaavalla
   = \boldsymbol A_{11}\boldsymbol A_{22}
   - \boldsymbol A_{21}\boldsymbol A_{12}.
 \end{equation*}\]</span>
-Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin “tunnusluku”.</p>
+Determinantin laskukaavaa tapauksille <span class="math inline">\(d &gt; 2\)</span> emme käy tällä kurssilla. Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin “tunnusluku”. Alla on kuvattu muutama determinantin keskeinen ominaisuus. Olkoon <span class="math inline">\(\boldsymbol A\)</span> ja <span class="math inline">\(\boldsymbol B\)</span> neliömatriiseja.</p>
+<ul>
+<li><p><span class="math inline">\(\mathrm{Det}\left(\boldsymbol A\right) = 0\)</span> tarkoittaa, että matriisi <span class="math inline">\(\boldsymbol A\)</span> on singulaarinen eli <span class="math inline">\(\boldsymbol A\)</span> ei ole kääntyvä.</p></li>
+<li><p><span class="math inline">\(\mathrm{Det}\left(\boldsymbol A \boldsymbol B\right) = \mathrm{Det}\left(\boldsymbol A\right) \mathrm{Det}\left(\boldsymbol B\right)\)</span>.</p></li>
+</ul>
+<p>Kun <span class="math inline">\(\boldsymbol A\)</span> on neliömatriisi, niin sen käänteismatriisi <span class="math inline">\(\boldsymbol A^{-1}\)</span> toteuttaa
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A \boldsymbol A^{-1} = \boldsymbol A^{-1} \boldsymbol A = \boldsymbol I,
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\boldsymbol I\)</span> on identiteettimatriisi. Esimerkiksi <span class="math inline">\(2\times 2\)</span> identiteettimatriisi on
+<span class="math display">\[\begin{equation*}
+  \boldsymbol I =
+  \begin{pmatrix}
+    1 &amp; 0 \\
+    0 &amp; 1
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Jos <span class="math inline">\(2\times 2\)</span> matriisin <span class="math inline">\(\boldsymbol A\)</span> käänteismatriisi on olemassa eli <span class="math inline">\(\mathrm{Det}\left(\boldsymbol A\right) \neq 0\)</span>, niin se voidaan laskea kaavalla
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A^{-1} = \frac{1}{\mathrm{Det}\left(\boldsymbol A\right)}
+  \begin{pmatrix}
+    \boldsymbol A_{22} &amp; -\boldsymbol A_{12} \\
+    -\boldsymbol A_{21} &amp; \boldsymbol A_{11}
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Huomaa, että identiteettimatriisi on erityinen. Esimerkiksi matriisien kertolaskun suhteen identiteettimatriisi toimii kuten luku 1 eli <span class="math inline">\(\boldsymbol A \boldsymbol I = \boldsymbol I \boldsymbol A = \boldsymbol A\)</span>.</p>
+<p>Transpoosi operaatio voidaan yleistää myös matriiseille. Eli matriisin <span class="math inline">\(\boldsymbol A\)</span> transpoosi <span class="math inline">\(\boldsymbol A^T\)</span> vaihtaa rivit sarakkeiksi ja sarakkeet riveiksi. Esimerkiksi jos
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    1 &amp; 2 &amp; 3 \\
+    4 &amp; 5 &amp; 6
+  \end{pmatrix},
+\end{equation*}\]</span>
+niin
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A^T =
+  \begin{pmatrix}
+    1 &amp; 4 \\
+    2 &amp; 5 \\
+    3 &amp; 6 \\
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Alla on muutamia keskeisiä transpoosin ominaisuuksia.</p>
+<ul>
+<li><p><span class="math inline">\(\left(\boldsymbol A^T\right)^T = \boldsymbol A\)</span>,</p></li>
+<li><p><span class="math inline">\(\left(\boldsymbol A + \boldsymbol B\right)^T = \boldsymbol A^T + \boldsymbol B^T\)</span> ja</p></li>
+<li><p><span class="math inline">\(\left(\boldsymbol A \boldsymbol B\right)^T = \boldsymbol B^T \boldsymbol A^T\)</span>.</p></li>
+</ul>
 
 </div>
 </div>
