@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-16" />
+<meta name="date" content="2026-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -904,14 +904,15 @@ jossa</p>
 <ul>
 <li>Kyseisen vakion rooli ei ole kovin oleellinen normaalijakauman määritelmässä – vakio <span class="math inline">\(C_{d, \boldsymbol\Sigma}\)</span> ollaan valittu siten, että faktan <a href="moniulotteiset-jakaumat.html#thm:density">2.4</a> ehto 2 (integroituvuus ykköseen) täyttyy.</li>
 </ul></li>
-<li>normi <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> mittaa vektorin <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> välistä etäisyyttä, joka syötetään funktioon <span class="math inline">\(\exp(z) = e^z\)</span>.
+<li>normi <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> mittaa vektorin <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> välistä etäisyyttä, joka syötetään funktioon <span class="math inline">\(\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}\)</span>.
 <ul>
-<li>Tosiaan matriisikertolaskujen <span class="math inline">\(\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos <span class="math inline">\(\boldsymbol\Sigma = \begin{pmatrix}c_1 &amp; 0 \\ 0 &amp; c_2\end{pmatrix}\)</span>, niin
+<li><p>Merkitsemme <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.</p></li>
+<li><p>Tosiaan matriisikertolaskujen <span class="math inline">\(\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos <span class="math inline">\(\boldsymbol\Sigma = \begin{pmatrix}c_1 &amp; 0 \\ 0 &amp; c_2\end{pmatrix}\)</span>, <span class="math inline">\(c_1, c_2 &gt; 0\)</span>, niin
 <span class="math display">\[\begin{equation*}
 \|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}
 = \sqrt{\sum_{i=1}^2 \frac{(x_i  - \mu_i)^2}{c_i}},
 \end{equation*}\]</span>
-joka on vektoria <span class="math inline">\(\boldsymbol x - \boldsymbol\mu\)</span> vastaava painotettu Euklidinen normi (vertaa yhtälöön <a href="liitteet.html#eq:euclidean">(3.1)</a>).</li>
+joka on vektoria <span class="math inline">\(\boldsymbol x - \boldsymbol\mu\)</span> vastaava painotettu Euklidinen normi (vertaa yhtälöön <a href="liitteet.html#eq:euclidean">(3.1)</a>).</p></li>
 </ul></li>
 </ul>
 <p>Normin <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> tulkintaan auttaa kuva <a href="moniulotteiset-jakaumat.html#fig:maha">2.6</a>. Eli vektoreille <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> pätee <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma} = \|\boldsymbol y\|_{\boldsymbol\Sigma}\)</span>, jos molemmat vektorit sijaitsevat samalla ellipsillä, jonka muodon määrää matriisi <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tästä tulkinnasta seuraa myös se, että normaalijakauman korkeuskäyrät ovat ympyrän tai ellipsin muotoisia. Samoin jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> generoitu otos muodostaa ellipsin muotoisen hajontakuvion. Ellipsin sijainnin määrää <span class="math inline">\(\boldsymbol\mu\)</span> ja muodon määrää <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tätä ilmiötä havainnollistaa kuva <a href="moniulotteiset-jakaumat.html#fig:scatters-normal">2.5</a>.</p>
@@ -1633,6 +1634,59 @@ Tarkista korrelaatiokertoimen estimaattorin <span class="math inline">\(\hat{\rh
 ## ArmLength        0.32940991 0.13346969 1.0000000   0.5247302
 ## TotalHeight      0.43635371 0.30011424 0.5247302   1.0000000</code></pre>
 <p>Suurin korrelaatio näyttää olevan muuttujien <code>TotalHeight</code> ja <code>ArmLength</code> välillä.</p>
+</div>
+
+
+<p>Näytämme vielä, kuinka tunnuslukujen avulla voidaan mitata havainnon poikkeavuutta tietyssä mielessä. Huomaa, että se miten poikkeavuutta tulisi mitata riippuu kontekstista.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-22" class="example"><strong>Esimerkki 2.16  (Normaalijakaumaoletus ja Mahalanobis etäisyys) </strong></span>Jatkamme esimerkin <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a> datan käsittelyä. Nyt olemme kiinnostuneita vain muuttujista <code>TotalHeight</code> ja <code>ArmLength</code>.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="moniulotteiset-jakaumat.html#cb75-1" tabindex="-1"></a>body <span class="ot">&lt;-</span> body <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="moniulotteiset-jakaumat.html#cb75-2" tabindex="-1"></a>  <span class="fu">select</span>(TotalHeight, ArmLength)</span>
+<span id="cb75-3"><a href="moniulotteiset-jakaumat.html#cb75-3" tabindex="-1"></a>body</span></code></pre></div>
+<pre><code>## # A tibble: 716 × 2
+##    TotalHeight ArmLength
+##          &lt;int&gt;     &lt;int&gt;
+##  1          52        22
+##  2          56        28
+##  3          53        21
+##  4          45        24
+##  5          47        25
+##  6          60        20
+##  7          49        23
+##  8          58        19
+##  9          40        15
+## 10          55        16
+## # ℹ 706 more rows</code></pre>
+<p>Hajontakuvion <a href="moniulotteiset-jakaumat.html#fig:body-scatter2">2.7</a> perusteella data voisi noudattaa <span class="math inline">\(2\)</span>-ulotteista normaalijakaumaa, koska hajontakuvion muoto on “elliptinen”. Havaintoaineistossa on kuitenkin muutama oudokki, mikä perusteella jakauman hännät saattavat olla paksumpia kuin normaalijakaumalla.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="moniulotteiset-jakaumat.html#cb77-1" tabindex="-1"></a><span class="fu">plot</span>(body, <span class="at">xlab =</span> <span class="st">&quot;Total height&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Arm Length&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:body-scatter2"></span>
+<img src="tidaja-book_files/figure-html/body-scatter2-1.png" alt="Hajontakuvio muuttujia TotalHeight ja Armlength vastaavista havainnoista." width="672" />
+<p class="caption">
+Kuva 2.7: Hajontakuvio muuttujia <code>TotalHeight</code> ja <code>Armlength</code> vastaavista havainnoista.
+</p>
+</div>
+<p>Oletetaan, että data tosiaan ollaan generoitu <span class="math inline">\(2\)</span>-ulotteisesta normaalijakaumasta. Estimoidaan jakauman parametrit <span class="math inline">\(\boldsymbol\mu\)</span> ja <span class="math inline">\(\boldsymbol\Sigma\)</span> komponettikohtaisen keskiarvon ja otoskovarianssin avulla</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="moniulotteiset-jakaumat.html#cb78-1" tabindex="-1"></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(body)</span>
+<span id="cb78-2"><a href="moniulotteiset-jakaumat.html#cb78-2" tabindex="-1"></a>sigma_hat <span class="ot">&lt;-</span> <span class="fu">cov</span>(body)</span>
+<span id="cb78-3"><a href="moniulotteiset-jakaumat.html#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="moniulotteiset-jakaumat.html#cb78-4" tabindex="-1"></a>mu_hat</span></code></pre></div>
+<pre><code>## TotalHeight   ArmLength 
+##    48.11872    18.81704</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="moniulotteiset-jakaumat.html#cb80-1" tabindex="-1"></a>sigma_hat</span></code></pre></div>
+<pre><code>##             TotalHeight ArmLength
+## TotalHeight   147.78589  34.29728
+## ArmLength      34.29728  28.90774</code></pre>
+<p>Estimaattien avulla voimme laskea havaintoja vastaavat Mahalanobis etäisyydet. Nämä etäisyydet kuvaavat sitä, kuinka poikkeavia havainnot ovat – mitä suurempi Mahalanobis etäisyys sitä poikkeavampi havainto. Kuvassa <a href="moniulotteiset-jakaumat.html#fig:body-scattermaha">2.8</a> suurimman Mahalanobis etäisyyden omaava havainto on väritety punaisella.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="moniulotteiset-jakaumat.html#cb82-1" tabindex="-1"></a>maha_dist <span class="ot">&lt;-</span> <span class="fu">mahalanobis</span>(body, mu_hat, sigma_hat)</span>
+<span id="cb82-2"><a href="moniulotteiset-jakaumat.html#cb82-2" tabindex="-1"></a><span class="fu">plot</span>(body, <span class="at">xlab =</span> <span class="st">&quot;Total height&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Arm Length&quot;</span>,</span>
+<span id="cb82-3"><a href="moniulotteiset-jakaumat.html#cb82-3" tabindex="-1"></a>     <span class="at">pch =</span> <span class="fu">ifelse</span>(maha_dist <span class="sc">==</span> <span class="fu">max</span>(maha_dist), <span class="dv">19</span>, <span class="dv">4</span>),</span>
+<span id="cb82-4"><a href="moniulotteiset-jakaumat.html#cb82-4" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">ifelse</span>(maha_dist <span class="sc">==</span> <span class="fu">max</span>(maha_dist), <span class="st">&quot;red&quot;</span>, <span class="st">&quot;skyblue&quot;</span>))</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:body-scattermaha"></span>
+<img src="tidaja-book_files/figure-html/body-scattermaha-1.png" alt="Hajontakuvio muuttujia TotalHeight ja Armlength vastaavista havainnoista. Havainto jolla on suurin Mahalanobis etäisyys on väritetty punaisella." width="672" />
+<p class="caption">
+Kuva 2.8: Hajontakuvio muuttujia <code>TotalHeight</code> ja <code>Armlength</code> vastaavista havainnoista. Havainto jolla on suurin Mahalanobis etäisyys on väritetty punaisella.
+</p>
+</div>
 </div>
 
 </div>

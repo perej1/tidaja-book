@@ -676,8 +676,10 @@ jossa
 -  vakio $C_{2, \boldsymbol\Sigma}$ riippuu dimensiosta $d = 2$ ja hajonnasta $\boldsymbol\Sigma$,
     - Kyseisen vakion rooli ei ole kovin oleellinen normaalijakauman määritelmässä -- vakio $C_{d, \boldsymbol\Sigma}$  ollaan valittu siten, että faktan \@ref(thm:density) ehto 2 (integroituvuus ykköseen) täyttyy.
     
-- normi $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ mittaa vektorin $\boldsymbol x$ ja $\boldsymbol\mu$ välistä etäisyyttä, joka syötetään funktioon $\exp(z) = e^z$.
-    -  Tosiaan matriisikertolaskujen $\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden $\boldsymbol x$ ja $\boldsymbol\mu$ etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos $\boldsymbol\Sigma = \begin{pmatrix}c_1 & 0 \\ 0 & c_2\end{pmatrix}$, niin
+- normi $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ mittaa vektorin $\boldsymbol x$ ja $\boldsymbol\mu$ välistä etäisyyttä, joka syötetään funktioon $\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}$.
+    - Merkitsemme $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.
+
+    -  Tosiaan matriisikertolaskujen $\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden $\boldsymbol x$ ja $\boldsymbol\mu$ etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos $\boldsymbol\Sigma = \begin{pmatrix}c_1 & 0 \\ 0 & c_2\end{pmatrix}$, $c_1, c_2 > 0$, niin
 \begin{equation*}
   \|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}
   = \sqrt{\sum_{i=1}^2 \frac{(x_i  - \mu_i)^2}{c_i}},
@@ -1246,4 +1248,41 @@ Havaintoaineistoa vastaavan korrelaatiomatriisin voi estimoida helposti funktiol
 cor(body)
 ```
 Suurin korrelaatio näyttää olevan muuttujien `TotalHeight` ja `ArmLength` välillä.
+:::
+
+(ref:body-scatter2cap) Hajontakuvio muuttujia `TotalHeight` ja `Armlength` vastaavista havainnoista.
+
+(ref:body-scattermahacap) Hajontakuvio muuttujia `TotalHeight` ja `Armlength` vastaavista havainnoista. Havainto jolla on suurin Mahalanobis etäisyys on väritetty punaisella.
+
+Näytämme vielä, kuinka tunnuslukujen avulla voidaan mitata havainnon poikkeavuutta tietyssä mielessä. Huomaa, että se miten poikkeavuutta tulisi mitata riippuu kontekstista.
+
+:::{.example name="Normaalijakaumaoletus ja Mahalanobis etäisyys"}
+Jatkamme esimerkin \@ref(exm:body) datan käsittelyä. Nyt olemme kiinnostuneita vain muuttujista `TotalHeight` ja `ArmLength`.
+```{r}
+body <- body %>%
+  select(TotalHeight, ArmLength)
+body
+```
+
+Hajontakuvion \@ref(fig:body-scatter2) perusteella data voisi noudattaa $2$-ulotteista normaalijakaumaa, koska hajontakuvion muoto on "elliptinen". Havaintoaineistossa on kuitenkin muutama oudokki, mikä perusteella jakauman hännät saattavat olla paksumpia kuin normaalijakaumalla.
+```{r body-scatter2, fig.cap="(ref:body-scatter2cap)"}
+plot(body, xlab = "Total height", ylab = "Arm Length")
+```
+
+Oletetaan, että data tosiaan ollaan generoitu $2$-ulotteisesta normaalijakaumasta. Estimoidaan jakauman parametrit $\boldsymbol\mu$ ja $\boldsymbol\Sigma$ komponettikohtaisen keskiarvon ja otoskovarianssin avulla
+```{r}
+mu_hat <- colMeans(body)
+sigma_hat <- cov(body)
+
+mu_hat
+sigma_hat
+```
+
+Estimaattien avulla voimme laskea havaintoja vastaavat Mahalanobis etäisyydet. Nämä etäisyydet kuvaavat sitä, kuinka poikkeavia havainnot ovat -- mitä suurempi Mahalanobis etäisyys sitä poikkeavampi havainto. Kuvassa \@ref(fig:body-scattermaha) suurimman Mahalanobis etäisyyden omaava havainto on väritety punaisella.
+```{r body-scattermaha, fig.cap="(ref:body-scattermahacap)"}
+maha_dist <- mahalanobis(body, mu_hat, sigma_hat)
+plot(body, xlab = "Total height", ylab = "Arm Length",
+     pch = ifelse(maha_dist == max(maha_dist), 19, 4),
+     col = ifelse(maha_dist == max(maha_dist), "red", "skyblue"))
+```
 :::

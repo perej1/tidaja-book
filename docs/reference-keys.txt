@@ -79,8 +79,11 @@ eq:samplecov
 eq:cov22
 exm:unlabeled-div-20
 exm:unlabeled-div-21
+exm:unlabeled-div-22
+fig:body-scatter2
+fig:body-scattermaha
 eq:euclidean
-exm:unlabeled-div-23
+exm:unlabeled-div-24
 fig:vec
 r-ohjelmointikielestä
 sec:inst

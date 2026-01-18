@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-16" />
+<meta name="date" content="2026-01-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -214,7 +214,7 @@ div.csl-indent {
 <h2><span class="header-section-number">3.1</span> Vektoreista<a href="liitteet.html#sec:vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="liitteet.html#fig:vec">3.1</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
 <div class="remark">
-<p><span id="unlabeled-div-22" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
+<p><span id="unlabeled-div-23" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
 <ul>
 <li><p>Joskus vektorit erotetaan luvuista lihavoimalla vektorit. Tässä monisteessa käytämme kyseistä periaatetta eli <span class="math inline">\(\boldsymbol x\)</span> tulkitaan vektorina ja <span class="math inline">\(x\)</span> lukuna.</p></li>
 <li><p>Usein oletuksena vektorit tulkitaan pystyvektoreina. Sillä onko <span class="math inline">\(\boldsymbol x\)</span> pysty- vai vaakavektori on merkitystä vektoreiden välisissä laskutoimituksissa. Muista, että notaatio <span class="math inline">\(\boldsymbol x^T\)</span> tarkoittaa transpoosia, joka muuttaa vaakavektorin pystyvektoriksi ja toisinpäin. Eli esimerkiksi <span class="math inline">\((1, 4, 2.4)^T\)</span> on <span class="math inline">\(3\)</span>-ulotteinen pystyvektori
@@ -249,7 +249,7 @@ Yllä olevassa yhtälössä esitetty normi on nimeltään Euklidinen normi (eng:
 \end{equation*}\]</span>
 Erityisesti kaksi vektoria <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> ovat suorassa kulmassa toisiinsa nähden jos ja vain jos <span class="math inline">\(\langle \boldsymbol x, \boldsymbol y\rangle = 0\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-23" class="example"><strong>Esimerkki 3.1  (Vektorin suuruus ja suunta) </strong></span></p>
+<p><span id="exm:unlabeled-div-24" class="example"><strong>Esimerkki 3.1  (Vektorin suuruus ja suunta) </strong></span></p>
 <ul>
 <li><p>Kuvan <a href="liitteet.html#fig:vec">3.1</a> vektoreilla <span class="math inline">\((2,2)^T\)</span> ja <span class="math inline">\((-1, \sqrt{7})^T\)</span> on sama normi.</p></li>
 <li><p>Kuvan <a href="liitteet.html#fig:vec">3.1</a> vektoreiden <span class="math inline">\((2, 2)^T\)</span> ja <span class="math inline">\((-1, 1)^T\)</span> välinen pistetulo on nolla.</p></li>
@@ -265,6 +265,93 @@ Kuva 3.1: Vektoreita karteesisessa koordinaatistossa.
 </div>
 <div id="sec:matrix" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Matriiseista<a href="liitteet.html#sec:matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Matriisi on suorakulmion muotoinen taulukko lukuja, joka on järjestetty rivien ja sarakkeiden mukaan. Matriisi, jossa on <span class="math inline">\(n\)</span> riviä ja <span class="math inline">\(d\)</span> saraketta
+on <span class="math inline">\((n\times d)\)</span>-matriisi
+<span class="math display">\[\begin{equation*}
+  \begin{pmatrix}
+    a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1d} \\
+    a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2d} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nd}
+  \end{pmatrix}.
+\end{equation*}\]</span>
+Jos matriisi nimetään jonkun muuttujan kuten <span class="math inline">\(\boldsymbol A\)</span> mukaan, niin kyseisen matriisin alkioita merkitään notaatiolla <span class="math inline">\(\boldsymbol A_{ij}\)</span>. Esimerkiksi jos
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    3 &amp; 6 \\
+    2 &amp; 8
+  \end{pmatrix},
+\end{equation*}\]</span>
+niin <span class="math inline">\(\boldsymbol A_{11} = 3\)</span>, <span class="math inline">\(\boldsymbol A_{12} = 6\)</span>, <span class="math inline">\(\boldsymbol A_{21} = 2\)</span> ja <span class="math inline">\(\boldsymbol A_{22} = 8\)</span>.Matriisia <span class="math inline">\(A\in\mathbb{R}^{n\times n}\)</span>, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on <span class="math inline">\(n\times 1\)</span> matriisi ja vaakavektori on <span class="math inline">\(1\times d\)</span> matriisi.</p>
+<p>Seuraavaksi kertaamme matriiseihin liittyviä laskutoimituksia. Esitysteknisistä syistä rajoitumme <span class="math inline">\(2\times 2\)</span> matriiseihin, vaikka alla olevat laskutoimitukset toimivat myös <span class="math inline">\((n\times d)\)</span>-matriiseille. Matriisien peruslaskutoimitukset kuten summa
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A + \boldsymbol B =
+  \begin{pmatrix}
+    \boldsymbol A_{11} + \boldsymbol B_{11} &amp; \boldsymbol A_{12}
+    + \boldsymbol B_{12} \\
+    \boldsymbol A_{21} + \boldsymbol B_{21} &amp; \boldsymbol A_{22}
+    + \boldsymbol B_{22}
+  \end{pmatrix}
+\end{equation*}\]</span>
+ja skalaarilla (luvulla) kertominen
+<span class="math display">\[\begin{equation*}
+  c \boldsymbol A =
+  \begin{pmatrix}
+    c \boldsymbol A_{11} &amp; c \boldsymbol A_{12} \\
+    c \boldsymbol A_{21} &amp; c \boldsymbol A_{22}
+  \end{pmatrix}
+\end{equation*}\]</span>
+toimivat alkioittain.</p>
+<p>Matriisitulo on hieman monimutkaisempi laskutoimitus. Kun <span class="math inline">\(A\)</span> on <span class="math inline">\((n\times d)\)</span>-matriisi, ja <span class="math inline">\(B\)</span> on <span class="math inline">\((d \times m)\)</span>-matriisi, niin tulomatriisi <span class="math inline">\(AB\)</span> on
+<span class="math inline">\((n \times m)\)</span>-matriisi, jonka alkiot ovat muotoa
+<span class="math display">\[\begin{equation*}
+  (AB)_{ij} = \sum_{k = 1}^d a_{ik}b_{kj}.
+\end{equation*}\]</span>
+Esimerkiksi
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+    \begin{pmatrix}
+      1 &amp; 2 \\
+      3 &amp; 4
+    \end{pmatrix}
+    \begin{pmatrix}
+      5 &amp; 6 \\
+      7 &amp; 8
+    \end{pmatrix}
+    &amp;=
+    \begin{pmatrix}
+      1\cdot 5 + 2\cdot 7 &amp; 1\cdot 6 + 2\cdot 8 \\
+      3\cdot 5 + 4\cdot 7 &amp; 3\cdot 6 + 4\cdot 8
+    \end{pmatrix} \\
+    &amp;=
+    \begin{pmatrix}
+      19 &amp; 22 \\
+      43 &amp; 50
+    \end{pmatrix}
+  \end{split}
+\end{equation*}\]</span>
+Alla on muutamia matriisikertolaskun ominaisuuksia:</p>
+<ul>
+<li><p><span class="math inline">\((AB)C = A(BC)\)</span></p></li>
+<li><p><span class="math inline">\(A(B + C) = AB + AC\)</span></p></li>
+<li><p>Matriisitulo ei ole aina vaihdannainen: <span class="math inline">\(AB \neq BA\)</span></p></li>
+</ul>
+<p>Kun <span class="math inline">\(\boldsymbol A\)</span> on <span class="math inline">\((2\times 2)\)</span>-matriisi
+<span class="math display">\[\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    \boldsymbol A_{11} &amp; \boldsymbol A_{12} \\
+    \boldsymbol A_{21} &amp; \boldsymbol A_{22}
+  \end{pmatrix},
+\end{equation*}\]</span>
+niin matriisia vastaava determinantti lasketaan kaavalla
+<span class="math display">\[\begin{equation*}
+  \mathrm{Det}\left(\boldsymbol A\right)
+  = \boldsymbol A_{11}\boldsymbol A_{22}
+  - \boldsymbol A_{21}\boldsymbol A_{12}.
+\end{equation*}\]</span>
+Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin “tunnusluku”.</p>
 
 </div>
 </div>

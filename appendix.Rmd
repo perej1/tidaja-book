@@ -53,3 +53,94 @@ knitr::include_graphics("images/vectors.jpg")
 
 ## Matriiseista {#sec:matrix}
 
+Matriisi on suorakulmion muotoinen taulukko lukuja, joka on järjestetty rivien ja sarakkeiden mukaan. Matriisi, jossa on $n$ riviä ja $d$ saraketta
+on $(n\times d)$-matriisi
+\begin{equation*}
+  \begin{pmatrix}
+    a_{11} & a_{12} & \cdots & a_{1d} \\
+    a_{21} & a_{22} & \cdots & a_{2d} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n1} & a_{n2} & \cdots & a_{nd}
+  \end{pmatrix}.
+\end{equation*}
+Jos matriisi nimetään jonkun muuttujan kuten $\boldsymbol A$ mukaan, niin kyseisen matriisin alkioita merkitään notaatiolla $\boldsymbol A_{ij}$. Esimerkiksi jos
+\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    3 & 6 \\
+    2 & 8
+  \end{pmatrix},
+\end{equation*}
+niin $\boldsymbol A_{11} = 3$, $\boldsymbol A_{12} = 6$, $\boldsymbol A_{21} = 2$ ja $\boldsymbol A_{22} = 8$.Matriisia $A\in\mathbb{R}^{n\times n}$, jolla on sama määrä rivejä kuin sarakkeita kutsutaan neliömatriisiksi. Huomaa myös, että vektorit ovat erityistapauksia matriiseista. Myös matriisit usein lihavoidaan kuten vektorit. Samaa periaatetta noudatetaan tässä monisteessa. Pystyvektori on $n\times 1$ matriisi ja vaakavektori on $1\times d$ matriisi.
+
+Seuraavaksi kertaamme matriiseihin liittyviä laskutoimituksia. Esitysteknisistä syistä rajoitumme $2\times 2$ matriiseihin, vaikka alla olevat laskutoimitukset toimivat myös $(n\times d)$-matriiseille. Matriisien peruslaskutoimitukset kuten summa
+\begin{equation*}
+  \boldsymbol A + \boldsymbol B =
+  \begin{pmatrix}
+    \boldsymbol A_{11} + \boldsymbol B_{11} & \boldsymbol A_{12}
+    + \boldsymbol B_{12} \\
+    \boldsymbol A_{21} + \boldsymbol B_{21} & \boldsymbol A_{22}
+    + \boldsymbol B_{22}
+  \end{pmatrix}
+\end{equation*}
+ja skalaarilla (luvulla) kertominen
+\begin{equation*}
+  c \boldsymbol A =
+  \begin{pmatrix}
+    c \boldsymbol A_{11} & c \boldsymbol A_{12} \\
+    c \boldsymbol A_{21} & c \boldsymbol A_{22}
+  \end{pmatrix}
+\end{equation*}
+toimivat alkioittain.
+
+Matriisitulo on hieman monimutkaisempi laskutoimitus. Kun $A$ on $(n\times d)$-matriisi, ja $B$ on $(d \times m)$-matriisi, niin tulomatriisi $AB$ on
+$(n \times m)$-matriisi, jonka alkiot ovat muotoa
+\begin{equation*}
+  (AB)_{ij} = \sum_{k = 1}^d a_{ik}b_{kj}.
+\end{equation*}
+Esimerkiksi
+\begin{equation*}
+  \begin{split}
+    \begin{pmatrix}
+      1 & 2 \\
+      3 & 4
+    \end{pmatrix}
+    \begin{pmatrix}
+      5 & 6 \\
+      7 & 8
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+      1\cdot 5 + 2\cdot 7 & 1\cdot 6 + 2\cdot 8 \\
+      3\cdot 5 + 4\cdot 7 & 3\cdot 6 + 4\cdot 8
+    \end{pmatrix} \\
+    &=
+    \begin{pmatrix}
+      19 & 22 \\
+      43 & 50
+    \end{pmatrix}
+  \end{split}
+\end{equation*}
+Alla on muutamia matriisikertolaskun ominaisuuksia:
+
+- $(AB)C = A(BC)$
+
+- $A(B + C) = AB + AC$
+
+- Matriisitulo ei ole aina vaihdannainen: $AB \neq BA$
+
+Kun $\boldsymbol A$ on $(2\times 2)$-matriisi
+\begin{equation*}
+  \boldsymbol A =
+  \begin{pmatrix}
+    \boldsymbol A_{11} & \boldsymbol A_{12} \\
+    \boldsymbol A_{21} & \boldsymbol A_{22}
+  \end{pmatrix},
+\end{equation*}
+niin matriisia vastaava determinantti lasketaan kaavalla
+\begin{equation*}
+  \mathrm{Det}\left(\boldsymbol A\right)
+  = \boldsymbol A_{11}\boldsymbol A_{22}
+  - \boldsymbol A_{21}\boldsymbol A_{12}.
+\end{equation*}
+Huomaa, että determinantin tulos on reaaliluku. Determinantti tärkeä, koska se eräänlainen matriisin "tunnusluku".
