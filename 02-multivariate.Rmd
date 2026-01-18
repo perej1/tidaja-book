@@ -838,7 +838,7 @@ Olkoon $\boldsymbol X = (X_1,  X_2)^T$ jatkuva satunnaisvektori, jolla on yhteis
 määrittämät todennäköisyysjakaumat.
 :::
 
-Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin $\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)$  jakaumasta voidaan selvittää yksittäisten komponenttien jakaumat $X_1, X_2, \ldots, X_d$. Tätä havainnollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.
+Moniulotteisista jakaumista saadaan siis laskettua reunajakaumia. Eli toisin sanoen satunnaisvektorin $\boldsymbol X = \left(X_1,  X_2, \ldots, X_d\right)$  jakaumasta voidaan selvittää yksittäisten komponenttien $X_1, X_2, \ldots, X_d$ jakaumat. Tätä havainnollistaa myös alla oleva moniulotteisen normaalijakauman reunajakaumiin liittyvä fakta.
 
 ::: {.theorem}
 Olkoon $\boldsymbol X = (X_1,  X_2)^T\sim N(\boldsymbol\mu, \boldsymbol\Sigma)$ eli $\boldsymbol X$ noudattaa $2$-ulotteista normaalijakaumaa. Tällöin satunnaismuuttujia $X_1$ ja $X_2$ vastaavat reunajakaumat ovat normaalijakaumia.
@@ -852,8 +852,8 @@ On mahdollista, että $X_1\sim N(0,1)$ ja $X_2\sim N(0,1)$  mutta satunnaisvekto
 
 Yllä käsittelimme $2$-ulotteisten jakaumien reunajakaumia, jotka ovat aina yksiulotteisia. Kuitenkin $d$-ulotteisille satunnaisvektoreille näin ei tarvitse olla kun $d > 2$. Esimerkiksi olkoon $\boldsymbol X = (X_1,  X_2, X_3, X_4, X_5)$ diskreetti satunnaisvektori. Tällöin vektoria $\boldsymbol Y = (X_1, X_4, X_5)$ vastaava reunajakauma saadaan kaavasta
 \begin{equation*}
-  f_{\boldsymbol Y}(x_1,  x_4,  x_5) = \sum_{x_2, x_3\in\mathbb{Z}}
-  f_{\boldsymbol X}(x_1,  x_2,  x_3,  x_4, x_5).
+  p_{\boldsymbol Y}(x_1,  x_4,  x_5) = \sum_{x_2, x_3\in\mathbb{Z}}
+  p_{\boldsymbol X}(x_1,  x_2,  x_3,  x_4, x_5).
 \end{equation*}
 
 ### Ehdolliset jakaumat {-}
