@@ -668,7 +668,7 @@ Kaksiulotteisen normaalijakauman tiheysfunktio voidaan kirjoittaa muodossa
 \begin{equation*}
   f_{\boldsymbol X}\left(\boldsymbol x\right)
   = C_{2, \boldsymbol\Sigma}
-  \exp\left(-\frac{1}{2}\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}\right),
+  \exp\left(-\frac{1}{2}\|\boldsymbol x  - \boldsymbol\mu\|^2_{\boldsymbol\Sigma}\right),
   \quad \boldsymbol x\in\mathbb{R}^2,
 \end{equation*}
 jossa
@@ -676,8 +676,8 @@ jossa
 -  vakio $C_{2, \boldsymbol\Sigma}$ riippuu dimensiosta $d = 2$ ja hajonnasta $\boldsymbol\Sigma$,
     - Kyseisen vakion rooli ei ole kovin oleellinen normaalijakauman määritelmässä -- vakio $C_{d, \boldsymbol\Sigma}$  ollaan valittu siten, että faktan \@ref(thm:density) ehto 2 (integroituvuus ykköseen) täyttyy.
     
-- normi $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ mittaa vektorin $\boldsymbol x$ ja $\boldsymbol\mu$ välistä etäisyyttä, joka syötetään funktioon $\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}$.
-    - Merkitsemme $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.
+- normi $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \sqrt{\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)}$ mittaa vektorin $\boldsymbol x$ ja $\boldsymbol\mu$ välistä etäisyyttä, joka syötetään funktioon $\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}$.
+    - Merkitsemme $\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \sqrt{\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)}$ ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.
 
     -  Tosiaan matriisikertolaskujen $\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)$ tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden $\boldsymbol x$ ja $\boldsymbol\mu$ etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos $\boldsymbol\Sigma = \begin{pmatrix}c_1 & 0 \\ 0 & c_2\end{pmatrix}$, $c_1, c_2 > 0$, niin
 \begin{equation*}

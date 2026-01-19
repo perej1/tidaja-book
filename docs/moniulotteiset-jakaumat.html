@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-18" />
+<meta name="date" content="2026-01-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -895,7 +895,7 @@ Kuva 2.5: Vasemmanpuoleisessa kuvassa näkyy satunnaisvektoria <span class="math
 <span class="math display">\[\begin{equation*}
   f_{\boldsymbol X}\left(\boldsymbol x\right)
   = C_{2, \boldsymbol\Sigma}
-  \exp\left(-\frac{1}{2}\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}\right),
+  \exp\left(-\frac{1}{2}\|\boldsymbol x  - \boldsymbol\mu\|^2_{\boldsymbol\Sigma}\right),
   \quad \boldsymbol x\in\mathbb{R}^2,
 \end{equation*}\]</span>
 jossa</p>
@@ -904,9 +904,9 @@ jossa</p>
 <ul>
 <li>Kyseisen vakion rooli ei ole kovin oleellinen normaalijakauman määritelmässä – vakio <span class="math inline">\(C_{d, \boldsymbol\Sigma}\)</span> ollaan valittu siten, että faktan <a href="moniulotteiset-jakaumat.html#thm:density">2.4</a> ehto 2 (integroituvuus ykköseen) täyttyy.</li>
 </ul></li>
-<li>normi <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> mittaa vektorin <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> välistä etäisyyttä, joka syötetään funktioon <span class="math inline">\(\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}\)</span>.
+<li>normi <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \sqrt{\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)}\)</span> mittaa vektorin <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> välistä etäisyyttä, joka syötetään funktioon <span class="math inline">\(\exp\left(-\frac{1}{2}z\right) = e^{-\frac{1}{2}z}\)</span>.
 <ul>
-<li><p>Merkitsemme <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.</p></li>
+<li><p>Merkitsemme <span class="math inline">\(\|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma} = \sqrt{\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)}\)</span> ja kutsumme tätä suuretta Mahalanobis etäisyydeksi.</p></li>
 <li><p>Tosiaan matriisikertolaskujen <span class="math inline">\(\left(\boldsymbol x - \boldsymbol\mu\right)^T\boldsymbol\Sigma^{-1}\left(\boldsymbol x - \boldsymbol\mu\right)\)</span> tulos tulee olemaan reaaliluku. Tämä luku kuvaa vektoreiden <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol\mu\)</span> etäisyyttä niin, että vektoreiden komponentteja on painotettu eri tavoin. Esimerkiksi jos <span class="math inline">\(\boldsymbol\Sigma = \begin{pmatrix}c_1 &amp; 0 \\ 0 &amp; c_2\end{pmatrix}\)</span>, <span class="math inline">\(c_1, c_2 &gt; 0\)</span>, niin
 <span class="math display">\[\begin{equation*}
 \|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}
