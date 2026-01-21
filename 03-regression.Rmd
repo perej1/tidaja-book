@@ -1,0 +1,17 @@
+# Moniulotteinen lineaarinen regressio
+
+- regressio motivointi
+
+- yksiulotteinen lineaarinen regressio
+
+## Määritelmä ja oletukset
+
+## Mallin sovittaminen ja tulkinta
+
+## Sovitteen hyvyys ja ennustaminen
+
+## Mallin ja regressiokertointen merkitsevyys
+
+## Luottamus- ja ennustevälit
+
+## Mallidiagnostiikka

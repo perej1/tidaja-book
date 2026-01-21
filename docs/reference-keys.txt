@@ -97,6 +97,13 @@ sec:rvec
 sec:normal
 sec:cond
 sec:statistic
+moniulotteinen-lineaarinen-regressio
+määritelmä-ja-oletukset
+mallin-sovittaminen-ja-tulkinta
+sovitteen-hyvyys-ja-ennustaminen
+mallin-ja-regressiokertointen-merkitsevyys
+luottamus--ja-ennustevälit
+mallidiagnostiikka
 liitteet
 sec:vector
 sec:matrix
