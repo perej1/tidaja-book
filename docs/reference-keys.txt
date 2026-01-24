@@ -82,11 +82,16 @@ exm:unlabeled-div-21
 exm:unlabeled-div-22
 fig:body-scatter2
 fig:body-scattermaha
+eq:reggen
 fig:regression
 eq:exp
 exm:simplereg
 fig:height-scatter
 fig:height-reg
+eq:regression
+def:whitenoise
+eq:regmatrix
+exm:regconstruction
 eq:euclidean
 exm:unlabeled-div-24
 fig:vec
@@ -108,7 +113,7 @@ mallin-sovittaminen-ja-tulkinta
 sovitteen-hyvyys-ja-ennustaminen
 mallin-ja-regressiokertoimien-merkitsevyys
 luottamus--ja-ennustevälit
-mallidiagnostiikka
+sec:diagnostic
 liitteet
 sec:vector
 sec:matrix

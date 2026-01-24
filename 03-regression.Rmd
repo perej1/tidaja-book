@@ -13,15 +13,16 @@ Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia 
 - Entä kuinka paljon voitot kasvavat/vähenevät euroissa, jos palkkaamme $m$ työntekijää lisää?
 
 
-Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on $n$ kappaletta $d$-ulotteisia havaintoja
+Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on $n$ kappaletta $(d + 1)$-ulotteisia havaintoja
 \begin{equation*}
   \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
 \end{equation*}
 satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti kuvaa selitettävää muuttujaa ja muut komponentit antavat selittävät muuttujat. Havaintoaineiston avulla sovitetaan regressiomalli, joka yleisesti ottaen voi olla muotoa
-\begin{equation*}
-  y_i = f(x_{i1}, x_{i2}, \ldots, x_{i2})+ \varepsilon_i,
+\begin{equation}
+  (\#eq:reggen)
+  y_i = f(x_{i1}, x_{i2}, \ldots, x_{id}) + \varepsilon_i,
   \quad i\in\{1, 2,\ldots, n\},
-\end{equation*}
+\end{equation}
 jossa $f$ mallintaa selittävän muuttujan ja selitettävien muuttujien välistä systemaattista suhdetta ja $\varepsilon_i$ on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen $y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})$. Virhetermit $\varepsilon_i$ voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.
 
 Perinteisessä regressioanalyysissä analyytikko päättää funktion $f$ muodon ennen mallin sovittamista. Kuvassa \@ref(fig:regression) näkyy kolmen $2$-ulotteisen kuvitteellisen havaintoaineiston
@@ -129,6 +130,120 @@ Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regres
 
 ## Määritelmä ja oletukset
 
+Kuten luvun esittelyssä, oletetaan että saatavilla on $n$ kappaletta $(d+1)$-ulotteisia havaintoja
+\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}
+satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat selittävien muuttujien havainnot. Selittäviä muuttujia on siis $d$ kappaletta. Moniulotteisessa lineaarisessa regressiossa oletetaan seuraavanlainen suhde selitettävän ja selittävien muuttujien välillä,
+\begin{equation}
+  (\#eq:regression)
+  \begin{split}
+    y_i &= \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_d x_{id} + \varepsilon_i \\
+    &= \beta_0 + \left(\sum_{j = 1}^d \beta_j x_{ij}\right) + \varepsilon_i,
+    \quad i\in\{1, 2,\ldots, n\},
+  \end{split}
+\end{equation}
+jossa $\varepsilon_i$ ovat satunnaisia virhetermejä. Yllä oleva malli seuraa siis yhtälön \@ref(eq:reggen) yleisestä regressiomallista valinnalla $f(x_{i1}, x_{i2}, \ldots, x_{id}) = \beta_0 + \sum_{j = 1}^d \beta_j x_{ij}$.
+
+Tähän mennessä emme ole käsitelleet virhetermeihin $\varepsilon_i$ liittyviä oletuksia sen tarkemmin. Tästä eteenpäin kuitenkin oletamme, että lineaarisen regressiomallin virhetermit ovat valkoista kohinaa ellei toisin sanota.
+
+::: {.definition #whitenoise name="Valkoinen kohina"}
+Satunnaismuuttujat $\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n$ ovat valkoista kohinaa, jos
+
+1. jokainen satunnaismuuttuja $\varepsilon_i$ noudattaa normaalijakaumaa $\varepsilon_i\sim N(0, \sigma^2)$ (havainnosta $i$ riippumattomilla) odotusarvolla $0$ ja varianssilla $\sigma^2 > 0$, ja
+
+2. satunnaismuuttujat $\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n$ ovat riippumattomia.
+:::
+
+Yllä olevan määritelmän oletuksia voidaan monissa tapauksissa lieventää. Esimerkiksi oletus normaalijakautuneisuudesta ei ole aina tarpeen tai edes realistinen. Kuitenkin mukavuussyistä rajoitumme määritelmän \@ref(def:whitenoise) mukaisiin oletuksiin virhetermeille $\varepsilon_i$. Virhetermien oletuksista seuraa esimerkiksi seuraavaa:
+
+1. Virhetermin $\varepsilon_i$ varianssi ei riipu selittävien muuttujien havainnoista $(x_{i1}, x_{i2}, \ldots, x_{id})$. Jos näin kuitenkin olisi, niin mallia kutsuttaisiin heteroskedastiseksi tai erivarianssiseksi (eng: *heteroskedastic*).
+
+2. Mille tahansa parille virhetermejä $\varepsilon_i$ ja $\varepsilon_j$ pätee $\mathrm{Cov}\left(\varepsilon_i, \varepsilon_j\right) = 0$, kun $i\neq j$.
+
+Tilastollisessa mallintamisessa on aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa \@ref(sec:diagnostic).
+
+Lineaarisen regressiomallin määritelmä voidaan myös kirjoittaa hyödyntäen matriisinotaatiota. Ensin kerätään havainnot selitettävästä muuttujasta omaan vektoriinsa, havainnot selittävistä muuttujista omaan matriisiin (jossa 1. sarake on vain ykkösiä), parametrit $\beta_j$ omaan vektoriinsa ja virhetermit omaan vektoriinsa
+\begin{equation*}
+\begin{split}
+  &\boldsymbol y =
+  \begin{pmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n
+  \end{pmatrix}\in\mathbb{R}^n, \quad
+  \boldsymbol X =
+  \begin{pmatrix}
+    1 & x_{11} & x_{12} & \cdots & x_{1d} \\
+    1 & x_{21} & x_{22} & \cdots & x_{2d} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    1 & x_{n1} & x_{n2} & \cdots & x_{nd}
+  \end{pmatrix} \in\mathbb{R}^{n\times (d+1)}, \\
+  &\boldsymbol\beta =
+  \begin{pmatrix}
+    \beta_0 \\ \beta_1 \\ \vdots \\ \beta_d
+  \end{pmatrix}\in\mathbb{R}^{d+1},\ \text{ja}\quad
+  \boldsymbol\varepsilon =
+  \begin{pmatrix}
+    \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n
+  \end{pmatrix}\in\mathbb{R}^n.
+  \end{split}
+\end{equation*}
+Eli jos ei oteta huomioon ensimmäistä saraketta, niin matriisin $\boldsymbol X$ sarake $j$ kuvaa havaintoja selitettävästä muuttujasta $X_j$, $j\in\{1,\ldots, d\}$. Matriisin $\boldsymbol X$ ensimmäinen sarake ykkösiä ottaa huomioon sen, että parametri $\beta_0$ otetaan huomioon oikealla tavalla suoritettaessa matriisikertolaskut. Yhtälön \@ref(eq:regression) määritelmä voidaan siis kirjoittaa matriisikertolaskuilla muodossa
+\begin{equation}
+(\#eq:regmatrix)
+  \boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon.
+\end{equation}
+
+Alla on vielä käytännönläheinen esimerkki siitä, miten yrityksen data-analyytikko voisi muotoilla lineaarisen regressiomallinnustehtävän.
+
+::: {.example #regconstruction name="Esimerkki"}
+Oletetaan, että yritys haluaa mallintaa tuotteen myynnistä saatavaa kuukausittaista voittoa $Y$ (tuhansissa euroissa) kahden keskeisen tekijän perusteella. Yrityksen aiempien analyysien mukaan voittoon vaikuttavat erityisesti
+seuraavat muuttujat:
+
+- $X_1 = \text{Mainosbudjetti kuukaudessa (tuhansina euroina)}$
+
+- $X_2 = \text{Tuotteen hinta (tuhansina euroina)}$
+
+Yrityksellä on kymmenen eri kuukauden myyntidata
+\begin{equation*}
+  \begin{split}
+  &(y_i, x_{i1}, x_{i2}) = (\text{voitto $i.$kk}, \text{mainosbudjetti $i.$kk}, \text{tuotteen hinta $i.$kk}), \\
+  &i\in\{1,2, \ldots, 10\}
+  \end{split}
+\end{equation*}
+liittyen satunnaisvektoriin $(Y, X_1, X_2)$. Yrityksen data-analyytikko haluaa siis sovittaa lineaarisen regressiomallin
+\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i
+\end{equation*}
+tai vielä monisanaisemmin
+\begin{equation*}
+  \texttt{voitto}_i = \beta_0 + \beta_1 \texttt{mainostus}_i + \beta_2 \texttt{hinta}_i + \varepsilon_i.
+\end{equation*}
+Mallinsovitustehtävän voisi muotoilla yhtälön \@ref(eq:regmatrix) mukaan määrittelemällä oikeanlaiset matriisit ja vektorit, kun otoskoko on $n = 10$ ja selittäviä muuttujia on $d = 2$,
+\begin{equation*}
+\begin{split}
+  &\boldsymbol y =
+  \begin{pmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_{10}
+  \end{pmatrix}\in\mathbb{R}^{10}, \quad
+  \boldsymbol X =
+  \begin{pmatrix}
+    1 & x_{11} & x_{12} \\
+    1 & x_{21} & x_{22} \\
+    \vdots & \vdots & \vdots \\
+    1 & x_{n1} & x_{n2} \\
+  \end{pmatrix} \in\mathbb{R}^{10\times 3}, \\
+  &\boldsymbol\beta =
+  \begin{pmatrix}
+    \beta_0 \\ \beta_1 \\ \beta_2
+  \end{pmatrix}\in\mathbb{R}^{3},\ \text{ja}\quad
+  \boldsymbol\varepsilon =
+  \begin{pmatrix}
+    \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_{10}
+  \end{pmatrix}\in\mathbb{R}^{10}.
+  \end{split}
+\end{equation*}
+:::
+
 ## Mallin sovittaminen ja tulkinta
 
 ## Sovitteen hyvyys ja ennustaminen
@@ -137,4 +252,4 @@ Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regres
 
 ## Luottamus- ja ennustevälit
 
-## Mallidiagnostiikka
+## Mallidiagnostiikka {#sec:diagnostic}

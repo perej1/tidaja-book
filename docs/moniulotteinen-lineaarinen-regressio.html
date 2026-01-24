@@ -190,7 +190,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.3" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sovitteen-hyvyys-ja-ennustaminen"><i class="fa fa-check"></i><b>3.3</b> Sovitteen hyvyys ja ennustaminen</a></li>
 <li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertoimien-merkitsevyys"><i class="fa fa-check"></i><b>3.4</b> Mallin ja regressiokertoimien merkitsevyys</a></li>
 <li class="chapter" data-level="3.5" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#luottamus--ja-ennustev%C3%A4lit"><i class="fa fa-check"></i><b>3.5</b> Luottamus- ja ennustevälit</a></li>
-<li class="chapter" data-level="3.6" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallidiagnostiikka"><i class="fa fa-check"></i><b>3.6</b> Mallidiagnostiikka</a></li>
+<li class="chapter" data-level="3.6" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sec:diagnostic"><i class="fa fa-check"></i><b>3.6</b> Mallidiagnostiikka</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>4</b> Liitteet</a>
 <ul>
@@ -227,15 +227,16 @@ div.csl-indent {
 <li><p>Kuinka paljon voitot kasvavat/vähenevät euroissa, kun markkinointiin investoidaan <span class="math inline">\(r\)</span> euroa?</p></li>
 <li><p>Entä kuinka paljon voitot kasvavat/vähenevät euroissa, jos palkkaamme <span class="math inline">\(m\)</span> työntekijää lisää?</p></li>
 </ul>
-<p>Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\(d\)</span>-ulotteisia havaintoja
+<p>Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((d + 1)\)</span>-ulotteisia havaintoja
 <span class="math display">\[\begin{equation*}
   \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
 \end{equation*}\]</span>
 satunaisvektorista <span class="math inline">\((Y, X_1, \ldots, X_d)\)</span>, jossa ensimmäinen komponentti kuvaa selitettävää muuttujaa ja muut komponentit antavat selittävät muuttujat. Havaintoaineiston avulla sovitetaan regressiomalli, joka yleisesti ottaen voi olla muotoa
-<span class="math display">\[\begin{equation*}
-  y_i = f(x_{i1}, x_{i2}, \ldots, x_{i2})+ \varepsilon_i,
+<span class="math display" id="eq:reggen">\[\begin{equation}
+  \tag{3.1}
+  y_i = f(x_{i1}, x_{i2}, \ldots, x_{id}) + \varepsilon_i,
   \quad i\in\{1, 2,\ldots, n\},
-\end{equation*}\]</span>
+\end{equation}\]</span>
 jossa <span class="math inline">\(f\)</span> mallintaa selittävän muuttujan ja selitettävien muuttujien välistä systemaattista suhdetta ja <span class="math inline">\(\varepsilon_i\)</span> on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen <span class="math inline">\(y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})\)</span>. Virhetermit <span class="math inline">\(\varepsilon_i\)</span> voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.</p>
 <p>Perinteisessä regressioanalyysissä analyytikko päättää funktion <span class="math inline">\(f\)</span> muodon ennen mallin sovittamista. Kuvassa <a href="moniulotteinen-lineaarinen-regressio.html#fig:regression">3.1</a> näkyy kolmen <span class="math inline">\(2\)</span>-ulotteisen kuvitteellisen havaintoaineiston
 <span class="math display">\[\begin{equation*}
@@ -258,7 +259,7 @@ Toisaalta keskimmäiseen havaintoaineistoon sopisi ehkäpä neliöllinen regress
 \end{equation*}\]</span>
 Oikeanpuoleiseen havaintoaineistoon voisi vastaavasti sovittaa eksponentiaalisen mallin
 <span class="math display" id="eq:exp">\[\begin{equation}
-  \tag{3.1}
+  \tag{3.2}
   f(x_i) = \gamma_1 e^{\gamma_2 x_i}
 \end{equation}\]</span>
 hajontakuvion muodon perusteella. Kun mallin muoto on päätetty (lineaarinen, neliöllinen, …), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
@@ -357,7 +358,7 @@ Kuva 3.3: Hajontakuvio muuttujista <code>TotalHeight</code> ja <code>ArmLength</
 <ul>
 <li><p>Ensinnäkin monet epälineaariset mallit kuten eksponentiaalinen ja neliöllinen malli voidaan sovittaa lineaarisen regression avulla.</p>
 <ul>
-<li><p>Jo kurssilla <em>Johdatus data-analytiikkaan</em> todettiin, että eksponentiaalisen mallin parametrit (kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:exp">(3.1)</a> parametrit <span class="math inline">\(\gamma_1\)</span> ja <span class="math inline">\(\gamma_2\)</span>) voidaan estimoida sovittamalla yksiulotteinen lineaarinen regressiomalli muunnetulle datalle.</p></li>
+<li><p>Jo kurssilla <em>Johdatus data-analytiikkaan</em> todettiin, että eksponentiaalisen mallin parametrit (kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:exp">(3.2)</a> parametrit <span class="math inline">\(\gamma_1\)</span> ja <span class="math inline">\(\gamma_2\)</span>) voidaan estimoida sovittamalla yksiulotteinen lineaarinen regressiomalli muunnetulle datalle.</p></li>
 <li><p>Lisäksi viikon 4 tehtävässä 3 näemme kuinka neliöllinen malli voidaan sovittaa moniulotteisen lineaarisen regression avulla.</p></li>
 </ul></li>
 <li><p>Usein tavoitteena on löytää mahdollisimman yksinkertainen malli, joka kuitenkin mallintaa alla olevaa ilmiötä mahdollisimman hyvin (eng: <em>parsimonious model</em>). Tämän vuoksi lineaarinen regressio on käytännön kannalta erittäin hyödyllinen monessa eri sovelluksessa. Esimerkkinä voimme mainita viikon 4 tehtävän 2, jossa tuottoja mallinetaan muilla taustatekijöillä.</p></li>
@@ -365,6 +366,111 @@ Kuva 3.3: Hajontakuvio muuttujista <code>TotalHeight</code> ja <code>ArmLength</
 <p>Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regressio on erinomainen lähtökohta – monet monimutkaisemmat mallit (aikasarjamallinnus, neuroverkot, …) on vaikea ymmärtää ilman perustaitoja.</p>
 <div id="määritelmä-ja-oletukset" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Määritelmä ja oletukset<a href="moniulotteinen-lineaarinen-regressio.html#m%C3%A4%C3%A4ritelm%C3%A4-ja-oletukset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Kuten luvun esittelyssä, oletetaan että saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((d+1)\)</span>-ulotteisia havaintoja
+<span class="math display">\[\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}\]</span>
+satunaisvektorista <span class="math inline">\((Y, X_1, \ldots, X_d)\)</span>, jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat selittävien muuttujien havainnot. Selittäviä muuttujia on siis <span class="math inline">\(d\)</span> kappaletta. Moniulotteisessa lineaarisessa regressiossa oletetaan seuraavanlainen suhde selitettävän ja selittävien muuttujien välillä,
+<span class="math display" id="eq:regression">\[\begin{equation}
+  \tag{3.3}
+  \begin{split}
+    y_i &amp;= \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_d x_{id} + \varepsilon_i \\
+    &amp;= \beta_0 + \left(\sum_{j = 1}^d \beta_j x_{ij}\right) + \varepsilon_i,
+    \quad i\in\{1, 2,\ldots, n\},
+  \end{split}
+\end{equation}\]</span>
+jossa <span class="math inline">\(\varepsilon_i\)</span> ovat satunnaisia virhetermejä. Yllä oleva malli seuraa siis yhtälön <a href="moniulotteinen-lineaarinen-regressio.html#eq:reggen">(3.1)</a> yleisestä regressiomallista valinnalla <span class="math inline">\(f(x_{i1}, x_{i2}, \ldots, x_{id}) = \beta_0 + \sum_{j = 1}^d \beta_j x_{ij}\)</span>.</p>
+<p>Tähän mennessä emme ole käsitelleet virhetermeihin <span class="math inline">\(\varepsilon_i\)</span> liittyviä oletuksia sen tarkemmin. Tästä eteenpäin kuitenkin oletamme, että lineaarisen regressiomallin virhetermit ovat valkoista kohinaa ellei toisin sanota.</p>
+<div class="definition">
+<p><span id="def:whitenoise" class="definition"><strong>Määritelmä 3.1  (Valkoinen kohina) </strong></span>Satunnaismuuttujat <span class="math inline">\(\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n\)</span> ovat valkoista kohinaa, jos</p>
+<ol style="list-style-type: decimal">
+<li><p>jokainen satunnaismuuttuja <span class="math inline">\(\varepsilon_i\)</span> noudattaa normaalijakaumaa <span class="math inline">\(\varepsilon_i\sim N(0, \sigma^2)\)</span> (havainnosta <span class="math inline">\(i\)</span> riippumattomilla) odotusarvolla <span class="math inline">\(0\)</span> ja varianssilla <span class="math inline">\(\sigma^2 &gt; 0\)</span>, ja</p></li>
+<li><p>satunnaismuuttujat <span class="math inline">\(\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n\)</span> ovat riippumattomia.</p></li>
+</ol>
+</div>
+<p>Yllä olevan määritelmän oletuksia voidaan monissa tapauksissa lieventää. Esimerkiksi oletus normaalijakautuneisuudesta ei ole aina tarpeen tai edes realistinen. Kuitenkin mukavuussyistä rajoitumme määritelmän <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> mukaisiin oletuksiin virhetermeille <span class="math inline">\(\varepsilon_i\)</span>. Virhetermien oletuksista seuraa esimerkiksi seuraavaa:</p>
+<ol style="list-style-type: decimal">
+<li><p>Virhetermin <span class="math inline">\(\varepsilon_i\)</span> varianssi ei riipu selittävien muuttujien havainnoista <span class="math inline">\((x_{i1}, x_{i2}, \ldots, x_{id})\)</span>. Jos näin kuitenkin olisi, niin mallia kutsuttaisiin heteroskedastiseksi tai erivarianssiseksi (eng: <em>heteroskedastic</em>).</p></li>
+<li><p>Mille tahansa parille virhetermejä <span class="math inline">\(\varepsilon_i\)</span> ja <span class="math inline">\(\varepsilon_j\)</span> pätee <span class="math inline">\(\mathrm{Cov}\left(\varepsilon_i, \varepsilon_j\right) = 0\)</span>, kun <span class="math inline">\(i\neq j\)</span>.</p></li>
+</ol>
+<p>Tilastollisessa mallintamisessa on aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:diagnostic">3.6</a>.</p>
+<p>Lineaarisen regressiomallin määritelmä voidaan myös kirjoittaa hyödyntäen matriisinotaatiota. Ensin kerätään havainnot selitettävästä muuttujasta omaan vektoriinsa, havainnot selittävistä muuttujista omaan matriisiin (jossa 1. sarake on vain ykkösiä), parametrit <span class="math inline">\(\beta_j\)</span> omaan vektoriinsa ja virhetermit omaan vektoriinsa
+<span class="math display">\[\begin{equation*}
+\begin{split}
+  &amp;\boldsymbol y =
+  \begin{pmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n
+  \end{pmatrix}\in\mathbb{R}^n, \quad
+  \boldsymbol X =
+  \begin{pmatrix}
+    1 &amp; x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1d} \\
+    1 &amp; x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2d} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    1 &amp; x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nd}
+  \end{pmatrix} \in\mathbb{R}^{n\times (d+1)}, \\
+  &amp;\boldsymbol\beta =
+  \begin{pmatrix}
+    \beta_0 \\ \beta_1 \\ \vdots \\ \beta_d
+  \end{pmatrix}\in\mathbb{R}^{d+1},\ \text{ja}\quad
+  \boldsymbol\varepsilon =
+  \begin{pmatrix}
+    \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n
+  \end{pmatrix}\in\mathbb{R}^n.
+  \end{split}
+\end{equation*}\]</span>
+Eli jos ei oteta huomioon ensimmäistä saraketta, niin matriisin <span class="math inline">\(\boldsymbol X\)</span> sarake <span class="math inline">\(j\)</span> kuvaa havaintoja selitettävästä muuttujasta <span class="math inline">\(X_j\)</span>, <span class="math inline">\(j\in\{1,\ldots, d\}\)</span>. Matriisin <span class="math inline">\(\boldsymbol X\)</span> ensimmäinen sarake ykkösiä ottaa huomioon sen, että parametri <span class="math inline">\(\beta_0\)</span> otetaan huomioon oikealla tavalla suoritettaessa matriisikertolaskut. Yhtälön <a href="moniulotteinen-lineaarinen-regressio.html#eq:regression">(3.3)</a> määritelmä voidaan siis kirjoittaa matriisikertolaskuilla muodossa
+<span class="math display" id="eq:regmatrix">\[\begin{equation}
+\tag{3.4}
+  \boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon.
+\end{equation}\]</span></p>
+<p>Alla on vielä käytännönläheinen esimerkki siitä, miten yrityksen data-analyytikko voisi muotoilla lineaarisen regressiomallinnustehtävän.</p>
+<div class="example">
+<p><span id="exm:regconstruction" class="example"><strong>Esimerkki 3.2  (Esimerkki) </strong></span>Oletetaan, että yritys haluaa mallintaa tuotteen myynnistä saatavaa kuukausittaista voittoa <span class="math inline">\(Y\)</span> (tuhansissa euroissa) kahden keskeisen tekijän perusteella. Yrityksen aiempien analyysien mukaan voittoon vaikuttavat erityisesti
+seuraavat muuttujat:</p>
+<ul>
+<li><p><span class="math inline">\(X_1 = \text{Mainosbudjetti kuukaudessa (tuhansina euroina)}\)</span></p></li>
+<li><p><span class="math inline">\(X_2 = \text{Tuotteen hinta (tuhansina euroina)}\)</span></p></li>
+</ul>
+<p>Yrityksellä on kymmenen eri kuukauden myyntidata
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+  &amp;(y_i, x_{i1}, x_{i2}) = (\text{voitto $i.$kk}, \text{mainosbudjetti $i.$kk}, \text{tuotteen hinta $i.$kk}), \\
+  &amp;i\in\{1,2, \ldots, 10\}
+  \end{split}
+\end{equation*}\]</span>
+liittyen satunnaisvektoriin <span class="math inline">\((Y, X_1, X_2)\)</span>. Yrityksen data-analyytikko haluaa siis sovittaa lineaarisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i
+\end{equation*}\]</span>
+tai vielä monisanaisemmin
+<span class="math display">\[\begin{equation*}
+  \texttt{voitto}_i = \beta_0 + \beta_1 \texttt{mainostus}_i + \beta_2 \texttt{hinta}_i + \varepsilon_i.
+\end{equation*}\]</span>
+Mallinsovitustehtävän voisi muotoilla yhtälön <a href="moniulotteinen-lineaarinen-regressio.html#eq:regmatrix">(3.4)</a> mukaan määrittelemällä oikeanlaiset matriisit ja vektorit, kun otoskoko on <span class="math inline">\(n = 10\)</span> ja selittäviä muuttujia on <span class="math inline">\(d = 2\)</span>,
+<span class="math display">\[\begin{equation*}
+\begin{split}
+  &amp;\boldsymbol y =
+  \begin{pmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_{10}
+  \end{pmatrix}\in\mathbb{R}^{10}, \quad
+  \boldsymbol X =
+  \begin{pmatrix}
+    1 &amp; x_{11} &amp; x_{12} \\
+    1 &amp; x_{21} &amp; x_{22} \\
+    \vdots &amp; \vdots &amp; \vdots \\
+    1 &amp; x_{n1} &amp; x_{n2} \\
+  \end{pmatrix} \in\mathbb{R}^{10\times 3}, \\
+  &amp;\boldsymbol\beta =
+  \begin{pmatrix}
+    \beta_0 \\ \beta_1 \\ \beta_2
+  \end{pmatrix}\in\mathbb{R}^{3},\ \text{ja}\quad
+  \boldsymbol\varepsilon =
+  \begin{pmatrix}
+    \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_{10}
+  \end{pmatrix}\in\mathbb{R}^{10}.
+  \end{split}
+\end{equation*}\]</span></p>
+</div>
 </div>
 <div id="mallin-sovittaminen-ja-tulkinta" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Mallin sovittaminen ja tulkinta<a href="moniulotteinen-lineaarinen-regressio.html#mallin-sovittaminen-ja-tulkinta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -378,8 +484,8 @@ Kuva 3.3: Hajontakuvio muuttujista <code>TotalHeight</code> ja <code>ArmLength</
 <div id="luottamus--ja-ennustevälit" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Luottamus- ja ennustevälit<a href="moniulotteinen-lineaarinen-regressio.html#luottamus--ja-ennustev%C3%A4lit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="mallidiagnostiikka" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> Mallidiagnostiikka<a href="moniulotteinen-lineaarinen-regressio.html#mallidiagnostiikka" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec:diagnostic" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Mallidiagnostiikka<a href="moniulotteinen-lineaarinen-regressio.html#sec:diagnostic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
