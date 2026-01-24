@@ -328,7 +328,7 @@ sale_lm
 
 Mallin sovitus on siis muotoa
 \begin{equation*}
-  \texttt{voitto}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i
 \end{equation*}
 
 ja estimaattien tulkinnat ovat seuraavat:
@@ -374,7 +374,7 @@ Kuten yhden selittäjän lineaarisessa regressiossa myös moniulotteisessa linea
 \end{equation*}
 jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaiset sovitteet ja $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$. Selitysasteen tulkinta on samanlainen kuin yhden selittäjän lineaarisessa regressiossa -- selitysaste $R^2\in[0,1]$ kertoo, kuinka hyvin selittävät muuttujat kuvaavat selitettävän muuttujan vaihtelua. Mitä lähempänä selitysasteen arvo on ykköstä, niin sitä parempi mallin sovitus on.
 
-On kuitenkin matemaattinen fakta, että mitä monimutkaisempi malli dataan sovitetaan sitä parempi sovituksesta tulee. Kuitenkin mallin monimutkaisuuden kasvaessa aletaan selittämään satunnaisvirhettä systemaattisen osuuden lisäksi (vertaa yhtälöön \@ref(eq:reggen)). Ilmiötä kutsutaan liikasovitukseksi (eng: *overfitting*). **Liikasovitettu malli on yleensä täysin hyödytön, koska malli ei yleisty millään tavalla sovitetun datan ulkopuolelle. Esimerkiksi liikasovitetun mallin ennustukset tulevat olemaan todennäköisesti täysin pielessä.** Kuvan \@ref(fig:overfit) oikea havainnekuva näyttää aivan äärimmäisen tapauksen liikasovitteesta.
+On matemaattinen fakta, että mitä monimutkaisempi malli dataan sovitetaan sitä parempi sovituksesta tulee tai sovite pysyy ainakin yhtä hyvänä. Kuitenkin mallin monimutkaisuuden kasvaessa usein aletaan selittämään satunnaisvirhettä systemaattisen osuuden lisäksi (vertaa yhtälöön \@ref(eq:reggen)). Ilmiötä kutsutaan liikasovitukseksi (eng: *overfitting*). **Liikasovitettu malli on yleensä täysin hyödytön, koska malli ei yleisty millään tavalla sovitetun datan ulkopuolelle. Esimerkiksi liikasovitetun mallin ennustukset tulevat olemaan todennäköisesti täysin pielessä.** Kuvan \@ref(fig:overfit) oikea havainnekuva näyttää aivan äärimmäisen tapauksen liikasovitteesta.
 
 ```{r overfit, echo=FALSE, fig.cap="(ref:overfit)"}
 knitr::include_graphics("images/overfit.jpg")
@@ -387,10 +387,54 @@ Ylisovittamisen välttämiseksi selitysasteen sijasta käytetään yleensä muok
   R_{adj}^2 = 1 - \left(1 - R^2\right)\frac{n-1}{n-d-1}.
 \end{equation*}
 
+(ref:rsq) Arvojen $R^2$ ja $R_{adj}^2$ laskeminen
 
+R ohjelmointikieli laskee molemmat arvot $R^2$ ja $R_{adj}^2$ valmiiksi.
+
+::: {.example name="(ref:rsq)"}
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa saimme sovitteeksi
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
+\end{equation*}
+Mallin sovite on tallennettu muuttujaan `sale_lm` mutta selitysastetta ei näe suoraan kyseisestä muuttujasta. Arvot $R^2$ ja $R_{adj}^2$ näkee käyttämällä `summary()` funktiota. Tulosteen kohdista `Multiple R-squared` ja `Adjusted R-squared` näemme, että $R^2\approx 0.95$ ja $R_{adj}^2\approx 0.93$. Erityisesti $R_{adj}^2$ on lähellä ykköstä, joten voimme päätellä mallin sovitteen olevan hyvä ja sopiva esimerkin ilmiön mallintamiseen.
+```{r}
+summary(sale_lm)
+```
+
+Funktio `summary()` antaa paljon informaatiota, jonka tulkitsemista käydään läpi myöhemmissä luvuissa. Halutessasi voit tulostaa pelkät arvot $R^2$ ja $R_{adj}^2$ seuraavasti.
+```{r}
+summary(sale_lm)$r.squared
+summary(sale_lm)$adj.r.squared
+```
+:::
+
+Sovitetun moniulotteisen lineaarisen regrresiomallin avulla voi laskea ennustuksia aivan kuten yhden muuttujan lineaarisen regression tapauksessa. Eli selitettävän muuttujan ennuste $\tilde y$ selitettävien muutujien arvoilla $\tilde x_1, \ldots, \tilde x_d$ saadaan kaavasta
+\begin{equation*}
+  \tilde y_i = \hat\beta_0 + \sum_{j = 1}^d \hat\beta_j \tilde x_j.
+\end{equation*}
+Ennustuksiin liittyy epävarmuutta, joka kvantifioidaan tarkemmin luvussa \@ref(sec:interval). Tässä kohtaa tyydymme näyttämään, miten ennustuksia lasketaan R:llä.
+
+::: {.example name="Ennustusten laskeminen"}
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa saimme sovitteeksi
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
+\end{equation*}
+Voisimme eristää estimaatit $\hat\beta_0, \hat\beta_1, \hat\beta_2$ komennolla `sale_lm$coefficients` ja laskea ennustuksia mekaanisesti. R:ssä on kuitenkin myös oma funktio `predict()` ennustusten laskemiseen. Funktio ottaa sisäänsä itse sovitetun mallin `sale_lm` ja halutut selittävien muuttujien arvot `data.frame` tietotyyppinä. Alla laskemme ennustukset arvoilla $(\texttt{mainostus}, \texttt{hinta}) = (6, 3)$ ja $(\texttt{mainostus}, \texttt{hinta}) = (8, 2.4)$.
+```{r}
+# Define data.frame corresponding the values of the explanatory variables
+newdata <- data.frame(advertisement = c(6, 8), price = c(3, 2.4))
+
+# Compute predictions
+preds <- predict(sale_lm, newdata)
+preds
+```
+Esimerkiksi selitettävien muuttujien arvoilla $(\texttt{mainostus}, \texttt{hinta}) = (8, 2.4)$ saamme ennustuksen $\tilde y \approx 1.68$ (tuhatta euroa).
+:::
+
+Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, koska tällöin oletamme, että ilmiö käyttäytyy lineaarisesti myös havaintoaineiston ulkopuolella. Tämä ei kuitenkaan päde moninaisissa sovelluksissa. Esimerkiksi startup yrityksen tuotot saattavat kasvaa alussa lineaarisesti markkinoinnin suhteen. Kuitenkin kun yrityksestä tulee tunnetumpi, niin markkinoinnin vaikutus pienenee.
 
 ## Mallin ja regressiokertoimien merkitsevyys
 
-## Luottamus- ja ennustevälit
+## Luottamus- ja ennustevälit {#sec:interval}
 
 ## Mallidiagnostiikka {#sec:diagnostic}

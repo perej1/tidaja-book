@@ -96,8 +96,10 @@ eq:fit
 exm:fitreg
 fig:3dreg
 fig:overfit
-eq:euclidean
+exm:unlabeled-div-23
 exm:unlabeled-div-24
+eq:euclidean
+exm:unlabeled-div-26
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -116,7 +118,7 @@ määritelmä-ja-oletukset
 mallin-sovittaminen-ja-tulkinta
 sovitteen-hyvyys-ja-ennustaminen
 mallin-ja-regressiokertoimien-merkitsevyys
-luottamus--ja-ennustevälit
+sec:interval
 sec:diagnostic
 liitteet
 sec:vector
