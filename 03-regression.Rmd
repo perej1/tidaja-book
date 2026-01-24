@@ -6,6 +6,8 @@
 
 (ref:height-reg) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength` sekä sovitetu regressiosuora.
 
+(ref:3dreg) Kolmiulotteinen hajontakuvio esimerkkidatasta ja sovitettu regressiotaso.
+
 Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia malleja. Regressioanalyysin tavoitteena on mallintaa selitettävän muuttujan (eng: *response variable*, *outcome variable*) riippuvuutta selittävistä muuttujista (eng: *explanatory variable*). Esimerkiksi selitettävä muuttuja voisi olla yrityksen voittojen suuruus ja selittäviä muuttujia voisivat olla markkinointi ja työntekijöiden määrä. Regressioanalyysi pyrkisi tässä tapauksessa vastaamaan seuraavanlaisiin kysymyksiin:
 
 - Kuinka paljon voitot kasvavat/vähenevät euroissa, kun markkinointiin investoidaan $r$ euroa?
@@ -48,7 +50,9 @@ Oikeanpuoleiseen havaintoaineistoon voisi vastaavasti sovittaa eksponentiaalisen
   (\#eq:exp)
   f(x_i) = \gamma_1 e^{\gamma_2 x_i}
 \end{equation}
-hajontakuvion muodon perusteella. Kun mallin muoto on päätetty (lineaarinen, neliöllinen, ...), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
+hajontakuvion muodon perusteella.
+
+Kun mallin muoto on päätetty (lineaarinen, neliöllinen, ...), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
 \begin{equation*}
   y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
 \end{equation*}
@@ -108,7 +112,7 @@ Mallin selitysaste $R^2$ kuvaa sovitteen hyvyyttä numeerisesti. Selitysaste on 
 summary(body_lm)
 ```
 
-Selityste ei ole kovin korkea ($R^2\approx 0.28$), mikä todennäköisesti johtuu havaintoaineiston muutamasta poikkeavasta havainnosta. Tästä huolimatta mallin avulla ennustamme käsien pituuden, kun henkilön pituus on $35$ tuumaa. Ennustuksen voi suorittaa kätevästi saatujen estimaattien $\hat\beta_0$ ja $\hat\beta_0$ arvoja käyttäen.
+Selityste ei ole kovin korkea ($R^2\approx 0.28$), mikä todennäköisesti johtuu havaintoaineiston muutamasta poikkeavasta havainnosta -- lineaarinen regressio pienimmän neliösumman kautta on erittäin herkkä poikkeavien havaintojen suhteen. Tästä huolimatta mallin avulla ennustamme käsien pituuden, kun henkilön pituus on $35$ tuumaa. Ennustuksen voi suorittaa kätevästi saatujen estimaattien $\hat\beta_0$ ja $\hat\beta_0$ arvoja käyttäen.
 ```{r}
 x_tilde <- 35
 body_lm$coefficients[1] + body_lm$coefficients[2] * x_tilde
@@ -150,7 +154,7 @@ Tähän mennessä emme ole käsitelleet virhetermeihin $\varepsilon_i$ liittyvi�
 ::: {.definition #whitenoise name="Valkoinen kohina"}
 Satunnaismuuttujat $\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n$ ovat valkoista kohinaa, jos
 
-1. jokainen satunnaismuuttuja $\varepsilon_i$ noudattaa normaalijakaumaa $\varepsilon_i\sim N(0, \sigma^2)$ (havainnosta $i$ riippumattomilla) odotusarvolla $0$ ja varianssilla $\sigma^2 > 0$, ja
+1. jokainen satunnaismuuttuja $\varepsilon_i$ noudattaa normaalijakaumaa $\varepsilon_i\sim N(0, \sigma^2)$ odotusarvolla $0$ ja varianssilla $\sigma^2 > 0$, ja
 
 2. satunnaismuuttujat $\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n$ ovat riippumattomia.
 :::
@@ -161,7 +165,7 @@ Yllä olevan määritelmän oletuksia voidaan monissa tapauksissa lieventää. E
 
 2. Mille tahansa parille virhetermejä $\varepsilon_i$ ja $\varepsilon_j$ pätee $\mathrm{Cov}\left(\varepsilon_i, \varepsilon_j\right) = 0$, kun $i\neq j$.
 
-Tilastollisessa mallintamisessa on aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa \@ref(sec:diagnostic).
+Toinen tärkeä oletus liittyy selittäviin muuttujiin $X_1, X_2, \ldots, X_d$. Yleensä nimittäin oletetaan, että selittävät muuttujat ovat korreloimattomia. Lyhyesti sanottuna, lineaarisesta regressiomallista tulee epävakaa, jos siihen sisällytetään korreloituneita selittäviä muuttujia. Tilastollisessa mallintamisessa onkin aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa \@ref(sec:diagnostic).
 
 Lineaarisen regressiomallin määritelmä voidaan myös kirjoittaa hyödyntäen matriisinotaatiota. Ensin kerätään havainnot selitettävästä muuttujasta omaan vektoriinsa, havainnot selittävistä muuttujista omaan matriisiin (jossa 1. sarake on vain ykkösiä), parametrit $\beta_j$ omaan vektoriinsa ja virhetermit omaan vektoriinsa
 \begin{equation*}
@@ -187,15 +191,16 @@ Lineaarisen regressiomallin määritelmä voidaan myös kirjoittaa hyödyntäen 
   \end{pmatrix}\in\mathbb{R}^n.
   \end{split}
 \end{equation*}
-Eli jos ei oteta huomioon ensimmäistä saraketta, niin matriisin $\boldsymbol X$ sarake $j$ kuvaa havaintoja selitettävästä muuttujasta $X_j$, $j\in\{1,\ldots, d\}$. Matriisin $\boldsymbol X$ ensimmäinen sarake ykkösiä ottaa huomioon sen, että parametri $\beta_0$ otetaan huomioon oikealla tavalla suoritettaessa matriisikertolaskut. Yhtälön \@ref(eq:regression) määritelmä voidaan siis kirjoittaa matriisikertolaskuilla muodossa
+Eli matriisin $\boldsymbol X$ sarake $j+1$ antaa havainnot selitettävästä muuttujasta $X_j$, $j\in\{1,\ldots, d\}$. Matriisin $\boldsymbol X$ ensimmäinen sarake ykkösiä ottaa huomioon sen, että parametri $\beta_0$ otetaan huomioon oikealla tavalla suoritettaessa matriisikertolaskut. Yhtälön \@ref(eq:regression) määritelmä voidaan siis kirjoittaa matriisikertolaskuilla muodossa
 \begin{equation}
 (\#eq:regmatrix)
-  \boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon.
+  \boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon,
 \end{equation}
+jossa oletuksesta \@ref(def:whitenoise) seuraa, että $\boldsymbol\varepsilon$ noudattaa $n$-ulotteista normaalijakaumaa tietyillä sijainti- ja hajontaparametreilla $\boldsymbol\varepsilon\sim N(\boldsymbol 0, \sigma^2 \boldsymbol I)$ -- sijainti on nollavektori ja hajontaparametri on diagonaalimatriisi. 
 
 Alla on vielä käytännönläheinen esimerkki siitä, miten yrityksen data-analyytikko voisi muotoilla lineaarisen regressiomallinnustehtävän.
 
-::: {.example #regconstruction name="Esimerkki"}
+::: {.example #regconstruction name="Mallinnustehtävän muotoilu"}
 Oletetaan, että yritys haluaa mallintaa tuotteen myynnistä saatavaa kuukausittaista voittoa $Y$ (tuhansissa euroissa) kahden keskeisen tekijän perusteella. Yrityksen aiempien analyysien mukaan voittoon vaikuttavat erityisesti
 seuraavat muuttujat:
 
@@ -245,6 +250,122 @@ Mallinsovitustehtävän voisi muotoilla yhtälön \@ref(eq:regmatrix) mukaan mä
 :::
 
 ## Mallin sovittaminen ja tulkinta
+
+Olettaessa lineaarisen regressiomallin $\boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon$ data-analyytikko tietää ainoastaan otoksen selitettävästä muuttujasta (vektori $\boldsymbol y$) ja otokset selittävistä muuttujista (matriisi $\boldsymbol X$). Sekä parametrivektori $\boldsymbol\beta$ että virhetermi $\boldsymbol\varepsilon$ ovat tuntemattomia. Tavoitteena on yleensä siis estimoida parametrivektori $\boldsymbol\beta$ ja virhetermin $\boldsymbol\varepsilon$ varianssi $\sigma^2$ datan perusteella. Tässä keskitymme erityisesti parametrivektorin estimointiin.
+
+Perinteisesti parametrivektori $\boldsymbol\beta$ estimoidaan pienimmän neliösumman menetelmällä (PNS) (eng: *method of least squares*). Tarkemmin sanottuna tavoite on löytää sellainen vektori $\hat{\boldsymbol\beta} = (\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d)$, joka minimoi neliövirheiden summaa
+\begin{equation*}
+  SSE = \sum_{i = 1}^n \left(y_i - \hat y_i\right)^2,
+\end{equation*}
+jossa
+\begin{equation*}
+  \begin{split}
+  \hat y_i &= \hat\beta_0 + \hat\beta_1 x_{i1} + \hat\beta_2 x_{i2} + \cdots + \hat\beta_d x_{id} \\
+    &= \hat\beta_0 + \left(\sum_{j = 1}^d \hat\beta_j x_{ij}\right).
+    \end{split}
+\end{equation*}
+Eli lopullisen estimaattorin $\hat{\boldsymbol\beta}$ antama "arvaus" $\hat y_i$ oikealle arvolle $y_i$ on mahdollisimman hyvä ($SSE$ mielessä). Edellä määritellylle PNS estimaattorille $\hat{\boldsymbol\beta}$ on kaava datamatriisin $\boldsymbol X$ ja datavektorin $\boldsymbol y$ suhteen
+\begin{equation*}
+  \hat{\boldsymbol\beta} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y.
+\end{equation*}
+
+Estimaattien $\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d$ arvoja tulkitaan samaan tyyliin kuin yksiulotteisessa lineaarisessa regressiossa.
+
+- **Vakiotermi**: estimaatti $\hat\beta_0$ kertoo selitettävän muuttujan $y_i$ keskimääräisen arvon, kun selittävien muuttujien arvot asetetaan nollaan $x_{i1} = x_{i2} = \cdots = x_{id} = 0$. 
+
+- **Kulmakertoimet**: oletetaan, että selittävän muuttujan $j$ arvo kasvaa yhdellä yksiköllä ($x_{ij}\rightarrow x_{ij} + 1$) ja muiden selittävien muuttujien arvot pysyvät samoina. Tällöin regressiokertoimen estimaatti $\hat\beta_j$ kertoo keskimääräisen muutoksen selitettävässä muuttujassa ($y_i\rightsquigarrow y_i + \hat\beta_j$)
+
+Alla oleva esimerkki valottaa lineaarisen mallin sovitusta ja tulkintaa käytännössä.
+```{r echo=FALSE}
+# Simulate dummy data for linear regression
+set.seed(123)
+n <- 10
+
+# constant, advertisement, price
+b <- c(0, 2, -5.4)
+
+
+constant <- rep(1, n)
+advertisement <- runif(n, 0, 10)
+price <- runif(n, 0, 5)
+epsilon <- rnorm(n, 0, 4)
+
+xmat <- matrix(c(constant, advertisement, price), ncol = 3, byrow = FALSE)
+profit <- xmat %*% b + epsilon
+
+sale <- tibble::tibble(profit = profit[,1], advertisement = advertisement,
+                       price = price)
+```
+
+
+::: {.example #fitreg name="Moniulotteisen lineaarisen mallin sovitus ja tulkinta"}
+Jatkamme esimerkkiä \@ref(exm:regconstruction). Eli meillä on kuvitteellinen $n = 10$ kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista $(Y, X_1, X_2)$, jossa
+
+- $Y = \text{voitto kuukaudessa (tuhansina euroina)}$,
+
+- $X_1 = \text{mainosbudjetti kuukaudessa (tuhansina euroina)}$ ja
+
+- $X_2 = \text{tuotteen hinta (tuhansina euroina)}$.
+
+```{r}
+sale
+```
+
+Lineaarisen regressiomallin
+\begin{equation*}
+  \texttt{voitto}_i = \beta_0 + \beta_1 \texttt{mainostus}_i + \beta_2 \texttt{hinta}_i + \varepsilon_i
+\end{equation*}
+voi sovittaa `lm()` funktiolla. Selitettävä muuttuja asetetaan tilden `~` vasemmalle puolelle ja selittävät muuttujat asetetaan tilden `~` oikealle puolelle. Tulostamalla mallin sovitteen sisältävän muuttujan näemme estimaatit $\hat\beta_0$, $\hat\beta_1$ ja $\hat\beta_2$.
+
+```{r}
+sale_lm <- lm(profit ~ advertisement + price, data = sale)
+sale_lm
+```
+
+Mallin sovitus on siis muotoa
+\begin{equation*}
+  \texttt{voitto}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i
+\end{equation*}
+
+ja estimaattien tulkinnat ovat seuraavat:
+
+- $\hat\beta_0 = `r round(sale_lm$coef[1], 3)`$: Kun mainostukseen panostetaan nolla euroa ja tuotteen hinta on nolla euroa, niin voitot ovat $5886$ euroa (tässä mallissa vakiotermin estimaatin $\hat\beta_0$ tulkinta ei ole kovin luontevaa).
+    - *Huomio*: Itseasiassa esimerkin data on simuloitu mallista, jossa $\beta_0 = 0$. Eli estimaatti on tässä tapauksessa melko kaukana parametrin oikeasta arvosta, joka johtuu siitä, että havaintoja on hyvin vähän kuvan \@ref(fig:3dreg) tason $(\texttt{advertisement}, \texttt{price})$ origon lähellä -- seurauksena estimaattorin $\hat\beta_0$ varianssi on melko suuri.
+
+- $\hat\beta_1 = `r round(sale_lm$coef[2], 3)`$: Kun mainostukseen panostetaan $1000$ euroa lisää tuotteen hinnan pysyessä ennallaan, niin voitot **kasvavat** keskimäärin $1032$ euroa.
+
+- $\hat\beta_2 = `r round(sale_lm$coef[3], 3)`$: Kun tuotteen hinta kasvaa $1000$ euroa mainosbudjetin pysyessä ennallaan, niin voitot **vähenevät** keskimäärin $5191$ euroa. Tämä voi johtua esimerkiksi siitä, että kysyntä pienenee kun hinta kasvaa liian suureksi.
+
+Tässä tapauksessa datan ja sovitetun mallin voi visualisoida kolmessa ulottuvuudessa. Kuva \@ref(fig:3dreg) näyttää seuraavan faktan. Kun selittäviä muuttujia on kaksi, niin sovitettu regressiomalli vastaa tasoa kolmessa ulottuvuudessa.
+
+```{r 3dreg, echo=FALSE, message = FALSE, fig.cap="(ref:3dreg)"}
+library(plotly)
+
+# Sample data
+x <- sale$advertisement
+y <- sale$price
+z <- sale$profit
+
+model <- lm(z ~ x + y)
+
+# Create grid for the plane
+x_grid <- seq(min(x), max(x), length.out = 10)
+y_grid <- seq(min(y), max(y), length.out = 10)
+surface <- expand.grid(x = x_grid, y = y_grid)
+z_surface <- predict(model, newdata = surface)
+
+plot_ly() %>%
+  add_trace(data = sale, x = ~advertisement, y = ~price, z = ~profit, 
+            type = "scatter3d", mode = "markers", name = "Data") %>%
+  add_trace(x = surface$x, y = surface$y, z = z_surface, type = "mesh3d",
+            opacity = 0.5)
+```
+:::
+
+
+
+
+
 
 ## Sovitteen hyvyys ja ennustaminen
 
