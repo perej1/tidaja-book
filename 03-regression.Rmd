@@ -8,6 +8,8 @@
 
 (ref:3dreg) Kolmiulotteinen hajontakuvio esimerkkidatasta ja sovitettu regressiotaso.
 
+(ref:overfit) Havainnekuva ylisovittamisesta. Vasemman kuvan sovitteessa otetaan huomioon aineistossa näkyvä neliöllinen riippuvuus. Oikeassa kuvassa liikasovitetaan sattunnaisvirheeseen.
+
 Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia malleja. Regressioanalyysin tavoitteena on mallintaa selitettävän muuttujan (eng: *response variable*, *outcome variable*) riippuvuutta selittävistä muuttujista (eng: *explanatory variable*). Esimerkiksi selitettävä muuttuja voisi olla yrityksen voittojen suuruus ja selittäviä muuttujia voisivat olla markkinointi ja työntekijöiden määrä. Regressioanalyysi pyrkisi tässä tapauksessa vastaamaan seuraavanlaisiin kysymyksiin:
 
 - Kuinka paljon voitot kasvavat/vähenevät euroissa, kun markkinointiin investoidaan $r$ euroa?
@@ -258,16 +260,18 @@ Perinteisesti parametrivektori $\boldsymbol\beta$ estimoidaan pienimmän neliös
   SSE = \sum_{i = 1}^n \left(y_i - \hat y_i\right)^2,
 \end{equation*}
 jossa
-\begin{equation*}
+\begin{equation}
+  (\#eq:fit) 
   \begin{split}
   \hat y_i &= \hat\beta_0 + \hat\beta_1 x_{i1} + \hat\beta_2 x_{i2} + \cdots + \hat\beta_d x_{id} \\
     &= \hat\beta_0 + \left(\sum_{j = 1}^d \hat\beta_j x_{ij}\right).
     \end{split}
-\end{equation*}
+\end{equation}
 Eli lopullisen estimaattorin $\hat{\boldsymbol\beta}$ antama "arvaus" $\hat y_i$ oikealle arvolle $y_i$ on mahdollisimman hyvä ($SSE$ mielessä). Edellä määritellylle PNS estimaattorille $\hat{\boldsymbol\beta}$ on kaava datamatriisin $\boldsymbol X$ ja datavektorin $\boldsymbol y$ suhteen
 \begin{equation*}
   \hat{\boldsymbol\beta} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y.
 \end{equation*}
+PNS estimaattorin $\hat{\boldsymbol\beta}$ avulla annettuja kaavan \@ref(eq:fit) arvauksia $\hat y_i$ kutsutaan sovitteiksi (eng: *fitted value*).
 
 Estimaattien $\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d$ arvoja tulkitaan samaan tyyliin kuin yksiulotteisessa lineaarisessa regressiossa.
 
@@ -362,12 +366,28 @@ plot_ly() %>%
 ```
 :::
 
-
-
-
-
-
 ## Sovitteen hyvyys ja ennustaminen
+
+Kuten yhden selittäjän lineaarisessa regressiossa myös moniulotteisessa lineaarisessa regressiossa mallin sovituksen hyvyyttä voidaan arvioida selitysasteen $R^2$ avulla. Moniulotteisen lineaarisen regression tapauksessa selitysaste määritellään
+\begin{equation*}
+  R^2 = \frac{\sum_{i = 1}^n\left(y_i - \hat y_i\right)^2}{\sum_{i = 1}^n\left(y_i - \bar y_i\right)^2} = \frac{SSE}{SST},
+\end{equation*}
+jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaiset sovitteet ja $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$. Selitysasteen tulkinta on samanlainen kuin yhden selittäjän lineaarisessa regressiossa -- selitysaste $R^2\in[0,1]$ kertoo, kuinka hyvin selittävät muuttujat kuvaavat selitettävän muuttujan vaihtelua. Mitä lähempänä selitysasteen arvo on ykköstä, niin sitä parempi mallin sovitus on.
+
+On kuitenkin matemaattinen fakta, että mitä monimutkaisempi malli dataan sovitetaan sitä parempi sovituksesta tulee. Kuitenkin mallin monimutkaisuuden kasvaessa aletaan selittämään satunnaisvirhettä systemaattisen osuuden lisäksi (vertaa yhtälöön \@ref(eq:reggen)). Ilmiötä kutsutaan liikasovitukseksi (eng: *overfitting*). **Liikasovitettu malli on yleensä täysin hyödytön, koska malli ei yleisty millään tavalla sovitetun datan ulkopuolelle. Esimerkiksi liikasovitetun mallin ennustukset tulevat olemaan todennäköisesti täysin pielessä.** Kuvan \@ref(fig:overfit) oikea havainnekuva näyttää aivan äärimmäisen tapauksen liikasovitteesta.
+
+```{r overfit, echo=FALSE, fig.cap="(ref:overfit)"}
+knitr::include_graphics("images/overfit.jpg")
+```
+
+Lineaarisen regression tapauksessa liikasovitus on myös mahdollista, sillä lisättäessä uusi selittävä muuttuja malliin, selitysasteen $R^2$ arvo nousee tai pysyy samana. Näin tapahtuu aina, vaikka itse selittävällä muuttujalla ei olisi mitään tekemistä mallinnettavan ilmiön kanssa. Tämän vuoksi tuijotettaessa pelkästään selitysasteen $R^2$ arvoa voidaan vahingossa syyllistyä liikasovittamiseen.
+
+Ylisovittamisen välttämiseksi selitysasteen sijasta käytetään yleensä muokattua selitysastetta $R_{adj}^2$ (eng: *adjusted $R^2$*), joka rankaisee mallin monimutkaisuudesta eli lineaarisen regression tapauksessa selittävien muuttujien määrästä $d$,
+\begin{equation*}
+  R_{adj}^2 = 1 - \left(1 - R^2\right)\frac{n-1}{n-d-1}.
+\end{equation*}
+
+
 
 ## Mallin ja regressiokertoimien merkitsevyys
 

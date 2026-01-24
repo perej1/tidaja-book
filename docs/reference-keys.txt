@@ -92,8 +92,10 @@ eq:regression
 def:whitenoise
 eq:regmatrix
 exm:regconstruction
+eq:fit
 exm:fitreg
 fig:3dreg
+fig:overfit
 eq:euclidean
 exm:unlabeled-div-24
 fig:vec
