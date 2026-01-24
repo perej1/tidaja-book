@@ -1,8 +1,131 @@
 # Moniulotteinen lineaarinen regressio
 
-- regressio motivointi
+(ref:regression) Kolmen $2$-ulotteisen havaintoaineiston hajontakuviot. Hajontakuvioiden muotojen perusteilla selitettävän muuttujan $y$ ja selittävän muuttujan $x$ riippuvuus on erilainen jokaisessa tapauksessa. Vasemmalla riippuvuus lineaarinen, keskellä neliöllinen ja oikealla eksponentiaalinen.
 
-- yksiulotteinen lineaarinen regressio
+(ref:height-scatter) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength`.
+
+(ref:height-reg) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength` sekä sovitetu regressiosuora.
+
+Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia malleja. Regressioanalyysin tavoitteena on mallintaa selitettävän muuttujan (eng: *response variable*, *outcome variable*) riippuvuutta selittävistä muuttujista (eng: *explanatory variable*). Esimerkiksi selitettävä muuttuja voisi olla yrityksen voittojen suuruus ja selittäviä muuttujia voisivat olla markkinointi ja työntekijöiden määrä. Regressioanalyysi pyrkisi tässä tapauksessa vastaamaan seuraavanlaisiin kysymyksiin:
+
+- Kuinka paljon voitot kasvavat/vähenevät euroissa, kun markkinointiin investoidaan $r$ euroa?
+
+- Entä kuinka paljon voitot kasvavat/vähenevät euroissa, jos palkkaamme $m$ työntekijää lisää?
+
+
+Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on $n$ kappaletta $d$-ulotteisia havaintoja
+\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}
+satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti kuvaa selitettävää muuttujaa ja muut komponentit antavat selittävät muuttujat. Havaintoaineiston avulla sovitetaan regressiomalli, joka yleisesti ottaen voi olla muotoa
+\begin{equation*}
+  y_i = f(x_{i1}, x_{i2}, \ldots, x_{i2})+ \varepsilon_i,
+  \quad i\in\{1, 2,\ldots, n\},
+\end{equation*}
+jossa $f$ mallintaa selittävän muuttujan ja selitettävien muuttujien välistä systemaattista suhdetta ja $\varepsilon_i$ on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen $y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})$. Virhetermit $\varepsilon_i$ voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.
+
+Perinteisessä regressioanalyysissä analyytikko päättää funktion $f$ muodon ennen mallin sovittamista. Kuvassa \@ref(fig:regression) näkyy kolmen $2$-ulotteisen kuvitteellisen havaintoaineiston
+\begin{equation*}
+  \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\}
+\end{equation*}
+hajontakuviot.
+
+```{r regression, echo=FALSE, fig.cap="(ref:regression)"}
+knitr::include_graphics("images/regression.jpg")
+```
+
+Vasemmanpuoleisimpaan havaintoaineistoon voisi sopia yksiulotteinen lineaarinen regressiomalli, jossa funktio $f$ on muotoa
+\begin{equation*}
+  f(x_{i}) = \beta_0 + \beta_1 x_i.
+\end{equation*}
+Toisaalta keskimmäiseen havaintoaineistoon sopisi ehkäpä neliöllinen regressiomalli, jolloin
+\begin{equation*}
+  f(x_i) = \alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2.
+\end{equation*}
+Oikeanpuoleiseen havaintoaineistoon voisi vastaavasti sovittaa eksponentiaalisen mallin
+\begin{equation}
+  (\#eq:exp)
+  f(x_i) = \gamma_1 e^{\gamma_2 x_i}
+\end{equation}
+hajontakuvion muodon perusteella. Kun mallin muoto on päätetty (lineaarinen, neliöllinen, ...), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
+\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+\end{equation*}
+tavoitteena on estimoida parametrit $\beta_0$ ja $\beta_1$ datan avulla. **Huomaa, että estimaatti tarkoittaa datan perusteella laskettua parasta arvausta tietylle parametrille**. Tämän vuoksi lasketut estimaatit erotetaan parametreista myös notaation kautta -- yksiulotteisen lineaarisen regressiomallin parametrit ovat $\beta_0$ ja $\beta_1$ sekä niitä vastaavat estimaatit ovat $\hat\beta_0$ ja $\hat\beta_1$.
+
+Kun malli on sovitettu, niin estimaatteja $\hat\beta_0$ ja $\hat\beta_1$ voidaan tulkita. Mallin avulla voidaan tehdä myös ennustuksia tyyliin
+\begin{equation*}
+  \tilde y = \hat\beta_0 + \hat\beta_1 \tilde x,
+\end{equation*}
+jossa $\tilde y_i$ on mallin antama ennustus selittävän muuttujan arvolla $\tilde x$.
+
+Seuraavassa esimerkissä suoritetaan regressioanalyysin päävaiheet R:llä yksiulotteisen lineaarisen regression kautta. Eli samalla esimerkki toimii minimaalisena kertauksena yksiulotteisesta lineaarisesta regressiosta, joka käytiin kurssilla *Tilastotieteen perusteet*. Jos haluat kerrata yksiulotteisen lineaarisen regression teoriaa tarkemmin (pienimmän neliösumman estimointi, mallin selitysaste jne), niin palaa *Tilastotieteen perusteiden materiaaleihin*.
+
+::: {.example #simplereg name="Yksiulotteinen lineaarinen regressio"}
+Käsitellään jo tuttua aineistoa kehon dimensioiden mittauksista (katso esimerkki \@ref(exm:body)). Tässä tapauksessa olemme kiinnostuneita vain muuttujista `TotalHeight` ja `ArmLength`. Tarkkaan ottaen haluamme ennustaa $35$ tuumaa ($\approx 90\text{cm}$ vastaa suurinpiirtein $2\text{v}$ taaperoa) pituisen ihmisen käsien pituuden.
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+coltypes <- stringr::str_c(rep("i", 13), collapse = "")
+body <- readr::read_csv("data/body_measurements.csv", col_names = TRUE,
+                        col_types = coltypes) %>%
+  select(ArmLength, TotalHeight)
+```
+
+Siivottu havaintoaineisto ollaan jo tallennettu muuttujaan `body`.
+```{r}
+body
+```
+Aineisto siis sisältää $n = 716$ kappaletta $2$-ulotteisia havaintoja $(y_i, x_i) = (\texttt{ArmLength}_i, \texttt{TotalHeight}_i)$, $i\in\{1, 2, \ldots, n\}$. Kuvan \@ref(fig:height-scatter) hajontakuvion muodon perusteella yksiulotteisen lineaarisen regressiomallin
+\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+\end{equation*}
+sovitus voisi olla järkevää.
+
+```{r height-scatter, fig.cap="(ref:height-scatter)"}
+plot(body[, 2:1])
+```
+
+R:ssä lineaarisen regressiomallin voi sovittaa komennolla `lm()`. Kommennossa notaatiolla `y ~ x` (tilde) erotetaan havainnot selitettävästä muuttujasta ja selittävästä muuttujasta. Tulostamalla muuttujan, johon malli ollaan tallennettu, voi nähdä parametreja $\beta_0$ ja $\beta_1$ vastaavat pienimmän neliösumman estimaatit.
+```{r}
+body_lm <- lm(ArmLength ~ TotalHeight, data = body)
+body_lm
+```
+Tulostuksen perusteella estimaateiksi saatiin $\hat\beta_0\approx 7.65$ ja $\hat\beta_1\approx 0.23$. Tulkinnat parametreille ovat seuraavat:
+
+- $\hat\beta_0\approx 7.65$ (vakiotermi): Kun lapsen pituus on nolla, niin käsien pituus on keskimäärin $7.65$ tuumaa. Huomaa tässä tulkinnan epärealistisuus. On hyvä muistaa, että mikään malli ei ole täydellinen.
+
+- $\hat\beta_1\approx 0.23$ (kulmakerroin): Kun ihmisen pituus kasvaa yhden tuuman, niin käsien pituus kasvaa keskimäärin $0.23$ tuumaa. Tässä tapauksessa kulmakertoimen merkki on luonnollinen, koska pidemmällä ihmisellä on yleensä myös pidemmät kädet.
+
+Regressiosuoran voi myös piirtää hajontakuvioon. Tätä varten täytyy päästä käsiksi regressiokertoimien arvoihin komennolla `body_lm$coefficients`. Kuvan \@ref(fig:height-reg) perusteella regressionmallin sovitus on hyvä visuaalisesti.
+```{r height-reg, fig.cap="(ref:height-reg)"}
+plot(body[, 2:1])
+abline(a = body_lm$coefficients[1], b = body_lm$coefficients[2])
+```
+
+Mallin selitysaste $R^2$ kuvaa sovitteen hyvyyttä numeerisesti. Selitysaste on välillä $0\leq R^2 \leq 1$ ja mitä lähempänä $R^2$ arvo on lähellä ykköstä, sitä parempi sovite. Yhden muuttujan lineaarisen regression tapauksessa selitysaste on $\hat\rho_{\texttt{ArmLength}, \texttt{TotalHeight}}^2$, eli otoskorrelaatio potenssiin kaksi, kun otoskorrelaatio ollaan laskettu havaintojen $y_i = \texttt{ArmLength}_i$ ja $x_i = \texttt{TotalHeight}_i$ avulla. Mallin selitysasteen näkee käyttämällä komentoa `summary()` (katso tulosteessa `Multiple R-squared`).
+```{r}
+summary(body_lm)
+```
+
+Selityste ei ole kovin korkea ($R^2\approx 0.28$), mikä todennäköisesti johtuu havaintoaineiston muutamasta poikkeavasta havainnosta. Tästä huolimatta mallin avulla ennustamme käsien pituuden, kun henkilön pituus on $35$ tuumaa. Ennustuksen voi suorittaa kätevästi saatujen estimaattien $\hat\beta_0$ ja $\hat\beta_0$ arvoja käyttäen.
+```{r}
+x_tilde <- 35
+body_lm$coefficients[1] + body_lm$coefficients[2] * x_tilde
+```
+Eli $35$ tuuman pituisen ihmisen käsien pituudeksi ennustetaan $15.77$ tuumaa.
+:::
+
+Tämän kurssin kannalta tärkein regressiomenetelmä on nimenomaan lineaarinen regressio. Laajennamme kuitenkin esimerkissä \@ref(exm:simplereg) käsiteltyä yksiulotteista lineaarista regressiota (eng: *simple linear regression*) monen selittävän muuttujan tapaukseen. Vaikka lineaarinen regressio saattaa alkusilmäyksellä vaikuttaa liian yksinkertaiselta mallilta käytännön sovelluksiin, niin näin ei kuitenkaan ole:
+
+- Ensinnäkin monet epälineaariset mallit kuten eksponentiaalinen ja neliöllinen malli voidaan sovittaa lineaarisen regression avulla.
+
+    - Jo kurssilla *Johdatus data-analytiikkaan* todettiin, että eksponentiaalisen mallin parametrit (kaavan \@ref(eq:exp) parametrit $\gamma_1$ ja $\gamma_2$) voidaan estimoida sovittamalla yksiulotteinen lineaarinen regressiomalli muunnetulle datalle.
+    
+    - Lisäksi viikon 4 tehtävässä 3 näemme kuinka neliöllinen malli voidaan sovittaa moniulotteisen lineaarisen regression avulla.
+
+- Usein tavoitteena on löytää mahdollisimman yksinkertainen malli, joka kuitenkin mallintaa alla olevaa ilmiötä mahdollisimman hyvin (eng: *parsimonious model*). Tämän vuoksi lineaarinen regressio on käytännön kannalta erittäin hyödyllinen monessa eri sovelluksessa. Esimerkkinä voimme mainita viikon 4 tehtävän 2, jossa tuottoja mallinetaan muilla taustatekijöillä.
+
+Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regressio on erinomainen lähtökohta -- monet monimutkaisemmat mallit (aikasarjamallinnus, neuroverkot, ...) on vaikea ymmärtää ilman perustaitoja.
 
 ## Määritelmä ja oletukset
 
@@ -10,7 +133,7 @@
 
 ## Sovitteen hyvyys ja ennustaminen
 
-## Mallin ja regressiokertointen merkitsevyys
+## Mallin ja regressiokertoimien merkitsevyys
 
 ## Luottamus- ja ennustevälit
 

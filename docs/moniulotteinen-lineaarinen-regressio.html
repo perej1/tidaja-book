@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-21" />
+<meta name="date" content="2026-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#m%C3%A4%C3%A4ritelm%C3%A4-ja-oletukset"><i class="fa fa-check"></i><b>3.1</b> Määritelmä ja oletukset</a></li>
 <li class="chapter" data-level="3.2" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-sovittaminen-ja-tulkinta"><i class="fa fa-check"></i><b>3.2</b> Mallin sovittaminen ja tulkinta</a></li>
 <li class="chapter" data-level="3.3" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sovitteen-hyvyys-ja-ennustaminen"><i class="fa fa-check"></i><b>3.3</b> Sovitteen hyvyys ja ennustaminen</a></li>
-<li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertointen-merkitsevyys"><i class="fa fa-check"></i><b>3.4</b> Mallin ja regressiokertointen merkitsevyys</a></li>
+<li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertoimien-merkitsevyys"><i class="fa fa-check"></i><b>3.4</b> Mallin ja regressiokertoimien merkitsevyys</a></li>
 <li class="chapter" data-level="3.5" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#luottamus--ja-ennustev%C3%A4lit"><i class="fa fa-check"></i><b>3.5</b> Luottamus- ja ennustevälit</a></li>
 <li class="chapter" data-level="3.6" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallidiagnostiikka"><i class="fa fa-check"></i><b>3.6</b> Mallidiagnostiikka</a></li>
 </ul></li>
@@ -219,10 +219,150 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="moniulotteinen-lineaarinen-regressio" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Luku 3</span> Moniulotteinen lineaarinen regressio<a href="moniulotteinen-lineaarinen-regressio.html#moniulotteinen-lineaarinen-regressio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+
+
+<p>Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia malleja. Regressioanalyysin tavoitteena on mallintaa selitettävän muuttujan (eng: <em>response variable</em>, <em>outcome variable</em>) riippuvuutta selittävistä muuttujista (eng: <em>explanatory variable</em>). Esimerkiksi selitettävä muuttuja voisi olla yrityksen voittojen suuruus ja selittäviä muuttujia voisivat olla markkinointi ja työntekijöiden määrä. Regressioanalyysi pyrkisi tässä tapauksessa vastaamaan seuraavanlaisiin kysymyksiin:</p>
 <ul>
-<li><p>regressio motivointi</p></li>
-<li><p>yksiulotteinen lineaarinen regressio</p></li>
+<li><p>Kuinka paljon voitot kasvavat/vähenevät euroissa, kun markkinointiin investoidaan <span class="math inline">\(r\)</span> euroa?</p></li>
+<li><p>Entä kuinka paljon voitot kasvavat/vähenevät euroissa, jos palkkaamme <span class="math inline">\(m\)</span> työntekijää lisää?</p></li>
 </ul>
+<p>Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\(d\)</span>-ulotteisia havaintoja
+<span class="math display">\[\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}\]</span>
+satunaisvektorista <span class="math inline">\((Y, X_1, \ldots, X_d)\)</span>, jossa ensimmäinen komponentti kuvaa selitettävää muuttujaa ja muut komponentit antavat selittävät muuttujat. Havaintoaineiston avulla sovitetaan regressiomalli, joka yleisesti ottaen voi olla muotoa
+<span class="math display">\[\begin{equation*}
+  y_i = f(x_{i1}, x_{i2}, \ldots, x_{i2})+ \varepsilon_i,
+  \quad i\in\{1, 2,\ldots, n\},
+\end{equation*}\]</span>
+jossa <span class="math inline">\(f\)</span> mallintaa selittävän muuttujan ja selitettävien muuttujien välistä systemaattista suhdetta ja <span class="math inline">\(\varepsilon_i\)</span> on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen <span class="math inline">\(y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})\)</span>. Virhetermit <span class="math inline">\(\varepsilon_i\)</span> voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.</p>
+<p>Perinteisessä regressioanalyysissä analyytikko päättää funktion <span class="math inline">\(f\)</span> muodon ennen mallin sovittamista. Kuvassa <a href="moniulotteinen-lineaarinen-regressio.html#fig:regression">3.1</a> näkyy kolmen <span class="math inline">\(2\)</span>-ulotteisen kuvitteellisen havaintoaineiston
+<span class="math display">\[\begin{equation*}
+  \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\}
+\end{equation*}\]</span>
+hajontakuviot.</p>
+<div class="figure"><span style="display:block;" id="fig:regression"></span>
+<img src="images/regression.jpg" alt="Kolmen \(2\)-ulotteisen havaintoaineiston hajontakuviot. Hajontakuvioiden muotojen perusteilla selitettävän muuttujan \(y\) ja selittävän muuttujan \(x\) riippuvuus on erilainen jokaisessa tapauksessa. Vasemmalla riippuvuus lineaarinen, keskellä neliöllinen ja oikealla eksponentiaalinen." width="1214" />
+<p class="caption">
+Kuva 3.1: Kolmen <span class="math inline">\(2\)</span>-ulotteisen havaintoaineiston hajontakuviot. Hajontakuvioiden muotojen perusteilla selitettävän muuttujan <span class="math inline">\(y\)</span> ja selittävän muuttujan <span class="math inline">\(x\)</span> riippuvuus on erilainen jokaisessa tapauksessa. Vasemmalla riippuvuus lineaarinen, keskellä neliöllinen ja oikealla eksponentiaalinen.
+</p>
+</div>
+<p>Vasemmanpuoleisimpaan havaintoaineistoon voisi sopia yksiulotteinen lineaarinen regressiomalli, jossa funktio <span class="math inline">\(f\)</span> on muotoa
+<span class="math display">\[\begin{equation*}
+  f(x_{i}) = \beta_0 + \beta_1 x_i.
+\end{equation*}\]</span>
+Toisaalta keskimmäiseen havaintoaineistoon sopisi ehkäpä neliöllinen regressiomalli, jolloin
+<span class="math display">\[\begin{equation*}
+  f(x_i) = \alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2.
+\end{equation*}\]</span>
+Oikeanpuoleiseen havaintoaineistoon voisi vastaavasti sovittaa eksponentiaalisen mallin
+<span class="math display" id="eq:exp">\[\begin{equation}
+  \tag{3.1}
+  f(x_i) = \gamma_1 e^{\gamma_2 x_i}
+\end{equation}\]</span>
+hajontakuvion muodon perusteella. Kun mallin muoto on päätetty (lineaarinen, neliöllinen, …), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
+<span class="math display">\[\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+\end{equation*}\]</span>
+tavoitteena on estimoida parametrit <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> datan avulla. <strong>Huomaa, että estimaatti tarkoittaa datan perusteella laskettua parasta arvausta tietylle parametrille</strong>. Tämän vuoksi lasketut estimaatit erotetaan parametreista myös notaation kautta – yksiulotteisen lineaarisen regressiomallin parametrit ovat <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> sekä niitä vastaavat estimaatit ovat <span class="math inline">\(\hat\beta_0\)</span> ja <span class="math inline">\(\hat\beta_1\)</span>.</p>
+<p>Kun malli on sovitettu, niin estimaatteja <span class="math inline">\(\hat\beta_0\)</span> ja <span class="math inline">\(\hat\beta_1\)</span> voidaan tulkita. Mallin avulla voidaan tehdä myös ennustuksia tyyliin
+<span class="math display">\[\begin{equation*}
+  \tilde y = \hat\beta_0 + \hat\beta_1 \tilde x,
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\tilde y_i\)</span> on mallin antama ennustus selittävän muuttujan arvolla <span class="math inline">\(\tilde x\)</span>.</p>
+<p>Seuraavassa esimerkissä suoritetaan regressioanalyysin päävaiheet R:llä yksiulotteisen lineaarisen regression kautta. Eli samalla esimerkki toimii minimaalisena kertauksena yksiulotteisesta lineaarisesta regressiosta, joka käytiin kurssilla <em>Tilastotieteen perusteet</em>. Jos haluat kerrata yksiulotteisen lineaarisen regression teoriaa tarkemmin (pienimmän neliösumman estimointi, mallin selitysaste jne), niin palaa <em>Tilastotieteen perusteiden materiaaleihin</em>.</p>
+<div class="example">
+<p><span id="exm:simplereg" class="example"><strong>Esimerkki 3.1  (Yksiulotteinen lineaarinen regressio) </strong></span>Käsitellään jo tuttua aineistoa kehon dimensioiden mittauksista (katso esimerkki <a href="moniulotteiset-jakaumat.html#exm:body">2.1</a>). Tässä tapauksessa olemme kiinnostuneita vain muuttujista <code>TotalHeight</code> ja <code>ArmLength</code>. Tarkkaan ottaen haluamme ennustaa <span class="math inline">\(35\)</span> tuumaa (<span class="math inline">\(\approx 90\text{cm}\)</span> vastaa suurinpiirtein <span class="math inline">\(2\text{v}\)</span> taaperoa) pituisen ihmisen käsien pituuden.</p>
+<p>Siivottu havaintoaineisto ollaan jo tallennettu muuttujaan <code>body</code>.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb83-1" tabindex="-1"></a>body</span></code></pre></div>
+<pre><code>## # A tibble: 716 × 2
+##    ArmLength TotalHeight
+##        &lt;int&gt;       &lt;int&gt;
+##  1        22          52
+##  2        28          56
+##  3        21          53
+##  4        24          45
+##  5        25          47
+##  6        20          60
+##  7        23          49
+##  8        19          58
+##  9        15          40
+## 10        16          55
+## # ℹ 706 more rows</code></pre>
+<p>Aineisto siis sisältää <span class="math inline">\(n = 716\)</span> kappaletta <span class="math inline">\(2\)</span>-ulotteisia havaintoja <span class="math inline">\((y_i, x_i) = (\texttt{ArmLength}_i, \texttt{TotalHeight}_i)\)</span>, <span class="math inline">\(i\in\{1, 2, \ldots, n\}\)</span>. Kuvan <a href="moniulotteinen-lineaarinen-regressio.html#fig:height-scatter">3.2</a> hajontakuvion muodon perusteella yksiulotteisen lineaarisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+\end{equation*}\]</span>
+sovitus voisi olla järkevää.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb85-1" tabindex="-1"></a><span class="fu">plot</span>(body[, <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>])</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:height-scatter"></span>
+<img src="tidaja-book_files/figure-html/height-scatter-1.png" alt="Hajontakuvio muuttujista TotalHeight ja ArmLength." width="672" />
+<p class="caption">
+Kuva 3.2: Hajontakuvio muuttujista <code>TotalHeight</code> ja <code>ArmLength</code>.
+</p>
+</div>
+<p>R:ssä lineaarisen regressiomallin voi sovittaa komennolla <code>lm()</code>. Kommennossa notaatiolla <code>y ~ x</code> (tilde) erotetaan havainnot selitettävästä muuttujasta ja selittävästä muuttujasta. Tulostamalla muuttujan, johon malli ollaan tallennettu, voi nähdä parametreja <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> vastaavat pienimmän neliösumman estimaatit.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb86-1" tabindex="-1"></a>body_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(ArmLength <span class="sc">~</span> TotalHeight, <span class="at">data =</span> body)</span>
+<span id="cb86-2"><a href="moniulotteinen-lineaarinen-regressio.html#cb86-2" tabindex="-1"></a>body_lm</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ArmLength ~ TotalHeight, data = body)
+## 
+## Coefficients:
+## (Intercept)  TotalHeight  
+##      7.6499       0.2321</code></pre>
+<p>Tulostuksen perusteella estimaateiksi saatiin <span class="math inline">\(\hat\beta_0\approx 7.65\)</span> ja <span class="math inline">\(\hat\beta_1\approx 0.23\)</span>. Tulkinnat parametreille ovat seuraavat:</p>
+<ul>
+<li><p><span class="math inline">\(\hat\beta_0\approx 7.65\)</span> (vakiotermi): Kun lapsen pituus on nolla, niin käsien pituus on keskimäärin <span class="math inline">\(7.65\)</span> tuumaa. Huomaa tässä tulkinnan epärealistisuus. On hyvä muistaa, että mikään malli ei ole täydellinen.</p></li>
+<li><p><span class="math inline">\(\hat\beta_1\approx 0.23\)</span> (kulmakerroin): Kun ihmisen pituus kasvaa yhden tuuman, niin käsien pituus kasvaa keskimäärin <span class="math inline">\(0.23\)</span> tuumaa. Tässä tapauksessa kulmakertoimen merkki on luonnollinen, koska pidemmällä ihmisellä on yleensä myös pidemmät kädet.</p></li>
+</ul>
+<p>Regressiosuoran voi myös piirtää hajontakuvioon. Tätä varten täytyy päästä käsiksi regressiokertoimien arvoihin komennolla <code>body_lm$coefficients</code>. Kuvan <a href="moniulotteinen-lineaarinen-regressio.html#fig:height-reg">3.3</a> perusteella regressionmallin sovitus on hyvä visuaalisesti.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb88-1" tabindex="-1"></a><span class="fu">plot</span>(body[, <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>])</span>
+<span id="cb88-2"><a href="moniulotteinen-lineaarinen-regressio.html#cb88-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> body_lm<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">b =</span> body_lm<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:height-reg"></span>
+<img src="tidaja-book_files/figure-html/height-reg-1.png" alt="Hajontakuvio muuttujista TotalHeight ja ArmLength sekä sovitetu regressiosuora." width="672" />
+<p class="caption">
+Kuva 3.3: Hajontakuvio muuttujista <code>TotalHeight</code> ja <code>ArmLength</code> sekä sovitetu regressiosuora.
+</p>
+</div>
+<p>Mallin selitysaste <span class="math inline">\(R^2\)</span> kuvaa sovitteen hyvyyttä numeerisesti. Selitysaste on välillä <span class="math inline">\(0\leq R^2 \leq 1\)</span> ja mitä lähempänä <span class="math inline">\(R^2\)</span> arvo on lähellä ykköstä, sitä parempi sovite. Yhden muuttujan lineaarisen regression tapauksessa selitysaste on <span class="math inline">\(\hat\rho_{\texttt{ArmLength}, \texttt{TotalHeight}}^2\)</span>, eli otoskorrelaatio potenssiin kaksi, kun otoskorrelaatio ollaan laskettu havaintojen <span class="math inline">\(y_i = \texttt{ArmLength}_i\)</span> ja <span class="math inline">\(x_i = \texttt{TotalHeight}_i\)</span> avulla. Mallin selitysasteen näkee käyttämällä komentoa <code>summary()</code> (katso tulosteessa <code>Multiple R-squared</code>).</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb89-1" tabindex="-1"></a><span class="fu">summary</span>(body_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ArmLength ~ TotalHeight, data = body)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -12.486  -2.469  -0.395   2.157  53.477 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.64993    0.69926   10.94   &lt;2e-16 ***
+## TotalHeight  0.23207    0.01409   16.47   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.58 on 714 degrees of freedom
+## Multiple R-squared:  0.2753, Adjusted R-squared:  0.2743 
+## F-statistic: 271.3 on 1 and 714 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Selityste ei ole kovin korkea (<span class="math inline">\(R^2\approx 0.28\)</span>), mikä todennäköisesti johtuu havaintoaineiston muutamasta poikkeavasta havainnosta. Tästä huolimatta mallin avulla ennustamme käsien pituuden, kun henkilön pituus on <span class="math inline">\(35\)</span> tuumaa. Ennustuksen voi suorittaa kätevästi saatujen estimaattien <span class="math inline">\(\hat\beta_0\)</span> ja <span class="math inline">\(\hat\beta_0\)</span> arvoja käyttäen.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="moniulotteinen-lineaarinen-regressio.html#cb91-1" tabindex="-1"></a>x_tilde <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb91-2"><a href="moniulotteinen-lineaarinen-regressio.html#cb91-2" tabindex="-1"></a>body_lm<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> body_lm<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="sc">*</span> x_tilde</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    15.77253</code></pre>
+<p>Eli <span class="math inline">\(35\)</span> tuuman pituisen ihmisen käsien pituudeksi ennustetaan <span class="math inline">\(15.77\)</span> tuumaa.</p>
+</div>
+<p>Tämän kurssin kannalta tärkein regressiomenetelmä on nimenomaan lineaarinen regressio. Laajennamme kuitenkin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:simplereg">3.1</a> käsiteltyä yksiulotteista lineaarista regressiota (eng: <em>simple linear regression</em>) monen selittävän muuttujan tapaukseen. Vaikka lineaarinen regressio saattaa alkusilmäyksellä vaikuttaa liian yksinkertaiselta mallilta käytännön sovelluksiin, niin näin ei kuitenkaan ole:</p>
+<ul>
+<li><p>Ensinnäkin monet epälineaariset mallit kuten eksponentiaalinen ja neliöllinen malli voidaan sovittaa lineaarisen regression avulla.</p>
+<ul>
+<li><p>Jo kurssilla <em>Johdatus data-analytiikkaan</em> todettiin, että eksponentiaalisen mallin parametrit (kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:exp">(3.1)</a> parametrit <span class="math inline">\(\gamma_1\)</span> ja <span class="math inline">\(\gamma_2\)</span>) voidaan estimoida sovittamalla yksiulotteinen lineaarinen regressiomalli muunnetulle datalle.</p></li>
+<li><p>Lisäksi viikon 4 tehtävässä 3 näemme kuinka neliöllinen malli voidaan sovittaa moniulotteisen lineaarisen regression avulla.</p></li>
+</ul></li>
+<li><p>Usein tavoitteena on löytää mahdollisimman yksinkertainen malli, joka kuitenkin mallintaa alla olevaa ilmiötä mahdollisimman hyvin (eng: <em>parsimonious model</em>). Tämän vuoksi lineaarinen regressio on käytännön kannalta erittäin hyödyllinen monessa eri sovelluksessa. Esimerkkinä voimme mainita viikon 4 tehtävän 2, jossa tuottoja mallinetaan muilla taustatekijöillä.</p></li>
+</ul>
+<p>Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regressio on erinomainen lähtökohta – monet monimutkaisemmat mallit (aikasarjamallinnus, neuroverkot, …) on vaikea ymmärtää ilman perustaitoja.</p>
 <div id="määritelmä-ja-oletukset" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Määritelmä ja oletukset<a href="moniulotteinen-lineaarinen-regressio.html#m%C3%A4%C3%A4ritelm%C3%A4-ja-oletukset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
@@ -232,8 +372,8 @@ div.csl-indent {
 <div id="sovitteen-hyvyys-ja-ennustaminen" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Sovitteen hyvyys ja ennustaminen<a href="moniulotteinen-lineaarinen-regressio.html#sovitteen-hyvyys-ja-ennustaminen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="mallin-ja-regressiokertointen-merkitsevyys" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Mallin ja regressiokertointen merkitsevyys<a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertointen-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mallin-ja-regressiokertoimien-merkitsevyys" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Mallin ja regressiokertoimien merkitsevyys<a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertoimien-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="luottamus--ja-ennustevälit" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Luottamus- ja ennustevälit<a href="moniulotteinen-lineaarinen-regressio.html#luottamus--ja-ennustev%C3%A4lit" class="anchor-section" aria-label="Anchor link to header"></a></h2>

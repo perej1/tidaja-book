@@ -82,6 +82,11 @@ exm:unlabeled-div-21
 exm:unlabeled-div-22
 fig:body-scatter2
 fig:body-scattermaha
+fig:regression
+eq:exp
+exm:simplereg
+fig:height-scatter
+fig:height-reg
 eq:euclidean
 exm:unlabeled-div-24
 fig:vec
@@ -101,7 +106,7 @@ moniulotteinen-lineaarinen-regressio
 määritelmä-ja-oletukset
 mallin-sovittaminen-ja-tulkinta
 sovitteen-hyvyys-ja-ennustaminen
-mallin-ja-regressiokertointen-merkitsevyys
+mallin-ja-regressiokertoimien-merkitsevyys
 luottamus--ja-ennustevälit
 mallidiagnostiikka
 liitteet

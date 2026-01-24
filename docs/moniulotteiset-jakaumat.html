@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-01-21" />
+<meta name="date" content="2026-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#m%C3%A4%C3%A4ritelm%C3%A4-ja-oletukset"><i class="fa fa-check"></i><b>3.1</b> Määritelmä ja oletukset</a></li>
 <li class="chapter" data-level="3.2" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-sovittaminen-ja-tulkinta"><i class="fa fa-check"></i><b>3.2</b> Mallin sovittaminen ja tulkinta</a></li>
 <li class="chapter" data-level="3.3" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sovitteen-hyvyys-ja-ennustaminen"><i class="fa fa-check"></i><b>3.3</b> Sovitteen hyvyys ja ennustaminen</a></li>
-<li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertointen-merkitsevyys"><i class="fa fa-check"></i><b>3.4</b> Mallin ja regressiokertointen merkitsevyys</a></li>
+<li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallin-ja-regressiokertoimien-merkitsevyys"><i class="fa fa-check"></i><b>3.4</b> Mallin ja regressiokertoimien merkitsevyys</a></li>
 <li class="chapter" data-level="3.5" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#luottamus--ja-ennustev%C3%A4lit"><i class="fa fa-check"></i><b>3.5</b> Luottamus- ja ennustevälit</a></li>
 <li class="chapter" data-level="3.6" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#mallidiagnostiikka"><i class="fa fa-check"></i><b>3.6</b> Mallidiagnostiikka</a></li>
 </ul></li>
@@ -422,7 +422,7 @@ Korrelaatiokertoimen estimaattori on
   \tag{2.7}
   \hat\rho_{XY} = \frac{s_{XY}}{\sqrt{s_X^2s_Y^2}},
 \end{equation}\]</span>
-jossa <span class="math inline">\(s_Y^2\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava otosvarianssi. Korrelaation <span class="math inline">\(\mathrm{Cor}\left(X, Y\right)\)</span> arvo on aina välillä <span class="math inline">\([-1, 1].\)</span> Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus <span class="math inline">\(\left|\mathrm{Cor}\left(X, Y\right)\right|\)</span> kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat <em>eivät</em> ole riippumattomia ja <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>. Esimerkiksi satunnaismuuttujien välillä voi epälineaarinen suhde, kuten kuvan <a href="moniulotteiset-jakaumat.html#fig:cor">2.2</a> oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.</p>
+jossa <span class="math inline">\(s_Y^2\)</span> on otosta <span class="math inline">\(y_1, \ldots, y_n\)</span> vastaava otosvarianssi. Korrelaation <span class="math inline">\(\mathrm{Cor}\left(X, Y\right)\)</span> arvo on aina välillä <span class="math inline">\([-1, 1].\)</span> Kuten kovarianssin tapauksessa, korrelaation merkki kertoo siitä, onko lineaarinen riippuvuus kasvava vai vähenevä ja korrelaation suuruus <span class="math inline">\(\left|\mathrm{Cor}\left(X, Y\right)\right|\)</span> kertoo lineaarisen riippuvuuden vahvuudesta. On mahdollista, että satunnaismuuttujat <em>eivät</em> ole riippumattomia ja <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>. Esimerkiksi satunnaismuuttujien välillä voi olla epälineaarinen suhde, kuten kuvan <a href="moniulotteiset-jakaumat.html#fig:cor">2.2</a> oikean alalaidan havaintoaineistossa, jolloin otoskorrelaatio on likimain nolla. Ilmiöön liittyen on myös harjoitustehtävä.</p>
 <div class="exercise">
 <p><span id="exr:cov" class="exercise"><strong>Tehtävä 2.1  (Viikko 2, tehtävä 2) </strong></span>Olkoon <span class="math inline">\(X\sim \mathrm{Tas}\left([-1,1]\right)\)</span> eli <span class="math inline">\(X\)</span> on satunnaismuuttuja, joka noudattaa tasajakaumaa välillä <span class="math inline">\([-1, 1]\)</span>. Määritellään toinen satunnaismuuttuja muunnoksen <span class="math inline">\(Y = X^2\)</span> mukaan. Tällöin satunnaismuuttujat <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> <em>eivät</em> ole riippumattomia mutta <span class="math inline">\(\mathrm{Cov}\left(X, Y\right) = 0\)</span>.</p>
 </div>
