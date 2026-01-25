@@ -54,7 +54,7 @@ Oikeanpuoleiseen havaintoaineistoon voisi vastaavasti sovittaa eksponentiaalisen
 \end{equation}
 hajontakuvion muodon perusteella.
 
-Kun mallin muoto on päätetty (lineaarinen, neliöllinen, ...), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovittaessa lineaarista regressiomallia
+Kun mallin muoto on päätetty (lineaarinen, neliöllinen, ...), niin mallin parametrit estimoidaan annetun otoksen avulla. Esimerkiksi sovitettaessa lineaarista regressiomallia
 \begin{equation*}
   y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
 \end{equation*}
@@ -144,7 +144,7 @@ satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti antaa
 \begin{equation}
   (\#eq:regression)
   \begin{split}
-    y_i &= \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_d x_{id} + \varepsilon_i \\
+    y_i &= \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_d x_{id} + \varepsilon_i \\
     &= \beta_0 + \left(\sum_{j = 1}^d \beta_j x_{ij}\right) + \varepsilon_i,
     \quad i\in\{1, 2,\ldots, n\},
   \end{split}
@@ -370,7 +370,7 @@ plot_ly() %>%
 
 Kuten yhden selittäjän lineaarisessa regressiossa myös moniulotteisessa lineaarisessa regressiossa mallin sovituksen hyvyyttä voidaan arvioida selitysasteen $R^2$ avulla. Moniulotteisen lineaarisen regression tapauksessa selitysaste määritellään
 \begin{equation*}
-  R^2 = \frac{\sum_{i = 1}^n\left(y_i - \hat y_i\right)^2}{\sum_{i = 1}^n\left(y_i - \bar y_i\right)^2} = \frac{SSE}{SST},
+  R^2 = 1 - \frac{\sum_{i = 1}^n\left(y_i - \hat y_i\right)^2}{\sum_{i = 1}^n\left(y_i - \bar y\right)^2} = 1 - \frac{SSE}{SST},
 \end{equation*}
 jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaiset sovitteet ja $\bar y = \frac{1}{n}\sum_{i = 1}^n y_i$. Selitysasteen tulkinta on samanlainen kuin yhden selittäjän lineaarisessa regressiossa -- selitysaste $R^2\in[0,1]$ kertoo, kuinka hyvin selittävät muuttujat kuvaavat selitettävän muuttujan vaihtelua. Mitä lähempänä selitysasteen arvo on ykköstä, niin sitä parempi mallin sovitus on.
 
@@ -408,7 +408,7 @@ summary(sale_lm)$adj.r.squared
 ```
 :::
 
-Sovitetun moniulotteisen lineaarisen regrresiomallin avulla voi laskea ennustuksia aivan kuten yhden muuttujan lineaarisen regression tapauksessa. Eli selitettävän muuttujan ennuste $\tilde y$ selitettävien muutujien arvoilla $\tilde x_1, \ldots, \tilde x_d$ saadaan kaavasta
+Sovitetun moniulotteisen lineaarisen regressiomallin avulla voi laskea ennustuksia aivan kuten yhden muuttujan lineaarisen regression tapauksessa. Eli selitettävän muuttujan ennuste $\tilde y$ selittävien muuttujien arvoilla $\tilde x_1, \ldots, \tilde x_d$ saadaan kaavasta
 \begin{equation*}
   \tilde y_i = \hat\beta_0 + \sum_{j = 1}^d \hat\beta_j \tilde x_j.
 \end{equation*}
