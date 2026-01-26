@@ -4,11 +4,11 @@
 
 (ref:height-scatter) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength`.
 
-(ref:height-reg) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength` sekä sovitetu regressiosuora.
+(ref:height-reg) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength` sekä sovitettu regressiosuora.
 
 (ref:3dreg) Kolmiulotteinen hajontakuvio esimerkkidatasta ja sovitettu regressiotaso.
 
-(ref:overfit) Havainnekuva ylisovittamisesta. Vasemman kuvan sovitteessa otetaan huomioon aineistossa näkyvä neliöllinen riippuvuus. Oikeassa kuvassa liikasovitetaan sattunnaisvirheeseen.
+(ref:overfit) Havainnekuva ylisovittamisesta. Vasemman kuvan sovitteessa otetaan huomioon aineistossa näkyvä neliöllinen riippuvuus. Oikeassa kuvassa liikasovitetaan satunnaisvirheeseen.
 
 Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia malleja. Regressioanalyysin tavoitteena on mallintaa selitettävän muuttujan (eng: *response variable*, *outcome variable*) riippuvuutta selittävistä muuttujista (eng: *explanatory variable*). Esimerkiksi selitettävä muuttuja voisi olla yrityksen voittojen suuruus ja selittäviä muuttujia voisivat olla markkinointi ja työntekijöiden määrä. Regressioanalyysi pyrkisi tässä tapauksessa vastaamaan seuraavanlaisiin kysymyksiin:
 
