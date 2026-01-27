@@ -1,6 +1,6 @@
 # Moniulotteinen lineaarinen regressio
 
-(ref:regression) Kolmen $2$-ulotteisen havaintoaineiston hajontakuviot. Hajontakuvioiden muotojen perusteilla selitettävän muuttujan $y$ ja selittävän muuttujan $x$ riippuvuus on erilainen jokaisessa tapauksessa. Vasemmalla riippuvuus lineaarinen, keskellä neliöllinen ja oikealla eksponentiaalinen.
+(ref:regression) Kolmen kaksiulotteisen havaintoaineiston hajontakuviot. Hajontakuvioiden muotojen perusteilla selitettävän muuttujan ja selittävän muuttujan riippuvuus on erilainen jokaisessa tapauksessa. Vasemmalla riippuvuus lineaarinen, keskellä neliöllinen ja oikealla eksponentiaalinen.
 
 (ref:height-scatter) Hajontakuvio muuttujista `TotalHeight` ja `ArmLength`.
 
@@ -27,13 +27,9 @@ satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti kuvaa
   y_i = f(x_{i1}, x_{i2}, \ldots, x_{id}) + \varepsilon_i,
   \quad i\in\{1, 2,\ldots, n\},
 \end{equation}
-jossa $f$ mallintaa selittävän muuttujan ja selitettävien muuttujien välistä systemaattista suhdetta ja $\varepsilon_i$ on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen $y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})$. Virhetermit $\varepsilon_i$ voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.
+jossa $f$ mallintaa selitettävän muuttujan ja selittävien muuttujien välistä systemaattista suhdetta ja $\varepsilon_i$ on satunnainen virhetermi. Tästä johtuen yleensä selitettävän muuttujan arvo ei määräydy suoraan selittävistä muuttujista, vaan virhetermin vuoksi suhde on likimääräinen $y_i \approx f(x_{i1}, x_{i2}, \ldots, x_{i2})$. Virhetermit $\varepsilon_i$ voivat kuvata esimerkiksi mittausvirheitä tai ilmiöön liittyvää satunnaisuutta.
 
-Perinteisessä regressioanalyysissä analyytikko päättää funktion $f$ muodon ennen mallin sovittamista. Kuvassa \@ref(fig:regression) näkyy kolmen $2$-ulotteisen kuvitteellisen havaintoaineiston
-\begin{equation*}
-  \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\}
-\end{equation*}
-hajontakuviot.
+Perinteisessä regressioanalyysissä analyytikko päättää funktion $f$ muodon ennen mallin sovittamista. Kuvassa \@ref(fig:regression) näkyy kolmen $2$-ulotteisen kuvitteellisen havaintoaineiston $\left\{(y_1, x_1), \ldots, (y_n, x_n)\right\}$ hajontakuviot.
 
 ```{r regression, echo=FALSE, fig.cap="(ref:regression)"}
 knitr::include_graphics("images/regression.jpg")
@@ -122,7 +118,7 @@ body_lm$coefficients[1] + body_lm$coefficients[2] * x_tilde
 Eli $35$ tuuman pituisen ihmisen käsien pituudeksi ennustetaan $15.77$ tuumaa.
 :::
 
-Tämän kurssin kannalta tärkein regressiomenetelmä on nimenomaan lineaarinen regressio. Laajennamme kuitenkin esimerkissä \@ref(exm:simplereg) käsiteltyä yksiulotteista lineaarista regressiota (eng: *simple linear regression*) monen selittävän muuttujan tapaukseen. Vaikka lineaarinen regressio saattaa alkusilmäyksellä vaikuttaa liian yksinkertaiselta mallilta käytännön sovelluksiin, niin näin ei kuitenkaan ole:
+Tämän kurssin kannalta tärkein regressiomenetelmä on nimenomaan lineaarinen regressio. Laajennamme kuitenkin esimerkissä \@ref(exm:simplereg) käsiteltyä yksiulotteista lineaarista regressiota (eng: *simple linear regression*) monen selittäjän tapaukseen. Vaikka lineaarinen regressio saattaa alkusilmäyksellä vaikuttaa liian yksinkertaiselta mallilta käytännön sovelluksiin, niin näin ei kuitenkaan ole:
 
 - Ensinnäkin monet epälineaariset mallit kuten eksponentiaalinen ja neliöllinen malli voidaan sovittaa lineaarisen regression avulla.
 
@@ -140,7 +136,7 @@ Kuten luvun esittelyssä, oletetaan että saatavilla on $n$ kappaletta $(d+1)$-u
 \begin{equation*}
   \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
 \end{equation*}
-satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat selittävien muuttujien havainnot. Selittäviä muuttujia on siis $d$ kappaletta. Moniulotteisessa lineaarisessa regressiossa oletetaan seuraavanlainen suhde selitettävän ja selittävien muuttujien välillä,
+satunnaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat selittävien muuttujien havainnot. Selittäviä muuttujia on siis $d$ kappaletta. Moniulotteisessa lineaarisessa regressiossa oletetaan seuraavanlainen suhde selitettävän ja selittävien muuttujien välillä,
 \begin{equation}
   (\#eq:regression)
   \begin{split}
@@ -382,7 +378,7 @@ knitr::include_graphics("images/overfit.jpg")
 
 Lineaarisen regression tapauksessa liikasovitus on myös mahdollista, sillä lisättäessä uusi selittävä muuttuja malliin, selitysasteen $R^2$ arvo nousee tai pysyy samana. Näin tapahtuu aina, vaikka itse selittävällä muuttujalla ei olisi mitään tekemistä mallinnettavan ilmiön kanssa. Tämän vuoksi tuijotettaessa pelkästään selitysasteen $R^2$ arvoa voidaan vahingossa syyllistyä liikasovittamiseen.
 
-Ylisovittamisen välttämiseksi selitysasteen sijasta käytetään yleensä muokattua selitysastetta $R_{adj}^2$ (eng: *adjusted $R^2$*), joka rankaisee mallin monimutkaisuudesta eli lineaarisen regression tapauksessa selittävien muuttujien määrästä $d$,
+Liikasovittamisen välttämiseksi selitysasteen sijasta käytetään yleensä muokattua selitysastetta $R_{adj}^2$ (eng: *adjusted $R^2$*), joka rankaisee mallin monimutkaisuudesta eli lineaarisen regression tapauksessa selittävien muuttujien määrästä $d$,
 \begin{equation*}
   R_{adj}^2 = 1 - \left(1 - R^2\right)\frac{n-1}{n-d-1}.
 \end{equation*}
@@ -428,10 +424,10 @@ newdata <- data.frame(advertisement = c(6, 8), price = c(3, 2.4))
 preds <- predict(sale_lm, newdata)
 preds
 ```
-Esimerkiksi selitettävien muuttujien arvoilla $(\texttt{mainostus}, \texttt{hinta}) = (8, 2.4)$ saamme ennustuksen $\tilde y \approx 1.68$ (tuhatta euroa).
+Esimerkiksi selittävien muuttujien arvoilla $(\texttt{mainostus}, \texttt{hinta}) = (8, 2.4)$ saamme ennustuksen $\tilde y \approx 1.68$ (tuhatta euroa).
 :::
 
-Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, koska tällöin oletamme, että ilmiö käyttäytyy lineaarisesti myös havaintoaineiston ulkopuolella. Tämä ei kuitenkaan päde moninaisissa sovelluksissa. Esimerkiksi startup yrityksen tuotot saattavat kasvaa alussa lineaarisesti markkinoinnin suhteen. Kuitenkin kun yrityksestä tulee tunnetumpi, niin markkinoinnin vaikutus pienenee.
+Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, koska tällöin oletamme, että ilmiö käyttäytyy lineaarisesti myös havaintoaineiston ulkopuolella. Moninaisten ilmiöiden käyttäytyminen on kuitenkin lineaarista vain paikallisesti. Esimerkiksi startup yrityksen tuotot saattavat kasvaa alussa lineaarisesti markkinoinnin suhteen. Kuitenkin kun yrityksestä tulee tunnetumpi, niin markkinoinnin vaikutus pienenee.
 
 ## Mallin ja regressiokertoimien merkitsevyys
 
