@@ -114,12 +114,12 @@ sec:normal
 sec:cond
 sec:statistic
 moniulotteinen-lineaarinen-regressio
-määritelmä-ja-oletukset
-mallin-sovittaminen-ja-tulkinta
-sovitteen-hyvyys-ja-ennustaminen
-mallin-ja-regressiokertoimien-merkitsevyys
-sec:interval
+sec:regdef
+sec:fitting
+sec:determination
 sec:diagnostic
+sec:regtesting
+sec:interval
 liitteet
 sec:vector
 sec:matrix

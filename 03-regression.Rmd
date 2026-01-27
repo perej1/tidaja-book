@@ -130,7 +130,7 @@ Tämän kurssin kannalta tärkein regressiomenetelmä on nimenomaan lineaarinen 
 
 Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regressio on erinomainen lähtökohta -- monet monimutkaisemmat mallit (aikasarjamallinnus, neuroverkot, ...) on vaikea ymmärtää ilman perustaitoja.
 
-## Määritelmä ja oletukset
+## Määritelmä ja oletukset {#sec:regdef}
 
 Kuten luvun esittelyssä, oletetaan että saatavilla on $n$ kappaletta $(d+1)$-ulotteisia havaintoja
 \begin{equation*}
@@ -247,7 +247,7 @@ Mallinsovitustehtävän voisi muotoilla yhtälön \@ref(eq:regmatrix) mukaan mä
 \end{equation*}
 :::
 
-## Mallin sovittaminen ja tulkinta
+## Mallin sovittaminen ja tulkinta {#sec:fitting}
 
 Olettaessa lineaarisen regressiomallin $\boldsymbol y = \boldsymbol X \boldsymbol\beta + \boldsymbol\varepsilon$ data-analyytikko tietää ainoastaan otoksen selitettävästä muuttujasta (vektori $\boldsymbol y$) ja otokset selittävistä muuttujista (matriisi $\boldsymbol X$). Sekä parametrivektori $\boldsymbol\beta$ että virhetermi $\boldsymbol\varepsilon$ ovat tuntemattomia. Tavoitteena on yleensä siis estimoida parametrivektori $\boldsymbol\beta$ ja virhetermin $\boldsymbol\varepsilon$ varianssi $\sigma^2$ datan perusteella. Tässä keskitymme erityisesti parametrivektorin estimointiin.
 
@@ -362,7 +362,7 @@ plot_ly() %>%
 ```
 :::
 
-## Sovitteen hyvyys ja ennustaminen
+## Sovitteen hyvyys ja ennustaminen {#sec:determination}
 
 Kuten yhden selittäjän lineaarisessa regressiossa myös moniulotteisessa lineaarisessa regressiossa mallin sovituksen hyvyyttä voidaan arvioida selitysasteen $R^2$ avulla. Moniulotteisen lineaarisen regression tapauksessa selitysaste määritellään
 \begin{equation*}
@@ -429,8 +429,33 @@ Esimerkiksi selittävien muuttujien arvoilla $(\texttt{mainostus}, \texttt{hinta
 
 Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, koska tällöin oletamme, että ilmiö käyttäytyy lineaarisesti myös havaintoaineiston ulkopuolella. Moninaisten ilmiöiden käyttäytyminen on kuitenkin lineaarista vain paikallisesti. Esimerkiksi startup yrityksen tuotot saattavat kasvaa alussa lineaarisesti markkinoinnin suhteen. Kuitenkin kun yrityksestä tulee tunnetumpi, niin markkinoinnin vaikutus pienenee.
 
-## Mallin ja regressiokertoimien merkitsevyys
+## Mallidiagnostiikka {#sec:diagnostic}
+
+Ennen lineaarisen regressiomallin sovittamista on tärkeä tarkastella, pätevätkö mallin oletukset. Jos oletukset eivät päde, niin sovitetusta mallista johdetut päätelmät voivat mennä pahasti pieleen. Tilastollisten mallien oletusten paikkaansapitävyyden analysoimista kutsutaan diagnostiikaksi (eng: *diagnostics*), jota voi suorittaa datan visuaalisen tarkastelun, tunnuslukujen tai tilastollisten testien avulla. Tässä luvussa käymme läpi diagnostiikan perusteita lineaariselle regressiomallille keskittyen visuaaliseen tarkasteluun ja tunnuslukuihin.
+
+Selkeyden vuoksi listaamme uudestaan luvun \@ref(sec:regdef) oletukset lineaariselle regressiomallille.
+
+1. Satunnaiset virhetermit $\varepsilon_i$ ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa eli $\boldsymbol\varepsilon = (\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n)^T\sim N(\boldsymbol 0, \sigma^2\boldsymbol I)$.
+
+2. Selittävät muuttujat $X_1, X_2, \ldots, X_d$ ovat korreloimattomia.
+
+Listan ensimmäisen oletuksen tarkistamiseen tärkeä suure on jäännös (eng: *residual*)
+\begin{equation*}
+  e_i = y_i - \hat y_i,
+\end{equation*}
+jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaisia sovitteita. Huomaa siis, että jäännökset lasketaan datan avulla ja virhetermit ovat tuntemattomia. Täten jäännös $e_i$ on estimaattori satunnaisviheelle $\varepsilon_i$ -- diagnostiikan näkökulmasta jäännökset ovat tärkeitä, koska ne antavat käsityksen satunnaisvirheiden käyttäytymisestä.
+
+Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määräämä hajontakuvio, jota kutsumme jäännöskuvioksi (eng: *residual plot*). Kuva plaa näyttää tyypillisiä esimerkkejä jäännöskuvioista, joiden tulkinnat selitämme alla:
+
+a) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan $\rightarrow$ Residuaalit ovat riippumattomia ja samoin jakautuneita. Vain residuaalien normaalijakautuneisuus tulee tarkistaa.
+
+b) Jäänöskuviossa näkyy selkeä deterministinen muoto $\rightarrow$ regressiomallin systemaattinen osa (kaavan \@ref(eq:reggen) funktio $f$) on valittu väärin ja satunnaisvirheet eivät ole riippumattomia. Lineaarisen regression tapauksessa tämä voi tarkoittaa esimerkiksi sitä, että selittäviä muuttujia on liian vähän.
+
+c) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puolin mutta pisteiden hajonta kasvaa luettaessa kuvaajaa vasemmalta oikealle (viuhkamainen muoto) $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus).
+
+
+
+## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 
 ## Luottamus- ja ennustevälit {#sec:interval}
 
-## Mallidiagnostiikka {#sec:diagnostic}
