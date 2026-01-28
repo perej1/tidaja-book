@@ -609,6 +609,30 @@ Vaikka yllä olevan mallin selitysaste olisikin korkea, niin malli on ongelmalli
 Eräs käytännön ongelma tämäntyyppisessä mallissa on selittäjiä vastaavien kulmakertoimien tulkittavuus "päällekkäisten efektien" vuoksi. Multikollineaarisuuteen liittyy myös muita teknisempiä ongelmia, joita avaamme tässä kappaleessa.
 :::
 
+Seuraavaksi kuvaamme multikollineaarisuutta tarkemmin. Selkeyden vuoksi käytetään vektorinotaatioita
+\begin{equation*}
+\boldsymbol y =
+\begin{pmatrix}
+  y_1 \\ y_2 \\ \vdots \\ y_n
+\end{pmatrix},\quad
+\boldsymbol x_j =
+\begin{pmatrix}
+  x_{1j} \\ x_{2j} \\ \vdots \\ x_{nj}
+\end{pmatrix},\quad\text{ja}\quad
+\boldsymbol\varepsilon =
+\begin{pmatrix}
+  \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n
+\end{pmatrix},
+\end{equation*}
+joiden avulla $d$ selittävän muuttujan lineaarinen regressiomalli voidaan esittää muodossa
+\begin{equation*}
+  \boldsymbol y = \beta_0 + \beta_1 \boldsymbol x_1 + \beta_2 \boldsymbol x_2 + \cdots + \beta_d \boldsymbol x_d + \boldsymbol\varepsilon.
+\end{equation*}
+Yllä olevassa lineaarisessa regressiomallissa esiintyy multikollineaarisuutta, jos ainakin yksi selittäjä $j$ voidaan selittää muiden $d-1$ selittäjien avulla
+\begin{equation*}
+  \boldsymbol x_j = \alpha_0 + \alpha_1 \boldsymbol x_1 + \alpha_2 \boldsymbol x_2 + \cdots + \alpha_{j-1} \boldsymbol x_{j-1} + \alpha_{j+1} \boldsymbol x_{j+1} + \cdots + \alpha_d \boldsymbol x_d + \boldsymbol v,
+\end{equation*}
+jossa $\boldsymbol v$ on yllä olevaa mallia vastaava virhetermi. Jos $\boldsymbol u = \boldsymbol 0$ selittävää muuttujaa $j$ vastaavalle mallille, niin $\boldsymbol x_j$ on lineaariyhdistelmä muista selittäjistä.
 
 ## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 
