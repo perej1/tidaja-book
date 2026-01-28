@@ -433,7 +433,7 @@ Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, kos
 
 (ref:residual) Neljä erilaista jäännöskuviota. Jäännöskuviossa a jäännökset ovat jakautuneet tasaisesti kuvaajaan. Jäännöskuvassa b näkyy poikeava havainto eli oudokki (punainen piste). Jäännöskuviossa c näkyy selkeästi erottuva deterministinen muoto. Jäännöskuvion b korkeus kasvaa luettaessa kuvaajaa vasemmalta oikealle.
 
-Ennen lineaarisen regressiomallin sovittamista on tärkeä tarkastella, pätevätkö mallin oletukset. Jos oletukset eivät päde, niin sovitetusta mallista johdetut päätelmät voivat mennä pahasti pieleen. Tilastollisten mallien oletusten paikkaansapitävyyden analysoimista kutsutaan diagnostiikaksi (eng: *diagnostics*), jota voi suorittaa datan visuaalisen tarkastelun, tunnuslukujen tai tilastollisten testien avulla. Tässä luvussa käymme läpi diagnostiikan perusteita lineaariselle regressiomallille keskittyen visuaaliseen tarkasteluun ja tunnuslukuihin.
+Ennen lineaarisen regressiomallin sovittamista on tärkeää tarkastella, pätevätkö mallin oletukset ja onko lineaarinen regressio ylipäätään sopiva ilmiön mallintamiseen. Jos oletukset eivät päde, niin sovitetusta mallista johdetut päätelmät voivat mennä pahasti pieleen. Tilastollisten mallien oletusten paikkaansapitävyyden analysoimista kutsutaan diagnostiikaksi (eng: *diagnostics*), jota voi suorittaa datan visuaalisen tarkastelun, tunnuslukujen tai tilastollisten testien avulla. Tässä luvussa käymme läpi diagnostiikan perusteita lineaariselle regressiomallille keskittyen visuaaliseen tarkasteluun ja tunnuslukuihin.
 
 Selkeyden vuoksi listaamme ne mallioletukset, joihin liittyvää diagnostiikkaa käymme tässä luvussa:
 
@@ -447,6 +447,8 @@ Listan ensimmäisen oletuksen tarkistamiseen tärkeä suure on jäännös (eng: 
 \end{equation*}
 jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaisia sovitteita. Huomaa siis, että jäännökset lasketaan datan avulla ja virhetermit ovat tuntemattomia. Täten jäännös $e_i$ on estimaattori satunnaisviheelle $\varepsilon_i$ -- diagnostiikan näkökulmasta jäännökset ovat tärkeitä, koska ne antavat käsityksen satunnaisvirheiden käyttäytymisestä.
 
+### Jäännöskuvio
+
 Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määräämä hajontakuvio, jota kutsumme jäännöskuvioksi (eng: *residual plot*). Kuva \@ref(fig:residual) näyttää tyypillisiä esimerkkejä jäännöskuvioista, joiden tulkinnat selitämme alla:
 
 a) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan.
@@ -457,9 +459,9 @@ b) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan lukuunottamatt
 
     $\rightarrow$ Poikkeavat havainnot voivat monimutkaistaa mallin parametrien estimaattien tulkintaa, koska lineaarinen regressio on erittäin herkkä poikkeavien havaintojen vaikutukselle -- jos poikkeava havainto poistettaisiin, niin estimaattien arvot muuttuisivat merkittävästi. **Huom: poikkeavia havaintoja ei saa poistaa vain, koska ne ovat "ikäviä".**
     
-    - *Ratkaisuehdotuksia*: Poikkeavan havainnon voi poistaa, jos sen tiedetään olevan mittausvirhe. Asiantuntijatiedon avulla voidaan myös saada selitys poikkeavalle havainnolle. Eräs ratkaisu voi olla käyttää jotain vakaata estimointimenetelmää kuten pienimmän itsepoikkeaman menetelmää PNS menetelmän sijasta. Pienimmän itsepoikkeaman menetelmässä minimoidaan summaa $\sum_i |y_i - \hat y_i|$. Tällöin poikkeavilla havainnoilla ei ole niin suuru vaikutus esimaattien suuruuteen.
+    - *Ratkaisuehdotuksia*: Poikkeavan havainnon voi poistaa, jos sen tiedetään olevan mittausvirhe. Asiantuntijatiedon avulla voidaan myös saada selitys poikkeavalle havainnolle. Eräs ratkaisu voi olla käyttää jotain vakaata estimointimenetelmää kuten pienimmän itsepoikkeaman menetelmää PNS menetelmän sijasta. Pienimmän itsepoikkeaman menetelmässä minimoidaan summaa $\sum_i |y_i - \hat y_i|$. Tällöin poikkeavilla havainnoilla ei ole niin suuri vaikutus esimaattien suuruuteen.
 
-c) Jäänöskuviossa näkyy selkeä deterministinen muoto.
+c) Jäännöskuviossa näkyy selkeä deterministinen muoto.
 
     $\rightarrow$ Regressiomallin systemaattinen osa (kaavan \@ref(eq:reggen) funktio $f$) on valittu väärin ja satunnaisvirheet eivät ole riippumattomia. Lineaarisen regression tapauksessa tämä voi tarkoittaa esimerkiksi sitä, että selittäviä muuttujia on liian vähän.
 
@@ -490,6 +492,30 @@ Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännös
 ::: {.example name="Jäännöskuvio"}
 TODO
 :::
+
+### Virhetermien normaalijakautuneisuus
+
+Jäännöskuvion avulla voidaan arvioida ovatko satunnaisvirheet $\varepsilon_i$ riippumattomia ja samoin jakautuneita. Normaalijakautuneisuuden tarkistamiseen tarvitsemme kuitenkin muita työkaluja. Esimerkiksi histogrammista on helppo nähdä, onko virhetermien jakauma symmetrinen. Toisaalta on olemassa muitakin symmetrisiä jakaumia kuin normaalijakaumia esimerkiksi $t$-jakauma, jolla on paksummat hännät kuin normalijakaumalla.
+
+Tarkemman käsityksen virhetermien jakautuneisuudesta voi saada kvantiili-kvantiilikuviolla (KK-kuvio) (eng: *quantile-quantile plot*, QQ plot). Ennen KK-kuvion esittelemistä kertaamme lyhyesti kvantiilin ja otoskvantiilin määritelmät normaalijakauman yhteydessä.
+
+Olkoon $X\sim N(\mu, \sigma^2)$ eli $X$ on normaalijakautunut odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Tällöin kyseisen normaalijakauman $p$-kvantiili on se luku $x$, jolle pätee $\mathbb{P}\left(X \leq x\right) = p$. Toisaalta jos $\{y_1, \ldots, y_n\}$  on kokoa $n$ oleva otos satunnaismuuttujasta $Y$, niin voimme laskea otosta vastaavan $p$-otoskvantiilin seuraavasti:
+
+1. Järjestä alkuperäisen otoksen $\{y_1, \ldots, y_n\}$ havainnot suuruusjärjestykseen pienimmästä suurimpaan. Pienintä arvoa merkkaamme $y_{(1)}$, toiseksi pienintä $y_{(2)}$ ja niin edelleen, joten $y_{(1)} \leq y_{(2)} \leq \cdots \leq y_{(n)}$.
+
+2. Nyt $p$-otoskvantiili voidaan määritellä olevan luku $y_{(\lfloor \ell\rceil)}$^[On muitakin tapoja antaa otoskvantiili ja R:n funktiossa `quantile()` voidaan määritellä, millä tavalla otoskvantiili lasketaan. Oletuksena laskutapa on monimutkaisempi kuin luentomonisteessa esitelty.], jossa $\ell$ on luku niin että $p = \ell/n$. Tässä $\lfloor \ell\rceil$ tarkoittaa reaaliluvun $\ell$ pyöristämistä lähimpään kokonaislukuun. Eli tarkastelemalla järjestettyä otosta, otoskvantiilin vasemmalla puolella on osuus $\approx p$  havainnoista ja oikealla puolella on $\approx 1-p$ osuus havainnoista.
+
+Jos satunnaismuuttujat $X$ ja $Y$ ovat samoin jakautuneita, niin silloin otoksesta $\{y_1, \ldots, y_n\}$ laskettujen otoskvantiilien tulisi olla lähellä satunnaismuuttujan $X$ teoreettisia kvantiileja. KK-kuvaajan ideana onkin piirtää hajontakuvio, jossa $y$-akselilla on jäännöksiä $e_i$ vastaavat otokskvantiilit ja $x$-akselilla on vastaavat normaalijakauman teoreettiset kvantiilit. Jos virhetermit $\varepsilon_i$ ovat normaalijakautuneita, niin hajontakuvion pisteiden pitäisi sijaita jotakuinkin kasvavalla suoralla. Seuraavassa esimerkissä näemme, miten KK-kuvaajaa tulkitaan käytännössä.
+
+::: {.example name="KK-kuvaaja"}
+TODO
+:::
+
+### Multikollineaarisuus
+
+
+
+
 
 ## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 

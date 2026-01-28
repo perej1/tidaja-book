@@ -100,8 +100,9 @@ exm:unlabeled-div-23
 exm:unlabeled-div-24
 fig:residual
 exm:unlabeled-div-25
+exm:unlabeled-div-26
 eq:euclidean
-exm:unlabeled-div-27
+exm:unlabeled-div-28
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -120,6 +121,9 @@ sec:regdef
 sec:fitting
 sec:determination
 sec:diagnostic
+jäännöskuvio
+virhetermien-normaalijakautuneisuus
+multikollineaarisuus
 sec:regtesting
 sec:interval
 liitteet
