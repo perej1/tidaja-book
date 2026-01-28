@@ -471,10 +471,10 @@ d) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puo
 
     $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus).
 
-    - *Ratkaisuehdotuksia*: Datalle voidaan yrittää tehdä varianssin vakioiva muunnos. Esimerkiksi joskus auttaa logaritmimuunnos selitettävälle muuttujalle ennen mallin sovittamista,
+    - *Ratkaisuehdotuksia*: Datalle voidaan yrittää tehdä varianssin vakioiva muunnos. Esimerkiksi joskus logaritmimuunnos selitettävälle muuttujalle auttaa  ennen mallin sovittamista,
     \begin{equation*}
       \ln y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots
-      + \beta_d x_{id} + \varepsilon_i
+      + \beta_d x_{id} + \varepsilon_i.
     \end{equation*}
     Tosin huomaa, että tällöin mallin tulkinta muuttuu oleellisesti, koska sovitteet ovat muotoa
     \begin{equation*}
@@ -487,7 +487,7 @@ d) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puo
 knitr::include_graphics("images/residual-plot.jpg")
 ```
 
-Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännöskuvio.
+Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännöskuvio. Esimerkin tarkoitus ei ole tehdä sen syvällisempiä tulkintoja jäännöskuviosta, vaan näyttää miten ne lasketaan R:llä.
 
 (ref:resplot) Havaintoaineistoon `sale` sovitettua regressiomallia vastaava jäännöskuvio.
 
@@ -523,7 +523,7 @@ Olkoon $X\sim N(\mu, \sigma^2)$ eli $X$ on normaalijakautunut odotusarvolla $\mu
 
 1. Järjestä alkuperäisen otoksen $\{y_1, \ldots, y_n\}$ havainnot suuruusjärjestykseen pienimmästä suurimpaan. Pienintä arvoa merkkaamme $y_{(1)}$, toiseksi pienintä $y_{(2)}$ ja niin edelleen, joten $y_{(1)} \leq y_{(2)} \leq \cdots \leq y_{(n)}$.
 
-2. Nyt $p$-otoskvantiili voidaan määritellä olevan luku $y_{(\lfloor \ell\rceil)}$^[On muitakin tapoja antaa otoskvantiili ja R:n funktiossa `quantile()` voidaan määritellä, millä tavalla otoskvantiili lasketaan. Oletuksena laskutapa on monimutkaisempi kuin luentomonisteessa esitelty.], jossa $\ell$ on luku niin että $p = \ell/n$. Tässä $\lfloor \ell\rceil$ tarkoittaa reaaliluvun $\ell$ pyöristämistä lähimpään kokonaislukuun. Eli tarkastelemalla järjestettyä otosta, otoskvantiilin vasemmalla puolella on osuus $\approx p$  havainnoista ja oikealla puolella on $\approx 1-p$ osuus havainnoista.
+2. Nyt $p$-otoskvantiili voidaan määritellä olevan luku $y_{(\lfloor \ell\rceil)}$^[On muitakin tapoja antaa otoskvantiili ja R:n funktiossa `quantile()` voidaan määritellä, millä tavalla otoskvantiili lasketaan. Funktion `quantile()` oletuslaskutapa on monimutkaisempi kuin luentomonisteessa esitelty.], jossa $\ell$ on luku niin että $p = \ell/n$. Tässä $\lfloor \ell\rceil$ tarkoittaa reaaliluvun $\ell$ pyöristämistä lähimpään kokonaislukuun. Eli tarkastelemalla järjestettyä otosta, otoskvantiilin vasemmalla puolella on osuus $\approx p$  havainnoista ja oikealla puolella on $\approx 1-p$ osuus havainnoista.
 
 Jos satunnaismuuttujat $X$ ja $Y$ ovat samoin jakautuneita, niin silloin otoksesta $\{y_1, \ldots, y_n\}$ laskettujen otoskvantiilien tulisi olla lähellä satunnaismuuttujan $X$ teoreettisia kvantiileja. KK-kuvioiden ideana onkin piirtää hajontakuvio, jossa $y$-akselilla on jäännöksiä $e_i$ vastaavat otoskvantiilit ja $x$-akselilla on vastaavat normaalijakauman teoreettiset kvantiilit. Jos virhetermit $\varepsilon_i$ ovat normaalijakautuneita, niin hajontakuvion pisteiden pitäisi sijaita jotakuinkin kasvavalla suoralla. Seuraavassa esimerkissä näemme, miten KK-kuvioita tulkitaan käytännössä.
 
@@ -584,8 +584,8 @@ qqline(sample_tdist)
 
 Multikollineaarisuus tarkoittaa ilmiötä, jossa ainakin osa selittäjistä korreloi keskenään. Valotetaan esimerkin kautta sitä, millaisessa mallissa voisi esiintyä multikollineaarisuutta.
 
-:::{.example}
-Vähittäismyyntiketju rakentaa linearisen regressiomallin mallintaakseen tietyn tuotteen kuukausittaista kysyntää (`kysynta`). Kysyntää mallinnetaan seuraavien muuttujien avulla:
+:::{.example name="Multikollineaarisuuden idea" #multicolidea}
+Vähittäismyyntiketju rakentaa lineaarisen regressiomallin mallintaakseen tietyn tuotteen kuukausittaista kysyntää (`kysynta`). Kysyntää mallinnetaan seuraavien muuttujien avulla:
 
 1. tuotteen hinta (`hinta`)
 
@@ -625,14 +625,77 @@ Seuraavaksi kuvaamme multikollineaarisuutta tarkemmin. Selkeyden vuoksi käytet�
 \end{pmatrix},
 \end{equation*}
 joiden avulla $d$ selittävän muuttujan lineaarinen regressiomalli voidaan esittää muodossa
-\begin{equation*}
+\begin{equation}
+  (\#eq:multicolmodel)
   \boldsymbol y = \beta_0 + \beta_1 \boldsymbol x_1 + \beta_2 \boldsymbol x_2 + \cdots + \beta_d \boldsymbol x_d + \boldsymbol\varepsilon.
-\end{equation*}
+\end{equation}
 Yllä olevassa lineaarisessa regressiomallissa esiintyy multikollineaarisuutta, jos ainakin yksi selittäjä $j$ voidaan selittää muiden $d-1$ selittäjien avulla
-\begin{equation*}
+\begin{equation}
+  (\#eq:multicol)
   \boldsymbol x_j = \alpha_0 + \alpha_1 \boldsymbol x_1 + \alpha_2 \boldsymbol x_2 + \cdots + \alpha_{j-1} \boldsymbol x_{j-1} + \alpha_{j+1} \boldsymbol x_{j+1} + \cdots + \alpha_d \boldsymbol x_d + \boldsymbol v,
+\end{equation}
+jossa $\boldsymbol v$ on yllä olevaa mallia vastaava virhetermi.
+
+Esimerkissä \@ref(exm:multicolidea) todettiin jo, että kertoimien $\boldsymbol\beta$ tulkinta on vaikeaa multikollineaarisuuden läsnäollessa. Muita multikollineaarisuudesta aiheutuvia ongelmia ovat esimerkiksi seuraavat:
+
+- Regressiokertoimien $\boldsymbol\beta$ estimaatit ovat epävakaita -- vain pienet muutokset datassa johtavat suuriin muutoksiin estimaateissa.
+
+- Regressiokertoimien estimaatteihin liittyy paljon epävarmuutta. Tarkemmin ottaen estimaattien $\hat\beta_0, \hat\beta_1, \ldots, \beta_d$ keskivirheet ovat suuria ja selittäjät voivat olla tilastollisesti merkityksettömiä vaikka selitysaste olisi korkea. Estimaatteihin liittyvää epävarmuutta käsitellään tarkemmin luvuissa \@ref(sec:regtesting) ja \@ref(sec:interval).
+
+Aivan äärimmäisessä multikollineaarisuuden tapauksessa lineaarisen regressiomallin kertoimia $\boldsymbol\beta$ ei voida edes estimoida pienimmän neliösumman (PNS) menetelmällä.
+
+:::{.remark name="Lineaariyhdistelmät ja PNS"}
+Selittäjän $\boldsymbol x_j$ sanotaan olevan lineaariyhdistelmä muista selittäjistä $\boldsymbol x_1, \boldsymbol x_2, \ldots, \boldsymbol x_{j-1}, \boldsymbol x_{j+1}, \ldots, \boldsymbol x_d$, jos
+\begin{equation*}
+  \boldsymbol x_j = \alpha_0 + \alpha_1 \boldsymbol x_1 + \alpha_2 \boldsymbol x_2 + \cdots + \alpha_{j-1} \boldsymbol x_{j-1} + \alpha_{j+1} \boldsymbol x_{j+1} + \cdots + \alpha_d \boldsymbol x_d
 \end{equation*}
-jossa $\boldsymbol v$ on yllä olevaa mallia vastaava virhetermi. Jos $\boldsymbol u = \boldsymbol 0$ selittävää muuttujaa $j$ vastaavalle mallille, niin $\boldsymbol x_j$ on lineaariyhdistelmä muista selittäjistä.
+eli yhtälö \@ref(eq:multicol) pätee niin, että $\boldsymbol v = \boldsymbol 0$. Jos edes yksi selittäjä on lineaariyhdistelmä muista selittäjistä, niin matriisi $\boldsymbol X^T\boldsymbol X$ ei ole kääntyvä eli käänteismatriisi $\left(\boldsymbol X^T\boldsymbol X\right)^{-1}$ ei ole olemassa. Tästä seuraa, että PNS estimaattori
+\begin{equation*}
+  \hat{\boldsymbol\beta} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y.
+\end{equation*}
+ei ole olemassa! Toisin sanoen lineaarisen regression kontekstissa PNS menetelmä ei toimi, jos joku selittäjä on lineaariyhdistelmä muista selittäjistä.
+:::
+
+Yllä mainittujen ongelmien vuoksi on tärkeää mitata multikollineaarisuuden voimakkuutta. Tätä varten on tunnusluku varianssin inflaatiokerroin (eng: *variance inflation factor*, (VIF)).
+
+::: {.definition name="Varianssin inflaatiokerroin"}
+Selittävää muuttujaa $\boldsymbol x_j$ vastaava varianssin inflaatiokerroin on
+\begin{equation*}
+  \mathrm{VIF}_j = \frac{1}{1 - R_j^2},
+\end{equation*}
+jossa $R_j$ on mallin \@ref(eq:multicol) selitysaste.
+:::
+
+Jokaista mallin selittäjää $j\in\{1, \ldots, d\}$ vastaa yksi $\mathrm{VIF}_j$. Varianssin inflaatiokertoimet tulkitaan seuraavasti. Jos muilla selittäjillä ei voida selittää muuttujaa $\boldsymbol x_j$, niin $R_j^2\approx 0$ ja $\mathrm{VIF}_j \approx 1$. Toisaalta jos $\boldsymbol x_j$ voidaan selittää muilla selittäjillä niin $R_j^2\approx 1$ ja $\mathrm{VIF}_j$ on todella suuri. Alla on muutamia nyrkkisääntöjä VIF:in arvoihin:
+
+- $1\leq \mathrm{VIF} < 5$
+
+    - lievä multikollineaarisuus, yleensä hyväksyttävä
+
+- $5\leq \mathrm{VIF} < 10$
+
+    - keskivaikea multikollineaarisuus, joskus ongelmallinen ja vaatii tarkkaa analyysiä
+
+- $\mathrm{VIF} \geq 10$
+
+    - vaikea multikollineaarisuus, yleensä ongelmallinen.
+
+Jos joku $\mathrm{VIF}_j$:n arvo on korkea, niin selittäjiä täytyy poistaa tai niiden vaikutusta täytyy vaimentaa esimerkiksi [harjanneregression](https://en.wikipedia.org/wiki/Ridge_regression) (eng: *ridge regression*) avulla. Tähän liittyen muuttujavalintaa (eng: *variable selection*) käydään lyhyesti kurssiviikolla 11.
+
+Alla on vielä esimerkki tunnuslukujen $\mathrm{VIF}_j$ laskemisesta. Esimerkin tarkoitus ei ole tehdä sen syvällisempiä tulkintoja varianssin inflaatiokertoimista, vaan näyttää miten ne lasketaan R:llä.
+
+::: {.example name="Varianssin inflaatiokertoimen laskeminen"}
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa sovitimme havaintoaineistoon lineaarisen mallin
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
+\end{equation*}
+Nyt haluamme laskea muuttujia `mainostus` ja `hinta` vastaavat varianssin inflaatiokertoimet. R paketissa `car` on funktio `vif`, jolla voidaan laskea kaikkia selittäjiä vastaavat varianssin inflaatiokertoimet. Ennen funktion `vif` käyttöä muista asentaa paketti `car` komennolla `install.packages("car")`. Muuttuja `sale_lm` sisältää sovitetun mallin, joten voimme laskea varianssin inflaatiokertoimet seuraavasti.
+```{r}
+sale_vif <- car::vif(sale_lm)
+sale_vif
+```
+Tässä tapauksessa molempia selittäjiä vastaavat VIF:it ovat pieniä.
+:::
 
 ## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 

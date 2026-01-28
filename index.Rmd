@@ -24,7 +24,7 @@ topics <- c(
   "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
   "Epäparametrisia testejä",
   "Logistinen regressio",
-  "Klusterointi", 
+  'Lineaariset mallit: "Above & Beyond"', 
   "Kertaus"
   )
 
