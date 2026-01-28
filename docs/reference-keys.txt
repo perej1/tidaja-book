@@ -104,8 +104,9 @@ fig:resplot
 exm:unlabeled-div-26
 fig:qqdensity
 fig:qqplots
+exm:unlabeled-div-27
 eq:euclidean
-exm:unlabeled-div-28
+exm:unlabeled-div-29
 fig:vec
 r-ohjelmointikielestä
 sec:inst

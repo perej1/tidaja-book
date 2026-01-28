@@ -512,6 +512,7 @@ abline(h = 0, lty = 2)
 ```
 :::
 
+
 ### Virhetermien normaalijakautuneisuus
 
 Jäännöskuvion avulla voidaan arvioida ovatko satunnaisvirheet $\varepsilon_i$ riippumattomia ja samoin jakautuneita. Normaalijakautuneisuuden tarkistamiseen tarvitsemme kuitenkin muita työkaluja. Esimerkiksi histogrammista on helppo nähdä, onko virhetermien jakauma symmetrinen. Toisaalta on olemassa muitakin symmetrisiä jakaumia kuin normaalijakaumia esimerkiksi $t$-jakauma, jolla on paksummat hännät kuin normaalijakaumalla.
@@ -581,8 +582,32 @@ qqline(sample_tdist)
 
 ### Multikollineaarisuus
 
+Multikollineaarisuus tarkoittaa ilmiötä, jossa ainakin osa selittäjistä korreloi keskenään. Valotetaan esimerkin kautta sitä, millaisessa mallissa voisi esiintyä multikollineaarisuutta.
 
+:::{.example}
+Vähittäismyyntiketju rakentaa linearisen regressiomallin mallintaakseen tietyn tuotteen kuukausittaista kysyntää (`kysynta`). Kysyntää mallinnetaan seuraavien muuttujien avulla:
 
+1. tuotteen hinta (`hinta`)
+
+2. mainoskulut (`mainos`)
+
+3. alennusprosentti (`alennus`)
+
+4. asiakkaiden lojaalisuus (`lojaliteetti`, skaala on $0$--$100$)
+
+Eli sovitamme lineaarista regressiomallia, joka on muotoa
+\begin{equation*}
+  \texttt{kysynta}_i = \beta_0 + \beta_1\texttt{hinta}_i + \beta_2\texttt{mainos}_i + \beta_3\texttt{alennus}_i + \beta_4\texttt{lojaliteetti}_i + \varepsilon_i.
+\end{equation*}
+
+Vaikka yllä olevan mallin selitysaste olisikin korkea, niin malli on ongelmallinen -- selittäjät ovat korreloituneita:
+
+- Hinta ja alennus riippuvat toisistaan. Kun hinta laskee, niin alennus nousee (negatiivinen korrelaatio).
+
+- Mainostus ja asiakkaiden lojaliteetti riippuvat toisistaan, sillä mainostus voi luoda uskollisen asiakaskunnan (positiivinen korrelaatio).
+
+Eräs käytännön ongelma tämäntyyppisessä mallissa on selittäjiä vastaavien kulmakertoimien tulkittavuus "päällekkäisten efektien" vuoksi. Multikollineaarisuuteen liittyy myös muita teknisempiä ongelmia, joita avaamme tässä kappaleessa.
+:::
 
 
 ## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
