@@ -101,6 +101,8 @@ exm:unlabeled-div-24
 fig:residual
 exm:unlabeled-div-25
 exm:unlabeled-div-26
+fig:qqdensity
+fig:qqplots
 eq:euclidean
 exm:unlabeled-div-28
 fig:vec

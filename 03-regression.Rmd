@@ -495,21 +495,70 @@ TODO
 
 ### Virhetermien normaalijakautuneisuus
 
-Jäännöskuvion avulla voidaan arvioida ovatko satunnaisvirheet $\varepsilon_i$ riippumattomia ja samoin jakautuneita. Normaalijakautuneisuuden tarkistamiseen tarvitsemme kuitenkin muita työkaluja. Esimerkiksi histogrammista on helppo nähdä, onko virhetermien jakauma symmetrinen. Toisaalta on olemassa muitakin symmetrisiä jakaumia kuin normaalijakaumia esimerkiksi $t$-jakauma, jolla on paksummat hännät kuin normalijakaumalla.
+Jäännöskuvion avulla voidaan arvioida ovatko satunnaisvirheet $\varepsilon_i$ riippumattomia ja samoin jakautuneita. Normaalijakautuneisuuden tarkistamiseen tarvitsemme kuitenkin muita työkaluja. Esimerkiksi histogrammista on helppo nähdä, onko virhetermien jakauma symmetrinen. Toisaalta on olemassa muitakin symmetrisiä jakaumia kuin normaalijakaumia esimerkiksi $t$-jakauma, jolla on paksummat hännät kuin normaalijakaumalla.
 
 Tarkemman käsityksen virhetermien jakautuneisuudesta voi saada kvantiili-kvantiilikuviolla (KK-kuvio) (eng: *quantile-quantile plot*, QQ plot). Ennen KK-kuvion esittelemistä kertaamme lyhyesti kvantiilin ja otoskvantiilin määritelmät normaalijakauman yhteydessä.
 
-Olkoon $X\sim N(\mu, \sigma^2)$ eli $X$ on normaalijakautunut odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Tällöin kyseisen normaalijakauman $p$-kvantiili on se luku $x$, jolle pätee $\mathbb{P}\left(X \leq x\right) = p$. Toisaalta jos $\{y_1, \ldots, y_n\}$  on kokoa $n$ oleva otos satunnaismuuttujasta $Y$, niin voimme laskea otosta vastaavan $p$-otoskvantiilin seuraavasti:
+Olkoon $X\sim N(\mu, \sigma^2)$ eli $X$ on normaalijakautunut odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Tällöin kyseisen normaalijakauman $p$-kvantiili on se luku $x$, jolle pätee $\mathbb{P}\left(X \leq x\right) = p$, $0 < p < 1$. Toisaalta jos $\{y_1, \ldots, y_n\}$  on kokoa $n$ oleva otos satunnaismuuttujasta $Y$, niin voimme laskea otosta vastaavan $p$-otoskvantiilin seuraavasti:
 
 1. Järjestä alkuperäisen otoksen $\{y_1, \ldots, y_n\}$ havainnot suuruusjärjestykseen pienimmästä suurimpaan. Pienintä arvoa merkkaamme $y_{(1)}$, toiseksi pienintä $y_{(2)}$ ja niin edelleen, joten $y_{(1)} \leq y_{(2)} \leq \cdots \leq y_{(n)}$.
 
 2. Nyt $p$-otoskvantiili voidaan määritellä olevan luku $y_{(\lfloor \ell\rceil)}$^[On muitakin tapoja antaa otoskvantiili ja R:n funktiossa `quantile()` voidaan määritellä, millä tavalla otoskvantiili lasketaan. Oletuksena laskutapa on monimutkaisempi kuin luentomonisteessa esitelty.], jossa $\ell$ on luku niin että $p = \ell/n$. Tässä $\lfloor \ell\rceil$ tarkoittaa reaaliluvun $\ell$ pyöristämistä lähimpään kokonaislukuun. Eli tarkastelemalla järjestettyä otosta, otoskvantiilin vasemmalla puolella on osuus $\approx p$  havainnoista ja oikealla puolella on $\approx 1-p$ osuus havainnoista.
 
-Jos satunnaismuuttujat $X$ ja $Y$ ovat samoin jakautuneita, niin silloin otoksesta $\{y_1, \ldots, y_n\}$ laskettujen otoskvantiilien tulisi olla lähellä satunnaismuuttujan $X$ teoreettisia kvantiileja. KK-kuvaajan ideana onkin piirtää hajontakuvio, jossa $y$-akselilla on jäännöksiä $e_i$ vastaavat otokskvantiilit ja $x$-akselilla on vastaavat normaalijakauman teoreettiset kvantiilit. Jos virhetermit $\varepsilon_i$ ovat normaalijakautuneita, niin hajontakuvion pisteiden pitäisi sijaita jotakuinkin kasvavalla suoralla. Seuraavassa esimerkissä näemme, miten KK-kuvaajaa tulkitaan käytännössä.
+Jos satunnaismuuttujat $X$ ja $Y$ ovat samoin jakautuneita, niin silloin otoksesta $\{y_1, \ldots, y_n\}$ laskettujen otoskvantiilien tulisi olla lähellä satunnaismuuttujan $X$ teoreettisia kvantiileja. KK-kuvioiden ideana onkin piirtää hajontakuvio, jossa $y$-akselilla on jäännöksiä $e_i$ vastaavat otoskvantiilit ja $x$-akselilla on vastaavat normaalijakauman teoreettiset kvantiilit. Jos virhetermit $\varepsilon_i$ ovat normaalijakautuneita, niin hajontakuvion pisteiden pitäisi sijaita jotakuinkin kasvavalla suoralla. Seuraavassa esimerkissä näemme, miten KK-kuvioita tulkitaan käytännössä.
 
-::: {.example name="KK-kuvaaja"}
-TODO
+(ref:qqdensity) Kolmen eri jakauman tiheysfunktiot. Jatkuva viiva vastaa tasajakaumaa, katkoviiva vastaa normaalijakaumaa ja pisteviiva vastaa erästä $t$-jakaumaa.
+
+(ref:qqplots) Otoksia vastaavat KK-kuviot. Vasen kuvaaja vastaa tasajakaumaa, keskimmäinen normaalijakaumaa ja oikea $t$-jakaumaa.
+
+::: {.example name="KK-kuvio"}
+```{r, echo=FALSE}
+set.seed(123)
+```
+
+Simuloimme otokset kolmesta eri jakaumasta: tasajakaumasta, normaalijakaumasta ja $t$-jakaumasta, jonka vapausasteparametri on asetettu ykköseen. Kuva \@ref(fig:qqdensity) näyttää jakaumien tiheysfunktiot. Kuvasta nähdään, että tasajakaumalla on lyhyet hännät, normaalijakaumalla on ohuet hännät ja $t$-jakaumalla on paksut hännät. Kaikki jakaumat ovat symmetrisiä.
+
+```{r, qqdensity, echo=FALSE, fig.cap="(ref:qqdensity)"}
+library(ggplot2)
+
+ggplot() +
+  xlim(-5, 5) +
+  stat_function(fun = dnorm, linetype = "longdash") +
+  stat_function(fun = dt, args = list(df = 1), linetype = "dotted") +
+  stat_function(fun = dunif, args = list(min = -3, max = 3)) +
+    xlab("x") +
+    ylab("f(x)")
+  
+```
+
+
+Simuloidaan otokset kuvan \@ref(fig:qqdensity) jakaumista. 
+```{r}
+n <- 100
+sample_uniform <- runif(n, min = -3, max = 3)
+sample_normal <- rnorm(n)
+sample_tdist <- rt(n, df = 1)
+```
+
+Jakaumia vastaavat KK-kuvio näkyvät kuvassa \@ref(fig:qqplots). Tasajakauman tapauksessa oikean hännän kvantiilit ovat liian pieniä verrattuna normaalijakauman kvantiileihin, joten pisteet vasemman KK-kuvion ylänurkassa jäävät suoran alapuolelle. Toisaalta tasajakauman pienet kvantiilit ovat liian suuria verrattuna normaalijakauman teoreettisiin kvantiileihin. Tämän vuoksi vasemman kuvan alanurkan pisteet jäävät suoran yläpuolelle. Samaan tyyliin $t$-jakauman tapauksessa voidaan perustella, että oikeanpuoleisen kuvan pisteet eivät asetu suoralle. Ainostaan kun otos ollaan simuloitu normaalijakaumasta, niin pisteet asettuvat likimain suoralle (keskimmäinen kuva).
+```{r qqplots, fig.show="hold", out.width="32%", fig.cap="(ref:qqplots)"}
+# For marginals of subplots
+par(mar = c(4, 4, .1, .1))
+
+xlab <- "Normaalijakauman teoreettiset kvantiilit"
+ylab <- "Otoskvantiilit"
+
+qqnorm(sample_uniform, main = "", xlab = xlab, ylab = ylab)
+qqline(sample_uniform)
+
+qqnorm(sample_normal, main = "", xlab = xlab, ylab = ylab)
+qqline(sample_normal)
+
+qqnorm(sample_tdist, main = "", xlab = xlab, ylab = ylab)
+qqline(sample_tdist)
+```
 :::
+
 
 ### Multikollineaarisuus
 
