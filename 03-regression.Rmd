@@ -489,8 +489,27 @@ knitr::include_graphics("images/residual-plot.jpg")
 
 Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännöskuvio.
 
+(ref:resplot) Havaintoaineistoon `sale` sovitettua regressiomallia vastaava jäännöskuvio.
+
 ::: {.example name="Jäännöskuvio"}
-TODO
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa sovitimme havaintoaineistoon lineaarisen mallin
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i
+\end{equation*}
+Haluamme piirtää sovitetta vastaavan jäännöskuvion. Tätä varten meidän täytyy saada käsiiimme sovitteet $\hat y_i$ ja jäännökset $e_i = y_i - \hat y_i$. Käyttämällä `names()` komentoa näemme, että sovitteen sisältävä muuttuja sisältää jäännökset (`residuals`) ja sovitteet (`fitted.values`). Alla tarkistamme tämän laskemalla jäännökset "manuaalisesti".
+```{r}
+names(sale_lm)
+
+sale_lm$residuals
+sale$profit - sale_lm$fitted.values
+```
+
+Voimme siis piirtää jäännöskuvion käyttämällä tuttua `plot()` funktiota. Kuvan \@ref(fig:resplot) mukaan näyttää siltä, että jäännökset ovat melko tasaisesti jakautuneita kuvaajan määrittämässä suorakulmiossa. Tosin tässä tapauksessa tulkintaa vaikeuttaa otoskoon pienuus.
+```{r resplot, fig.cap="(ref:resplot)"}
+plot(sale_lm$fitted.values, sale_lm$residuals, xlab = "sovite",
+     ylab = "jäännös", ylim = c(-5, 5))
+abline(h = 0, lty = 2)
+```
 :::
 
 ### Virhetermien normaalijakautuneisuus

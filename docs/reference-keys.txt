@@ -100,6 +100,7 @@ exm:unlabeled-div-23
 exm:unlabeled-div-24
 fig:residual
 exm:unlabeled-div-25
+fig:resplot
 exm:unlabeled-div-26
 fig:qqdensity
 fig:qqplots
