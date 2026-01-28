@@ -98,8 +98,10 @@ fig:3dreg
 fig:overfit
 exm:unlabeled-div-23
 exm:unlabeled-div-24
+fig:residual
+exm:unlabeled-div-25
 eq:euclidean
-exm:unlabeled-div-26
+exm:unlabeled-div-27
 fig:vec
 r-ohjelmointikielestä
 sec:inst

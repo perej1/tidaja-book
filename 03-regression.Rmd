@@ -163,7 +163,7 @@ Yllä olevan määritelmän oletuksia voidaan monissa tapauksissa lieventää. E
 
 2. Mille tahansa parille virhetermejä $\varepsilon_i$ ja $\varepsilon_j$ pätee $\mathrm{Cov}\left(\varepsilon_i, \varepsilon_j\right) = 0$, kun $i\neq j$.
 
-Toinen tärkeä oletus liittyy selittäviin muuttujiin $X_1, X_2, \ldots, X_d$. Yleensä nimittäin oletetaan, että selittävät muuttujat ovat korreloimattomia. Lyhyesti sanottuna, lineaarisesta regressiomallista tulee epävakaa, jos siihen sisällytetään korreloituneita selittäviä muuttujia. Tilastollisessa mallintamisessa onkin aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa \@ref(sec:diagnostic).
+Myös selittäviin muuttujiin $X_1, X_2, \ldots, X_d$ liittyy oletuksia. Esimerkiksi yleensä oletetaan, että selittävät muuttujat eivät ole täysin lineaarisesti riippuvia keskenään. Lyhyesti sanottuna, lineaarisesta regressiomallista tulee epävakaa, jos siihen sisällytetään korreloituneita selittäviä muuttujia. Tilastollisessa mallintamisessa onkin aina tärkeää miettiä ennen itse analyysiä, pätevätkö mallin oletukset. Tätä kutsutaan mallidiagnostiikaksi, jota käsitellään tarkemmin luvussa \@ref(sec:diagnostic).
 
 Lineaarisen regressiomallin määritelmä voidaan myös kirjoittaa hyödyntäen matriisinotaatiota. Ensin kerätään havainnot selitettävästä muuttujasta omaan vektoriinsa, havainnot selittävistä muuttujista omaan matriisiin (jossa 1. sarake on vain ykkösiä), parametrit $\beta_j$ omaan vektoriinsa ja virhetermit omaan vektoriinsa
 \begin{equation*}
@@ -431,13 +431,15 @@ Ennustuksien tekeminen sovitetun mallin ulkopuolelle on usein kyseenalaista, kos
 
 ## Mallidiagnostiikka {#sec:diagnostic}
 
+(ref:residual) Neljä erilaista jäännöskuviota. Jäännöskuviossa a jäännökset ovat jakautuneet tasaisesti kuvaajaan. Jäännöskuvassa b näkyy poikeava havainto eli oudokki (punainen piste). Jäännöskuviossa c näkyy selkeästi erottuva deterministinen muoto. Jäännöskuvion b korkeus kasvaa luettaessa kuvaajaa vasemmalta oikealle.
+
 Ennen lineaarisen regressiomallin sovittamista on tärkeä tarkastella, pätevätkö mallin oletukset. Jos oletukset eivät päde, niin sovitetusta mallista johdetut päätelmät voivat mennä pahasti pieleen. Tilastollisten mallien oletusten paikkaansapitävyyden analysoimista kutsutaan diagnostiikaksi (eng: *diagnostics*), jota voi suorittaa datan visuaalisen tarkastelun, tunnuslukujen tai tilastollisten testien avulla. Tässä luvussa käymme läpi diagnostiikan perusteita lineaariselle regressiomallille keskittyen visuaaliseen tarkasteluun ja tunnuslukuihin.
 
-Selkeyden vuoksi listaamme uudestaan luvun \@ref(sec:regdef) oletukset lineaariselle regressiomallille.
+Selkeyden vuoksi listaamme ne mallioletukset, joihin liittyvää diagnostiikkaa käymme tässä luvussa:
 
 1. Satunnaiset virhetermit $\varepsilon_i$ ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa eli $\boldsymbol\varepsilon = (\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_n)^T\sim N(\boldsymbol 0, \sigma^2\boldsymbol I)$.
 
-2. Selittävät muuttujat $X_1, X_2, \ldots, X_d$ ovat korreloimattomia.
+2. Selittävät muuttujat $X_1, X_2, \ldots, X_d$ eivät ole täysin lineaarisesti riippuvia toisistaan.
 
 Listan ensimmäisen oletuksen tarkistamiseen tärkeä suure on jäännös (eng: *residual*)
 \begin{equation*}
@@ -445,15 +447,49 @@ Listan ensimmäisen oletuksen tarkistamiseen tärkeä suure on jäännös (eng: 
 \end{equation*}
 jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaisia sovitteita. Huomaa siis, että jäännökset lasketaan datan avulla ja virhetermit ovat tuntemattomia. Täten jäännös $e_i$ on estimaattori satunnaisviheelle $\varepsilon_i$ -- diagnostiikan näkökulmasta jäännökset ovat tärkeitä, koska ne antavat käsityksen satunnaisvirheiden käyttäytymisestä.
 
-Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määräämä hajontakuvio, jota kutsumme jäännöskuvioksi (eng: *residual plot*). Kuva plaa näyttää tyypillisiä esimerkkejä jäännöskuvioista, joiden tulkinnat selitämme alla:
+Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määräämä hajontakuvio, jota kutsumme jäännöskuvioksi (eng: *residual plot*). Kuva \@ref(fig:residual) näyttää tyypillisiä esimerkkejä jäännöskuvioista, joiden tulkinnat selitämme alla:
 
-a) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan $\rightarrow$ Residuaalit ovat riippumattomia ja samoin jakautuneita. Vain residuaalien normaalijakautuneisuus tulee tarkistaa.
+a) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan.
+  
+    $\rightarrow$ Satunnaiset virhetermit ovat riippumattomia ja samoin jakautuneita. Vain residuaalien normaalijakautuneisuus tulee tarkistaa.
 
-b) Jäänöskuviossa näkyy selkeä deterministinen muoto $\rightarrow$ regressiomallin systemaattinen osa (kaavan \@ref(eq:reggen) funktio $f$) on valittu väärin ja satunnaisvirheet eivät ole riippumattomia. Lineaarisen regression tapauksessa tämä voi tarkoittaa esimerkiksi sitä, että selittäviä muuttujia on liian vähän.
+b) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan lukuunottamatta yhtä poikkeavaa havaintoa.
 
-c) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puolin mutta pisteiden hajonta kasvaa luettaessa kuvaajaa vasemmalta oikealle (viuhkamainen muoto) $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus).
+    $\rightarrow$ Poikkeavat havainnot voivat monimutkaistaa mallin parametrien estimaattien tulkintaa, koska lineaarinen regressio on erittäin herkkä poikkeavien havaintojen vaikutukselle -- jos poikkeava havainto poistettaisiin, niin estimaattien arvot muuttuisivat merkittävästi. **Huom: poikkeavia havaintoja ei saa poistaa vain, koska ne ovat "ikäviä".**
+    
+    - *Ratkaisuehdotuksia*: Poikkeavan havainnon voi poistaa, jos sen tiedetään olevan mittausvirhe. Asiantuntijatiedon avulla voidaan myös saada selitys poikkeavalle havainnolle. Eräs ratkaisu voi olla käyttää jotain vakaata estimointimenetelmää kuten pienimmän itsepoikkeaman menetelmää PNS menetelmän sijasta. Pienimmän itsepoikkeaman menetelmässä minimoidaan summaa $\sum_i |y_i - \hat y_i|$. Tällöin poikkeavilla havainnoilla ei ole niin suuru vaikutus esimaattien suuruuteen.
 
+c) Jäänöskuviossa näkyy selkeä deterministinen muoto.
 
+    $\rightarrow$ Regressiomallin systemaattinen osa (kaavan \@ref(eq:reggen) funktio $f$) on valittu väärin ja satunnaisvirheet eivät ole riippumattomia. Lineaarisen regression tapauksessa tämä voi tarkoittaa esimerkiksi sitä, että selittäviä muuttujia on liian vähän.
+
+    - *Ratkaisuehdotuksia*: Selittävät muuttujat voidaan valita eri tavalla. Selittäville muuttujille tai selitettävälle muuttujalle voidaan myös tehdä muunnos ennen lineaarisen mallin sovittamista.
+
+d) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puolin mutta pisteiden hajonta kasvaa luettaessa kuvaajaa vasemmalta oikealle (viuhkamainen muoto) .
+
+    $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus).
+
+    - *Ratkaisuehdotuksia*: Datalle voidaan yrittää tehdä varianssin vakioiva muunnos. Esimerkiksi joskus auttaa logaritmimuunnos selitettävälle muuttujalle ennen mallin sovittamista,
+    \begin{equation*}
+      \ln y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots
+      + \beta_d x_{id} + \varepsilon_i
+    \end{equation*}
+    Tosin huomaa, että tällöin mallin tulkinta muuttuu oleellisesti, koska sovitteet ovat muotoa
+    \begin{equation*}
+    \hat y_i = \exp\left(\hat\beta_0 + \hat\beta_1 x_{i1} + \hat\beta_2 x_{i2} + \cdots
+      + \hat\beta_d x_{id}\right).
+    \end{equation*}
+    Jos logaritmimuunnos ei vakioi varianssia, niin muitakin vaihtoehtoja on olemassa kuten [Box-Cox muunnos](https://en.wikipedia.org/wiki/Power_transform#Box%E2%80%93Cox_transformation). Muunnoksen lisäksi toinen vaihtoehto on sovittaa lineaarinen regressiomalli käyttäen jotain menetelmää, joka ottaa erivarianssisuuden huomioon. PNS menetelmän sijasta voidaan käyttää esimerkiksi [yleistettyä pienimmän neliösumman menetelmää](https://en.wikipedia.org/wiki/Generalized_least_squares).
+
+```{r residual, echo=FALSE, fig.cap="(ref:residual)"}
+knitr::include_graphics("images/residual-plot.jpg")
+```
+
+Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännöskuvio.
+
+::: {.example name="Jäännöskuvio"}
+TODO
+:::
 
 ## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 
