@@ -138,9 +138,6 @@ sec:regdef
 sec:fitting
 sec:determination
 sec:diagnostic
-jäännöskuvio
-virhetermien-normaalijakautuneisuus
-multikollineaarisuus
 sec:regtesting
 liitteet
 sec:vector

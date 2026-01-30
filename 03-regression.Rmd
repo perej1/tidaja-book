@@ -448,7 +448,7 @@ Listan ensimmäisen oletuksen tarkistamiseen tärkeä suure on jäännös (eng: 
 \end{equation*}
 jossa $\hat y_i$ ovat kaavan \@ref(eq:fit) mukaisia sovitteita. Huomaa siis, että jäännökset lasketaan datan avulla ja virhetermit ovat tuntemattomia. Täten jäännös $e_i$ on estimaattori satunnaisviheelle $\varepsilon_i$ -- diagnostiikan näkökulmasta jäännökset ovat tärkeitä, koska ne antavat käsityksen satunnaisvirheiden käyttäytymisestä.
 
-### Jäännöskuvio
+### Jäännöskuvio {-}
 
 Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määräämä hajontakuvio, jota kutsumme jäännöskuvioksi (eng: *residual plot*). Kuva \@ref(fig:residual) näyttää tyypillisiä esimerkkejä jäännöskuvioista, joiden tulkinnat selitämme alla:
 
@@ -495,7 +495,7 @@ Seuraavaksi näytämme esimerkin siitä, miten R:llä voidaan tuottaa jäännös
 ::: {.example name="Jäännöskuvio"}
 Jatketaan esimerkkiä \@ref(exm:fitreg), jossa sovitimme havaintoaineistoon lineaarisen mallin
 \begin{equation*}
-  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
 \end{equation*}
 Haluamme piirtää sovitetta vastaavan jäännöskuvion. Tätä varten meidän täytyy saada käsiiimme sovitteet $\hat y_i$ ja jäännökset $e_i = y_i - \hat y_i$. Käyttämällä `names()` komentoa näemme, että sovitteen sisältävä muuttuja sisältää jäännökset (`residuals`) ja sovitteet (`fitted.values`). Alla tarkistamme tämän laskemalla jäännökset "manuaalisesti".
 ```{r}
@@ -514,7 +514,7 @@ abline(h = 0, lty = 2)
 :::
 
 
-### Virhetermien normaalijakautuneisuus
+### Virhetermien normaalijakautuneisuus {-}
 
 Jäännöskuvion avulla voidaan arvioida ovatko satunnaisvirheet $\varepsilon_i$ riippumattomia ja samoin jakautuneita. Normaalijakautuneisuuden tarkistamiseen tarvitsemme kuitenkin muita työkaluja. Esimerkiksi histogrammista on helppo nähdä, onko virhetermien jakauma symmetrinen. Toisaalta on olemassa muitakin symmetrisiä jakaumia kuin normaalijakaumia esimerkiksi $t$-jakauma, jolla on paksummat hännät kuin normaalijakaumalla.
 
@@ -580,7 +580,7 @@ qqline(sample_tdist)
 :::
 
 
-### Multikollineaarisuus
+### Multikollineaarisuus {-}
 
 Multikollineaarisuus tarkoittaa ilmiötä, jossa ainakin osa selittäjistä korreloi keskenään. Valotetaan esimerkin kautta sitä, millaisessa mallissa voisi esiintyä multikollineaarisuutta.
 
