@@ -747,10 +747,10 @@ Tilanne on siis seuraava. Olemme sovittaneet satunnaisvektorin $(Y, X_1, \ldots,
 \end{equation*}
 jossa satunnaisvirheet $\varepsilon_1, \ldots, \varepsilon_n$ täyttävät määritelmän \@ref(def:whitenoise) ehdot. Haluamme selvittää, onko muuttuja $X_j$ tilastollisesti merkittävä ilmiön mallintamisen kannalta. Muodollisesti sanottuna haluamme suorittaa  tilastollisen testin, jonka nollahypoteesi $H_0$ ja vastahypoteesi $H_1$ ovat
 \begin{align*}
-  &H_0: \beta_j = 0\\
-  &H_1: \beta_j \neq 0.
+  &H_0: \beta_j = 0, \\
+  &H_1: \beta_j \neq 0, \quad j\in\{0, 1,  \ldots, d\}.
 \end{align*}
-Nollahypoteesi $H_0$ tarkoittaa, että muuttujalla $X_j$ ei ole juurikaan tekemistä mallinnettavan ilmiön kannalta. Tällöin tilastotieteilijöiden jargonilla voisimme sanoa, että *"selittäjä ei ole tilastollisesti merkitsevä"*. Vastaavasti vastahypoteesi $H_1$ tarkoittaa, että muuttuja $X_j$ on merkityksellinen mallinnettavan ilmiön kannalta eli *"selittäjä on tilastollisesti merkitsevä"*. 
+Nollahypoteesi $H_0$ tarkoittaa, että muuttujalla $X_j$ ei ole juurikaan tekemistä mallinnettavan ilmiön kannalta. Tällöin tilastotieteilijöiden jargonilla voisimme sanoa, että *"selittäjä ei ole tilastollisesti merkitsevä"*. Vastaavasti vastahypoteesi $H_1$ tarkoittaa, että muuttuja $X_j$ on merkityksellinen mallinnettavan ilmiön kannalta eli *"selittäjä on tilastollisesti merkitsevä"*. Huomaa myös, että vakiotermin $\beta_0$ merkitsevyyttä voidaan testata. 
 
 Määritellään testisuure
 \begin{equation*}
@@ -760,9 +760,9 @@ jossa $\hat\beta_j$ on estimoitu regressiokerroin ja $s^2_{\hat\beta_j}$ on kaav
 \begin{equation*}
   t\sim t(n-d-1),
 \end{equation*}
-jossa $n$ on otoskoko ja $d$ on selittäjien määrä. Tällöin $p$-arvo lasketaan kuten missä tahansa tilastollisessa testissä -- nollahypoteesi hylätään, jos testisuureen arvo on tarpeeksi poikkeava suhteessa siihen, mitä nollahypoteesin alla voisi olettaa. Havainnollistamme t-testin suorittamista esimerkin kautta.
+jossa $n$ on otoskoko ja $d$ on selittäjien määrä. Jakauman $t(\nu)$, $\nu\in\{1,2,\ldots\}$, [muoto](https://fi.wikipedia.org/wiki/Studentin_t-jakauma) on samantyyppinen kuin normaalijakauman mutta $t$-jakaumalla on paksummat hännät. Mitä suurempi $\nu$ sitä kevyemmät hännät $t$-jakaumalla on, ja sitä enemmän $t$-jakauma muistuttaa normaalijakaumaa. Tällöin $p$-arvo lasketaan kuten missä tahansa tilastollisessa testissä -- nollahypoteesi hylätään, jos testisuureen arvo on tarpeeksi poikkeava suhteessa siihen, mitä nollahypoteesin alla voisi olettaa. Havainnollistamme t-testin suorittamista esimerkin kautta.
 
-(ref:t-dist) Havainnekuva esimerkin $p$-arvon laskemisesta. Musta käyrä kuvaa $t$-jakauman tiheysfunktiota $f_t$  vapausasteilla 10. Vaikka $t$-jakauman muoto on samannäköinen kuin normaalijakauman, niin $t$-jakauman tiheysfunktiolla on paksummat hännät -- mitä vähemmän vapausasteita sitä paksummat hännät vastaavalla $t$-jakaumalla on. Esimerkin $p$-arvo saadaan laskettua kaavasta $\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t + \int_{4.2}^{\infty} f_t(x) \,\mathrm{d}t = 2\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t = 2F_t(-4.2)$.
+(ref:t-dist) Havainnekuva esimerkin $p$-arvon laskemisesta. Musta käyrä kuvaa $t$-jakauman tiheysfunktiota $f_t$  vapausasteilla 10. Esimerkin $p$-arvo saadaan laskettua kaavasta $\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t + \int_{4.2}^{\infty} f_t(x) \,\mathrm{d}t = 2\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t = 2F_t(-4.2)$. Keltainen pinta-ala kuvaa $p$-arvoa vastaavaa todennäköisyyttä.
 
 :::{.example name="t-testin suorittaminen käsin"}
 Sanotaan, että otoskoolla $n  = 13$ olemme sovittaneet lineaarisen regressiomallin
@@ -803,7 +803,66 @@ Esimerkiksi `Residual standard error` antaa $s^2 = 3.09$, jonka avulla ollaan la
 
 
 
-### Mallin merkitsevyys (F-testi)
+### Mallin merkitsevyys (F-testi) {-}
 
-### Luottamus- ja ennustevälit
+Luvussa \@ref(sec:determination) esitelty selitysaste $R^2$ kuvaa sitä, kuinka suuren osan sovitettu malli selittää datan vaihtelusta. Toisaalta F-testi kertoo, onko selitysaste $R^2$ tilastollisesti merkittävä eli yksittäisten parametrien sijasta F-testi keskittyy koko mallin merkitsevyyteen. Intuitiivisesti ajateltuna F-testi vastaa seuraavaan kysymykseen:
+
+- Onko millään mallin selittäjällä mitään tekemistä mallinnettavan ilmiön kanssa?
+
+F-testin nolla- ja vastahypoteesit ovat
+\begin{align*}
+  &H_0: \beta_1  = \beta_2 = \cdots = \beta_d = 0, \\
+  &H_1: \beta_j \neq 0 \quad\text{jollekin}\quad j\in\{1, \ldots, d\}.
+\end{align*}
+F-testissä vakioparametria $\beta_0$ ei oteta huomioon, koska kiinnostuksen kohteena on analysoida sitä, onko mikään selittäjä oleellinen mallinettavan ilmiön kannalta.
+
+Määritellään testisuure
+\begin{equation*}
+  F = \frac{n - d - 1}{d}\frac{R^2}{1 - R^2}
+  = \frac{\frac{\sum_{i = 1}^n\left(\hat y_i - \bar y\right)^2}{d}}{\frac{\sum_{i = 1}^n\left(\hat y_i - y_i\right)^2}{n - d - 1}}
+  = \frac{\frac{\sum_{i = 1}^n\left(\hat y_i - \bar y\right)^2}{d}}{s^2},
+\end{equation*}
+joka oleellisesti kuvaa suhdetta
+\begin{equation*}
+  \frac{\text{Regression selittämä vaihtelu}}{\text{Selittämättä jäänyt vaihtelu}}.
+\end{equation*}
+Jos selitetty vaihtelu on suuri suhteessa selittämättä jääneeseen vaihteluun, niin testisuureen arvo on suuri ja nollahypoteesi hylätään. Nollahypoteesin alla testisuureen jakauma tiedetään, ja se on $F$-jakauma vapausasteilla $d$ ja $n - d - 1$ eli
+\begin{equation*}
+  F\sim F(d, n - d - 1).
+\end{equation*}
+$F$-jakauma on yksihäntäinen ja vapausasteet vaikuttavat paljolti $F$ jakauman [muotoon](https://fi.wikipedia.org/wiki/F-jakauma).
+
+Alla olevassa esimerkissä suoritamme F-testin manuaalisesti ja vertaamme tulosta funktion `summary()` antamaan tulosteeseen.
+
+:::{.example name="F-testin suorittaminen"}
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa sovitimme havaintoaineistoon lineaarisen mallin
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
+\end{equation*}
+Haluamme testata mallin merkitsevyyttä. Voimme laskea testisuureen "manuaalisesti" R:llä
+```{r}
+d <- 2 # Number of explanatory variables
+n <- 10 #  Sample size
+# For convenience we save the summary object in a variable
+results <- summary(sale_lm)
+
+# Test statistic
+upper <- sum((sale_lm$fitted.values - mean(sale$profit))^2)
+lower <- d * results$sigma^2
+fstat <- upper / lower
+fstat
+
+# p-value
+1 - pf(fstat, d, n - d - 1)
+```
+
+Merkitsevyystasolla $\alpha = 0.05$ nollahypoteesi hylätään, koska p-arvo on likimain $3.6\cdot 10^{-5}$. Eli malli on merkitsevä. Mekaanisten laskujen tulokset voidaan tarkistaa `summary()` funktion antamasta tulosteesta. Tulosteen kohdasta `F-statistic` näemme testisuureen ja samalta riviltä näemme $p$-arvon (`p-value`).
+```{r}
+results
+```
+:::
+
+### Luottamus- ja ennustevälit {-}
+
+
 
