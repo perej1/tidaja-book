@@ -109,8 +109,13 @@ eq:multicolmodel
 eq:multicol
 def:unlabeled-div-28
 exm:unlabeled-div-29
-eq:euclidean
+eq:se
+exm:unlabeled-div-30
 exm:unlabeled-div-31
+fig:t-dist
+exm:unlabeled-div-32
+eq:euclidean
+exm:unlabeled-div-34
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -133,7 +138,8 @@ jäännöskuvio
 virhetermien-normaalijakautuneisuus
 multikollineaarisuus
 sec:regtesting
-sec:interval
+mallin-merkitsevyys-f-testi
+luottamus--ja-ennustevälit
 liitteet
 sec:vector
 sec:matrix

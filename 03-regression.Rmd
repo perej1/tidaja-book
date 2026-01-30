@@ -408,7 +408,7 @@ Sovitetun moniulotteisen lineaarisen regressiomallin avulla voi laskea ennustuks
 \begin{equation*}
   \tilde y_i = \hat\beta_0 + \sum_{j = 1}^d \hat\beta_j \tilde x_j.
 \end{equation*}
-Ennustuksiin liittyy epävarmuutta, joka kvantifioidaan tarkemmin luvussa \@ref(sec:interval). Tässä kohtaa tyydymme näyttämään, miten ennustuksia lasketaan R:llä.
+Ennustuksiin liittyy epävarmuutta, joka kvantifioidaan tarkemmin luvussa \@ref(sec:regtesting). Tässä kohtaa tyydymme näyttämään, miten ennustuksia lasketaan R:llä.
 
 ::: {.example name="Ennustusten laskeminen"}
 Jatketaan esimerkkiä \@ref(exm:fitreg), jossa saimme sovitteeksi
@@ -548,7 +548,6 @@ ggplot() +
   stat_function(fun = dunif, args = list(min = -3, max = 3)) +
     xlab("x") +
     ylab("f(x)")
-  
 ```
 
 
@@ -640,7 +639,7 @@ Esimerkissä \@ref(exm:multicolidea) todettiin jo, että kertoimien $\boldsymbol
 
 - Regressiokertoimien $\boldsymbol\beta$ estimaatit ovat epävakaita -- vain pienet muutokset datassa johtavat suuriin muutoksiin estimaateissa.
 
-- Regressiokertoimien estimaatteihin liittyy paljon epävarmuutta. Tarkemmin ottaen estimaattien $\hat\beta_0, \hat\beta_1, \ldots, \beta_d$ keskivirheet ovat suuria ja selittäjät voivat olla tilastollisesti merkityksettömiä vaikka selitysaste olisi korkea. Estimaatteihin liittyvää epävarmuutta käsitellään tarkemmin luvuissa \@ref(sec:regtesting) ja \@ref(sec:interval).
+- Regressiokertoimien estimaatteihin liittyy paljon epävarmuutta. Tarkemmin ottaen selittäjät voivat olla tilastollisesti merkityksettömiä vaikka selitysaste olisi korkea. Estimaatteihin liittyvää epävarmuutta käsitellään tarkemmin luvuissa \@ref(sec:regtesting).
 
 Aivan äärimmäisessä multikollineaarisuuden tapauksessa lineaarisen regressiomallin kertoimia $\boldsymbol\beta$ ei voida edes estimoida pienimmän neliösumman (PNS) menetelmällä.
 
@@ -697,7 +696,114 @@ sale_vif
 Tässä tapauksessa molempia selittäjiä vastaavat VIF:it ovat pieniä.
 :::
 
-## Mallin ja regressiokertoimien merkitsevyys {#sec:regtesting}
 
-## Luottamus- ja ennustevälit {#sec:interval}
+## Malliin liittyvät epävarmuudet {#sec:regtesting}
+
+Lineaarista regressiomallia sovittaessa parametrit estimoidaan datan avulla. Estimaatteihin $\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d$ liittyy väistämättä epävarmuutta -- ehkä tietyn estimaatin $\hat\beta_1$ arvo on suuri sattumalta tai sitten kyseessä on todellinen systemaattinen yhteys. Olemme kiinnostunuita muun muassa seuraavista ongelmista:
+
+- Jos estimoimme $\hat\beta_j = 0.000001$, niin voimmeko olla suhteellisen varmoja siitä, että itseasiassa $\beta_j \neq 0$?
+
+- Jos estimoimme $\hat\beta_j = 2$, niin kuinka paljon kyseiseen estimaattiin liittyy epävarmuutta? Ehkä vastaava parametri $\beta_j$ on jopa negatiivinen, ja vain sattumalta tietynlaisella datalla saimme positiivisen estimaatin.
+
+Tässä luvussa esittelemme tilastollisia menetelmiä, joiden avulla voimme analysoida lineaariseen regressiomalliin liittyviä epävarmuuksia. **Koko luvun ajan oletamme, että lineaarisen regressiomallin virhetermit täyttävät  määritelmän \@ref(def:whitenoise) oletukset. Tämän luvun menetelmät eivät ole luotettavia, jos yksikin määritelmän \@ref(def:whitenoise) oletuksista tiputetaan (esimerkiksi virhetermien normaalijakautuneisuus).**
+
+Ensimmäiseksi käsittelemme malliin liittyviä epävarmuuksia tilastollisen testaamisen kautta (kertaa tarvittaessa tilastollisen testaamisen perusteet kurssilta *Tilastotieteen perusteet*). Yksittäisten parametrien $\beta_j$ merkitsevyyttä testaamme t-testin avulla ja koko mallin merkitsevyyttä testaamme F-testin avulla^[Vaikka oppimisen kannalta on suotuisaa opiskella t-testi ennen F-testiä, niin käytännön analyyseissä F-testin tuloksia kannattaa tulkita ennen t-testin tuloksia]. Ennustuksiin liittyvää epävarmuutta mallinnamme luottamus- ja ennustevälien avulla.
+
+Ennen kuin menemme itse asiaan, niin esittelemme muutaman suureen, jotka tulevat olemaan tärkeitä tässä luvussa. Olemme jo antaneet pienimmän neliösumman estimaattorin kertoimille $\boldsymbol\beta$. Seuraavaksi annamme estimaattorin virhetermien varianssille $\sigma^2$. Tämä estimaattori saadaan jäännöksien $e_i$ kautta, sillä voimme estimoida varianssia $\sigma^2$ estimaattorilla^[Käytämme jakajana termiä $n-d-1$, joka tekee estimaattorista harhattoman eli $\mathbb{E}(s^2) = \sigma^2$]
+\begin{equation*}
+  s^2 = \frac{1}{n-d-1}\sum_{i=1}^n e_i^2,
+\end{equation*}
+kun regressiomallissa on $d$ selittävää muuttujaa ja otoskoko on $n$. Varianssin estimaattori $\sigma^2$ itsessään mittaa mallin sopivuutta. Esimerkiksi jos $s^2$ on pieni, niin ennustuksiin liittyy vähän epävarmuutta (tämä väite kvantifioidaan tarkemmin ennustevälien yhteydessä). Lisäksi estimoidun varianssin $s^2$ avulla saadaan estimoitua jokaista estimaattoria $\hat\beta_j$ vastaava varianssi $\mathrm{Var}\left(\hat\beta_j\right)$. Esimaattori varianssille $\mathrm{Var}\left(\hat\beta_j\right)$ saadaan kaavasta
+\begin{equation}
+  (\#eq:se)
+  s_{\hat\beta_j}^2 = \frac{s^2}{\sum_{i=1}^n\left(x_{ij} - \bar x_j\right)^2},
+\end{equation}
+jossa nimittäjä sisältää muuttujaa $j\in\{1, \ldots, d\}$ vastaavat neliöpoikkeamat keskiarvosta $\bar x_j = \sum_{i = 1}^n x_{ij}$.
+
+### Regressiokertoimien merkitsevyys (t-testi) {-}
+
+Motivoimme t-testin idean esimerkin kautta.
+
+:::{.example name="t-testin idea"}
+Yritys haluaa selittää miten markkinointibudjetti ja liikkeen sijainti vaikuttavat myyntiin (yksiköt tuhansia euroja). Sanotaan, että historialliseen aineistoon on sovitettu lineaarinen regressiomalli
+\begin{equation*}
+  \texttt{myynti}_i = \hat\beta_0 + \hat\beta_1\texttt{markkinointi}_i + \hat\beta_2\texttt{sijainti}_i,
+\end{equation*}
+jossa $\hat\beta_0 = 50$, $\hat\beta_1 = 8$ ja $\hat\beta_1 = -3$. Estimaatteja voimme tulkita tuttuu tapaan:
+
+- Jos markkinointiin käytetään $1000$ euroa lisää, niin keskimäärin myynti kasvaa $8000$ euroa.
+
+Mutta kuinka varmoja voimme olla estimaatin arvosta? Esimerkiksi, jos historiallisen datan perusteella ollaan määritetty $s_{\hat\beta_1} = \sqrt{s_{\hat\beta_1}^2} = 7$, niin parametrin $\beta_1$ todellinen arvo voi olla suurempi, pienempi tai käytännössä nolla. Tarvitsemme siis työkalun, joka kertoo
+
+- onko kertoimen vaikutus sattumaa
+
+- vai onko muuttujien `myynti` ja `markkinointi` välillä systemaattinen suhde?
+:::
+
+Tilanne on siis seuraava. Olemme sovittaneet satunnaisvektorin $(Y, X_1, \ldots, X_d)$   havaintoihin $\left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots, (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\}$ lineaarisen regressiomallin
+\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_d x_{id} + \varepsilon_i 
+  \quad i\in\{1, 2,\ldots, n\},
+\end{equation*}
+jossa satunnaisvirheet $\varepsilon_1, \ldots, \varepsilon_n$ täyttävät määritelmän \@ref(def:whitenoise) ehdot. Haluamme selvittää, onko muuttuja $X_j$ tilastollisesti merkittävä ilmiön mallintamisen kannalta. Muodollisesti sanottuna haluamme suorittaa  tilastollisen testin, jonka nollahypoteesi $H_0$ ja vastahypoteesi $H_1$ ovat
+\begin{align*}
+  &H_0: \beta_j = 0\\
+  &H_1: \beta_j \neq 0.
+\end{align*}
+Nollahypoteesi $H_0$ tarkoittaa, että muuttujalla $X_j$ ei ole juurikaan tekemistä mallinnettavan ilmiön kannalta. Tällöin tilastotieteilijöiden jargonilla voisimme sanoa, että *"selittäjä ei ole tilastollisesti merkitsevä"*. Vastaavasti vastahypoteesi $H_1$ tarkoittaa, että muuttuja $X_j$ on merkityksellinen mallinnettavan ilmiön kannalta eli *"selittäjä on tilastollisesti merkitsevä"*. 
+
+Määritellään testisuure
+\begin{equation*}
+  t = \frac{\hat\beta_j}{\sqrt{s^2_{\hat\beta_j}}},
+\end{equation*}
+jossa $\hat\beta_j$ on estimoitu regressiokerroin ja $s^2_{\hat\beta_j}$ on kaavan \@ref(eq:se) mukainen estimaattori varianssille $\mathrm{Var}\left(\hat\beta_j\right)$. Olettaessa nollahypoteesin olevan tosi tiedämme, että testisuure $t$ noudattaa $t$-jakaumaa vapausasteilla $n-d-1$ eli
+\begin{equation*}
+  t\sim t(n-d-1),
+\end{equation*}
+jossa $n$ on otoskoko ja $d$ on selittäjien määrä. Tällöin $p$-arvo lasketaan kuten missä tahansa tilastollisessa testissä -- nollahypoteesi hylätään, jos testisuureen arvo on tarpeeksi poikkeava suhteessa siihen, mitä nollahypoteesin alla voisi olettaa. Havainnollistamme t-testin suorittamista esimerkin kautta.
+
+(ref:t-dist) Havainnekuva esimerkin $p$-arvon laskemisesta. Musta käyrä kuvaa $t$-jakauman tiheysfunktiota $f_t$  vapausasteilla 10. Vaikka $t$-jakauman muoto on samannäköinen kuin normaalijakauman, niin $t$-jakauman tiheysfunktiolla on paksummat hännät -- mitä vähemmän vapausasteita sitä paksummat hännät vastaavalla $t$-jakaumalla on. Esimerkin $p$-arvo saadaan laskettua kaavasta $\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t + \int_{4.2}^{\infty} f_t(x) \,\mathrm{d}t = 2\int_{-\infty}^{-4.2} f_t(x) \,\mathrm{d}t = 2F_t(-4.2)$.
+
+:::{.example name="t-testin suorittaminen käsin"}
+Sanotaan, että otoskoolla $n  = 13$ olemme sovittaneet lineaarisen regressiomallin
+\begin{equation*}
+  \hat y_i = \hat\beta_0 + \hat\beta_1x_{i1} + \hat\beta_2x_{i2},
+  \quad i\in\{1,  2, \ldots, n\},
+\end{equation*}
+jossa $\hat\beta_0 = 3.5$, $\hat\beta_1 = 2.1$ ja $\hat\beta_1 = -1.5$. Lisäksi olemme laskeneet $s_{\beta_1} = 0.5$. Haluamme testata kertoimen $\beta_1$ merkitsevyyttä t-testin avulla. Asetamme merkitsevyystasoksi $\alpha = 0.05$. Jos $p$-arvo on pienempää kuin merkitsevyystaso, niin nollahypoteesi $\beta_1 = 0$ hylätään. Datan avulla saamme testisuureeksi $2.1 / 0.5 = 4.2$ ja testisuure noudattaa $t$-jakaumaa vapausasteilla $n - d - 1 = 13 - 2 - 1 = 10$ eli $t\sim t(10)$. Testisuureen jakauman tietäen ja $t$ jakauman symmetrisyyden perusteella saamme $p$-arvon lausekkeeksi
+\begin{equation*}
+  \mathbb{P}\left(|t|  \geq |4.2|\right) = \mathbb{P}\left(t \geq 4.2\right) + \mathbb{P}\left(t \leq -4.2\right) = 2\mathbb{P}\left(t \leq -4.2\right) = 2F_t(-4.2),
+\end{equation*}
+jossa $F_t$ on jakauman $t(10)$ kertymäfunktio. Todennäköisyys ollaan visualisoitu kuvassa \@ref(fig:t-dist). Tarkka arvo todennäköisyydellle saadaan R funktiolla `pt()`.
+```{r}
+2 * pt(-4.2, df = 10)
+```
+Koska $p$-arvo ($\approx 0.002$) on pienempi kuin merkitsevyystaso $\alpha = 0.05$, niin nollahypoteesi hylätään.
+
+
+```{r t-dist, echo=FALSE, fig.cap="(ref:t-dist)"}
+knitr::include_graphics("images/t-dist.jpg")
+```
+:::
+
+Tilastollisia testejä ei kuitenkaan tarvitse suorittaa manuaalisesti. R funktio `summary()` antaa virhetermien varianssin estimaatin $s^2$, estimaatit $s_{\hat\beta_j}^2$ ja kertoimia $\beta_j$ vastaavia t-testien $p$-arvot.
+
+:::{.example name="t-testin suorittaminen R:llä"}
+Jatketaan esimerkkiä \@ref(exm:fitreg), jossa sovitimme havaintoaineistoon lineaarisen mallin
+\begin{equation*}
+  \widehat{\texttt{voitto}}_i = `r round(sale_lm$coef[1], 3)` + `r round(sale_lm$coef[2], 3)`\cdot \texttt{mainostus}_i `r round(sale_lm$coef[3], 3)`\cdot \texttt{hinta}_i.
+\end{equation*}
+Seuraavalla komennolla näemme paljon hyödyllistä informaatiota liittyen mallin epävarmuuksiin.
+```{r}
+summary(sale_lm)
+```
+
+Esimerkiksi `Residual standard error` antaa $s^2 = 3.09$, jonka avulla ollaan laskettu $s_{\hat\beta_0}\approx 5.20$, $s_{\hat\beta_1}\approx 0.53$ ja $s_{\hat\beta_2}\approx 0.91$ (katso sarake `Std. Error`). Regressiokertoimia $\beta_0$, $\beta_1$ ja $\beta_2$ vastaavien merkitsevyystestien (t-testi) $p$-arvot ovat $\approx 0.30$, $\approx 0.093$ ja $\approx 0.00073$ (sarake `Pr(>|t|)`). Olkoon merkitsevyystaso $\alpha = 0.05$. Näemme siis, että molemmat selittäjät `advertisement` ja `price` ovat tilastollisesti merkittäviä. Toisaalta vakiotermiin $\beta_0$ liittyvää nollahypoteesia $\beta_0 = 0$ ei hylätä. Datan perusteella meillä ei siis ole tarpeeksi todisteita siitä, että vakiotermi olisi erisuuri kuin nolla. Tätä kuvaa myös vakiotermin estimaattiin liittyvä suuri hajonta $s_{\hat\beta_0}\approx 5.20$.
+:::
+
+
+
+### Mallin merkitsevyys (F-testi)
+
+### Luottamus- ja ennustevälit
 
