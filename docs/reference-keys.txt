@@ -110,6 +110,7 @@ eq:multicolmodel
 eq:multicol
 def:unlabeled-div-27
 exm:unlabeled-div-28
+eq:epsilonse
 eq:se
 exm:unlabeled-div-29
 exm:unlabeled-div-30

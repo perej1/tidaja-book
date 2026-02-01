@@ -454,7 +454,7 @@ Ensimmäinen tärkeä diagnostinen työkalu on parien $(\hat y_i,e_i)$ määrä�
 
 a) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan.
   
-    $\rightarrow$ Satunnaiset virhetermit ovat riippumattomia ja samoin jakautuneita. Vain residuaalien normaalijakautuneisuus tulee tarkistaa.
+    $\rightarrow$ Satunnaiset virhetermit ovat riippumattomia ja samoin jakautuneita. Vain virhetermien normaalijakautuneisuus tulee tarkistaa.
 
 b) Jäännöskuvion pisteet ovat jakautuneet tasaisesti kuvaajaan lukuunottamatta yhtä poikkeavaa havaintoa.
 
@@ -470,7 +470,7 @@ c) Jäännöskuviossa näkyy selkeä deterministinen muoto.
 
 d) Jäännöskuvion pisteet ovat jakautuneet tasaisesti $x$-akselin molemmin puolin mutta pisteiden hajonta kasvaa luettaessa kuvaajaa vasemmalta oikealle (viuhkamainen muoto) .
 
-    $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus).
+    $\rightarrow$ Tämä voi olla merkki satunnaisvirheiden erivarianssisuudesta (heteroskedastisuus). Erivarianssisuus tekee mallista epävakaan ja kaavan \@ref(eq:epsilonse) virhetermien yhteisen varianssin estimaattori $s^2$ ei ole enää merkityksellinen.
 
     - *Ratkaisuehdotuksia*: Datalle voidaan yrittää tehdä varianssin vakioiva muunnos. Esimerkiksi joskus logaritmimuunnos selitettävälle muuttujalle auttaa  ennen mallin sovittamista,
     \begin{equation*}
@@ -680,7 +680,7 @@ Jokaista mallin selittäjää $j\in\{1, \ldots, d\}$ vastaa yksi $\mathrm{VIF}_j
 
     - vaikea multikollineaarisuus, yleensä ongelmallinen.
 
-Jos joku $\mathrm{VIF}_j$:n arvo on korkea, niin selittäjiä täytyy poistaa tai niiden vaikutusta täytyy vaimentaa esimerkiksi [harjanneregression](https://en.wikipedia.org/wiki/Ridge_regression) (eng: *ridge regression*) avulla. Tähän liittyen muuttujavalintaa (eng: *variable selection*) käydään lyhyesti kurssiviikolla 11.
+Jos joku $\mathrm{VIF}_j$:n arvo on korkea, niin selittäjiä täytyy poistaa tai niiden vaikutusta täytyy vaimentaa esimerkiksi [harjanneregression](https://en.wikipedia.org/wiki/Ridge_regression) (eng: *ridge regression*) avulla. Harjanneregressiota käsitellään lyhyesti kurssiviikolla 11.
 
 Alla on vielä esimerkki tunnuslukujen $\mathrm{VIF}_j$ laskemisesta. Esimerkin tarkoitus ei ole tehdä sen syvällisempiä tulkintoja varianssin inflaatiokertoimista, vaan näyttää miten ne lasketaan R:llä.
 
@@ -702,7 +702,7 @@ Tässä tapauksessa molempia selittäjiä vastaavat VIF:it ovat pieniä.
 
 Lineaarista regressiomallia sovittaessa parametrit estimoidaan datan avulla. Estimaatteihin $\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d$ liittyy väistämättä epävarmuutta -- ehkä tietyn estimaatin $\hat\beta_1$ arvo on suuri sattumalta tai sitten kyseessä on todellinen systemaattinen yhteys. Olemme kiinnostunuita muun muassa seuraavista ongelmista:
 
-- Jos estimoimme $\hat\beta_j = 0.000001$, niin voimmeko olla suhteellisen varmoja siitä, että itseasiassa $\beta_j \neq 0$?
+- Jos estimoimme $\hat\beta_j = 0.000001$, niin kuinka varmoja voimme olla siitä, että $\beta_j \neq 0$?
 
 - Jos estimoimme $\hat\beta_j = 2$, niin kuinka paljon kyseiseen estimaattiin liittyy epävarmuutta? Ehkä vastaava parametri $\beta_j$ on jopa negatiivinen, ja vain sattumalta tietynlaisella datalla saimme positiivisen estimaatin.
 
@@ -711,10 +711,11 @@ Tässä luvussa esittelemme tilastollisia menetelmiä, joiden avulla voimme anal
 Ensimmäiseksi käsittelemme malliin liittyviä epävarmuuksia tilastollisen testaamisen kautta (kertaa tarvittaessa tilastollisen testaamisen perusteet kurssilta *Tilastotieteen perusteet*). Yksittäisten parametrien $\beta_j$ merkitsevyyttä testaamme t-testin avulla ja koko mallin merkitsevyyttä testaamme F-testin avulla^[Vaikka oppimisen kannalta on suotuisaa opiskella t-testi ennen F-testiä, niin käytännön analyyseissä F-testin tuloksia kannattaa tulkita ennen t-testin tuloksia.]. Ennustuksiin liittyvää epävarmuutta mallinnamme luottamusvälien avulla.
 
 Ennen kuin menemme itse asiaan, niin esittelemme muutaman suureen, jotka tulevat olemaan tärkeitä tässä luvussa. Olemme jo antaneet pienimmän neliösumman estimaattorin kertoimille $\boldsymbol\beta$. Seuraavaksi annamme estimaattorin virhetermien varianssille $\sigma^2$. Tämä estimaattori saadaan jäännöksien $e_i$ kautta, sillä voimme estimoida varianssia $\sigma^2$ estimaattorilla^[Käytämme jakajana termiä $n-d-1$, joka tekee estimaattorista harhattoman eli $\mathbb{E}(s^2) = \sigma^2$.]
-\begin{equation*}
+\begin{equation}
+  (\#eq:epsilonse)
   s^2 = \frac{1}{n-d-1}\sum_{i=1}^n e_i^2,
-\end{equation*}
-kun regressiomallissa on $d$ selittävää muuttujaa ja otoskoko on $n$. Varianssin estimaattori $\sigma^2$ itsessään mittaa mallin sopivuutta. Esimerkiksi jos $s^2$ on pieni, niin ennustuksiin liittyy vähän epävarmuutta (tämä väite kvantifioidaan tarkemmin odotetun ennustuksen luottamusvälin yhteydessä). Lisäksi estimoidun varianssin $s^2$ avulla saadaan estimoitua jokaista estimaattoria $\hat\beta_j$ vastaava varianssi $\mathrm{Var}\left(\hat\beta_j\right)$. Esimaattori varianssille $\mathrm{Var}\left(\hat\beta_j\right)$ saadaan kaavasta
+\end{equation}
+kun regressiomallissa on $d$ selittävää muuttujaa ja otoskoko on $n$. Varianssin estimaattori $\sigma^2$ itsessään mittaa mallin sopivuutta. Esimerkiksi jos $s^2$ on pieni, niin ennustuksiin liittyy vähän epävarmuutta (tämä väite kvantifioidaan tarkemmin odotetun ennustuksen luottamusvälin yhteydessä). Lisäksi estimoidun varianssin $s^2$ avulla saadaan estimoitua jokaista estimaattoria $\hat\beta_j$ vastaava varianssi $\mathrm{Var}\left(\hat\beta_j\right)$. Estimaattori varianssille $\mathrm{Var}\left(\hat\beta_j\right)$ saadaan kaavasta
 \begin{equation}
   (\#eq:se)
   s_{\hat\beta_j}^2 = \frac{s^2}{\sum_{i=1}^n\left(x_{ij} - \bar x_j\right)^2},
@@ -751,7 +752,7 @@ jossa satunnaisvirheet $\varepsilon_1, \ldots, \varepsilon_n$ täyttävät mää
   &H_0: \beta_j = 0, \\
   &H_1: \beta_j \neq 0, \quad j\in\{0, 1,  \ldots, d\}.
 \end{align*}
-Nollahypoteesi $H_0$ tarkoittaa, että muuttujalla $X_j$ ei ole juurikaan tekemistä mallinnettavan ilmiön kannalta. Tällöin tilastotieteilijöiden jargonilla voisimme sanoa, että *"selittäjä ei ole tilastollisesti merkitsevä"*. Vastaavasti vastahypoteesi $H_1$ tarkoittaa, että muuttuja $X_j$ on merkityksellinen mallinnettavan ilmiön kannalta eli *"selittäjä on tilastollisesti merkitsevä"*. Huomaa myös, että vakiotermin $\beta_0$ merkitsevyyttä voidaan testata. 
+Nollahypoteesi $H_0$ tarkoittaa, että muuttujalla $X_j$ ei ole juurikaan tekemistä mallinnettavan ilmiön kannalta. Tällöin tilastotieteilijöiden jargonilla voisimme sanoa, että *"selittäjä ei ole tilastollisesti merkitsevä"*. Vastaavasti vastahypoteesi $H_1$ tarkoittaa, että muuttuja $X_j$ on merkityksellinen mallinnettavan ilmiön kannalta eli *"selittäjä on tilastollisesti merkitsevä"*. Huomaa myös, että vakiotermin $\beta_0$ merkitsevyyttä voidaan testata.
 
 Määritellään testisuure
 \begin{equation*}
@@ -806,7 +807,7 @@ Esimerkiksi `Residual standard error` antaa $s^2 = 3.09$, jonka avulla ollaan la
 
 ### Mallin merkitsevyys (F-testi) {-}
 
-Luvussa \@ref(sec:determination) esitelty selitysaste $R^2$ kuvaa sitä, kuinka suuren osan sovitettu malli selittää datan vaihtelusta. Toisaalta F-testi kertoo, onko selitysaste $R^2$ tilastollisesti merkittävä eli yksittäisten parametrien sijasta F-testi keskittyy koko mallin merkitsevyyteen. Intuitiivisesti ajateltuna F-testi vastaa seuraavaan kysymykseen:
+Luvussa \@ref(sec:determination) esitelty selitysaste $R^2$ kuvaa sitä, kuinka suuren osan datan vaihtelusta sovitettu malli selittää. Toisaalta F-testi kertoo, onko selitysaste $R^2$ tilastollisesti merkittävä eli yksittäisten parametrien sijasta F-testi keskittyy koko mallin merkitsevyyteen. Intuitiivisesti ajateltuna F-testi vastaa seuraavaan kysymykseen:
 
 - Onko millään mallin selittäjällä mitään tekemistä mallinnettavan ilmiön kanssa? Jos edes yksi selittäjä on oleellinen mallinnettavan ilmiön kannalta, niin malli on tilastollisesti merkitsevä.
 
@@ -898,9 +899,8 @@ avulla laskimme ennustukset selittäjien arvoilla $(\texttt{mainostus}, \texttt{
 # Define data.frame corresponding the values of the explanatory variables
 newdata <- data.frame(advertisement = c(6, 8), price = c(3, 2.4))
 
-# Compute predictions
+# Compute predictions and corresponding confidence intervals
 preds <- predict(sale_lm, newdata, interval = "confidence", level = 0.95)
 preds
 ```
 :::
-
