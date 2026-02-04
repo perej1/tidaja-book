@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-04" />
+<meta name="date" content="2026-02-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -202,9 +202,9 @@ div.csl-indent {
 <li class="chapter" data-level="4" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html"><i class="fa fa-check"></i><b>4</b> Ryhmien odotusarvojen vertailu</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy"><i class="fa fa-check"></i><b>4.1</b> Luokkamuuttujat lineaarisessa regressiossa</a></li>
-<li class="chapter" data-level="4.2" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample"><i class="fa fa-check"></i><b>4.2</b> t-testi</a></li>
-<li class="chapter" data-level="4.3" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:anova"><i class="fa fa-check"></i><b>4.3</b> Yksisuuntainen varianssianalyysi</a></li>
-<li class="chapter" data-level="4.4" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple"><i class="fa fa-check"></i><b>4.4</b> Monivertailu</a></li>
+<li class="chapter" data-level="4.2" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample"><i class="fa fa-check"></i><b>4.2</b> Kahden ryhmän vertailu: t-testi</a></li>
+<li class="chapter" data-level="4.3" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:anova"><i class="fa fa-check"></i><b>4.3</b> Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi</a></li>
+<li class="chapter" data-level="4.4" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple"><i class="fa fa-check"></i><b>4.4</b> Monivertailuongelma</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>5</b> Liitteet</a>
 <ul>
@@ -233,7 +233,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="ryhmien-odotusarvojen-vertailu" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Luku 4</span> Ryhmien odotusarvojen vertailu<a href="ryhmien-odotusarvojen-vertailu.html#ryhmien-odotusarvojen-vertailu" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Kurssilla tilastotieteen perusteet käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> noudattaa normaalijakaumaa odotusarvolla <span class="math inline">\(\mu\)</span> ja varianssilla <span class="math inline">\(\sigma^2\)</span>. Odotusarvo <span class="math inline">\(\mu\)</span> ja varianssi <span class="math inline">\(\sigma^2\)</span> ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow X = \{X_1, \ldots, X_n\}\)</span> satunnaisotos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Merkitään satunnaisotosta <span class="math inline">\(\overrightarrow X\)</span> vastaavaa keskiarvoa ja otosvarianssia merkinnöillä <span class="math inline">\(\bar X = \frac{1}{n}\sum_{i = 1}^n X_i\)</span> ja <span class="math inline">\(S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2\)</span>.</p>
+<p>Kurssilla <em>Tilastotieteen perusteet</em> käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> noudattaa normaalijakaumaa odotusarvolla <span class="math inline">\(\mu\)</span> ja varianssilla <span class="math inline">\(\sigma^2\)</span>. Odotusarvo <span class="math inline">\(\mu\)</span> ja varianssi <span class="math inline">\(\sigma^2\)</span> ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow X = \{X_1, \ldots, X_n\}\)</span> satunnaisotos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Merkitään satunnaisotosta <span class="math inline">\(\overrightarrow X\)</span> vastaavaa keskiarvoa ja otosvarianssia merkinnöillä <span class="math inline">\(\bar X = \frac{1}{n}\sum_{i = 1}^n X_i\)</span> ja <span class="math inline">\(S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2\)</span>.</p>
 <p>Voimme testata jakauman odotusarvon suuruutta
 <span class="math display">\[\begin{align*}
   &amp;H_0: \mu = \mu_0, \\
@@ -273,20 +273,168 @@ jossa <span class="math inline">\(F_{n-1}\)</span> on jakauman <span class="math
 <pre><code>## [1] 0.0243672</code></pre>
 <p>Koska <span class="math inline">\(p\)</span>-arvo (<span class="math inline">\(\approx 0.024\)</span>) on suurempaa kuin asetettu merkitsevyystaso <span class="math inline">\(\alpha = 0.01\)</span>, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.</p>
 </div>
-<p>Tässä luvussa emme ole niinkään kiinnostuneita testaamaan, onko odotusarvon <span class="math inline">\(\mu\)</span> arvo jokin tietty <span class="math inline">\(\mu_0\)</span>. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.</p>
-<p>Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy">4.1</a> käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression avulla nimenomaan 0–1-arvoisten kategoristen muuttujien avulla. Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample">4.2</a> näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple">4.4</a> käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.</p>
+<p>Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon <span class="math inline">\(\mu\)</span> arvo jokin tietty <span class="math inline">\(\mu_0\)</span>. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.</p>
+<p>Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy">4.1</a> käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample">4.2</a> näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple">4.4</a> käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.</p>
 <p>Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan <a href="ryhmien-odotusarvojen-vertailu.html#eq:tmean">(4.1)</a> testisuure noudattaa <em>likimain</em> <span class="math inline">\(t\)</span>-jakaumaa vapausasteella <span class="math inline">\(n-1\)</span> suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi…</p>
 <div id="sec:dummy" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Luokkamuuttujat lineaarisessa regressiossa<a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tarkastellaan tilannetta, jossa haluamme selittää erään yrityksen työntekijöiden palkkaa (<code>salary</code>, yksikkönä tuhat euroa) muuttujilla työkokemus (<code>experience</code>, yksikkönä vuosi) ja työllisyystyyppi (<code>type</code>, kokoaikainen tai osa-aikainen). Muuttuja <code>experience</code> on intervalliasteikkoinen muuttuja. Eli voimme mitata eroja työkokemuksessa <span class="math inline">\(|\texttt{experience}_i - \texttt{experience}_j|\)</span> ja jokaista muuttujan <code>experience</code> arvoa vastaa yksikäsitteinen luku (esim. <span class="math inline">\(2\)</span> vuotta tai <span class="math inline">\(15.3\)</span> vuotta). Työllisyystyyppi on kuitenkin luokkamuuttuja (eng: <em>categorical variable</em>), ja luokkamuuttujan arvojen koodaus lukuarvoiksi voidaan tehdä monella tavalla. Voimme esimerkiksi määritellä
+<span class="math display">\[\begin{align*}
+  &amp;\text{kokoaikainen} = 1, \\
+  &amp;\text{osa-aikainen} = 0
+\end{align*}\]</span>
+tai
+<span class="math display">\[\begin{align*}
+  &amp;\text{kokoaikainen} = 1, \\
+  &amp;\text{osa-aikainen} = -1.
+\end{align*}\]</span></p>
+<p>Lineaarisessa regressiossa luokkamuuttuja halutaan ottaa tietyllä tavalla malliin mukaan. Tähän käytämme osoitinmuuttujia (eng: <em>dummy variable</em>, <em>indicator variable</em>), jotka ovat 0–1-arvoisia satunnaismuuttujia. Tässä tapauksessa luokkamuuttujalla <code>type</code> on vain kaksi luokkaa (kokoaikainen/osa-aikainen), joten meidän tarvitsee sisällyttää vain yksi osoitinmuuttuja lineaariseen malliin. Alla olevassa esimerkissä havainnollistamme yllä kuvaillun lineaarisen mallin rakennusta ja tulkitsemista.</p>
+<div class="example">
+<p><span id="exm:dummy1" class="example"><strong>Esimerkki 4.2  (Luokkamuuttujan tulkinta lineaarisessa regressiossa) </strong></span>Osoitinmuuttujan
+<span class="math display">\[\begin{equation*}
+  \texttt{type}_i =
+  \begin{cases}
+    0,&amp; \text{jos työntekijä $i$ on osa-aikainen}, \\
+    1,&amp; \text{jos työntekijä $i$ on kokoaikainen},
+  \end{cases}
+\end{equation*}\]</span>
+avulla määrittelemme lineaarisen regressiomallin,
+<span class="math display">\[\begin{equation*}
+  \texttt{salary}_i = \beta_0 + \beta_1\texttt{experience}_i + \beta_2\texttt{type}_i + \varepsilon_i.
+\end{equation*}\]</span>
+Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
+<span class="math display">\[\begin{equation*}
+  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\hat\beta_0 = 2\)</span>, <span class="math inline">\(\hat\beta_1 = 0.1\)</span> ja <span class="math inline">\(\hat\beta_2 = 1\)</span>. Toisaalta sijoittamalla osoitinmuuttujan arvot (<span class="math inline">\(0\)</span> tai <span class="math inline">\(1\)</span>) voimme kirjoittaa sovitteen muodossa
+<span class="math display">\[\begin{equation*}
+  \texttt{salary}_i =
+  \begin{cases}
+  \hat\beta_0 + \hat\beta_1\texttt{experience}_i,&amp; \text{jos työntekijä $i$ on osa-aikainen}, \\
+  (\hat\beta_0 + \hat\beta_2) + \hat\beta_1\texttt{experience}_i, &amp; \text{jos työntekijä $i$ on kokoaikainen}.
+  \end{cases}
+\end{equation*}\]</span>
+Tulkinta luokkamuuttujaa vastaavalle osoitinmuuttujalle on siis seuraava.</p>
+<ul>
+<li>Kokoaikainen työntekijä tienaa keskimäärin <span class="math inline">\(\hat\beta_2 = 1\)</span> (eli tuhat euroa) enemmän kuin saman kokemuksen omaava osa-aikainen työntekijä.</li>
+</ul>
+</div>
+<p>Lineaariseen regressiomalliin lisättävässä luokkamuuttujassa voi myös olla enemmän kuin kaksi luokkaa – kun luokkia on <span class="math inline">\(k\)</span> kappaletta, niin osoitinmuuttujia täytyy olla <span class="math inline">\(k - 1\)</span> kappaletta.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-35" class="example"><strong>Esimerkki 4.3  (Useampi luokka lineaarisessa regressiossa) </strong></span>Jatketaan esimerkkiä <a href="ryhmien-odotusarvojen-vertailu.html#exm:dummy1">4.2</a>. Työllisyystyypin <code>type</code> sijasta sisällytetään luokkamuuttuja, joka kuvaa työntekijän toimialaa (rahoitus, markkinointi tai kirjanpito). Tässä tapauksessa voimme sisällyttää kaksi osoitinmuuttujaa
+<span class="math display">\[\begin{equation*}
+  \texttt{r}_i =
+  \begin{cases}
+    1,&amp; \text{jos työntekijän $i$ toimiala on rahoitus}, \\
+    0,&amp; \text{jos työntekijä $i$ toimiala on joku muu},
+  \end{cases}
+\end{equation*}\]</span>
+ja
+<span class="math display">\[\begin{equation*}
+  \texttt{m}_i =
+  \begin{cases}
+    1,&amp; \text{jos työntekijän $i$ toimiala on markkinointi}, \\
+    0,&amp; \text{jos työntekijä $i$ toimiala on joku muu},
+  \end{cases}
+\end{equation*}\]</span>
+jolloin saamme lineaarisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  \texttt{salary}_i = \beta_0 + \beta_1\texttt{experience}_i + \beta_2\texttt{r}_i + \beta_3\texttt{m}_i + \varepsilon_i.
+\end{equation*}\]</span>
+Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
+<span class="math display" id="eq:accounting">\[\begin{equation}
+  \tag{4.2}
+  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i,
+\end{equation}\]</span>
+Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
+<ul>
+<li><p>Estimaatti <span class="math inline">\(\hat\beta_2\)</span> kuvaa sitä, kuinka paljon vähemmän/enemmän rahoituksessa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.</p></li>
+<li><p>Estimaatti <span class="math inline">\(\hat\beta_3\)</span> kuvaa sitä, kuinka paljon vähemmän/enemmän markkinoinnissa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.</p></li>
+</ul>
+<p>Huomaa, että olisimme voineet valita osoitinmuuttujat eri tavalla, joka muuttaisi estimaattien <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_2\)</span> ja <span class="math inline">\(\hat\beta_3\)</span> tulkitsemista. Nimittäin sovitteen <a href="ryhmien-odotusarvojen-vertailu.html#eq:accounting">(4.2)</a> vakiotermin estimaatti vastaa kirjanpidossa työskentelevän ihmisen keskimääräistä aloituspalkkaa. Toisaalta, jos valitsisimme osoitinmuuttujat vastaamaan luokkia kirjanpito ja markkinointi, niin vakiotermin estimaatti vastaisi rahoituksessa työskentelevän ihmisen keskimääräistä aloituspalkkaa.</p>
+</div>
+<p>Luokkamuuttujia voi siis sisällyttää melko vapaasti lineaariseen malliin. Huomioi kuitenkin, että luokkamuuttujaa vastaavien luokkien täytyy olla</p>
+<ol style="list-style-type: decimal">
+<li>toisensa posisulkevia ja</li>
+<li>jokaisen havainnon täytyy kuulua johonkin luokkaan.</li>
+</ol>
+<p>Toisin sanoen luokkamuuttujat täytyy olla muodostettu niin, että jokainen havainto kuuluu tasan yhteen luokkaan. Lisäksi harvinaiset luokat tekevät mallin estimaateista epävakaita. Joskus ennen mallin sovittamista luokkia täytyykin manuaalisesti muokata tai yhdistellä.</p>
+<p>Kun R ohjelmointikielellä sovitetaan lineaarista regressiomalli, joka sisältää luokkamuuttujia, niin vastaavia osoitinmuuttujia ei tarvitse tehdä itse manuaalisesti. Luokkamuuttujat täytyy vain antaa tietotyyppinä <code>factor</code>, joka on erityisesti luokkamuuttujille räätälöity tietotyyppi R:ssä.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-36" class="example"><strong>Esimerkki 4.4  (Luokkamuuttujat lineaarisessa regressiossa ja R) </strong></span>Käytetään R:ssä olevaa valmista havaintoaineistoa <code>mtcars</code>. Kyseinen aineisto sisältää mittauksia autojen eri ominaisuuksista kuten polttoaineen kulutuksesta <code>mpg</code> (mailit per gallona), auton painosta <code>wt</code> (tuhansissa nauloissa) ja sylintereiden määrästä <code>cyl</code>.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb132-1" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(mtcars)</span>
+<span id="cb132-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb132-2" tabindex="-1"></a>mtcars</span></code></pre></div>
+<pre><code>## # A tibble: 32 × 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # ℹ 22 more rows</code></pre>
+<p>Havaintoaineistossa sarakkeen <code>cyl</code> tietotyyppi on desimaaliluku, vaikka kyseinen muuttuja saa vain arvoja <span class="math inline">\(4\)</span>, <span class="math inline">\(6\)</span> ja <span class="math inline">\(8\)</span>. Eli <code>cyl</code> on luokkamuuttuja.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb134-1" tabindex="-1"></a><span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
+<pre><code>## [1] 6 4 8</code></pre>
+<p>Selitämme polttoaineen kulutusta painolla ja sylintereiden määrällä. Muuttamalla muuttujan <code>cyl</code> tietotyyppi funktiolla <code>factor()</code> ennen lineaarisen mallin sovitusta, R ymmärtää, että kyseessä on luokkamuuttuja.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb136-1" tabindex="-1"></a>cars_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb136-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb136-2" tabindex="-1"></a><span class="fu">summary</span>(cars_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + factor(cyl), data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   33.9908     1.8878  18.006  &lt; 2e-16 ***
+## wt            -3.2056     0.7539  -4.252 0.000213 ***
+## factor(cyl)6  -4.2556     1.3861  -3.070 0.004718 ** 
+## factor(cyl)8  -6.0709     1.6523  -3.674 0.000999 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.557 on 28 degrees of freedom
+## Multiple R-squared:  0.8374, Adjusted R-squared:   0.82 
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
+<p>Komennon <code>summary(cars_lm)</code> tulosteesta näemme, että sovitettu malli on muotoa
+<span class="math display">\[\begin{equation*}
+  \texttt{mpg}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
+\end{equation*}\]</span>
+jossa
+<span class="math display">\[\begin{equation*}
+  \texttt{c_six}_i =
+  \begin{cases}
+    1,&amp; \text{jos autossa on 6 sylinteriä}, \\
+    0,&amp; \text{muuten},
+  \end{cases}
+\end{equation*}\]</span>
+ja
+<span class="math display">\[\begin{equation*}
+  \texttt{c_eight}_i =
+  \begin{cases}
+    1,&amp; \text{jos autossa on 8 sylinteriä}, \\
+    0,&amp; \text{muuten}.
+  \end{cases}
+\end{equation*}\]</span></p>
+<p>Kun auton paino pidetään vakiona, niin sylintereiden määrän kasvaessa suhde <span class="math inline">\(\text{miles}/\text{gallona}\)</span> pienenee eli polttoaineen kulutus kasvaa.</p>
+</div>
 </div>
 <div id="sec:twosample" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> t-testi<a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.2</span> Kahden ryhmän vertailu: t-testi<a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="sec:anova" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.3</span> Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="sec:multiple" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Monivertailu<a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.4</span> Monivertailuongelma<a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

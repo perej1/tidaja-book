@@ -121,8 +121,12 @@ eq:predconfint
 exm:unlabeled-div-33
 eq:tmean
 exm:unlabeled-div-34
-eq:euclidean
+exm:dummy1
+exm:unlabeled-div-35
+eq:accounting
 exm:unlabeled-div-36
+eq:euclidean
+exm:unlabeled-div-38
 fig:vec
 r-ohjelmointikielestä
 sec:inst

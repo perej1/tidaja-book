@@ -1,6 +1,6 @@
 # Ryhmien odotusarvojen vertailu
 
-Kurssilla tilastotieteen perusteet käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
+Kurssilla *Tilastotieteen perusteet* käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
 
 Voimme testata jakauman odotusarvon suuruutta 
 \begin{align*}
@@ -48,19 +48,148 @@ p_value
 Koska $p$-arvo ($\approx 0.024$) on suurempaa kuin asetettu merkitsevyystaso $\alpha = 0.01$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.
 :::
 
-Tässä luvussa emme ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.
+Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.
 
-Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression avulla nimenomaan 0--1-arvoisten kategoristen muuttujien avulla. Luvussa \@ref(sec:twosample) näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa \@ref(sec:anova) yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa \@ref(sec:multiple) käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.
+Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Luvussa \@ref(sec:twosample) näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa \@ref(sec:anova) yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa \@ref(sec:multiple) käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.
 
 Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan \@ref(eq:tmean) testisuure noudattaa *likimain* $t$-jakaumaa vapausasteella $n-1$ suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi...
 
 ## Luokkamuuttujat lineaarisessa regressiossa {#sec:dummy}
 
+Tarkastellaan tilannetta, jossa haluamme selittää erään yrityksen työntekijöiden palkkaa (`salary`, yksikkönä tuhat euroa) muuttujilla työkokemus (`experience`, yksikkönä vuosi) ja työllisyystyyppi (`type`, kokoaikainen tai osa-aikainen). Muuttuja `experience` on intervalliasteikkoinen muuttuja. Eli voimme mitata eroja työkokemuksessa $|\texttt{experience}_i - \texttt{experience}_j|$ ja jokaista muuttujan `experience` arvoa vastaa yksikäsitteinen luku (esim.\ $2$ vuotta tai $15.3$ vuotta). Työllisyystyyppi on kuitenkin luokkamuuttuja (eng: *categorical variable*), ja luokkamuuttujan arvojen koodaus lukuarvoiksi voidaan tehdä monella tavalla. Voimme esimerkiksi määritellä
+\begin{align*}
+  &\text{kokoaikainen} = 1, \\
+  &\text{osa-aikainen} = 0
+\end{align*}
+tai
+\begin{align*}
+  &\text{kokoaikainen} = 1, \\
+  &\text{osa-aikainen} = -1.
+\end{align*}
 
+Lineaarisessa regressiossa luokkamuuttuja halutaan ottaa tietyllä tavalla malliin mukaan. Tähän käytämme osoitinmuuttujia (eng: *dummy variable*, *indicator variable*), jotka ovat 0--1-arvoisia satunnaismuuttujia. Tässä tapauksessa luokkamuuttujalla `type` on vain kaksi luokkaa (kokoaikainen/osa-aikainen), joten meidän tarvitsee sisällyttää vain yksi osoitinmuuttuja lineaariseen malliin. Alla olevassa esimerkissä havainnollistamme yllä kuvaillun lineaarisen mallin rakennusta ja tulkitsemista.
 
-## t-testi {#sec:twosample}
+:::{.example #dummy1 name="Luokkamuuttujan tulkinta lineaarisessa regressiossa"}
+Osoitinmuuttujan
+\begin{equation*}
+  \texttt{type}_i =
+  \begin{cases}
+    0,& \text{jos työntekijä $i$ on osa-aikainen}, \\
+    1,& \text{jos työntekijä $i$ on kokoaikainen},
+  \end{cases}
+\end{equation*}
+avulla määrittelemme lineaarisen regressiomallin,
+\begin{equation*}
+  \texttt{salary}_i = \beta_0 + \beta_1\texttt{experience}_i + \beta_2\texttt{type}_i + \varepsilon_i.
+\end{equation*}
+Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
+\begin{equation*}
+  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
+\end{equation*}
+jossa $\hat\beta_0 = 2$, $\hat\beta_1 = 0.1$ ja $\hat\beta_2 = 1$. Toisaalta sijoittamalla osoitinmuuttujan arvot ($0$ tai $1$) voimme kirjoittaa sovitteen muodossa
+\begin{equation*}
+  \texttt{salary}_i =
+  \begin{cases}
+  \hat\beta_0 + \hat\beta_1\texttt{experience}_i,& \text{jos työntekijä $i$ on osa-aikainen}, \\
+  (\hat\beta_0 + \hat\beta_2) + \hat\beta_1\texttt{experience}_i, & \text{jos työntekijä $i$ on kokoaikainen}.
+  \end{cases}
+\end{equation*}
+Tulkinta luokkamuuttujaa vastaavalle osoitinmuuttujalle on siis seuraava.
 
-## Yksisuuntainen varianssianalyysi {#sec:anova}
+- Kokoaikainen työntekijä tienaa keskimäärin $\hat\beta_2 = 1$ (eli tuhat euroa) enemmän kuin saman kokemuksen omaava osa-aikainen työntekijä.
+:::
 
-## Monivertailu {#sec:multiple}
+Lineaariseen regressiomalliin lisättävässä luokkamuuttujassa voi myös olla enemmän kuin kaksi luokkaa -- kun luokkia on $k$ kappaletta, niin osoitinmuuttujia täytyy olla $k - 1$ kappaletta.
+
+:::{.example name="Useampi luokka lineaarisessa regressiossa"}
+Jatketaan esimerkkiä \@ref(exm:dummy1). Työllisyystyypin `type` sijasta sisällytetään luokkamuuttuja, joka kuvaa työntekijän toimialaa (rahoitus, markkinointi tai kirjanpito). Tässä tapauksessa voimme sisällyttää kaksi osoitinmuuttujaa
+\begin{equation*}
+  \texttt{r}_i =
+  \begin{cases}
+    1,& \text{jos työntekijän $i$ toimiala on rahoitus}, \\
+    0,& \text{jos työntekijä $i$ toimiala on joku muu},
+  \end{cases}
+\end{equation*}
+ja
+\begin{equation*}
+  \texttt{m}_i =
+  \begin{cases}
+    1,& \text{jos työntekijän $i$ toimiala on markkinointi}, \\
+    0,& \text{jos työntekijä $i$ toimiala on joku muu},
+  \end{cases}
+\end{equation*}
+jolloin saamme lineaarisen regressiomallin
+\begin{equation*}
+  \texttt{salary}_i = \beta_0 + \beta_1\texttt{experience}_i + \beta_2\texttt{r}_i + \beta_3\texttt{m}_i + \varepsilon_i.
+\end{equation*}
+Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
+\begin{equation}
+  (\#eq:accounting)
+  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i,
+\end{equation}
+Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.
+
+- Estimaatti $\hat\beta_2$ kuvaa sitä, kuinka paljon vähemmän/enemmän rahoituksessa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.
+
+- Estimaatti $\hat\beta_3$ kuvaa sitä, kuinka paljon vähemmän/enemmän markkinoinnissa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.
+
+Huomaa, että olisimme voineet valita osoitinmuuttujat eri tavalla, joka muuttaisi estimaattien $\hat\beta_0$, $\hat\beta_2$ ja $\hat\beta_3$ tulkitsemista. Nimittäin sovitteen \@ref(eq:accounting) vakiotermin estimaatti vastaa kirjanpidossa työskentelevän ihmisen keskimääräistä aloituspalkkaa. Toisaalta, jos valitsisimme osoitinmuuttujat vastaamaan luokkia kirjanpito ja markkinointi, niin vakiotermin estimaatti vastaisi rahoituksessa työskentelevän ihmisen keskimääräistä aloituspalkkaa.
+:::
+
+Luokkamuuttujia voi siis sisällyttää melko vapaasti lineaariseen malliin. Huomioi kuitenkin, että luokkamuuttujaa vastaavien luokkien täytyy olla
+
+1. toisensa posisulkevia ja
+2. jokaisen havainnon täytyy kuulua johonkin luokkaan.
+
+Toisin sanoen luokkamuuttujat täytyy olla muodostettu niin, että jokainen havainto kuuluu tasan yhteen luokkaan. Lisäksi harvinaiset luokat tekevät mallin estimaateista epävakaita. Joskus ennen mallin sovittamista luokkia täytyykin manuaalisesti muokata tai yhdistellä.
+
+Kun R ohjelmointikielellä sovitetaan lineaarista regressiomalli, joka sisältää luokkamuuttujia, niin vastaavia osoitinmuuttujia ei tarvitse tehdä itse manuaalisesti. Luokkamuuttujat täytyy vain antaa tietotyyppinä `factor`, joka on erityisesti luokkamuuttujille räätälöity tietotyyppi R:ssä.
+
+:::{.example name="Luokkamuuttujat lineaarisessa regressiossa ja R"}
+Käytetään R:ssä olevaa valmista havaintoaineistoa `mtcars`. Kyseinen aineisto sisältää mittauksia autojen eri ominaisuuksista kuten polttoaineen kulutuksesta `mpg` (mailit per gallona), auton painosta `wt` (tuhansissa nauloissa) ja sylintereiden määrästä `cyl`.
+```{r}
+mtcars <- tibble::as_tibble(mtcars)
+mtcars
+```
+
+Havaintoaineistossa sarakkeen `cyl` tietotyyppi on desimaaliluku, vaikka kyseinen muuttuja saa vain arvoja $4$, $6$ ja $8$. Eli `cyl` on luokkamuuttuja.
+```{r}
+unique(mtcars$cyl)
+```
+
+Selitämme polttoaineen kulutusta painolla ja sylintereiden määrällä. Muuttamalla muuttujan `cyl` tietotyyppi funktiolla `factor()` ennen lineaarisen mallin sovitusta, R ymmärtää, että kyseessä on luokkamuuttuja.
+```{r}
+cars_lm <- lm(mpg ~ wt + factor(cyl), data = mtcars)
+summary(cars_lm)
+```
+
+Komennon `summary(cars_lm)` tulosteesta näemme, että sovitettu malli on muotoa
+\begin{equation*}
+  \texttt{mpg}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
+\end{equation*}
+jossa
+\begin{equation*}
+  \texttt{c_six}_i =
+  \begin{cases}
+    1,& \text{jos autossa on 6 sylinteriä}, \\
+    0,& \text{muuten},
+  \end{cases}
+\end{equation*}
+ja
+\begin{equation*}
+  \texttt{c_eight}_i =
+  \begin{cases}
+    1,& \text{jos autossa on 8 sylinteriä}, \\
+    0,& \text{muuten}.
+  \end{cases}
+\end{equation*}
+
+Kun auton paino pidetään vakiona, niin sylintereiden määrän kasvaessa suhde $\text{miles}/\text{gallona}$ pienenee eli polttoaineen kulutus kasvaa.
+:::
+
+## Kahden ryhmän vertailu: t-testi {#sec:twosample}
+
+## Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi {#sec:anova}
+
+## Monivertailuongelma {#sec:multiple}
 
