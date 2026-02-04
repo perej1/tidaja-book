@@ -119,8 +119,10 @@ exm:unlabeled-div-31
 exm:unlabeled-div-32
 eq:predconfint
 exm:unlabeled-div-33
+eq:tmean
+exm:unlabeled-div-34
 eq:euclidean
-exm:unlabeled-div-35
+exm:unlabeled-div-36
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -140,6 +142,11 @@ sec:fitting
 sec:determination
 sec:diagnostic
 sec:regtesting
+ryhmien-odotusarvojen-vertailu
+sec:dummy
+sec:twosample
+sec:anova
+sec:multiple
 liitteet
 sec:vector
 sec:matrix

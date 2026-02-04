@@ -1,0 +1,66 @@
+# Ryhmien odotusarvojen vertailu
+
+Kurssilla tilastotieteen perusteet käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
+
+Voimme testata jakauman odotusarvon suuruutta 
+\begin{align*}
+  &H_0: \mu = \mu_0, \\
+  &H_1: \mu \neq \mu_0
+\end{align*}
+(kaksisuuntaisella) t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa $t$-jakaumaa vapausasteella $n - 1$,
+\begin{equation}
+  (\#eq:tmean)
+  T = \frac{\bar X  - \mu_0}{S/\sqrt{n}}
+  \sim t(n-1).
+\end{equation}
+Jos havaitusta otoksesta laskettu testisuure $t$ on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin $H_0$. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta *Tilastotieteen perusteet*.
+
+:::{.example name="Kaksisuuntainen t-testi odotusarvolle"}
+Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat tuotantolinjalta $20$ suklaalevyn otoksen. Otoksesta laskettiin keskipaino $\bar x = 102.1\mathrm{g}$ ja otoskeskihajonta $s = 3.84\mathrm{g}$. 
+
+Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita. Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x = 102.1$) satunnaisvaihtelulla? Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.01$.
+
+R:llä voimme laskea testisuureen arvon $t$ havaitun $20$ suklaalevyn otoksen pohjalta.
+```{r}
+n <- 20
+mu_0 <- 100
+x_bar <- 102.1
+s <- 3.84
+
+t <- sqrt(n) * (x_bar - mu_0) / s
+t
+```
+
+Koska $t$-jakauma on symmetrinen ja tässä tapauksessa $t\approx 2.45 > 0$, niin $p$-arvon kaavaksi saadaan
+\begin{equation*}
+  \begin{split}
+  \mathbb{P}\left(|T|\geq |t|\right)
+  &= \mathbb{P}\left(|T|\geq t\right)
+  = 2\mathbb{P}\left(T\geq t\right) \\
+  &= 2\mathbb{P}\left(T\leq -t\right) = 2F_{n-1}(-t),
+  \end{split}
+\end{equation*}
+jossa $F_{n-1}$ on jakauman $t(n-1)$ kertymäfunktio. Nyt p-arvo voidaan laskea R:n avulla.
+```{r}
+p_value <- 2 * pt(-t, df = n - 1)
+p_value
+```
+Koska $p$-arvo ($\approx 0.024$) on suurempaa kuin asetettu merkitsevyystaso $\alpha = 0.01$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.
+:::
+
+Tässä luvussa emme ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.
+
+Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression avulla nimenomaan 0--1-arvoisten kategoristen muuttujien avulla. Luvussa \@ref(sec:twosample) näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa \@ref(sec:anova) yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa \@ref(sec:multiple) käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.
+
+Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan \@ref(eq:tmean) testisuure noudattaa *likimain* $t$-jakaumaa vapausasteella $n-1$ suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi...
+
+## Luokkamuuttujat lineaarisessa regressiossa {#sec:dummy}
+
+
+
+## t-testi {#sec:twosample}
+
+## Yksisuuntainen varianssianalyysi {#sec:anova}
+
+## Monivertailu {#sec:multiple}
+

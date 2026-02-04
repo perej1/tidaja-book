@@ -19,7 +19,7 @@ topics <- c(
   "Moniulotteiset jakaumat 2",
   "Moniulotteinen lineaarinen regressio 1",
   "Moniulotteinen lineaarinen regressio 2",
-  "ANOVA",
+  "Ryhmien odotusarvojen vertailu",
   "Uusiomenetelmä ja permutaatiotesti",
   "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
   "Epäparametrisia testejä",
@@ -28,7 +28,7 @@ topics <- c(
   "Kertaus"
   )
 
-location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", rep("TODO", 7))
+location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", "Luku 4", rep("TODO", 6))
 
 table <- tibble::tibble(Viikko = weeks, Aihe = topics, Luku = location)
 

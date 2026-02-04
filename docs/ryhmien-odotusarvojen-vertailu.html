@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Page not found | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="moniulotteinen-lineaarinen-regressio.html"/>
+<link rel="next" href="liitteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -231,19 +231,72 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="ryhmien-odotusarvojen-vertailu" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Luku 4</span> Ryhmien odotusarvojen vertailu<a href="ryhmien-odotusarvojen-vertailu.html#ryhmien-odotusarvojen-vertailu" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Kurssilla tilastotieteen perusteet käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> noudattaa normaalijakaumaa odotusarvolla <span class="math inline">\(\mu\)</span> ja varianssilla <span class="math inline">\(\sigma^2\)</span>. Odotusarvo <span class="math inline">\(\mu\)</span> ja varianssi <span class="math inline">\(\sigma^2\)</span> ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow X = \{X_1, \ldots, X_n\}\)</span> satunnaisotos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Merkitään satunnaisotosta <span class="math inline">\(\overrightarrow X\)</span> vastaavaa keskiarvoa ja otosvarianssia merkinnöillä <span class="math inline">\(\bar X = \frac{1}{n}\sum_{i = 1}^n X_i\)</span> ja <span class="math inline">\(S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2\)</span>.</p>
+<p>Voimme testata jakauman odotusarvon suuruutta
+<span class="math display">\[\begin{align*}
+  &amp;H_0: \mu = \mu_0, \\
+  &amp;H_1: \mu \neq \mu_0
+\end{align*}\]</span>
+(kaksisuuntaisella) t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa <span class="math inline">\(t\)</span>-jakaumaa vapausasteella <span class="math inline">\(n - 1\)</span>,
+<span class="math display" id="eq:tmean">\[\begin{equation}
+  \tag{4.1}
+  T = \frac{\bar X  - \mu_0}{S/\sqrt{n}}
+  \sim t(n-1).
+\end{equation}\]</span>
+Jos havaitusta otoksesta laskettu testisuure <span class="math inline">\(t\)</span> on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin <span class="math inline">\(H_0\)</span>. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta <em>Tilastotieteen perusteet</em>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-34" class="example"><strong>Esimerkki 4.1  (Kaksisuuntainen t-testi odotusarvolle) </strong></span>Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Otoksesta laskettiin keskipaino <span class="math inline">\(\bar x = 102.1\mathrm{g}\)</span> ja otoskeskihajonta <span class="math inline">\(s = 3.84\mathrm{g}\)</span>.</p>
+<p>Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita. Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite <span class="math inline">\(\mu = 100\)</span> vs havaittu <span class="math inline">\(\bar x = 102.1\)</span>) satunnaisvaihtelulla? Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.01\)</span>.</p>
+<p>R:llä voimme laskea testisuureen arvon <span class="math inline">\(t\)</span> havaitun <span class="math inline">\(20\)</span> suklaalevyn otoksen pohjalta.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb128-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-2" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb128-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-3" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fl">102.1</span></span>
+<span id="cb128-4"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-4" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fl">3.84</span></span>
+<span id="cb128-5"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-5" tabindex="-1"></a></span>
+<span id="cb128-6"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-6" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> s</span>
+<span id="cb128-7"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-7" tabindex="-1"></a>t</span></code></pre></div>
+<pre><code>## [1] 2.445699</code></pre>
+<p>Koska <span class="math inline">\(t\)</span>-jakauma on symmetrinen ja tässä tapauksessa <span class="math inline">\(t\approx 2.45 &gt; 0\)</span>, niin <span class="math inline">\(p\)</span>-arvon kaavaksi saadaan
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+  \mathbb{P}\left(|T|\geq |t|\right)
+  &amp;= \mathbb{P}\left(|T|\geq t\right)
+  = 2\mathbb{P}\left(T\geq t\right) \\
+  &amp;= 2\mathbb{P}\left(T\leq -t\right) = 2F_{n-1}(-t),
+  \end{split}
+\end{equation*}\]</span>
+jossa <span class="math inline">\(F_{n-1}\)</span> on jakauman <span class="math inline">\(t(n-1)\)</span> kertymäfunktio. Nyt p-arvo voidaan laskea R:n avulla.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb130-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span>t, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb130-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb130-2" tabindex="-1"></a>p_value</span></code></pre></div>
+<pre><code>## [1] 0.0243672</code></pre>
+<p>Koska <span class="math inline">\(p\)</span>-arvo (<span class="math inline">\(\approx 0.024\)</span>) on suurempaa kuin asetettu merkitsevyystaso <span class="math inline">\(\alpha = 0.01\)</span>, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.</p>
+</div>
+<p>Tässä luvussa emme ole niinkään kiinnostuneita testaamaan, onko odotusarvon <span class="math inline">\(\mu\)</span> arvo jokin tietty <span class="math inline">\(\mu_0\)</span>. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.</p>
+<p>Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy">4.1</a> käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression avulla nimenomaan 0–1-arvoisten kategoristen muuttujien avulla. Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample">4.2</a> näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple">4.4</a> käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.</p>
+<p>Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan <a href="ryhmien-odotusarvojen-vertailu.html#eq:tmean">(4.1)</a> testisuure noudattaa <em>likimain</em> <span class="math inline">\(t\)</span>-jakaumaa vapausasteella <span class="math inline">\(n-1\)</span> suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi…</p>
+<div id="sec:dummy" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Luokkamuuttujat lineaarisessa regressiossa<a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:twosample" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> t-testi<a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:anova" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:multiple" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Monivertailu<a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="moniulotteinen-lineaarinen-regressio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="liitteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
