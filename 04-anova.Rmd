@@ -1,4 +1,4 @@
-# Ryhmien odotusarvojen vertailu: ANOVA
+# Ryhmien odotusarvojen vertailu
 
 Kurssilla *Tilastotieteen perusteet* käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
 
@@ -16,20 +16,33 @@ Voimme testata jakauman odotusarvon suuruutta
 Jos havaitusta otoksesta laskettu testisuure $t$ on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin $H_0$. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta *Tilastotieteen perusteet*.
 
 :::{.example #onesample name="Yhden otoksen t-testi odotusarvolle"}
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
 set.seed(13)
-factory <- tibble::tibble(chocolate = rnorm(20, 100, 6))
+num_factory <- 1000
+n <-  20
+choco <- purrr::map(1:num_factory, ~rnorm(n, 100, 6))
+names(choco) <- stringr::str_c("factory", 1:num_factory)
+choco <- tibble::as_tibble(choco)
+choco <- choco  %>%
+  mutate(factory52 = rnorm(n, 90, 6))
+
+pval <- rep(NA, num_factory - 1)
+for (i in 2:num_factory) {
+  col <- choco[, i]
+  pval[i - 1] <- t.test(choco$factory1, col, var.equal = TRUE)$p.value
+}
 ```
 
-Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat tuotantolinjalta $20$ suklaalevyn otoksen. Otos näkyy alla taulukossa (`tibble`), jossa on vain yksi sarake.
+Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 1000 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta $20$ suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (`tibble`) ensimmäisessä sarakkeessa.
 ```{r} 
-factory
+choco[, 1]
 ```
 
-Voimme laskea otosta vastaavan keskipainon ja otoskeskihajonnan.
+Voimme laskea ensimmäisen tehtaan otosta vastaavan keskipainon ja otoskeskihajonnan.
 ```{r}
-x_bar <- mean(factory$chocolate)
-s <- sqrt(var(factory$chocolate))
+x_bar <- mean(choco$factory1)
+s <- sqrt(var(choco$factory1))
 x_bar
 s
 ```
@@ -39,9 +52,9 @@ Keskipainoksi saatiin $\bar x \approx 101.1\mathrm{g}$ ja otoskeskihajonnaksi $s
 
 Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita.
 
-- Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x \approx 101.1$) satunnaisvaihtelulla?
+- Onko ensimmäisen tehtaan tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x \approx 101.1$) satunnaisvaihtelulla?
 
-Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.05$. R:llä voimme laskea testisuureen arvon $t$ poimittujen $20$ suklaalevyn pohjalta.
+Analysoidaan kysymystä yhden otoksen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.05$. R:llä voimme laskea testisuureen arvon $t$ poimittujen $20$ suklaalevyn pohjalta.
 ```{r}
 n <- 20
 mu_0 <- 100
@@ -64,11 +77,11 @@ jossa $F_{n-1}$ on jakauman $t(n-1)$ kertymäfunktio. Nyt p-arvo voidaan laskea 
 p_value <- 2 * pt(-t, df = n - 1)
 p_value
 ```
-Koska $p$-arvo ($\approx 0.40$) on suurempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.
+Koska $p$-arvo ($\approx 0.40$) on suurempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että ensimmäisen tehtaan  tuotantolinjassa olisi jotain vikaa.
 
 Testiä ei tarvitse R:ssä suorittaa manuaalisesti. Sama tulos saadaan käyttämällä `t.test()` funktiota.
 ```{r}
-t.test(factory$chocolate, mu = 100)
+t.test(choco$factory1, mu = 100)
 ```
 :::
 
@@ -80,14 +93,14 @@ Hieman yllättäen ANOVA:n voi ymmärtää intuitiivisesti lineaarisen regressio
 Jatketaan lämmittelyesimerkkiä \@ref(exm:onesample). Määritellään lineaarinen regressiomalli
 \begin{equation}
   (\#eq:intercept)
-  \texttt{chocolate}_i - \mu_0 = \beta_0 + \varepsilon_i,
+  \texttt{factory1}_i - \mu_0 = \beta_0 + \varepsilon_i,
   \quad \varepsilon_i\sim N(0, \sigma^2),
 \end{equation}
 jossa $\mu_0 = 100$. Huomaa, että yllä olevassa mallissa on vain vakiotermi $\beta_0$ eikä yhtään selittäjää! Nollahypoteesin $\mu = \mu_0$ alla suklaalevyjen painot noudattavat normaalijakaumaa $N(\mu_0, \sigma^2)$. Toisin sanoen nollahypoteesin alla^[Huomaa: jos $X\sim N(\mu_1, \sigma^2)$ ja $Y = X + \mu_2$, niin $Y\sim N(\mu_1 + \mu_2,  \sigma^2)$.] mallissa \@ref(eq:intercept) asetetaan $\beta_0 = 0$. Tämän vuoksi yhden otoksen t-testi odotusarvolle palautuu mallin \@ref(eq:intercept) parametrin $\beta_0$ tilastollisen merkitsevyyden testaamiseen luvun \@ref(sec:regtesting) työkaluilla.
 
 Sovitetaan kaavan \@ref(eq:intercept) lineaarinen malli. Lineaarinen regressiomalli, jossa on ainoastaan vakiotermi saadaan käyttämällä syntaksia `y ~ 1` funktiossa `lm()`.
 ```{r}
-factory_lm <- lm(factory$chocolate - mu_0 ~ 1)
+factory_lm <- lm(choco$factory1 - mu_0 ~ 1)
 ```
 
 Komennon `summary(factory_lm)` tulosteesta voimme lukea vakiotermiä vastaavan merkitsevyystestin p-arvon.
@@ -232,7 +245,136 @@ ja
 Kun auton paino pidetään vakiona, niin sylintereiden määrän kasvaessa suhde $\text{miles}/\text{gallona}$ pienenee eli polttoaineen kulutus kasvaa.
 :::
 
-## Kahden ryhmän vertailu: t-testi {#sec:twosample}
+## Kahden otoksen t-testi {#sec:twosample}
+
+Olkoon $X_1$ ja $X_2$ satunnaismuuttujia, jotka noudattavat normaalijakaumaa samalla varianssilla $\sigma^2$ mutta mahdollisesti eri odotusarvoilla $\mu_1$ ja $\mu_2$. Toisin sanoen $X_1\sim N(\mu_1, \sigma^2)$ ja $X_2\sim N(\mu_2, \sigma^2)$, ja haluamme testata hypoteeseja
+\begin{align*}
+  &H_0: \mu_1 = \mu_2, \\
+  &H_1: \mu_1 \neq \mu_2.
+\end{align*}
+Olkoon $\overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}\}$ satunnaisotos satunnaismuuttujasta $X_1$ ja $\overrightarrow X_2 = \{X_{12}, \ldots, X_{n_22}\}$ satunnaisotos satunnaismuuttujasta $X_2$. Meidän tapauksessa oletamme satunnaisotoksista, että
+
+1. Otoskoot $n_1$ ja $n_2$ voivat olla erisuuria ja
+
+2. Yhdistetyn otoksen $\overrightarrow X_1  \cup \overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}, X_{12}, \ldots, X_{n_22}\}$ kaikki havainnot ovat riippumattomia.
+
+Tällöin kyse on kahden otoksen t-testistä, joka on oleellinen ensiaskel luvun \@ref(sec:anova) kannalta. Katso huomio \@ref(prp:twomeans) liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
+\begin{equation*}
+  \bar X_1 = \frac{1}{n_1}\sum_{i = 1}^{n_1} X_{i1} \quad\text{ja}\quad \bar X_2 = \frac{1}{n_2}\sum_{i = 1}^{n_2} X_{i2}.
+\end{equation*}
+Vastaavasti merkitään satunnaisotoksia vastaavia variansseja notaatioilla
+\begin{equation*}
+  S_1^2 = \frac{1}{n_1 - 1}\sum_{i = 1}^{n_1} \left(X_{i1} - \bar X_1\right)^2
+  \quad\text{ja}\quad
+  S_2^2 = \frac{1}{n_2 - 1}\sum_{i = 1}^{n_2} \left(X_{i2} - \bar X_2\right)^2.
+\end{equation*}
+Koska oletamme, että satunnaismuutujilla $X_1$ ja $X_2$ on sama varianssi, niin voimme laskea yhdistetyn (eng: *pooled*) estimaatin varianssille kaavalla
+\begin{equation*}
+  S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}.
+\end{equation*}
+Nyt antamiemme oletusten alla testisuure $T$ noudattaa $t$-jakaumaa $n_1 + n_2 - 2$ vapausasteella,
+\begin{equation}
+  (\#eq:twosamplestat)
+  T = \frac{\bar X_1 - \bar X_2}{S_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2).
+\end{equation}
+
+Alla on käytännön esimerkki siitä, miten kahden otoksen t-testi suoritetaan R:llä. Suoritamme testin manuaalisesti ja käyttäen R:n funktiota `t.test()`.
+
+:::{.example #twosample name="Kahden otoksen t-testi"}
+Esimerkissä \@ref(exm:onesample) totesimme jo, että ensimmäisessä tehtaassa laatukriteeri $\mu_1 = 100\mathrm{g}$ liittyen suklaalevyjen keskipainoon täyttyy tarvittavalla tarkkuudella. Nyt johto haluaa vastauksen seuraavaan kysymykseen.
+
+- Painolaatukriteerin suhteen, onko toinen tehdas yhtä luotettava kuin ensimmäinen?
+
+Analysoidaan kysymystä kahden otoksen t-testin avulla. Käytetään taas merkitsevyystasoa $\alpha = 0.05$.
+
+Alla näkyy ensimmäistä ja toista tehdasta vastaavat otokset suklaalevyistä.
+```{r}
+choco[,1:2]
+```
+
+Ensin laskemme keskiarvot $\bar X_i$ ja otosvarianssit $S_i^2$ tehtaille $j\in\{1,2\}$ sekä yhdistetyn estimaatin yhteiselle varianssille $S^2_p$.
+```{r}
+x_bar1 <- mean(choco$factory1)
+x_bar2 <- mean(choco$factory2)
+
+var1 <- var(choco$factory1)
+var2 <- var(choco$factory2)
+
+var_pooled <- (n - 1) * (var1 + var2) / (2 * n - 2)
+```
+
+Saamme testisuureeksi seuraavanlaisen arvon.
+```{r}
+t <- (x_bar1 - x_bar2) / (sqrt(var_pooled * 2/n))
+t
+```
+
+Nyt voimme laskea vastaavan p-arvon.
+```{r}
+2 * pt(-t,  df = 2 * n - 2)
+```
+
+Koska $p$-arvo ($\approx 0.090$) on suurempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin emme hylkää nollahypoteesiä $\mu_1 = \mu_2$. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että toisen tehtaan tuotantolinja olisi epäluotettavampi kuin ensimmäisen. Samaan  tulokseen päädytään käyttämällä funktiota `t.test()`.
+```{r}
+t.test(choco$factory1, choco$factory2, var.equal = TRUE, paired = FALSE)
+```
+:::
+
+Kuten yhden otoksen t-testi, niin myös kahden otoksen t-testi voidaan muotoilla lineaarisen regression avulla. Määritellään lineaarinen regressiomalli
+\begin{equation}
+  (\#eq:twosamplereg)
+  X_{ij} = \beta_0 + \beta_1 D_{ij} + \varepsilon_i, \quad \varepsilon_i\sim N(0,\sigma^2),
+\end{equation}
+jossa $D_{ij}$ on osoitinmuuttuja,
+\begin{equation*}
+  D_{ij} =
+  \begin{cases}
+    0,& \text{jos havainto  $X_{ij}$ kuuluu luokkaan $j = 1$}, \\
+    1,& \text{jos havainto  $X_{ij}$ kuuluu luokkaan $j = 2$}.
+  \end{cases}
+\end{equation*}
+Nollahypoteesin $\mu_1 = \mu_2$ alla kerroin $\beta_1$ ei ole tilastollisesti merkitsevä. Eli mallissa \@ref(eq:twosamplereg)
+
+- vakiotermi $\beta_0$ vastaa ensimmäisen ryhmän odotusarvoa $\mu_1$ ja
+
+- $\beta_1$ vastaa ryhmien odotusarvojen välistä erotusta $\mu_2 - \mu_1$. Nollahypoteesin alla $\beta_1 = \mu_2  - \mu_1 = 0$.
+
+:::{.example name="Kahden otoksen t-testi ja lineaarinen regressio"}
+Suoritetaan esimerkin \@ref(exm:twosample) analyysi lineaarisen regression kautta. Ensin dataan täytyy sisällyttää luokkamuuttuja, joka kertoo sen, kummasta tehtaasta suklaalevy tulee. Tätä tarkoitusta varten on useampikin mahdollinen R funktio. Tässä käytämme `tidyr` paketin funktiota `gather()`. Fuktion `gather()` syntaksin opettelu ei ole oleellista kurssin kannalta. On kuitenkin hyvä tietää funktion olemassaolosta, jos tulevaisuudessa joudut siivoamaan ja muokkaamaan dataa.
+```{r}
+library(tidyr)
+library(dplyr)
+choco12 <- choco %>%
+  select(factory1, factory2) %>%
+  gather("factory", "weight") %>%
+  mutate(factory = factor(factory))
+
+choco12
+```
+
+Nyt sovitamme kaavan \@ref(eq:twosamplereg) mukaisen lineaarisen regressiomallin. Huomaa, että yllä asetimme luokkamuuttujan tietotyypiksi `factor` jo valmiiksi. 
+```{r}
+factory12_lm <- lm(weight ~ factory, data = choco12)
+```
+Komennon `summary(factory12_lm)` tulosteesta voimme lukea kulmakerrointa $\beta_1$ vastaavan merkitsevyystestin p-arvon. Tulosteesta nähdään myös, että tässä tapauksessa R muodosti osoitinmuuttujan tyyliin
+\begin{equation*}
+  D_{ij} =
+  \begin{cases}
+    0,& \text{jos suklaalevy $X_{ij}$ tulee tehtaasta $1$}, \\
+    1,& \text{jos suklaalevy $X_{ij}$ tulee tehtaasta $2$}.
+  \end{cases}
+\end{equation*}
+```{r}
+summary(factory12_lm)
+```
+Huomataan, että p-arvo ($\approx 0.090$) on sama, joka saatiin esimerkissä \@ref(exm:onesample) (lue p-arvo riviltä `factoryfactory2`)!
+:::
+
+:::{.proposition #twomeans name="Kahden ryhmän odotusarvojen vertailusta"}
+Tämän luvun versiossa kahden otoksen t-testistä oletimme, että muuttujien $X_1$ ja $X_2$ varianssit ovat yhtä suuret. Näin ei tarvitse kuitenkaan olla ja kahden otoksen t-testin voi myös suorittaa olettaen, että varianssit ovat erisuuret. Tällöin tosin testisuure näyttää erilaiselta kuin kaavassa \@ref(eq:twosamplestat).
+
+Kahden otoksen t-testi ei ole soveltuva, jos havaintoparin sisällä $(X_{i1}, X_{i2})^T$ olevat havainnot ovat riippuvaisia toisistaan. Tapaukseen, jossa otoskoot ovat yhtäsuuret $n_1 = n_2$, havaintoparien sisällä on riippuvuutta mutta parit $(X_{11}, X_{12})^T, \ldots, (X_{n_11}, X_{n_12})^T$ ovat riippumattomia, sopii parittainen t-testi (eng: *paired t-test*). Parittaista t-testiä ei käydä läpi tässä luvussa.
+:::
 
 ## Yksisuuntainen varianssianalyysi {#sec:anova}
 

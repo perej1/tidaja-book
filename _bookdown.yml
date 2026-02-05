@@ -10,6 +10,7 @@ language:
     def: "Määritelmä "
     thm: "Fakta "
     exr: "Tehtävä "
+    prp: "Huomio "
   ui:
     chapter_name: "Luku "
 rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "03-regression.Rmd", "04-anova-Rmd", "appendix.Rmd", "references.Rmd"]

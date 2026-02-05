@@ -127,8 +127,13 @@ exm:dummy1
 exm:unlabeled-div-35
 eq:accounting
 exm:unlabeled-div-36
+eq:twosamplestat
+exm:twosample
+eq:twosamplereg
+exm:unlabeled-div-37
+prp:twomeans
 eq:euclidean
-exm:unlabeled-div-38
+exm:unlabeled-div-39
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -148,7 +153,7 @@ sec:fitting
 sec:determination
 sec:diagnostic
 sec:regtesting
-ryhmien-odotusarvojen-vertailu-anova
+ryhmien-odotusarvojen-vertailu
 sec:dummy
 sec:twosample
 sec:anova
