@@ -1,4 +1,4 @@
-# Ryhmien odotusarvojen vertailu
+# Ryhmien odotusarvojen vertailu: ANOVA
 
 Kurssilla *Tilastotieteen perusteet* käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
 
@@ -7,7 +7,7 @@ Voimme testata jakauman odotusarvon suuruutta
   &H_0: \mu = \mu_0, \\
   &H_1: \mu \neq \mu_0
 \end{align*}
-(kaksisuuntaisella) t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa $t$-jakaumaa vapausasteella $n - 1$,
+(kaksisuuntaisella) yhden otoksen t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa $t$-jakaumaa vapausasteella $n - 1$,
 \begin{equation}
   (\#eq:tmean)
   T = \frac{\bar X  - \mu_0}{S/\sqrt{n}}
@@ -15,23 +15,42 @@ Voimme testata jakauman odotusarvon suuruutta
 \end{equation}
 Jos havaitusta otoksesta laskettu testisuure $t$ on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin $H_0$. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta *Tilastotieteen perusteet*.
 
-:::{.example name="Kaksisuuntainen t-testi odotusarvolle"}
-Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat tuotantolinjalta $20$ suklaalevyn otoksen. Otoksesta laskettiin keskipaino $\bar x = 102.1\mathrm{g}$ ja otoskeskihajonta $s = 3.84\mathrm{g}$. 
+:::{.example #onesample name="Yhden otoksen t-testi odotusarvolle"}
+```{r, echo=FALSE}
+set.seed(13)
+factory <- tibble::tibble(chocolate = rnorm(20, 100, 6))
+```
 
-Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita. Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x = 102.1$) satunnaisvaihtelulla? Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.01$.
+Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat tuotantolinjalta $20$ suklaalevyn otoksen. Otos näkyy alla taulukossa (`tibble`), jossa on vain yksi sarake.
+```{r} 
+factory
+```
 
-R:llä voimme laskea testisuureen arvon $t$ havaitun $20$ suklaalevyn otoksen pohjalta.
+Voimme laskea otosta vastaavan keskipainon ja otoskeskihajonnan.
+```{r}
+x_bar <- mean(factory$chocolate)
+s <- sqrt(var(factory$chocolate))
+x_bar
+s
+```
+
+
+Keskipainoksi saatiin $\bar x \approx 101.1\mathrm{g}$ ja otoskeskihajonnaksi $s \approx 5.63\mathrm{g}$. 
+
+Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita.
+
+- Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x \approx 101.1$) satunnaisvaihtelulla?
+
+Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.05$. R:llä voimme laskea testisuureen arvon $t$ poimittujen $20$ suklaalevyn pohjalta.
 ```{r}
 n <- 20
 mu_0 <- 100
-x_bar <- 102.1
-s <- 3.84
 
 t <- sqrt(n) * (x_bar - mu_0) / s
 t
 ```
 
-Koska $t$-jakauma on symmetrinen ja tässä tapauksessa $t\approx 2.45 > 0$, niin $p$-arvon kaavaksi saadaan
+Koska $t$-jakauma on symmetrinen ja tässä tapauksessa $t\approx 0.86 > 0$, niin $p$-arvon kaavaksi saadaan
 \begin{equation*}
   \begin{split}
   \mathbb{P}\left(|T|\geq |t|\right)
@@ -45,12 +64,38 @@ jossa $F_{n-1}$ on jakauman $t(n-1)$ kertymäfunktio. Nyt p-arvo voidaan laskea 
 p_value <- 2 * pt(-t, df = n - 1)
 p_value
 ```
-Koska $p$-arvo ($\approx 0.024$) on suurempaa kuin asetettu merkitsevyystaso $\alpha = 0.01$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.
+Koska $p$-arvo ($\approx 0.40$) on suurempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.
+
+Testiä ei tarvitse R:ssä suorittaa manuaalisesti. Sama tulos saadaan käyttämällä `t.test()` funktiota.
+```{r}
+t.test(factory$chocolate, mu = 100)
+```
 :::
 
-Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.
+Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$, vaan tavoiteenamme on vertailla useampaa ryhmää keskenään. Tämä osio huipentuukin luvussa \@ref(sec:anova) esiteltävään yksisuuntaiseen varianssianalyysin (eng: *one-way analysis of variance*, ANOVA), joka on tilastollinen testi useamman ryhmän odotusarvon vertailuun. Ennen ANOVA:a, luvussa \@ref(sec:twosample) käymme läpi kahden ryhmän odotusarvojen vertailua kahden otoksen t-testillä.
 
-Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Luvussa \@ref(sec:twosample) näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa \@ref(sec:anova) yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa \@ref(sec:multiple) käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.
+Hieman yllättäen ANOVA:n voi ymmärtää intuitiivisesti lineaarisen regression kautta. Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Myös yhden otoksen t-testi voidaan muotoilla lineaarisen regression kautta, vaikka tämä ei välttämättä ole kovin hyödyllistä.
+
+:::{.example name="Yhden otoksen t-testi ja lineaarinen regressio"}
+Jatketaan lämmittelyesimerkkiä \@ref(exm:onesample). Määritellään lineaarinen regressiomalli
+\begin{equation}
+  (\#eq:intercept)
+  \texttt{chocolate}_i - \mu_0 = \beta_0 + \varepsilon_i,
+  \quad \varepsilon_i\sim N(0, \sigma^2),
+\end{equation}
+jossa $\mu_0 = 100$. Huomaa, että yllä olevassa mallissa on vain vakiotermi $\beta_0$ eikä yhtään selittäjää! Nollahypoteesin $\mu = \mu_0$ alla suklaalevyjen painot noudattavat normaalijakaumaa $N(\mu_0, \sigma^2)$. Toisin sanoen nollahypoteesin alla^[Huomaa: jos $X\sim N(\mu_1, \sigma^2)$ ja $Y = X + \mu_2$, niin $Y\sim N(\mu_1 + \mu_2,  \sigma^2)$.] mallissa \@ref(eq:intercept) asetetaan $\beta_0 = 0$. Tämän vuoksi yhden otoksen t-testi odotusarvolle palautuu mallin \@ref(eq:intercept) parametrin $\beta_0$ tilastollisen merkitsevyyden testaamiseen luvun \@ref(sec:regtesting) työkaluilla.
+
+Sovitetaan kaavan \@ref(eq:intercept) lineaarinen malli. Lineaarinen regressiomalli, jossa on ainoastaan vakiotermi saadaan käyttämällä syntaksia `y ~ 1` funktiossa `lm()`.
+```{r}
+factory_lm <- lm(factory$chocolate - mu_0 ~ 1)
+```
+
+Komennon `summary(factory_lm)` tulosteesta voimme lukea vakiotermiä vastaavan merkitsevyystestin p-arvon.
+```{r}
+summary(factory_lm)
+```
+Huomataan, että p-arvo ($\approx 0.40$) on sama, joka saatiin esimerkissä \@ref(exm:onesample)!
+:::
 
 Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan \@ref(eq:tmean) testisuure noudattaa *likimain* standardinormaalijakaumaa $N(0,1)$ suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi...
 
@@ -189,7 +234,5 @@ Kun auton paino pidetään vakiona, niin sylintereiden määrän kasvaessa suhde
 
 ## Kahden ryhmän vertailu: t-testi {#sec:twosample}
 
-## Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi {#sec:anova}
-
-## Monivertailuongelma {#sec:multiple}
+## Yksisuuntainen varianssianalyysi {#sec:anova}
 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 4 Ryhmien odotusarvojen vertailu: ANOVA | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 4 Ryhmien odotusarvojen vertailu: ANOVA | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 4 Ryhmien odotusarvojen vertailu: ANOVA | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Luku 4 Ryhmien odotusarvojen vertailu | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 4 Ryhmien odotusarvojen vertailu: ANOVA | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -199,12 +199,11 @@ div.csl-indent {
 <li class="chapter" data-level="3.4" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sec:diagnostic"><i class="fa fa-check"></i><b>3.4</b> Mallidiagnostiikka</a></li>
 <li class="chapter" data-level="3.5" data-path="moniulotteinen-lineaarinen-regressio.html"><a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting"><i class="fa fa-check"></i><b>3.5</b> Malliin liittyvät epävarmuudet</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html"><i class="fa fa-check"></i><b>4</b> Ryhmien odotusarvojen vertailu</a>
+<li class="chapter" data-level="4" data-path="ryhmien-odotusarvojen-vertailu-anova.html"><a href="ryhmien-odotusarvojen-vertailu-anova.html"><i class="fa fa-check"></i><b>4</b> Ryhmien odotusarvojen vertailu: ANOVA</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy"><i class="fa fa-check"></i><b>4.1</b> Luokkamuuttujat lineaarisessa regressiossa</a></li>
-<li class="chapter" data-level="4.2" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample"><i class="fa fa-check"></i><b>4.2</b> Kahden ryhmän vertailu: t-testi</a></li>
-<li class="chapter" data-level="4.3" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:anova"><i class="fa fa-check"></i><b>4.3</b> Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi</a></li>
-<li class="chapter" data-level="4.4" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple"><i class="fa fa-check"></i><b>4.4</b> Monivertailuongelma</a></li>
+<li class="chapter" data-level="4.1" data-path="ryhmien-odotusarvojen-vertailu-anova.html"><a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:dummy"><i class="fa fa-check"></i><b>4.1</b> Luokkamuuttujat lineaarisessa regressiossa</a></li>
+<li class="chapter" data-level="4.2" data-path="ryhmien-odotusarvojen-vertailu-anova.html"><a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:twosample"><i class="fa fa-check"></i><b>4.2</b> Kahden ryhmän vertailu: t-testi</a></li>
+<li class="chapter" data-level="4.3" data-path="ryhmien-odotusarvojen-vertailu-anova.html"><a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:anova"><i class="fa fa-check"></i><b>4.3</b> Yksisuuntainen varianssianalyysi</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>5</b> Liitteet</a>
 <ul>
@@ -231,15 +230,15 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ryhmien-odotusarvojen-vertailu" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Luku 4</span> Ryhmien odotusarvojen vertailu<a href="ryhmien-odotusarvojen-vertailu.html#ryhmien-odotusarvojen-vertailu" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="ryhmien-odotusarvojen-vertailu-anova" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Luku 4</span> Ryhmien odotusarvojen vertailu: ANOVA<a href="ryhmien-odotusarvojen-vertailu-anova.html#ryhmien-odotusarvojen-vertailu-anova" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Kurssilla <em>Tilastotieteen perusteet</em> käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> noudattaa normaalijakaumaa odotusarvolla <span class="math inline">\(\mu\)</span> ja varianssilla <span class="math inline">\(\sigma^2\)</span>. Odotusarvo <span class="math inline">\(\mu\)</span> ja varianssi <span class="math inline">\(\sigma^2\)</span> ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow X = \{X_1, \ldots, X_n\}\)</span> satunnaisotos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Merkitään satunnaisotosta <span class="math inline">\(\overrightarrow X\)</span> vastaavaa keskiarvoa ja otosvarianssia merkinnöillä <span class="math inline">\(\bar X = \frac{1}{n}\sum_{i = 1}^n X_i\)</span> ja <span class="math inline">\(S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2\)</span>.</p>
 <p>Voimme testata jakauman odotusarvon suuruutta
 <span class="math display">\[\begin{align*}
   &amp;H_0: \mu = \mu_0, \\
   &amp;H_1: \mu \neq \mu_0
 \end{align*}\]</span>
-(kaksisuuntaisella) t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa <span class="math inline">\(t\)</span>-jakaumaa vapausasteella <span class="math inline">\(n - 1\)</span>,
+(kaksisuuntaisella) yhden otoksen t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa <span class="math inline">\(t\)</span>-jakaumaa vapausasteella <span class="math inline">\(n - 1\)</span>,
 <span class="math display" id="eq:tmean">\[\begin{equation}
   \tag{4.1}
   T = \frac{\bar X  - \mu_0}{S/\sqrt{n}}
@@ -247,18 +246,51 @@ div.csl-indent {
 \end{equation}\]</span>
 Jos havaitusta otoksesta laskettu testisuure <span class="math inline">\(t\)</span> on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin <span class="math inline">\(H_0\)</span>. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta <em>Tilastotieteen perusteet</em>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-34" class="example"><strong>Esimerkki 4.1  (Kaksisuuntainen t-testi odotusarvolle) </strong></span>Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Otoksesta laskettiin keskipaino <span class="math inline">\(\bar x = 102.1\mathrm{g}\)</span> ja otoskeskihajonta <span class="math inline">\(s = 3.84\mathrm{g}\)</span>.</p>
-<p>Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita. Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite <span class="math inline">\(\mu = 100\)</span> vs havaittu <span class="math inline">\(\bar x = 102.1\)</span>) satunnaisvaihtelulla? Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.01\)</span>.</p>
-<p>R:llä voimme laskea testisuureen arvon <span class="math inline">\(t\)</span> havaitun <span class="math inline">\(20\)</span> suklaalevyn otoksen pohjalta.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb128-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-2" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb128-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-3" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fl">102.1</span></span>
-<span id="cb128-4"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-4" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fl">3.84</span></span>
-<span id="cb128-5"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-5" tabindex="-1"></a></span>
-<span id="cb128-6"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-6" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> s</span>
-<span id="cb128-7"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-7" tabindex="-1"></a>t</span></code></pre></div>
-<pre><code>## [1] 2.445699</code></pre>
-<p>Koska <span class="math inline">\(t\)</span>-jakauma on symmetrinen ja tässä tapauksessa <span class="math inline">\(t\approx 2.45 &gt; 0\)</span>, niin <span class="math inline">\(p\)</span>-arvon kaavaksi saadaan
+<p><span id="exm:onesample" class="example"><strong>Esimerkki 4.1  (Yhden otoksen t-testi odotusarvolle) </strong></span>Vilin makeistehdas tuottaa suklaalevyjä. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Otos näkyy alla taulukossa (<code>tibble</code>), jossa on vain yksi sarake.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb128-1" tabindex="-1"></a>factory</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 1
+##    chocolate
+##        &lt;dbl&gt;
+##  1     103. 
+##  2      98.3
+##  3     111. 
+##  4     101. 
+##  5     107. 
+##  6     102. 
+##  7     107. 
+##  8     101. 
+##  9      97.8
+## 10     107. 
+## 11      93.4
+## 12     103. 
+## 13      91.8
+## 14      88.9
+## 15      97.4
+## 16      98.8
+## 17     108. 
+## 18     101. 
+## 19      99.3
+## 20     104.</code></pre>
+<p>Voimme laskea otosta vastaavan keskipainon ja otoskeskihajonnan.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb130-1" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(factory<span class="sc">$</span>chocolate)</span>
+<span id="cb130-2"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb130-2" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">var</span>(factory<span class="sc">$</span>chocolate))</span>
+<span id="cb130-3"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb130-3" tabindex="-1"></a>x_bar</span></code></pre></div>
+<pre><code>## [1] 101.0809</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb132-1" tabindex="-1"></a>s</span></code></pre></div>
+<pre><code>## [1] 5.629763</code></pre>
+<p>Keskipainoksi saatiin <span class="math inline">\(\bar x \approx 101.1\mathrm{g}\)</span> ja otoskeskihajonnaksi <span class="math inline">\(s \approx 5.63\mathrm{g}\)</span>.</p>
+<p>Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita.</p>
+<ul>
+<li>Onko tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite <span class="math inline">\(\mu = 100\)</span> vs havaittu <span class="math inline">\(\bar x \approx 101.1\)</span>) satunnaisvaihtelulla?</li>
+</ul>
+<p>Analysoidaan kysymystä kaksisuuntaisen t-testin avulla käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>. R:llä voimme laskea testisuureen arvon <span class="math inline">\(t\)</span> poimittujen <span class="math inline">\(20\)</span> suklaalevyn pohjalta.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb134-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb134-2"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb134-2" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb134-3"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb134-3" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb134-4" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(n) <span class="sc">*</span> (x_bar <span class="sc">-</span> mu_0) <span class="sc">/</span> s</span>
+<span id="cb134-5"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb134-5" tabindex="-1"></a>t</span></code></pre></div>
+<pre><code>## [1] 0.8586106</code></pre>
+<p>Koska <span class="math inline">\(t\)</span>-jakauma on symmetrinen ja tässä tapauksessa <span class="math inline">\(t\approx 0.86 &gt; 0\)</span>, niin <span class="math inline">\(p\)</span>-arvon kaavaksi saadaan
 <span class="math display">\[\begin{equation*}
   \begin{split}
   \mathbb{P}\left(|T|\geq |t|\right)
@@ -268,16 +300,56 @@ Jos havaitusta otoksesta laskettu testisuure <span class="math inline">\(t\)</sp
   \end{split}
 \end{equation*}\]</span>
 jossa <span class="math inline">\(F_{n-1}\)</span> on jakauman <span class="math inline">\(t(n-1)\)</span> kertymäfunktio. Nyt p-arvo voidaan laskea R:n avulla.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb130-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span>t, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb130-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb130-2" tabindex="-1"></a>p_value</span></code></pre></div>
-<pre><code>## [1] 0.0243672</code></pre>
-<p>Koska <span class="math inline">\(p\)</span>-arvo (<span class="math inline">\(\approx 0.024\)</span>) on suurempaa kuin asetettu merkitsevyystaso <span class="math inline">\(\alpha = 0.01\)</span>, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb136-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span>t, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb136-2"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb136-2" tabindex="-1"></a>p_value</span></code></pre></div>
+<pre><code>## [1] 0.401258</code></pre>
+<p>Koska <span class="math inline">\(p\)</span>-arvo (<span class="math inline">\(\approx 0.40\)</span>) on suurempi kuin asetettu merkitsevyystaso <span class="math inline">\(\alpha = 0.05\)</span>, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että tuotantolinjassa olisi jotain vikaa.</p>
+<p>Testiä ei tarvitse R:ssä suorittaa manuaalisesti. Sama tulos saadaan käyttämällä <code>t.test()</code> funktiota.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb138-1" tabindex="-1"></a><span class="fu">t.test</span>(factory<span class="sc">$</span>chocolate, <span class="at">mu =</span> <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  factory$chocolate
+## t = 0.85861, df = 19, p-value = 0.4013
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##   98.44605 103.71568
+## sample estimates:
+## mean of x 
+##  101.0809</code></pre>
 </div>
-<p>Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon <span class="math inline">\(\mu\)</span> arvo jokin tietty <span class="math inline">\(\mu_0\)</span>. Tämän sijasta haluamme vertailla eri ryhmien välisiä odotusarvoja. Ryhmien välisten odotusarvojen vertailuun on useita tilastollisia testejä, joissa on hieman erilaiset oletukset. Tässä ei olekaan tarkoitus antaa kaikenkattavaa listaa erilaisista ryhmiä vertailevista testeistä. Sen sijaan keskitymme muutamaan testiin, jotka voidaan helposti muotoilla moniulotteisen lineaarisen regression kautta.</p>
-<p>Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy">4.1</a> käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample">4.2</a> näytämme, miten kahden otoksen t-testi voidaan ilmaista lineaarisen regression avulla. Tämän jälkeen luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> yleistämme kahden otoksen t-testin tapaukseen, jossa vertailemme useamman kuin kahden ryhmän odotusarvoja. Viimeiseksi luvussa <a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple">4.4</a> käsittelemme useamman ryhmän odotusarvojen parittaisesta vertailusta aiheutuvia ongelmia.</p>
-<p>Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan <a href="ryhmien-odotusarvojen-vertailu.html#eq:tmean">(4.1)</a> testisuure noudattaa <em>likimain</em> standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi…</p>
+<p>Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon <span class="math inline">\(\mu\)</span> arvo jokin tietty <span class="math inline">\(\mu_0\)</span>, vaan tavoiteenamme on vertailla useampaa ryhmää keskenään. Tämä osio huipentuukin luvussa <a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:anova">4.3</a> esiteltävään yksisuuntaiseen varianssianalyysin (eng: <em>one-way analysis of variance</em>, ANOVA), joka on tilastollinen testi useamman ryhmän odotusarvon vertailuun. Ennen ANOVA:a, luvussa <a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:twosample">4.2</a> käymme läpi kahden ryhmän odotusarvojen vertailua kahden otoksen t-testillä.</p>
+<p>Hieman yllättäen ANOVA:n voi ymmärtää intuitiivisesti lineaarisen regression kautta. Luvussa <a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:dummy">4.1</a> käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Myös yhden otoksen t-testi voidaan muotoilla lineaarisen regression kautta, vaikka tämä ei välttämättä ole kovin hyödyllistä.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-34" class="example"><strong>Esimerkki 4.2  (Yhden otoksen t-testi ja lineaarinen regressio) </strong></span>Jatketaan lämmittelyesimerkkiä <a href="ryhmien-odotusarvojen-vertailu-anova.html#exm:onesample">4.1</a>. Määritellään lineaarinen regressiomalli
+<span class="math display" id="eq:intercept">\[\begin{equation}
+  \tag{4.2}
+  \texttt{chocolate}_i - \mu_0 = \beta_0 + \varepsilon_i,
+  \quad \varepsilon_i\sim N(0, \sigma^2),
+\end{equation}\]</span>
+jossa <span class="math inline">\(\mu_0 = 100\)</span>. Huomaa, että yllä olevassa mallissa on vain vakiotermi <span class="math inline">\(\beta_0\)</span> eikä yhtään selittäjää! Nollahypoteesin <span class="math inline">\(\mu = \mu_0\)</span> alla suklaalevyjen painot noudattavat normaalijakaumaa <span class="math inline">\(N(\mu_0, \sigma^2)\)</span>. Toisin sanoen nollahypoteesin alla<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> mallissa <a href="ryhmien-odotusarvojen-vertailu-anova.html#eq:intercept">(4.2)</a> asetetaan <span class="math inline">\(\beta_0 = 0\)</span>. Tämän vuoksi yhden otoksen t-testi odotusarvolle palautuu mallin <a href="ryhmien-odotusarvojen-vertailu-anova.html#eq:intercept">(4.2)</a> parametrin <span class="math inline">\(\beta_0\)</span> tilastollisen merkitsevyyden testaamiseen luvun <a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting">3.5</a> työkaluilla.</p>
+<p>Sovitetaan kaavan <a href="ryhmien-odotusarvojen-vertailu-anova.html#eq:intercept">(4.2)</a> lineaarinen malli. Lineaarinen regressiomalli, jossa on ainoastaan vakiotermi saadaan käyttämällä syntaksia <code>y ~ 1</code> funktiossa <code>lm()</code>.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb140-1" tabindex="-1"></a>factory_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(factory<span class="sc">$</span>chocolate <span class="sc">-</span> mu_0 <span class="sc">~</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Komennon <code>summary(factory_lm)</code> tulosteesta voimme lukea vakiotermiä vastaavan merkitsevyystestin p-arvon.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb141-1" tabindex="-1"></a><span class="fu">summary</span>(factory_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = factory$chocolate - mu_0 ~ 1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.2170  -2.8902   0.1911   3.7369   9.5701 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)    1.081      1.259   0.859    0.401
+## 
+## Residual standard error: 5.63 on 19 degrees of freedom</code></pre>
+<p>Huomataan, että p-arvo (<span class="math inline">\(\approx 0.40\)</span>) on sama, joka saatiin esimerkissä <a href="ryhmien-odotusarvojen-vertailu-anova.html#exm:onesample">4.1</a>!</p>
+</div>
+<p>Yksinkertaisuuden vuoksi tämän luvun testeissä oletamme datan noudattavan normaalijakaumaa. Huomautamme kuitenkin, että tämän luvun testit ovat usein käyttökelpoisia myös tapauksissa, joissa data ei noudata normaalijakaumaa kunhan otoskoko on tarpeeksi suuri. Tämä voidaan perustella keskeisen raja-arvolauseen avulla. Esimerkiksi kaavan <a href="ryhmien-odotusarvojen-vertailu-anova.html#eq:tmean">(4.1)</a> testisuure noudattaa <em>likimain</em> standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> suurella otoskoolla. Vastaus kysymykseen, kuinka suuri otoskoon täytyy olla, jotta voimme perustella keskeisen raja-arvolauseen käytön onkin sitten monimutkaisempi…</p>
 <div id="sec:dummy" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Luokkamuuttujat lineaarisessa regressiossa<a href="ryhmien-odotusarvojen-vertailu.html#sec:dummy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.1</span> Luokkamuuttujat lineaarisessa regressiossa<a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:dummy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tarkastellaan tilannetta, jossa haluamme selittää erään yrityksen työntekijöiden palkkaa (<code>salary</code>, yksikkönä tuhat euroa) muuttujilla työkokemus (<code>experience</code>, yksikkönä vuosi) ja työllisyystyyppi (<code>type</code>, kokoaikainen tai osa-aikainen). Muuttuja <code>experience</code> on intervalliasteikkoinen muuttuja. Eli voimme mitata eroja työkokemuksessa <span class="math inline">\(|\texttt{experience}_i - \texttt{experience}_j|\)</span> ja jokaista muuttujan <code>experience</code> arvoa vastaa yksikäsitteinen luku (esim. <span class="math inline">\(2\)</span> vuotta tai <span class="math inline">\(15.3\)</span> vuotta). Työllisyystyyppi on kuitenkin luokkamuuttuja (eng: <em>categorical variable</em>), ja luokkamuuttujan arvojen koodaus lukuarvoiksi voidaan tehdä monella tavalla. Voimme esimerkiksi määritellä
 <span class="math display">\[\begin{align*}
   &amp;\text{kokoaikainen} = 1, \\
@@ -290,7 +362,7 @@ tai
 \end{align*}\]</span></p>
 <p>Lineaarisessa regressiossa luokkamuuttuja halutaan ottaa tietyllä tavalla malliin mukaan. Tähän käytämme osoitinmuuttujia (eng: <em>dummy variable</em>, <em>indicator variable</em>), jotka ovat 0–1-arvoisia satunnaismuuttujia. Tässä tapauksessa luokkamuuttujalla <code>type</code> on vain kaksi luokkaa (kokoaikainen/osa-aikainen), joten meidän tarvitsee sisällyttää vain yksi osoitinmuuttuja lineaariseen malliin. Alla olevassa esimerkissä havainnollistamme yllä kuvaillun lineaarisen mallin rakennusta ja tulkitsemista.</p>
 <div class="example">
-<p><span id="exm:dummy1" class="example"><strong>Esimerkki 4.2  (Luokkamuuttujan tulkinta lineaarisessa regressiossa) </strong></span>Osoitinmuuttujan
+<p><span id="exm:dummy1" class="example"><strong>Esimerkki 4.3  (Luokkamuuttujan tulkinta lineaarisessa regressiossa) </strong></span>Osoitinmuuttujan
 <span class="math display">\[\begin{equation*}
   \texttt{type}_i =
   \begin{cases}
@@ -321,7 +393,7 @@ Tulkinta luokkamuuttujaa vastaavalle osoitinmuuttujalle on siis seuraava.</p>
 </div>
 <p>Lineaariseen regressiomalliin lisättävässä luokkamuuttujassa voi myös olla enemmän kuin kaksi luokkaa – kun luokkia on <span class="math inline">\(k\)</span> kappaletta, niin osoitinmuuttujia täytyy olla <span class="math inline">\(k - 1\)</span> kappaletta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-35" class="example"><strong>Esimerkki 4.3  (Useampi luokka lineaarisessa regressiossa) </strong></span>Jatketaan esimerkkiä <a href="ryhmien-odotusarvojen-vertailu.html#exm:dummy1">4.2</a>. Työllisyystyypin <code>type</code> sijasta sisällytetään luokkamuuttuja, joka kuvaa työntekijän toimialaa (rahoitus, markkinointi tai kirjanpito). Tässä tapauksessa voimme sisällyttää kaksi osoitinmuuttujaa
+<p><span id="exm:unlabeled-div-35" class="example"><strong>Esimerkki 4.4  (Useampi luokka lineaarisessa regressiossa) </strong></span>Jatketaan esimerkkiä <a href="ryhmien-odotusarvojen-vertailu-anova.html#exm:dummy1">4.3</a>. Työllisyystyypin <code>type</code> sijasta sisällytetään luokkamuuttuja, joka kuvaa työntekijän toimialaa (rahoitus, markkinointi tai kirjanpito). Tässä tapauksessa voimme sisällyttää kaksi osoitinmuuttujaa
 <span class="math display">\[\begin{equation*}
   \texttt{r}_i =
   \begin{cases}
@@ -343,7 +415,7 @@ jolloin saamme lineaarisen regressiomallin
 \end{equation*}\]</span>
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 <span class="math display" id="eq:accounting">\[\begin{equation}
-  \tag{4.2}
+  \tag{4.3}
   \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i,
 \end{equation}\]</span>
 Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
@@ -351,7 +423,7 @@ Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
 <li><p>Estimaatti <span class="math inline">\(\hat\beta_2\)</span> kuvaa sitä, kuinka paljon vähemmän/enemmän rahoituksessa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.</p></li>
 <li><p>Estimaatti <span class="math inline">\(\hat\beta_3\)</span> kuvaa sitä, kuinka paljon vähemmän/enemmän markkinoinnissa työskentelevä tienaa keskimäärin kuin kirjanpidossa, jos työntekijöillä on sama määrä kokemusta.</p></li>
 </ul>
-<p>Huomaa, että olisimme voineet valita osoitinmuuttujat eri tavalla, joka muuttaisi estimaattien <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_2\)</span> ja <span class="math inline">\(\hat\beta_3\)</span> tulkitsemista. Nimittäin sovitteen <a href="ryhmien-odotusarvojen-vertailu.html#eq:accounting">(4.2)</a> vakiotermin estimaatti vastaa kirjanpidossa työskentelevän ihmisen keskimääräistä aloituspalkkaa. Toisaalta, jos valitsisimme osoitinmuuttujat vastaamaan luokkia kirjanpito ja markkinointi, niin vakiotermin estimaatti vastaisi rahoituksessa työskentelevän ihmisen keskimääräistä aloituspalkkaa.</p>
+<p>Huomaa, että olisimme voineet valita osoitinmuuttujat eri tavalla, joka muuttaisi estimaattien <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_2\)</span> ja <span class="math inline">\(\hat\beta_3\)</span> tulkitsemista. Nimittäin sovitteen <a href="ryhmien-odotusarvojen-vertailu-anova.html#eq:accounting">(4.3)</a> vakiotermin estimaatti vastaa kirjanpidossa työskentelevän ihmisen keskimääräistä aloituspalkkaa. Toisaalta, jos valitsisimme osoitinmuuttujat vastaamaan luokkia kirjanpito ja markkinointi, niin vakiotermin estimaatti vastaisi rahoituksessa työskentelevän ihmisen keskimääräistä aloituspalkkaa.</p>
 </div>
 <p>Luokkamuuttujia voi siis sisällyttää melko vapaasti lineaariseen malliin. Huomioi kuitenkin, että luokkamuuttujaa vastaavien luokkien täytyy olla</p>
 <ol style="list-style-type: decimal">
@@ -361,9 +433,9 @@ Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
 <p>Toisin sanoen luokkamuuttujat täytyy olla muodostettu niin, että jokainen havainto kuuluu tasan yhteen luokkaan. Lisäksi harvinaiset luokat tekevät mallin estimaateista epävakaita. Joskus ennen mallin sovittamista luokkia täytyykin manuaalisesti muokata tai yhdistellä.</p>
 <p>Kun R ohjelmointikielellä sovitetaan lineaarista regressiomalli, joka sisältää luokkamuuttujia, niin vastaavia osoitinmuuttujia ei tarvitse tehdä itse manuaalisesti. Luokkamuuttujat täytyy vain antaa tietotyyppinä <code>factor</code>, joka on erityisesti luokkamuuttujille räätälöity tietotyyppi R:ssä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-36" class="example"><strong>Esimerkki 4.4  (Luokkamuuttujat lineaarisessa regressiossa ja R) </strong></span>Käytetään R:ssä olevaa valmista havaintoaineistoa <code>mtcars</code>. Kyseinen aineisto sisältää mittauksia autojen eri ominaisuuksista kuten polttoaineen kulutuksesta <code>mpg</code> (mailit per gallona), auton painosta <code>wt</code> (tuhansissa nauloissa) ja sylintereiden määrästä <code>cyl</code>.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb132-1" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(mtcars)</span>
-<span id="cb132-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb132-2" tabindex="-1"></a>mtcars</span></code></pre></div>
+<p><span id="exm:unlabeled-div-36" class="example"><strong>Esimerkki 4.5  (Luokkamuuttujat lineaarisessa regressiossa ja R) </strong></span>Käytetään R:ssä olevaa valmista havaintoaineistoa <code>mtcars</code>. Kyseinen aineisto sisältää mittauksia autojen eri ominaisuuksista kuten polttoaineen kulutuksesta <code>mpg</code> (mailit per gallona), auton painosta <code>wt</code> (tuhansissa nauloissa) ja sylintereiden määrästä <code>cyl</code>.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb143-1" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">as_tibble</span>(mtcars)</span>
+<span id="cb143-2"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb143-2" tabindex="-1"></a>mtcars</span></code></pre></div>
 <pre><code>## # A tibble: 32 × 11
 ##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -379,11 +451,11 @@ Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
 ## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
 ## # ℹ 22 more rows</code></pre>
 <p>Havaintoaineistossa sarakkeen <code>cyl</code> tietotyyppi on desimaaliluku, vaikka kyseinen muuttuja saa vain arvoja <span class="math inline">\(4\)</span>, <span class="math inline">\(6\)</span> ja <span class="math inline">\(8\)</span>. Eli <code>cyl</code> on luokkamuuttuja.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb134-1" tabindex="-1"></a><span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb145-1" tabindex="-1"></a><span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl)</span></code></pre></div>
 <pre><code>## [1] 6 4 8</code></pre>
 <p>Selitämme polttoaineen kulutusta painolla ja sylintereiden määrällä. Muuttamalla muuttujan <code>cyl</code> tietotyyppi funktiolla <code>factor()</code> ennen lineaarisen mallin sovitusta, R ymmärtää, että kyseessä on luokkamuuttuja.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb136-1" tabindex="-1"></a>cars_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
-<span id="cb136-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb136-2" tabindex="-1"></a><span class="fu">summary</span>(cars_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb147-1" tabindex="-1"></a>cars_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb147-2"><a href="ryhmien-odotusarvojen-vertailu-anova.html#cb147-2" tabindex="-1"></a><span class="fu">summary</span>(cars_lm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ wt + factor(cyl), data = mtcars)
@@ -428,15 +500,18 @@ ja
 </div>
 </div>
 <div id="sec:twosample" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Kahden ryhmän vertailu: t-testi<a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.2</span> Kahden ryhmän vertailu: t-testi<a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="sec:anova" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Useamman ryhmän vertailu: yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="sec:multiple" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Monivertailuongelma<a href="ryhmien-odotusarvojen-vertailu.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.3</span> Yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu-anova.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="15">
+<li id="fn15"><p>Huomaa: jos <span class="math inline">\(X\sim N(\mu_1, \sigma^2)\)</span> ja <span class="math inline">\(Y = X + \mu_2\)</span>, niin <span class="math inline">\(Y\sim N(\mu_1 + \mu_2,  \sigma^2)\)</span>.<a href="ryhmien-odotusarvojen-vertailu-anova.html#fnref15" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

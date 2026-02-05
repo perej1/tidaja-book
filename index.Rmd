@@ -19,7 +19,7 @@ topics <- c(
   "Moniulotteiset jakaumat 2",
   "Moniulotteinen lineaarinen regressio 1",
   "Moniulotteinen lineaarinen regressio 2",
-  "Ryhmien odotusarvojen vertailu",
+  "Ryhmien odotusarvojen vertailu: ANOVA",
   "Uusiomenetelmä ja permutaatiotesti",
   "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
   "Epäparametrisia testejä",
