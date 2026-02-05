@@ -2,10 +2,10 @@
 
 Kurssilla *Tilastotieteen perusteet* käytiin jakauman sijaintiin liittyvä t-testi jotakuinkin seuraavanlaisessa tilanteessa. Oletetaan, että satunnaismuuttuja $X\sim N(\mu, \sigma^2)$ noudattaa normaalijakaumaa odotusarvolla $\mu$ ja varianssilla $\sigma^2$. Odotusarvo $\mu$ ja varianssi $\sigma^2$ ovat siis deterministisiä mutta tuntemattomia lukuja, jotka voimme estimoida otoksen avulla. Olkoon $\overrightarrow X = \{X_1, \ldots, X_n\}$ satunnaisotos riippumattomia havaintoja satunnaismuuttujasta $X$. Merkitään satunnaisotosta $\overrightarrow X$ vastaavaa keskiarvoa ja otosvarianssia merkinnöillä $\bar X = \frac{1}{n}\sum_{i = 1}^n X_i$ ja $S^2  = \frac{1}{n-1} \sum_{i = 1}^n  (X_i -  \bar X)^2$.
 
-Voimme testata jakauman odotusarvon suuruutta 
+Voimme testata seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
 \begin{align*}
   &H_0: \mu = \mu_0, \\
-  &H_1: \mu \neq \mu_0
+  &H_1: \mu \neq \mu_0,
 \end{align*}
 (kaksisuuntaisella) yhden otoksen t-testillä. Tällöin satunnaisotoksesta laskettu testisuure noudattaa $t$-jakaumaa vapausasteella $n - 1$,
 \begin{equation}
@@ -34,7 +34,7 @@ for (i in 2:num_factory) {
 }
 ```
 
-Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä $4$ tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta $20$ suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (`tibble`) ensimmäisessä sarakkeessa.
+Vilin makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä $4$ tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$ joka tehtaassa. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta $20$ suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla.
 ```{r} 
 choco[, 1]
 ```
@@ -48,11 +48,11 @@ s
 ```
 
 
-Keskipainoksi saatiin $\bar x \approx 101.1\mathrm{g}$ ja otoskeskihajonnaksi $s \approx 5.63\mathrm{g}$. 
+Keskipainoksi saatiin $\bar x \approx 101.08\mathrm{g}$ ja otoskeskihajonnaksi $s \approx 5.63\mathrm{g}$. 
 
 Oletetaan, että suklaalevyjen painot ovat normaalijakautuneita.
 
-- Onko ensimmäisen tehtaan tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x \approx 101.1$) satunnaisvaihtelulla?
+- Onko ensimmäisen tehtaan tuotantolinjassa jotain vikaa vai selittyykö havaittu poikkeama (tavoite $\mu = 100$ vs havaittu $\bar x \approx 101.08$) satunnaisvaihtelulla?
 
 Analysoidaan kysymystä yhden otoksen t-testin avulla käyttäen merkitsevyystasoa $\alpha = 0.05$. R:llä voimme laskea testisuureen arvon $t$ poimittujen $20$ suklaalevyn pohjalta.
 ```{r}
@@ -79,7 +79,7 @@ p_value
 ```
 Koska $p$-arvo ($\approx 0.40$) on suurempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin emme hylkää nollahypoteesiä. Testin tulos ei siis vielä riitä vakuuttamaan laadunvalvontaa siitä, että ensimmäisen tehtaan  tuotantolinjassa olisi jotain vikaa.
 
-Testiä ei tarvitse R:ssä suorittaa manuaalisesti. Sama tulos saadaan käyttämällä `t.test()` funktiota.
+Testiä ei tarvitse suorittaa R:ssä manuaalisesti. Sama tulos saadaan käyttämällä `t.test()` funktiota.
 ```{r}
 t.test(choco$factory1, mu = 100)
 ```
@@ -87,7 +87,7 @@ t.test(choco$factory1, mu = 100)
 
 Tässä luvussa emme kuitenkaan ole niinkään kiinnostuneita testaamaan, onko odotusarvon $\mu$ arvo jokin tietty $\mu_0$, vaan tavoiteenamme on vertailla useampaa ryhmää keskenään. Tämä osio huipentuukin luvussa \@ref(sec:anova) esiteltävään yksisuuntaiseen varianssianalyysin (eng: *one-way analysis of variance*, ANOVA), joka on tilastollinen testi useamman ryhmän odotusarvon vertailuun. Ennen ANOVA:a, luvussa \@ref(sec:twosample) käymme läpi kahden ryhmän odotusarvojen vertailua kahden otoksen t-testillä.
 
-Hieman yllättäen ANOVA:n voi ymmärtää intuitiivisesti lineaarisen regression kautta. Luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Myös yhden otoksen t-testi voidaan muotoilla lineaarisen regression kautta, vaikka tämä ei välttämättä ole kovin hyödyllistä.
+Hieman yllättäen ANOVA:n voi ymmärtää intuitiivisesti lineaarisen regression kautta. Tämän vuoksi luvussa \@ref(sec:dummy) käsittelemme luokkamuuttujia lineaarisessa regressiomallissa, sillä tilastolliset testit voidaan usein muotoilla lineaarisen regression kautta nimenomaan luokkamuuttujien avulla. Myös yhden otoksen t-testi voidaan muotoilla lineaarisen regression kautta, vaikka tämä ei välttämättä ole kovin hyödyllistä.
 
 :::{.example name="Yhden otoksen t-testi ja lineaarinen regressio"}
 Jatketaan lämmittelyesimerkkiä \@ref(exm:onesample). Määritellään lineaarinen regressiomalli
@@ -183,7 +183,7 @@ jolloin saamme lineaarisen regressiomallin
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 \begin{equation}
   (\#eq:accounting)
-  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i,
+  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i.
 \end{equation}
 Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.
 
@@ -201,7 +201,7 @@ Luokkamuuttujia voi siis sisällyttää melko vapaasti lineaariseen malliin. Huo
 
 Toisin sanoen luokkamuuttujat täytyy olla muodostettu niin, että jokainen havainto kuuluu tasan yhteen luokkaan. Lisäksi harvinaiset luokat tekevät mallin estimaateista epävakaita. Joskus ennen mallin sovittamista luokkia täytyykin manuaalisesti muokata tai yhdistellä.
 
-Kun R ohjelmointikielellä sovitetaan lineaarista regressiomalli, joka sisältää luokkamuuttujia, niin vastaavia osoitinmuuttujia ei tarvitse tehdä itse manuaalisesti. Luokkamuuttujat täytyy vain antaa tietotyyppinä `factor`, joka on erityisesti luokkamuuttujille räätälöity tietotyyppi R:ssä.
+Kun R ohjelmointikielellä sovitetaan lineaarinen regressiomalli, joka sisältää luokkamuuttujia, niin vastaavia osoitinmuuttujia ei tarvitse tehdä itse manuaalisesti. Luokkamuuttujat täytyy vain antaa tietotyyppinä `factor`, joka on erityisesti luokkamuuttujille räätälöity tietotyyppi R:ssä.
 
 :::{.example name="Luokkamuuttujat lineaarisessa regressiossa ja R"}
 Käytetään R:ssä olevaa valmista havaintoaineistoa `mtcars`. Kyseinen aineisto sisältää mittauksia autojen eri ominaisuuksista kuten polttoaineen kulutuksesta `mpg` (mailit per gallona), auton painosta `wt` (tuhansissa nauloissa) ja sylintereiden määrästä `cyl`.
@@ -252,11 +252,11 @@ Olkoon $X_1$ ja $X_2$ satunnaismuuttujia, jotka noudattavat normaalijakaumaa sam
   &H_0: \mu_1 = \mu_2, \\
   &H_1: \mu_1 \neq \mu_2.
 \end{align*}
-Olkoon $\overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}\}$ satunnaisotos satunnaismuuttujasta $X_1$ ja $\overrightarrow X_2 = \{X_{12}, \ldots, X_{n_22}\}$ satunnaisotos satunnaismuuttujasta $X_2$. Meidän tapauksessa oletamme satunnaisotoksista, että
+Olkoon $\overrightarrow{X_1} = \{X_{11}, \ldots, X_{n_11}\}$ satunnaisotos satunnaismuuttujasta $X_1$ ja $\overrightarrow{X_2} = \{X_{12}, \ldots, X_{n_22}\}$ satunnaisotos satunnaismuuttujasta $X_2$. Meidän tapauksessa oletamme satunnaisotoksista, että
 
-1. Otoskoot $n_1$ ja $n_2$ voivat olla erisuuria ja
+1. otoskoot $n_1$ ja $n_2$ voivat olla erisuuria ja
 
-2. Yhdistetyn otoksen $\overrightarrow X_1  \cup \overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}, X_{12}, \ldots, X_{n_22}\}$ kaikki havainnot ovat riippumattomia.
+2. yhdistetyn otoksen $\overrightarrow{X_1}  \cup \overrightarrow{X_1} = \{X_{11}, \ldots, X_{n_11}, X_{12}, \ldots, X_{n_22}\}$ kaikki havainnot ovat riippumattomia.
 
 Annetussa asetelmassa voimme soveltaa kahden otoksen t-testiä. Katso huomio \@ref(prp:twomeans) liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
 \begin{equation*}
@@ -289,7 +289,7 @@ Analysoidaan kysymystä kahden otoksen t-testin avulla. Käytetään taas merkit
 
 Alla näkyy ensimmäistä ja toista tehdasta vastaavat otokset suklaalevyistä.
 ```{r}
-choco[,1:2]
+choco[, 1:2]
 ```
 
 Ensin laskemme keskiarvot $\bar X_i$ ja otosvarianssit $S_i^2$ tehtaille $j\in\{1,2\}$ sekä yhdistetyn estimaatin yhteiselle varianssille $S^2_p$.
@@ -384,11 +384,11 @@ Yksisuuntainen varianssianalyysi (eng: *one-way analysis of variance*, ANOVA) on
   &H_0: \mu_1 = \mu_2 = \cdots = \mu_d, \\
   &H_1: \mu_j \neq \mu_k \quad\text{jollekin}\quad j,k\in\{1, 2, \ldots, d\}.
 \end{align*}
-Olkoon $\overrightarrow X_j = \{X_{1j}, \ldots, X_{n_jj}\}$ satunnaisotos satunnaismuuttujasta $X_j$. Oletamme satunnaisotoksista, että
+Olkoon $\overrightarrow{X_j} = \{X_{1j}, \ldots, X_{n_jj}\}$ satunnaisotos satunnaismuuttujasta $X_j$. Oletamme satunnaisotoksista, että
 
-1. Otoskoot $n_j$, $j\in\{1, 2, \ldots, d\}$ voivat olla erisuuria ja
+1. otoskoot $n_j$, $j\in\{1, 2, \ldots, d\}$ voivat olla erisuuria ja
 
-2. yhdistetyn otoksen $\overrightarrow X_1 \cup \overrightarrow X_2 \cup \cdots \cup \overrightarrow X_d$ kaikki havainnot ovat riippumattomia.
+2. yhdistetyn otoksen $\overrightarrow{X_1} \cup \overrightarrow{X_2} \cup \cdots \cup \overrightarrow{X_d}$ kaikki havainnot ovat riippumattomia.
 
 Annetussa asetelmassa voimme soveltaa ANOVA:a. Yhdistetyn otoksen otoskoko on $n = \sum_{j = 1}^d n_j$ ja yhdistetyn otoksen keskiarvo on
 \begin{equation*}
@@ -418,9 +418,9 @@ Jos ryhmien välinen vaihtelu on suuri suhteessa ryhmien sisäiseen vaihteluun, 
 Alla on käytännön esimerkki siitä, miten ANOVA suoritetaan R:llä. Suoritamme testin manuaalisesti ja käyttäen R:n funktiota `aov()`.
 
 :::{.example #anova name="ANOVA"}
-Esimerkeissä \@ref(exm:onesample) ja \@ref(exm:twosample) tehtyjen tilastollisten testien perusteella laatukriteeri $\mu_1 = \mu_2 = 100\mathrm{g}$ täyttyy tehtaissa 1 ja 2. Nyt johto antaa seuraavan tehtävänannon.
+Esimerkeissä \@ref(exm:onesample) ja \@ref(exm:twosample) tehtyjen tilastollisten testien perusteella suklaalevyjen keskimääräiseen painoon $100\mathrm{g}$ liittyvä laatukriteeri täyttyy tehtaissa 1 ja 2 tarvittavalla tarkkuudella. Nyt johto antaa seuraavan tehtävänannon.
 
-- Franchising yhtiössä on tärkeää, että laatu pysyy tasaisena. Onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin?
+- Vilin tehtaissa on tärkeää, että laatu pysyy tasaisena. Onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin?
 
 Analysoidaan johdon asettamaa kysymystä ANOVA:n avulla. Käytetään merkitsevyystasoa $\alpha = 0.05$.
 
@@ -455,7 +455,7 @@ Nyt voimme laskea testisuuretta vastaavan p-arvon, joka on tässä tapauksessa l
 ```{r}
 1 - pf(f, d - 1, n - d)
 ```
-Koska p-arvo on pienempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin hylkäämme nollahypoteesin. Testin tulos antaa tarpeeksi todisteita sen puolesta, että ainakin yhdessä tehtaassa tuotettujen suklaalevyjen keskipaino eroaa merkittävästi muissa tehtaissa tuotettujen suklaalevyjen keskipainosta.
+Koska p-arvo on pienempi kuin asetettu merkitsevyystaso $\alpha = 0.05$, niin hylkäämme nollahypoteesin. Testin tulos antaa tarpeeksi todisteita sen puolesta, että ainakin yhdessä tehtaassa tuotettujen suklaalevyjen keskipaino eroaa merkittävästi muissa tehtaissa tuotettujen suklaalevyjen keskipainosta, jonka pitäisi olla $100\mathrm{g}$.
 
 Sama tulos saadaan käyttämällä valmista R funktiota `aov()`. Jotta funktiota voidaan käyttää, niin dataa pitää muokata esimerkin \@ref(exm:twosamplereg) tyyliin. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.
 ```{r}
@@ -466,7 +466,7 @@ choco_mod <- choco %>%
 choco_mod
 ```
 
-Nyt muokatulle datalla `choco_mod` voimme suorittaa ANOVA:n. Funktion `aov()` syntaksi on samantyyppinen kuin funktion `lm()`. Eli havainnot `weight` ja luokkamuuttuja `factory` erotetaan tilden `~` avulla. Tentin tuloksen näemme käyttämällä `summary` funktiota.
+Nyt muokatulle datalla `choco_mod` voimme suorittaa ANOVA:n. Funktion `aov()` syntaksi on samantyyppinen kuin funktion `lm()`. Eli havainnot `weight` ja luokkamuuttuja `factory` erotetaan tilden `~` avulla. Testin tuloksen näemme käyttämällä `summary` funktiota.
 ```{r}
 choco_anova <- aov(weight ~ factory, data = choco_mod)
 summary(choco_anova)
@@ -479,7 +479,7 @@ Kuten kahden otoksen t-testi, niin myös ANOVA voidaan muotoilla lineaarisen reg
   (\#eq:anovareg)
   X_{ij} = \beta_0 + \beta_1 D_{i2} + \beta_2 D_{i3} + \cdots + \beta_{d-1} D_{id} + \varepsilon_i, \quad \varepsilon_i\sim N(0,\sigma^2),
 \end{equation}
-jossa $D_{ij}$, $j\in\{2, 3, \ldots, d\}$, on osoitinmuuttuja,
+jossa $D_{ij}$, $j\in\{2, 3, \ldots, d\}$, on osoitinmuuttuja
 \begin{equation*}
   D_{ij} =
   \begin{cases}
@@ -491,12 +491,12 @@ Eli jos ryhmiä on $d$ kappaletta, niin osoitinmuuttujia on $d - 1$ kappaletta. 
 
 - vakiotermi $\beta_0$ vastaa ensimmäisen ryhmän odotusarvoa $\mu_1$ ja
 
-- $\beta_j$ vastaa ensimmäisen ryhmän ja ryhmän $j + 1$ odotusarvojen välistä erotusta $\mu_{j+1} - \mu_1$. Nollahypoteesin alla kaikki erotukset $\mu_1 - \mu_j$ ovat nollia eli $\beta_1 = \beta_2 = \cdots = \beta_d = 0$.
+- $\beta_{j-1}$ vastaa ryhmän $j$ ja ensimmäisen ryhmän odotusarvojen välistä erotusta $\mu_{j} - \mu_1$. Nollahypoteesin alla kaikki erotukset $\mu_j - \mu_1$ ovat nollia eli $\beta_1 = \beta_2 = \cdots = \beta_d = 0$.
 
 Tiivistäen: ANOVA on siis vain F-testi lineaariselle regressiomallille \@ref(eq:anovareg)!
 
 :::{.example #anovareg name="ANOVA ja lineaarinen regressio"}
-Suoritetaan esimerkin \@ref(eq:anova) analyysi lieaarisen regression kautta. Olemme jo valmiiksi luoneet sopivasti muokatun taulukon `choco_mod` havaintoaineistosta. Voimme siis suoraan sovittaa kaavan \@ref(eq:anovareg) mukaisen lineaarisen regressiomallin.
+Suoritetaan esimerkin \@ref(exm:anova) analyysi lineaarisen regression kautta. Olemme jo valmiiksi luoneet sopivasti muokatun taulukon `choco_mod` havaintoaineistosta. Voimme siis suoraan sovittaa kaavan \@ref(eq:anovareg) mukaisen lineaarisen regressiomallin.
 ```{r}
 choco_lm <- lm(weight ~ factory, data = choco_mod)
 ```
@@ -507,7 +507,7 @@ summary(choco_lm)
 :::
 
 :::{.proposition #multiplecomparison name="Monivertailuongelma"}
-Esimerkki \@ref(exm:anova) (tai vastaavasti esimerkki \@ref(exm:anovareg)) näyttää, että ainakin yhdessä tehtaassa laatukriteeri liittyen suklaalevyjen painoihin ei täyty. Seuraava luonnollinen askel olisi selvittää, missä kaikissa tehtaissa laatukriteeri ei täyty. Tässä tapauksessa meidän täytyisi suorittaa useampi tilastollinen testi samalle havaintoaineistolle. Esimerkiksi voisimme suorittaa yhden otoksen t-testin nollahypoteesilla $\mu_j = 100\mathrm{g}$ jokaiselle tehtaalle $j\in\{1, \ldots, 4\}$ erikseen. Useamman tilastollisen testin suorittaminen samalle havaintoaineistolle aiheuttaa kuintenkin omat ongelmansa. Tätä niin kutsuttua [monivertailuongelmaa](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) (eng: *multiple comparisons problem*) käsitellään viimeisellä luennolla.
+Esimerkki \@ref(exm:anova) (tai vastaavasti esimerkki \@ref(exm:anovareg)) näyttää, että ainakin yhdessä tehtaassa laatukriteeri liittyen suklaalevyjen painoihin ei täyty. Seuraava luonnollinen askel olisi selvittää, missä kaikissa tehtaissa laatukriteeri ei täyty. Tässä tapauksessa meidän täytyisi suorittaa useampi tilastollinen testi samalle havaintoaineistolle. Esimerkiksi voisimme suorittaa yhden otoksen t-testin nollahypoteesilla $\mu_j = 100\mathrm{g}$ jokaiselle tehtaalle $j\in\{1, \ldots, 4\}$ erikseen. Useamman tilastollisen testin suorittaminen samalle havaintoaineistolle aiheuttaa kuitenkin omat ongelmansa. Tätä niin kutsuttua [monivertailuongelmaa](https://en.wikipedia.org/wiki/Multiple_comparisons_problem) (eng: *multiple comparisons problem*) käsitellään viimeisellä luennolla.
 :::
 
 :::{.proposition #anovaname name='Mistä nimitys "yksisuuntainen varianssianalyysi tulee"?'}
