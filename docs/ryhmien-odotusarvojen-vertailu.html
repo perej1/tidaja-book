@@ -246,7 +246,7 @@ div.csl-indent {
 \end{equation}\]</span>
 Jos havaitusta otoksesta laskettu testisuure <span class="math inline">\(t\)</span> on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin <span class="math inline">\(H_0\)</span>. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta <em>Tilastotieteen perusteet</em>.</p>
 <div class="example">
-<p><span id="exm:onesample" class="example"><strong>Esimerkki 4.1  (Yhden otoksen t-testi odotusarvolle) </strong></span>Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 1000 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (<code>tibble</code>) ensimmäisessä sarakkeessa.</p>
+<p><span id="exm:onesample" class="example"><strong>Esimerkki 4.1  (Yhden otoksen t-testi odotusarvolle) </strong></span>Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 4 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (<code>tibble</code>) ensimmäisessä sarakkeessa.</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-1" tabindex="-1"></a>choco[, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 1
 ##    factory1
@@ -501,7 +501,7 @@ ja
 </div>
 <div id="sec:twosample" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Kahden otoksen t-testi<a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Olkoon <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> satunnaismuuttujia, jotka noudattavat normaalijakaumaa samalla varianssilla <span class="math inline">\(\sigma^2\)</span> mutta mahdollisesti eri odotusarvoilla <span class="math inline">\(\mu_1\)</span> ja <span class="math inline">\(\mu_2\)</span>. Toisin sanoen <span class="math inline">\(X_1\sim N(\mu_1, \sigma^2)\)</span> ja <span class="math inline">\(X_2\sim N(\mu_2, \sigma^2)\)</span>, ja haluamme testata hypoteeseja
+<p>Olkoon <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> satunnaismuuttujia, jotka noudattavat normaalijakaumaa samalla varianssilla <span class="math inline">\(\sigma^2\)</span> mutta mahdollisesti eri odotusarvoilla <span class="math inline">\(\mu_1\)</span> ja <span class="math inline">\(\mu_2\)</span>. Toisin sanoen <span class="math inline">\(X_1\sim N(\mu_1, \sigma^2)\)</span> ja <span class="math inline">\(X_2\sim N(\mu_2, \sigma^2)\)</span>, ja haluamme testata seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
 <span class="math display">\[\begin{align*}
   &amp;H_0: \mu_1 = \mu_2, \\
   &amp;H_1: \mu_1 \neq \mu_2.
@@ -511,7 +511,7 @@ Olkoon <span class="math inline">\(\overrightarrow X_1 = \{X_{11}, \ldots, X_{n_
 <li><p>Otoskoot <span class="math inline">\(n_1\)</span> ja <span class="math inline">\(n_2\)</span> voivat olla erisuuria ja</p></li>
 <li><p>Yhdistetyn otoksen <span class="math inline">\(\overrightarrow X_1  \cup \overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}, X_{12}, \ldots, X_{n_22}\}\)</span> kaikki havainnot ovat riippumattomia.</p></li>
 </ol>
-<p>Tällöin kyse on kahden otoksen t-testistä, joka on oleellinen ensiaskel luvun <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> kannalta. Katso huomio <a href="ryhmien-odotusarvojen-vertailu.html#prp:twomeans">4.1</a> liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
+<p>Annetussa asetelmassa voimme soveltaa kahden otoksen t-testiä. Katso huomio <a href="ryhmien-odotusarvojen-vertailu.html#prp:twomeans">4.1</a> liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
 <span class="math display">\[\begin{equation*}
   \bar X_1 = \frac{1}{n_1}\sum_{i = 1}^{n_1} X_{i1} \quad\text{ja}\quad \bar X_2 = \frac{1}{n_2}\sum_{i = 1}^{n_2} X_{i2}.
 \end{equation*}\]</span>
@@ -525,7 +525,7 @@ Koska oletamme, että satunnaismuutujilla <span class="math inline">\(X_1\)</spa
 <span class="math display">\[\begin{equation*}
   S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}.
 \end{equation*}\]</span>
-Nyt antamiemme oletusten alla testisuure <span class="math inline">\(T\)</span> noudattaa <span class="math inline">\(t\)</span>-jakaumaa <span class="math inline">\(n_1 + n_2 - 2\)</span> vapausasteella,
+Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure <span class="math inline">\(T\)</span> noudattaa <span class="math inline">\(t\)</span>-jakaumaa <span class="math inline">\(n_1 + n_2 - 2\)</span> vapausasteella,
 <span class="math display" id="eq:twosamplestat">\[\begin{equation}
   \tag{4.4}
   T = \frac{\bar X_1 - \bar X_2}{S_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2).
@@ -665,12 +665,58 @@ Nollahypoteesin <span class="math inline">\(\mu_1 = \mu_2\)</span> alla kerroin 
 <p>Huomataan, että p-arvo (<span class="math inline">\(\approx 0.090\)</span>) on sama, joka saatiin esimerkissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:onesample">4.1</a> (lue p-arvo riviltä <code>factoryfactory2</code>)!</p>
 </div>
 <div class="proposition">
-<p><span id="prp:twomeans" class="proposition"><strong>Huomio 4.1  (Kahden ryhmän odotusarvojen vertailusta) </strong></span>Tämän luvun versiossa kahden otoksen t-testistä oletimme, että muuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> varianssit ovat yhtä suuret. Näin ei tarvitse kuitenkaan olla ja kahden otoksen t-testin voi myös suorittaa olettaen, että varianssit ovat erisuuret. Tällöin tosin testisuure näyttää erilaiselta kuin kaavassa <a href="ryhmien-odotusarvojen-vertailu.html#eq:twosamplestat">(4.4)</a>.</p>
+<p><span id="prp:twomeans" class="proposition"><strong>Huomautus 4.1  (Kahden ryhmän odotusarvojen vertailusta) </strong></span>Tämän luvun versiossa kahden otoksen t-testistä oletimme, että muuttujien <span class="math inline">\(X_1\)</span> ja <span class="math inline">\(X_2\)</span> varianssit ovat yhtä suuret. Näin ei tarvitse kuitenkaan olla ja kahden otoksen t-testin voi myös suorittaa olettaen, että varianssit ovat erisuuret. Tällöin tosin testisuure näyttää erilaiselta kuin kaavassa <a href="ryhmien-odotusarvojen-vertailu.html#eq:twosamplestat">(4.4)</a>.</p>
 <p>Kahden otoksen t-testi ei ole soveltuva, jos havaintoparin sisällä <span class="math inline">\((X_{i1}, X_{i2})^T\)</span> olevat havainnot ovat riippuvaisia toisistaan. Tapaukseen, jossa otoskoot ovat yhtäsuuret <span class="math inline">\(n_1 = n_2\)</span>, havaintoparien sisällä on riippuvuutta mutta parit <span class="math inline">\((X_{11}, X_{12})^T, \ldots, (X_{n_11}, X_{n_12})^T\)</span> ovat riippumattomia, sopii parittainen t-testi (eng: <em>paired t-test</em>). Parittaista t-testiä ei käydä läpi tässä luvussa.</p>
 </div>
 </div>
 <div id="sec:anova" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Yksisuuntainen varianssianalyysi<a href="ryhmien-odotusarvojen-vertailu.html#sec:anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Yksisuuntainen varianssianalyysi (eng: <em>one-way analysis of variance</em>, ANOVA) on yleistys kahden otoksen t-testistä useamman ryhmän odotusarvon vertailuun. Olkoon <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span> satunnaismuuttujia, jotka noudattavat normaalijakaumaa yhteisellä varianssilla <span class="math inline">\(\sigma^2\)</span> mutta mahdollisesti eri odotusarvoilla <span class="math inline">\(\mu_1, \mu_2, \ldots, \mu_d\)</span>. Toisin sanoen <span class="math inline">\(X_j\sim N(\mu_j, \sigma)\)</span> ja haluamme testata seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{align*}
+  &amp;H_0: \mu_1 = \mu_2 = \cdots = \mu_d, \\
+  &amp;H_1: \mu_j \neq \mu_k \quad\text{jollekin}\quad j,k\in\{1, 2, \ldots, d\}.
+\end{align*}\]</span>
+Olkoon <span class="math inline">\(\overrightarrow X_j = \{X_{1j}, \ldots, X_{n_jj}\}\)</span> satunnaisotos satunnaismuuttujasta <span class="math inline">\(X_j\)</span>. Oletamme satunnaisotoksista, että</p>
+<ol style="list-style-type: decimal">
+<li><p>Otoskoot <span class="math inline">\(n_j\)</span>, <span class="math inline">\(j\in\{1, 2, \ldots, d\}\)</span> voivat olla erisuuria ja</p></li>
+<li><p>yhdistetyn otoksen <span class="math inline">\(\overrightarrow X_1 \cup \overrightarrow X_2 \cup \cdots \cup \overrightarrow X_d\)</span> kaikki havainnot ovat riippumattomia.</p></li>
+</ol>
+<p>Annetussa asetelmassa voimme soveltaa ANOVA:a. Yhdistetyn otoksen otoskoko on <span class="math inline">\(n = \sum_{j = 1}^d n_j\)</span> ja yhdistetyn otoksen keskiarvo on
+<span class="math display">\[\begin{equation*}
+  \bar X = \frac{1}{n} \sum_{j = 1}^d \sum_{i = 1}^{n_j} X_{ij}.
+\end{equation*}\]</span>
+Vastaavasti merkitään ryhmäkeskiarvoja notaatiolla
+<span class="math display">\[\begin{equation*}
+  \bar X_j = \frac{1}{n_j}\sum_{i = 1}^{n_j} X_{ij}.
+\end{equation*}\]</span>
+Merkitään myös ryhmien välistä neliösummaa (RVN) ja ryhmien sisäistä neliösummaa (RSN) notaatioilla
+<span class="math display">\[\begin{equation*}
+\mathrm{RVN} = \sum_{j = 1}^{d} n_j\left(\bar X_j - \bar X\right)^2
+\quad\text{ja}\quad
+\mathrm{RSN} = \sum_{j = 1}^{d}\sum_{i = 1}^{n_j}
+\left(X_{ij} - \bar X_j\right)^2.
+\end{equation*}\]</span>
+Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure <span class="math inline">\(F\)</span> noudattaa <span class="math inline">\(F\)</span>-jakaumaa vapausasteilla <span class="math inline">\(d - 1\)</span> ja <span class="math inline">\(n - d\)</span>,
+<span class="math display">\[\begin{equation*}
+  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d)
+\end{equation*}\]</span>
+ANOVA:n ideana on siis vertailla ryhmien välistä vaihtelua ryhmien sisäiseen vaihteluun,
+<span class="math display">\[\begin{equation*}
+  F\approx \frac{\text{Ryhmien välinen vaihtelu}}{\text{Ryhmien sisäinen vaihtelu}}.
+\end{equation*}\]</span>
+Jos ryhmien välinen vaihtelu on suuri suhteessa ryhmien sisäiseen vaihteluun, niin nollahypoteesi <span class="math inline">\(\mu_1 = \mu_2 = \cdots = \mu_d\)</span> hylätään. Itseasiassa myös testin nimi “varianssianalyysi” liittyy siihen, että odotusarvojen yhtäsuuruuksia testataan vertaamalla erilaisia vaihtelua kuvaavia suureita keskenään (katso huomautus <a href="ryhmien-odotusarvojen-vertailu.html#prp:anovaname">4.2</a>).</p>
+<div class="example">
+<p><span id="exm:anova" class="example"><strong>Esimerkki 4.8  (ANOVA) </strong></span>TODO</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-38" class="example"><strong>Esimerkki 4.9  (ANOVA ja lineaarinen regressio) </strong></span>TODO</p>
+</div>
+<div class="proposition">
+<p><span id="prp:anovaname" class="proposition"><strong>Huomautus 4.2  (Mistä nimitys "yksisuuntainen varianssianalyysi tulee"?) </strong></span>TODO</p>
+</div>
+<div class="proposition">
+<p><span id="prp:multiplecomparison" class="proposition"><strong>Huomautus 4.3  (Monivertailuongelma) </strong></span>TODO</p>
+</div>
 
 </div>
 </div>

@@ -132,8 +132,12 @@ exm:twosample
 eq:twosamplereg
 exm:unlabeled-div-37
 prp:twomeans
+exm:anova
+exm:unlabeled-div-38
+prp:anovaname
+prp:multiplecomparison
 eq:euclidean
-exm:unlabeled-div-39
+exm:unlabeled-div-40
 fig:vec
 r-ohjelmointikielestä
 sec:inst

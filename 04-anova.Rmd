@@ -19,13 +19,13 @@ Jos havaitusta otoksesta laskettu testisuure $t$ on tarpeeksi poikkeava suhteess
 ```{r, echo=FALSE, message=FALSE}
 library(dplyr)
 set.seed(13)
-num_factory <- 1000
+num_factory <- 4
 n <-  20
 choco <- purrr::map(1:num_factory, ~rnorm(n, 100, 6))
 names(choco) <- stringr::str_c("factory", 1:num_factory)
 choco <- tibble::as_tibble(choco)
 choco <- choco  %>%
-  mutate(factory52 = rnorm(n, 90, 6))
+  mutate(factory4 = rnorm(n, 90, 6))
 
 pval <- rep(NA, num_factory - 1)
 for (i in 2:num_factory) {
@@ -34,7 +34,7 @@ for (i in 2:num_factory) {
 }
 ```
 
-Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 1000 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta $20$ suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (`tibble`) ensimmäisessä sarakkeessa.
+Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 4 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla $\mu = 100\mathrm{g}$. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta $20$ suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (`tibble`) ensimmäisessä sarakkeessa.
 ```{r} 
 choco[, 1]
 ```
@@ -247,7 +247,7 @@ Kun auton paino pidetään vakiona, niin sylintereiden määrän kasvaessa suhde
 
 ## Kahden otoksen t-testi {#sec:twosample}
 
-Olkoon $X_1$ ja $X_2$ satunnaismuuttujia, jotka noudattavat normaalijakaumaa samalla varianssilla $\sigma^2$ mutta mahdollisesti eri odotusarvoilla $\mu_1$ ja $\mu_2$. Toisin sanoen $X_1\sim N(\mu_1, \sigma^2)$ ja $X_2\sim N(\mu_2, \sigma^2)$, ja haluamme testata hypoteeseja
+Olkoon $X_1$ ja $X_2$ satunnaismuuttujia, jotka noudattavat normaalijakaumaa samalla varianssilla $\sigma^2$ mutta mahdollisesti eri odotusarvoilla $\mu_1$ ja $\mu_2$. Toisin sanoen $X_1\sim N(\mu_1, \sigma^2)$ ja $X_2\sim N(\mu_2, \sigma^2)$, ja haluamme testata seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
 \begin{align*}
   &H_0: \mu_1 = \mu_2, \\
   &H_1: \mu_1 \neq \mu_2.
@@ -258,7 +258,7 @@ Olkoon $\overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}\}$ satunnaisotos satunn
 
 2. Yhdistetyn otoksen $\overrightarrow X_1  \cup \overrightarrow X_1 = \{X_{11}, \ldots, X_{n_11}, X_{12}, \ldots, X_{n_22}\}$ kaikki havainnot ovat riippumattomia.
 
-Tällöin kyse on kahden otoksen t-testistä, joka on oleellinen ensiaskel luvun \@ref(sec:anova) kannalta. Katso huomio \@ref(prp:twomeans) liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
+Annetussa asetelmassa voimme soveltaa kahden otoksen t-testiä. Katso huomio \@ref(prp:twomeans) liittyen muuanlaisiin t-testeihin, joissa verrataan kahden ryhmän odotusarvoja. Merkitään satunnaisotoksia vastaavia keskiarvoja notaatioilla
 \begin{equation*}
   \bar X_1 = \frac{1}{n_1}\sum_{i = 1}^{n_1} X_{i1} \quad\text{ja}\quad \bar X_2 = \frac{1}{n_2}\sum_{i = 1}^{n_2} X_{i2}.
 \end{equation*}
@@ -272,7 +272,7 @@ Koska oletamme, että satunnaismuutujilla $X_1$ ja $X_2$ on sama varianssi, niin
 \begin{equation*}
   S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}.
 \end{equation*}
-Nyt antamiemme oletusten alla testisuure $T$ noudattaa $t$-jakaumaa $n_1 + n_2 - 2$ vapausasteella,
+Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure $T$ noudattaa $t$-jakaumaa $n_1 + n_2 - 2$ vapausasteella,
 \begin{equation}
   (\#eq:twosamplestat)
   T = \frac{\bar X_1 - \bar X_2}{S_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2).
@@ -376,5 +376,57 @@ Tämän luvun versiossa kahden otoksen t-testistä oletimme, että muuttujien $X
 Kahden otoksen t-testi ei ole soveltuva, jos havaintoparin sisällä $(X_{i1}, X_{i2})^T$ olevat havainnot ovat riippuvaisia toisistaan. Tapaukseen, jossa otoskoot ovat yhtäsuuret $n_1 = n_2$, havaintoparien sisällä on riippuvuutta mutta parit $(X_{11}, X_{12})^T, \ldots, (X_{n_11}, X_{n_12})^T$ ovat riippumattomia, sopii parittainen t-testi (eng: *paired t-test*). Parittaista t-testiä ei käydä läpi tässä luvussa.
 :::
 
+
 ## Yksisuuntainen varianssianalyysi {#sec:anova}
 
+Yksisuuntainen varianssianalyysi (eng: *one-way analysis of variance*, ANOVA) on yleistys kahden otoksen t-testistä useamman ryhmän odotusarvon vertailuun. Olkoon $X_1, X_2, \ldots, X_d$ satunnaismuuttujia, jotka noudattavat normaalijakaumaa yhteisellä varianssilla $\sigma^2$ mutta mahdollisesti eri odotusarvoilla $\mu_1, \mu_2, \ldots, \mu_d$. Toisin sanoen $X_j\sim N(\mu_j, \sigma)$ ja haluamme testata seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align*}
+  &H_0: \mu_1 = \mu_2 = \cdots = \mu_d, \\
+  &H_1: \mu_j \neq \mu_k \quad\text{jollekin}\quad j,k\in\{1, 2, \ldots, d\}.
+\end{align*}
+Olkoon $\overrightarrow X_j = \{X_{1j}, \ldots, X_{n_jj}\}$ satunnaisotos satunnaismuuttujasta $X_j$. Oletamme satunnaisotoksista, että
+
+1. Otoskoot $n_j$, $j\in\{1, 2, \ldots, d\}$ voivat olla erisuuria ja
+
+2. yhdistetyn otoksen $\overrightarrow X_1 \cup \overrightarrow X_2 \cup \cdots \cup \overrightarrow X_d$ kaikki havainnot ovat riippumattomia.
+
+Annetussa asetelmassa voimme soveltaa ANOVA:a. Yhdistetyn otoksen otoskoko on $n = \sum_{j = 1}^d n_j$ ja yhdistetyn otoksen keskiarvo on
+\begin{equation*}
+  \bar X = \frac{1}{n} \sum_{j = 1}^d \sum_{i = 1}^{n_j} X_{ij}.
+\end{equation*}
+Vastaavasti merkitään ryhmäkeskiarvoja notaatiolla
+\begin{equation*}
+  \bar X_j = \frac{1}{n_j}\sum_{i = 1}^{n_j} X_{ij}.
+\end{equation*}
+Merkitään myös ryhmien välistä neliösummaa (RVN) ja ryhmien sisäistä neliösummaa (RSN) notaatioilla
+\begin{equation*}
+\mathrm{RVN} = \sum_{j = 1}^{d} n_j\left(\bar X_j - \bar X\right)^2
+\quad\text{ja}\quad
+\mathrm{RSN} = \sum_{j = 1}^{d}\sum_{i = 1}^{n_j}
+\left(X_{ij} - \bar X_j\right)^2.
+\end{equation*}
+Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure $F$ noudattaa $F$-jakaumaa vapausasteilla $d - 1$ ja $n - d$,
+\begin{equation*}
+  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d)
+\end{equation*}
+ANOVA:n ideana on siis vertailla ryhmien välistä vaihtelua ryhmien sisäiseen vaihteluun,
+\begin{equation*}
+  F\approx \frac{\text{Ryhmien välinen vaihtelu}}{\text{Ryhmien sisäinen vaihtelu}}.
+\end{equation*}
+Jos ryhmien välinen vaihtelu on suuri suhteessa ryhmien sisäiseen vaihteluun, niin nollahypoteesi $\mu_1 = \mu_2 = \cdots = \mu_d$ hylätään. Itseasiassa myös testin nimi "varianssianalyysi" liittyy siihen, että odotusarvojen yhtäsuuruuksia testataan vertaamalla erilaisia vaihtelua kuvaavia suureita keskenään (katso huomautus \@ref(prp:anovaname)).
+
+:::{.example #anova name="ANOVA"}
+TODO
+:::
+
+:::{.example name="ANOVA ja lineaarinen regressio"}
+TODO
+:::
+
+:::{.proposition #anovaname name='Mistä nimitys "yksisuuntainen varianssianalyysi tulee"?'}
+TODO
+:::
+
+:::{.proposition #multiplecomparison name="Monivertailuongelma"}
+TODO
+:::
