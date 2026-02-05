@@ -246,7 +246,7 @@ div.csl-indent {
 \end{equation}\]</span>
 Jos havaitusta otoksesta laskettu testisuure <span class="math inline">\(t\)</span> on tarpeeksi poikkeava suhteessa valittuun merkitsevyystasoon, niin hylkäämme nollahypoteesin <span class="math inline">\(H_0\)</span>. Lämmittelynä tämän luvun aiheisiin käymme läpi esitellyn t-testin suorittamisen esimerkin kautta. Kyseinen esimerkki on itseasiassa suoraan kurssilta <em>Tilastotieteen perusteet</em>.</p>
 <div class="example">
-<p><span id="exm:onesample" class="example"><strong>Esimerkki 4.1  (Yhden otoksen t-testi odotusarvolle) </strong></span>Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä 4 tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (<code>tibble</code>) ensimmäisessä sarakkeessa.</p>
+<p><span id="exm:onesample" class="example"><strong>Esimerkki 4.1  (Yhden otoksen t-testi odotusarvolle) </strong></span>Vilin franchising makeistehtaat tuottavat suklaalevyjä. Vili omistaa yhteensä <span class="math inline">\(4\)</span> tehdasta. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen keskimääräisen painon pitäisi olla <span class="math inline">\(\mu = 100\mathrm{g}\)</span>. Nyt laaduntarkastajat nappaavat jokaisen tehtaan tuotantolinjalta <span class="math inline">\(20\)</span> suklaalevyn otoksen. Ensimmäistä tehdasta vastaava otos näkyy alla olevan taulukon (<code>tibble</code>) ensimmäisessä sarakkeessa.</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb128-1" tabindex="-1"></a>choco[, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 1
 ##    factory1
@@ -594,9 +594,9 @@ Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuur
 <p>Kuten yhden otoksen t-testi, niin myös kahden otoksen t-testi voidaan muotoilla lineaarisen regression avulla. Määritellään lineaarinen regressiomalli
 <span class="math display" id="eq:twosamplereg">\[\begin{equation}
   \tag{4.5}
-  X_{ij} = \beta_0 + \beta_1 D_{ij} + \varepsilon_i, \quad \varepsilon_i\sim N(0,\sigma^2),
+  X_{ij} = \beta_0 + \beta_1 D_{i2} + \varepsilon_i, \quad \varepsilon_i\sim N(0,\sigma^2),
 \end{equation}\]</span>
-jossa <span class="math inline">\(D_{ij}\)</span> on osoitinmuuttuja,
+jossa <span class="math inline">\(D_{i2}\)</span> on osoitinmuuttuja,
 <span class="math display">\[\begin{equation*}
   D_{ij} =
   \begin{cases}
@@ -610,7 +610,7 @@ Nollahypoteesin <span class="math inline">\(\mu_1 = \mu_2\)</span> alla kerroin 
 <li><p><span class="math inline">\(\beta_1\)</span> vastaa ryhmien odotusarvojen välistä erotusta <span class="math inline">\(\mu_2 - \mu_1\)</span>. Nollahypoteesin alla <span class="math inline">\(\beta_1 = \mu_2  - \mu_1 = 0\)</span>.</p></li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-37" class="example"><strong>Esimerkki 4.7  (Kahden otoksen t-testi ja lineaarinen regressio) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:twosample">4.6</a> analyysi lineaarisen regression kautta. Ensin dataan täytyy sisällyttää luokkamuuttuja, joka kertoo sen, kummasta tehtaasta suklaalevy tulee. Tätä tarkoitusta varten on useampikin mahdollinen R funktio. Tässä käytämme <code>tidyr</code> paketin funktiota <code>gather()</code>. Fuktion <code>gather()</code> syntaksin opettelu ei ole oleellista kurssin kannalta. On kuitenkin hyvä tietää funktion olemassaolosta, jos tulevaisuudessa joudut siivoamaan ja muokkaamaan dataa.</p>
+<p><span id="exm:twosamplereg" class="example"><strong>Esimerkki 4.7  (Kahden otoksen t-testi ja lineaarinen regressio) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:twosample">4.6</a> analyysi lineaarisen regression kautta. Ensin dataan täytyy sisällyttää luokkamuuttuja, joka kertoo sen, kummasta tehtaasta suklaalevy tulee. Tätä tarkoitusta varten on useampikin mahdollinen R funktio. Tässä käytämme <code>tidyr</code> paketin funktiota <code>gather()</code>. Fuktion <code>gather()</code> syntaksin opettelu ei ole oleellista kurssin kannalta. On kuitenkin hyvä tietää funktion olemassaolosta, jos tulevaisuudessa joudut siivoamaan ja muokkaamaan dataa.</p>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb158-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb158-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb158-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb158-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb158-3" tabindex="-1"></a>choco12 <span class="ot">&lt;-</span> choco <span class="sc">%&gt;%</span></span>
@@ -702,20 +702,145 @@ Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuur
 \end{equation*}\]</span>
 ANOVA:n ideana on siis vertailla ryhmien välistä vaihtelua ryhmien sisäiseen vaihteluun,
 <span class="math display">\[\begin{equation*}
-  F\approx \frac{\text{Ryhmien välinen vaihtelu}}{\text{Ryhmien sisäinen vaihtelu}}.
+  \frac{\text{Ryhmien välinen vaihtelu}}{\text{Ryhmien sisäinen vaihtelu}}.
 \end{equation*}\]</span>
-Jos ryhmien välinen vaihtelu on suuri suhteessa ryhmien sisäiseen vaihteluun, niin nollahypoteesi <span class="math inline">\(\mu_1 = \mu_2 = \cdots = \mu_d\)</span> hylätään. Itseasiassa myös testin nimi “varianssianalyysi” liittyy siihen, että odotusarvojen yhtäsuuruuksia testataan vertaamalla erilaisia vaihtelua kuvaavia suureita keskenään (katso huomautus <a href="ryhmien-odotusarvojen-vertailu.html#prp:anovaname">4.2</a>).</p>
+Jos ryhmien välinen vaihtelu on suuri suhteessa ryhmien sisäiseen vaihteluun, niin nollahypoteesi <span class="math inline">\(\mu_1 = \mu_2 = \cdots = \mu_d\)</span> hylätään. Itseasiassa myös testin nimi “varianssianalyysi” liittyy siihen, että odotusarvojen yhtäsuuruuksia testataan vertaamalla erilaisia vaihtelua kuvaavia suureita keskenään (katso huomautus <a href="ryhmien-odotusarvojen-vertailu.html#prp:anovaname">4.3</a>).</p>
+<p>Alla on käytännön esimerkki siitä, miten ANOVA suoritetaan R:llä. Suoritamme testin manuaalisesti ja käyttäen R:n funktiota <code>aov()</code>.</p>
 <div class="example">
-<p><span id="exm:anova" class="example"><strong>Esimerkki 4.8  (ANOVA) </strong></span>TODO</p>
+<p><span id="exm:anova" class="example"><strong>Esimerkki 4.8  (ANOVA) </strong></span>Esimerkeissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:onesample">4.1</a> ja <a href="ryhmien-odotusarvojen-vertailu.html#exm:twosample">4.6</a> tehtyjen tilastollisten testien perusteella laatukriteeri <span class="math inline">\(\mu_1 = \mu_2 = 100\mathrm{g}\)</span> täyttyy tehtaissa 1 ja 2. Nyt johto antaa seuraavan tehtävänannon.</p>
+<ul>
+<li>Franchising yhtiössä on tärkeää, että laatu pysyy tasaisena. Onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin?</li>
+</ul>
+<p>Analysoidaan johdon asettamaa kysymystä ANOVA:n avulla. Käytetään merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>Alla näkyy kaikkia neljää tehtaita vastaavat otokset suklaalevyistä.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb163-1" tabindex="-1"></a>choco</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##    factory1 factory2 factory3 factory4
+##       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1    103.     102.     101.      89.5
+##  2     98.3    111.     110.      91.8
+##  3    111.     102.     103.      82.8
+##  4    101.      93.7    110.      78.0
+##  5    107.     104.      97.2     98.3
+##  6    102.     101.      95.6     89.5
+##  7    107.      91.2     93.9     92.4
+##  8    101.      87.8     88.4     83.5
+##  9     97.8     93.7    102.      99.6
+## 10    107.      95.6    108.      96.0
+## 11     93.4    100.0    102.      92.3
+## 12    103.     105.     105.      86.6
+## 13     91.8     97.7     97.9     82.7
+## 14     88.9     96.8     96.7     81.8
+## 15     97.4     98.4    101.      81.5
+## 16     98.8     96.4     98.2     88.5
+## 17    108.      98.0     95.0     82.6
+## 18    101.      98.6    105.      91.3
+## 19     99.3     94.8    109.      90.4
+## 20    104.      94.9    104.      95.1</code></pre>
+<p>Ensin laskemme tehdaskohtaiset keskiarvot <span class="math inline">\(\bar X_j\)</span>, yhteisen keskiarvon <span class="math inline">\(\bar X\)</span> sekä tunnusluvut <span class="math inline">\(\mathrm{RVN}\)</span> ja <span class="math inline">\(\mathrm{RSN}\)</span>.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(choco) <span class="sc">*</span> <span class="fu">ncol</span>(choco)</span>
+<span id="cb165-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-2" tabindex="-1"></a>n_j <span class="ot">&lt;-</span> <span class="fu">nrow</span>(choco)</span>
+<span id="cb165-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-3" tabindex="-1"></a></span>
+<span id="cb165-4"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-4" tabindex="-1"></a>mean_group <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(choco)</span>
+<span id="cb165-5"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-5" tabindex="-1"></a>mean_total <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_group)</span>
+<span id="cb165-6"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-6" tabindex="-1"></a></span>
+<span id="cb165-7"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-7" tabindex="-1"></a>rvn <span class="ot">&lt;-</span> <span class="fu">sum</span>(n_j <span class="sc">*</span> (mean_group <span class="sc">-</span> mean_total)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb165-8"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-8" tabindex="-1"></a>rsn <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">as.matrix</span>(<span class="fu">sweep</span>(choco, <span class="dv">2</span>, mean_group, <span class="st">&quot;-&quot;</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb165-9"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-9" tabindex="-1"></a></span>
+<span id="cb165-10"><a href="ryhmien-odotusarvojen-vertailu.html#cb165-10" tabindex="-1"></a>rvn</span></code></pre></div>
+<pre><code>## [1] 2058.938</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb167-1" tabindex="-1"></a>rsn</span></code></pre></div>
+<pre><code>## [1] 2454.718</code></pre>
+<p>Saamme testisuureeksi arvon <span class="math inline">\(f\approx 21.25\)</span>.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb169-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">ncol</span>(choco)</span>
+<span id="cb169-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb169-2" tabindex="-1"></a>f <span class="ot">&lt;-</span> ((n <span class="sc">-</span> d) <span class="sc">/</span> (d <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> (rvn <span class="sc">/</span> rsn)</span>
+<span id="cb169-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb169-3" tabindex="-1"></a>f</span></code></pre></div>
+<pre><code>## [1] 21.24879</code></pre>
+<p>Nyt voimme laskea testisuuretta vastaavan p-arvon, joka on tässä tapauksessa lähellä nollaa.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb171-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(f, d <span class="sc">-</span> <span class="dv">1</span>, n <span class="sc">-</span> d)</span></code></pre></div>
+<pre><code>## [1] 4.271928e-10</code></pre>
+<p>Koska p-arvo on pienempi kuin asetettu merkitsevyystaso <span class="math inline">\(\alpha = 0.05\)</span>, niin hylkäämme nollahypoteesin. Testin tulos antaa tarpeeksi todisteita sen puolesta, että ainakin yhdessä tehtaassa tuotettujen suklaalevyjen keskipaino eroaa merkittävästi muissa tehtaissa tuotettujen suklaalevyjen keskipainosta.</p>
+<p>Sama tulos saadaan käyttämällä valmista R funktiota <code>aov()</code>. Jotta funktiota voidaan käyttää, niin dataa pitää muokata esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:twosamplereg">4.7</a> tyyliin. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb173-1" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco <span class="sc">%&gt;%</span></span>
+<span id="cb173-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb173-2" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="st">&quot;factory&quot;</span>, <span class="st">&quot;weight&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb173-3"><a href="ryhmien-odotusarvojen-vertailu.html#cb173-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span>
+<span id="cb173-4"><a href="ryhmien-odotusarvojen-vertailu.html#cb173-4" tabindex="-1"></a></span>
+<span id="cb173-5"><a href="ryhmien-odotusarvojen-vertailu.html#cb173-5" tabindex="-1"></a>choco_mod</span></code></pre></div>
+<pre><code>## # A tibble: 80 × 2
+##    factory  weight
+##    &lt;fct&gt;     &lt;dbl&gt;
+##  1 factory1  103. 
+##  2 factory1   98.3
+##  3 factory1  111. 
+##  4 factory1  101. 
+##  5 factory1  107. 
+##  6 factory1  102. 
+##  7 factory1  107. 
+##  8 factory1  101. 
+##  9 factory1   97.8
+## 10 factory1  107. 
+## # ℹ 70 more rows</code></pre>
+<p>Nyt muokatulle datalla <code>choco_mod</code> voimme suorittaa ANOVA:n. Funktion <code>aov()</code> syntaksi on samantyyppinen kuin funktion <code>lm()</code>. Eli havainnot <code>weight</code> ja luokkamuuttuja <code>factory</code> erotetaan tilden <code>~</code> avulla. Tentin tuloksen näemme käyttämällä <code>summary</code> funktiota.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb175-1" tabindex="-1"></a>choco_anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span>
+<span id="cb175-2"><a href="ryhmien-odotusarvojen-vertailu.html#cb175-2" tabindex="-1"></a><span class="fu">summary</span>(choco_anova)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## factory      3   2059   686.3   21.25 4.27e-10 ***
+## Residuals   76   2455    32.3                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Sarake <code>Sum Sq</code> antaa tunnuslukujen <span class="math inline">\(\mathrm{RVN}\)</span> ja <span class="math inline">\(\mathrm{RSN}\)</span> arvot. Keskineliösummien <span class="math inline">\(\mathrm{RVN}/(d - 1)\)</span> ja <span class="math inline">\(\mathrm{RSN}/(n - d)\)</span> arvot näkyvät sarakkeessa <code>Mean Sq</code>. Viimeiset sarakkeet antavat testisuureen ja <span class="math inline">\(p\)</span>-arvon.</p>
 </div>
+<p>Kuten kahden otoksen t-testi, niin myös ANOVA voidaan muotoilla lineaarisen regression avulla. Määritellään lineaarinen regressiomalli
+<span class="math display" id="eq:anovareg">\[\begin{equation}
+  \tag{4.6}
+  X_{ij} = \beta_0 + \beta_1 D_{i2} + \beta_2 D_{i3} + \cdots + \beta_{d-1} D_{id} + \varepsilon_i, \quad \varepsilon_i\sim N(0,\sigma^2),
+\end{equation}\]</span>
+jossa <span class="math inline">\(D_{ij}\)</span>, <span class="math inline">\(j\in\{2, 3, \ldots, d\}\)</span>, on osoitinmuuttuja,
+<span class="math display">\[\begin{equation*}
+  D_{ij} =
+  \begin{cases}
+    0,&amp; \text{jos havainto  $X_{ij}$ ei kuuluu luokkaan $j$}, \\
+    1,&amp; \text{jos havainto  $X_{ij}$ kuuluu luokkaan $j$}.
+  \end{cases}
+\end{equation*}\]</span>
+Eli jos ryhmiä on <span class="math inline">\(d\)</span> kappaletta, niin osoitinmuuttujia on <span class="math inline">\(d - 1\)</span> kappaletta. Nollahypoteesin <span class="math inline">\(\mu_1 = \mu_2 = \cdots = \mu_d\)</span> alla regressiomalli <a href="ryhmien-odotusarvojen-vertailu.html#eq:anovareg">(4.6)</a> ei ole tilastollisesti merkitsevä. Eli mallissa <a href="ryhmien-odotusarvojen-vertailu.html#eq:anovareg">(4.6)</a></p>
+<ul>
+<li><p>vakiotermi <span class="math inline">\(\beta_0\)</span> vastaa ensimmäisen ryhmän odotusarvoa <span class="math inline">\(\mu_1\)</span> ja</p></li>
+<li><p><span class="math inline">\(\beta_j\)</span> vastaa ensimmäisen ryhmän ja ryhmän <span class="math inline">\(j + 1\)</span> odotusarvojen välistä erotusta <span class="math inline">\(\mu_{j+1} - \mu_1\)</span>. Nollahypoteesin alla kaikki erotukset <span class="math inline">\(\mu_1 - \mu_j\)</span> ovat nollia eli <span class="math inline">\(\beta_1 = \beta_2 = \cdots = \beta_d = 0\)</span>.</p></li>
+</ul>
+<p>Tiivistäen: ANOVA on siis vain F-testi lineaariselle regressiomallille <a href="ryhmien-odotusarvojen-vertailu.html#eq:anovareg">(4.6)</a>!</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-38" class="example"><strong>Esimerkki 4.9  (ANOVA ja lineaarinen regressio) </strong></span>TODO</p>
+<p><span id="exm:anovareg" class="example"><strong>Esimerkki 4.9  (ANOVA ja lineaarinen regressio) </strong></span>Suoritetaan esimerkin <a href="#eq:anova">(<strong>??</strong>)</a> analyysi lieaarisen regression kautta. Olemme jo valmiiksi luoneet sopivasti muokatun taulukon <code>choco_mod</code> havaintoaineistosta. Voimme siis suoraan sovittaa kaavan <a href="ryhmien-odotusarvojen-vertailu.html#eq:anovareg">(4.6)</a> mukaisen lineaarisen regressiomallin.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb177-1" tabindex="-1"></a>choco_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
+<p>Komennon <code>summary(choco_lm)</code> tulosteesta voimme lukea F-testiä vastaavan-arvon. F-testiä vastaava p-arvo on sama kuin esimerkissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> käytetyn funktion <code>aov()</code> antama p-arvo.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="ryhmien-odotusarvojen-vertailu.html#cb178-1" tabindex="-1"></a><span class="fu">summary</span>(choco_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = weight ~ factory, data = choco_mod)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.7190  -3.7660   0.2861   3.4947  12.9144 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     101.08086    1.27081  79.541  &lt; 2e-16 ***
+## factoryfactory2  -2.97829    1.79719  -1.657    0.102    
+## factoryfactory3   0.01123    1.79719   0.006    0.995    
+## factoryfactory4 -12.36215    1.79719  -6.879 1.49e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.683 on 76 degrees of freedom
+## Multiple R-squared:  0.4562, Adjusted R-squared:  0.4347 
+## F-statistic: 21.25 on 3 and 76 DF,  p-value: 4.272e-10</code></pre>
 </div>
 <div class="proposition">
-<p><span id="prp:anovaname" class="proposition"><strong>Huomautus 4.2  (Mistä nimitys "yksisuuntainen varianssianalyysi tulee"?) </strong></span>TODO</p>
+<p><span id="prp:multiplecomparison" class="proposition"><strong>Huomautus 4.2  (Monivertailuongelma) </strong></span>Esimerkki <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> (tai vastaavasti esimerkki <a href="ryhmien-odotusarvojen-vertailu.html#exm:anovareg">4.9</a>) näyttää, että ainakin yhdessä tehtaassa laatukriteeri liittyen suklaalevyjen painoihin ei täyty. Seuraava luonnollinen askel olisi selvittää, missä kaikissa tehtaissa laatukriteeri ei täyty. Tässä tapauksessa meidän täytyisi suorittaa useampi tilastollinen testi samalle havaintoaineistolle. Esimerkiksi voisimme suorittaa yhden otoksen t-testin nollahypoteesilla <span class="math inline">\(\mu_j = 100\mathrm{g}\)</span> jokaiselle tehtaalle <span class="math inline">\(j\in\{1, \ldots, 4\}\)</span> erikseen. Useamman tilastollisen testin suorittaminen samalle havaintoaineistolle aiheuttaa kuintenkin omat ongelmansa. Tätä niin kutsuttua <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">monivertailuongelmaa</a> (eng: <em>multiple comparisons problem</em>) käsitellään viimeisellä luennolla.</p>
 </div>
 <div class="proposition">
-<p><span id="prp:multiplecomparison" class="proposition"><strong>Huomautus 4.3  (Monivertailuongelma) </strong></span>TODO</p>
+<p><span id="prp:anovaname" class="proposition"><strong>Huomautus 4.3  (Mistä nimitys "yksisuuntainen varianssianalyysi tulee"?) </strong></span>Varianssianalyysi nimitys tulee siitä, että odotusarvojen yhtäsuuruuksia vertaillaan käyttäen tunnuslukuja, jotka mittaavat tietynlaisia vaihteluja. Tarkalleen ottaen vertaamme ryhmien välistä vaihtelua ryhmien sisäisiin vaihteluihin.</p>
+<p>Toisaalta etuliite “yksisuuntainen” littyy siihen, että ryhmien odotusarvoja verrataan yhden luokkamuuttujan suhteen – esimerkissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> luokkamuuttuja on tehdas (tehdas <span class="math inline">\(1/2/3/4\)</span>). Jos odotusarvojen erilaisuutta tarkastellaan kahden luokkamuuttujan suhteen niin kyse on kaksisuuntaisesta varianssianalyysistä. Ylipäätään odusarvojen erilaisuutta voidaan tarkastella myös kolmen, neljän, … luokkamuuttujan suhteen.</p>
 </div>
 
 </div>
