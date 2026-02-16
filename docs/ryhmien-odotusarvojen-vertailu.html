@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-06" />
+<meta name="date" content="2026-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -376,11 +376,11 @@ avulla määrittelemme lineaarisen regressiomallin,
 \end{equation*}\]</span>
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 <span class="math display">\[\begin{equation*}
-  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
+  \widehat{\texttt{salary}}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
 \end{equation*}\]</span>
 jossa <span class="math inline">\(\hat\beta_0 = 2\)</span>, <span class="math inline">\(\hat\beta_1 = 0.1\)</span> ja <span class="math inline">\(\hat\beta_2 = 1\)</span>. Toisaalta sijoittamalla osoitinmuuttujan arvot (<span class="math inline">\(0\)</span> tai <span class="math inline">\(1\)</span>) voimme kirjoittaa sovitteen muodossa
 <span class="math display">\[\begin{equation*}
-  \texttt{salary}_i =
+  \widehat{\texttt{salary}}_i =
   \begin{cases}
   \hat\beta_0 + \hat\beta_1\texttt{experience}_i,&amp; \text{jos työntekijä $i$ on osa-aikainen}, \\
   (\hat\beta_0 + \hat\beta_2) + \hat\beta_1\texttt{experience}_i, &amp; \text{jos työntekijä $i$ on kokoaikainen}.
@@ -416,7 +416,7 @@ jolloin saamme lineaarisen regressiomallin
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 <span class="math display" id="eq:accounting">\[\begin{equation}
   \tag{4.3}
-  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i.
+  \widehat{\texttt{salary}}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i.
 \end{equation}\]</span>
 Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
 <ul>
@@ -478,7 +478,7 @@ Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.</p>
 ## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
 <p>Komennon <code>summary(cars_lm)</code> tulosteesta näemme, että sovitettu malli on muotoa
 <span class="math display">\[\begin{equation*}
-  \texttt{mpg}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
+  \widehat{\texttt{mpg}}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
 \end{equation*}\]</span>
 jossa
 <span class="math display">\[\begin{equation*}
@@ -698,7 +698,7 @@ Merkitään myös ryhmien välistä neliösummaa (RVN) ja ryhmien sisäistä nel
 \end{equation*}\]</span>
 Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure <span class="math inline">\(F\)</span> noudattaa <span class="math inline">\(F\)</span>-jakaumaa vapausasteilla <span class="math inline">\(d - 1\)</span> ja <span class="math inline">\(n - d\)</span>,
 <span class="math display">\[\begin{equation*}
-  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d)
+  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d).
 \end{equation*}\]</span>
 ANOVA:n ideana on siis vertailla ryhmien välistä vaihtelua ryhmien sisäiseen vaihteluun,
 <span class="math display">\[\begin{equation*}

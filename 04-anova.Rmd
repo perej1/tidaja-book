@@ -142,11 +142,11 @@ avulla määrittelemme lineaarisen regressiomallin,
 \end{equation*}
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 \begin{equation*}
-  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
+  \widehat{\texttt{salary}}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{type}_i,
 \end{equation*}
 jossa $\hat\beta_0 = 2$, $\hat\beta_1 = 0.1$ ja $\hat\beta_2 = 1$. Toisaalta sijoittamalla osoitinmuuttujan arvot ($0$ tai $1$) voimme kirjoittaa sovitteen muodossa
 \begin{equation*}
-  \texttt{salary}_i =
+  \widehat{\texttt{salary}}_i =
   \begin{cases}
   \hat\beta_0 + \hat\beta_1\texttt{experience}_i,& \text{jos työntekijä $i$ on osa-aikainen}, \\
   (\hat\beta_0 + \hat\beta_2) + \hat\beta_1\texttt{experience}_i, & \text{jos työntekijä $i$ on kokoaikainen}.
@@ -183,7 +183,7 @@ jolloin saamme lineaarisen regressiomallin
 Kuvitellaan, että pienimmän neliösumman menetelmällä saamme sovitteen
 \begin{equation}
   (\#eq:accounting)
-  \texttt{salary}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i.
+  \widehat{\texttt{salary}}_i = \hat\beta_0 + \hat\beta_1\texttt{experience}_i + \hat\beta_2\texttt{r}_i + \hat\beta_3\texttt{m}_i.
 \end{equation}
 Luokkamuuttujia vastaavien osoitinmuuttujien tulkinnat ovat seuraavat.
 
@@ -223,7 +223,7 @@ summary(cars_lm)
 
 Komennon `summary(cars_lm)` tulosteesta näemme, että sovitettu malli on muotoa
 \begin{equation*}
-  \texttt{mpg}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
+  \widehat{\texttt{mpg}}_i = \hat\beta_0 + \hat\beta_1\texttt{wt}_i + \hat\beta_2\texttt{c_six}_i + \hat\beta_3\texttt{c_eight}_i,
 \end{equation*}
 jossa
 \begin{equation*}
@@ -407,7 +407,7 @@ Merkitään myös ryhmien välistä neliösummaa (RVN) ja ryhmien sisäistä nel
 \end{equation*}
 Tällöin kun antamamme oletukset pätevät, niin nollahypoteesin alla testisuure $F$ noudattaa $F$-jakaumaa vapausasteilla $d - 1$ ja $n - d$,
 \begin{equation*}
-  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d)
+  F = \frac{\mathrm{RVN}/(d - 1)}{\mathrm{RSN}/(n - d)}\sim F(d - 1, n - d).
 \end{equation*}
 ANOVA:n ideana on siis vertailla ryhmien välistä vaihtelua ryhmien sisäiseen vaihteluun,
 \begin{equation*}
