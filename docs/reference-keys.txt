@@ -162,6 +162,7 @@ ryhmien-odotusarvojen-vertailu
 sec:dummy
 sec:twosample
 sec:anova
+epäparametrisia-tilastollisia-testejä
 liitteet
 sec:vector
 sec:matrix

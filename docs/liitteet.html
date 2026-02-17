@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Luku 5 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Luku 5 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 6 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 6 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Luku 5 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 6 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Luku 5 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 6 Liitteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-16" />
+<meta name="date" content="2026-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ryhmien-odotusarvojen-vertailu.html"/>
+<link rel="prev" href="epäparametrisia-tilastollisia-testejä.html"/>
 <link rel="next" href="lähteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -205,10 +205,11 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:twosample"><i class="fa fa-check"></i><b>4.2</b> Kahden otoksen t-testi</a></li>
 <li class="chapter" data-level="4.3" data-path="ryhmien-odotusarvojen-vertailu.html"><a href="ryhmien-odotusarvojen-vertailu.html#sec:anova"><i class="fa fa-check"></i><b>4.3</b> Yksisuuntainen varianssianalyysi</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>5</b> Liitteet</a>
+<li class="chapter" data-level="5" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html"><i class="fa fa-check"></i><b>5</b> Epäparametrisia tilastollisia testejä</a></li>
+<li class="chapter" data-level="6" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>6</b> Liitteet</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="liitteet.html"><a href="liitteet.html#sec:vector"><i class="fa fa-check"></i><b>5.1</b> Vektoreista</a></li>
-<li class="chapter" data-level="5.2" data-path="liitteet.html"><a href="liitteet.html#sec:matrix"><i class="fa fa-check"></i><b>5.2</b> Matriiseista</a></li>
+<li class="chapter" data-level="6.1" data-path="liitteet.html"><a href="liitteet.html#sec:vector"><i class="fa fa-check"></i><b>6.1</b> Vektoreista</a></li>
+<li class="chapter" data-level="6.2" data-path="liitteet.html"><a href="liitteet.html#sec:matrix"><i class="fa fa-check"></i><b>6.2</b> Matriiseista</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lähteet.html"><a href="lähteet.html"><i class="fa fa-check"></i>Lähteet</a></li>
 <li class="divider"></li>
@@ -230,11 +231,11 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="liitteet" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Luku 5</span> Liitteet<a href="liitteet.html#liitteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="sec:vector" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Vektoreista<a href="liitteet.html#sec:vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="liitteet.html#fig:vec">5.1</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
+<div id="liitteet" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Luku 6</span> Liitteet<a href="liitteet.html#liitteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="sec:vector" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Vektoreista<a href="liitteet.html#sec:vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Esimerkiksi <span class="math inline">\(2\)</span>-ulotteiset vektorit voidaan piirtää pisteinä tai paikkavektoreina (nuoli lähtien nollasta päättyen vektorin määräämiin koordinaatteihin) tasossa <span class="math inline">\(\mathbb{R}^2\)</span> kuten kuvassa <a href="liitteet.html#fig:vec">6.1</a>. Samoin <span class="math inline">\(d\)</span>-ulotteiset vektorit voidaan tulkita pisteinä avaruudessa <span class="math inline">\(\mathbb{R}^d\)</span> mutta visualisointi muuttuu mahdottomaksi kun <span class="math inline">\(d &gt; 3\)</span>. Korostamme vielä, että vektorien alkioiden järjestyksellä on väliä eli esimerkiksi <span class="math inline">\((1, 2) \neq (2, 1)\)</span>.</p>
 <div class="remark">
 <p><span id="unlabeled-div-37" class="remark"><em>Huomautus</em> (Vektorinotaatioista). </span></p>
 <ul>
@@ -251,7 +252,7 @@ joten monisteessa merkitsemme pystyvektoreita esimerkiksi notaatiolla <span clas
 <p>Vektorin <span class="math inline">\(\boldsymbol x = (x_1, x_2, \cdots, x_d)\in\mathbb{R}^d\)</span> suuruutta tai pituutta voidaan mitata sen normin <span class="math inline">\(\|\boldsymbol x\|\)</span> avulla,
 <span class="math display" id="eq:euclidean">\[\begin{equation}
   \|\boldsymbol x\| = \sqrt{\sum_{i = 1}^d x_i^2}.
-  \tag{5.1}
+  \tag{6.1}
 \end{equation}\]</span>
 Yllä olevassa yhtälössä esitetty normi on nimeltään Euklidinen normi (eng: <em>Euclidean norm</em>), joka on yksi yleisimmistä normeista. Muitakin normeja on kuitenkin olemassa:</p>
 <ul>
@@ -271,22 +272,22 @@ Yllä olevassa yhtälössä esitetty normi on nimeltään Euklidinen normi (eng:
 \end{equation*}\]</span>
 Erityisesti kaksi vektoria <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> ovat suorassa kulmassa toisiinsa nähden jos ja vain jos <span class="math inline">\(\langle \boldsymbol x, \boldsymbol y\rangle = 0\)</span>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-38" class="example"><strong>Esimerkki 5.1  (Vektorin suuruus ja suunta) </strong></span></p>
+<p><span id="exm:unlabeled-div-38" class="example"><strong>Esimerkki 6.1  (Vektorin suuruus ja suunta) </strong></span></p>
 <ul>
-<li><p>Kuvan <a href="liitteet.html#fig:vec">5.1</a> vektoreilla <span class="math inline">\((2,2)^T\)</span> ja <span class="math inline">\((-1, \sqrt{7})^T\)</span> on sama normi.</p></li>
-<li><p>Kuvan <a href="liitteet.html#fig:vec">5.1</a> vektoreiden <span class="math inline">\((2, 2)^T\)</span> ja <span class="math inline">\((-1, 1)^T\)</span> välinen pistetulo on nolla.</p></li>
+<li><p>Kuvan <a href="liitteet.html#fig:vec">6.1</a> vektoreilla <span class="math inline">\((2,2)^T\)</span> ja <span class="math inline">\((-1, \sqrt{7})^T\)</span> on sama normi.</p></li>
+<li><p>Kuvan <a href="liitteet.html#fig:vec">6.1</a> vektoreiden <span class="math inline">\((2, 2)^T\)</span> ja <span class="math inline">\((-1, 1)^T\)</span> välinen pistetulo on nolla.</p></li>
 </ul>
 </div>
 
 <div class="figure"><span style="display:block;" id="fig:vec"></span>
 <img src="images/vectors.jpg" alt="Vektoreita karteesisessa koordinaatistossa." width="730" />
 <p class="caption">
-Kuva 5.1: Vektoreita karteesisessa koordinaatistossa.
+Kuva 6.1: Vektoreita karteesisessa koordinaatistossa.
 </p>
 </div>
 </div>
-<div id="sec:matrix" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Matriiseista<a href="liitteet.html#sec:matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec:matrix" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Matriiseista<a href="liitteet.html#sec:matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Matriisi on suorakulmion muotoinen taulukko lukuja, joka on järjestetty rivien ja sarakkeiden mukaan. Matriisi, jossa on <span class="math inline">\(n\)</span> riviä ja <span class="math inline">\(d\)</span> saraketta
 on <span class="math inline">\((n\times d)\)</span>-matriisi
 <span class="math display">\[\begin{equation*}
@@ -430,7 +431,7 @@ Alla on muutamia keskeisiä transpoosin ominaisuuksia.</p>
           </div>
         </div>
       </div>
-<a href="ryhmien-odotusarvojen-vertailu.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="epäparametrisia-tilastollisia-testejä.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="lähteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
