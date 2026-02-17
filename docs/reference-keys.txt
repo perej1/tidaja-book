@@ -163,6 +163,9 @@ sec:dummy
 sec:twosample
 sec:anova
 epäparametrisia-tilastollisia-testejä
+sec:signtest
+sec:signedranktest
+sec:nonparamtwosample
 liitteet
 sec:vector
 sec:matrix

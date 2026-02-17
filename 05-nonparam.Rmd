@@ -1,2 +1,30 @@
 # Epäparametrisia tilastollisia testejä
 
+Sekä *Tilastotieteen perusteissa* että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos $X_1, X_2, \ldots, X_n$ noudattaa jotain tunnettua jakaumaa $F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)$, jossa parametrivektori $\boldsymbol\theta\in\mathbb{R}^d$ määrittää jakauman $F_{\boldsymbol\theta}$. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta $N(\mu, \sigma^2)$, niin $\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d$ ja voimme testata nollahypoteesia $H_0: \mu = \mu_0$ vaihtoehtoista hypoteesia $H_1: \mu \neq \mu_0$ vastaan t-testin avulla.
+
+Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (*eng*: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
+
+Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa \@ref(sec:nonparamtwosample) käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla.
+
+
+
+
+## Merkkitesti {#sec:signtest}
+
+Olkoon $X$ satunnaismuuttuja, joka noudattaa jakaumaa $F = \mathbb{P}\left(X\leq x\right)$ ja olkoon $m$ jakauman $F$ mediaani. Toisin sanoen $m\in\mathbb{R}$ on luku niin, että $F(m) = 0.5$. Olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align*}
+  &H_0: m = m_0
+  &H_1: m \neq m_0
+\end{align*}
+Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä tapauksessa jakauman sijainnin mittarina käytämme kuitenkin mediaania emmekä odotusarvoa kuten t-testin tapauksessa. Symmetrisille jakaumille mediaani ja odotusarvo ovat yhtä suuria, mutta kuten kuva plaa näyttää, epäsymmetrisen jakauman mediaani ja odotusarvo voivat olla erisuuria.
+```{r}
+# Here have a picture about median and mean of pareto distribution
+```
+
+
+
+Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ otos riippumattomia havaintoja satunnaismuuttujasta $X$.
+
+## Merkkisijatesti {#sec:signedranktest}
+
+## Kahden tai useamman otoksen vertailu {#sec:nonparamtwosample}
