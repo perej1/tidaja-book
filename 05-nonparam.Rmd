@@ -158,7 +158,16 @@ Aivan kuten t-testin tapauksessa, voimme suorittaa yksisuuntaisen merkkitestin e
   &H_0: m \leq m_0, \\
   &H_1: m > m_0.
 \end{align}
-Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia (viikko 7, tehtävä 1).
+Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia. Oletetaan, että olemme havainneet kaksi otosta $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ ja $\overrightarrow{Y} = \{Y_1, \ldots, Y_n\}$, joiden otoskoot ovat yhtäsuuret. Lisäksi oletetaan, että
+
+- Parin $(X_i, Y_i)^T$ sisällä saa olla riippuvuutta mutta
+
+- parit $\{(X_1, Y_1)^T, (X_2, Y_2)^T, \ldots, (X_n, Y_n)^T\}$ ovat riippumattomia, ja
+
+- erotukset $X_i - Y_i$ (tai $X_i - Y_i$) noudattavat jatkuvaa jakaumaa.
+
+Tällöin kahden ryhmän mediaanien yhtäsuuruutta voidaan testata parittaisella merkkitestillä. Parittainen merkkitesti on vain yhden otoksen merkkitesti erotuksille $X_i - Y_i$. Viikon 7 tehtävässä 1 suoritetaan parittainen yksisuuntainen merkkitesti askel askeleelta.
+
 
 ## Merkkisijatesti {#sec:signedranktest}
 
