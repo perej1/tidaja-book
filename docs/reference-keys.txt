@@ -137,8 +137,16 @@ eq:anovareg
 exm:anovareg
 prp:multiplecomparison
 prp:anovaname
+eq:medhyp
+fig:expdens
+eq:signstat
+exm:signstat
+tab:salarysign
+exm:unlabeled-div-37
+fig:binom
+prp:unlabeled-div-38
 eq:euclidean
-exm:unlabeled-div-38
+exm:unlabeled-div-40
 fig:vec
 r-ohjelmointikielestä
 sec:inst

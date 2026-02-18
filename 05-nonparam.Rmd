@@ -4,26 +4,161 @@ Sekä *Tilastotieteen perusteissa* että tällä kurssilla ollaan tähän asti k
 
 Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (*eng*: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
 
-Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa \@ref(sec:nonparamtwosample) käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla.
-
-
+Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa \@ref(sec:nonparamtwosample) käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
 
 
 ## Merkkitesti {#sec:signtest}
 
-Olkoon $X$ satunnaismuuttuja, joka noudattaa jakaumaa $F = \mathbb{P}\left(X\leq x\right)$ ja olkoon $m$ jakauman $F$ mediaani. Toisin sanoen $m\in\mathbb{R}$ on luku niin, että $F(m) = 0.5$. Olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
-\begin{align*}
-  &H_0: m = m_0
-  &H_1: m \neq m_0
-\end{align*}
-Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä tapauksessa jakauman sijainnin mittarina käytämme kuitenkin mediaania emmekä odotusarvoa kuten t-testin tapauksessa. Symmetrisille jakaumille mediaani ja odotusarvo ovat yhtä suuria, mutta kuten kuva plaa näyttää, epäsymmetrisen jakauman mediaani ja odotusarvo voivat olla erisuuria.
-```{r}
-# Here have a picture about median and mean of pareto distribution
+(ref:expdens) Musta viiva antaa erään eksponenttijakauman tiheysfunktion (rate $\lambda = 0.5$). Jakauman odotusarvoa ($= 1/\lambda = 2$) kuvaa punainen katkonainen pystyviiva ja mediaania ($\ln(2) / \lambda \approx 1.39$) sininen kiinteä pystyviiva.
+
+Olkoon $X$ satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa $F = \mathbb{P}\left(X\leq x\right)$ ja olkoon $m$ jakauman $F$ mediaani. Toisin sanoen $m\in\mathbb{R}$ on luku niin, että $F(m) = 0.5$. Olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align}
+  (\#eq:medhyp)
+  &H_0: m = m_0, \\
+  &H_1: m \neq m_0.
+\end{align}
+Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä tapauksessa jakauman sijainnin mittarina käytämme kuitenkin mediaania emmekä odotusarvoa kuten t-testissä. Symmetrisille jakaumille mediaani ja odotusarvo ovat yhtä suuria, mutta kuten kuva \@ref(fig:expdens) näyttää, epäsymmetrisen jakauman mediaani ja odotusarvo voivat olla erisuuria. Täten mediaani ja odotusarvo kuvaavat jakauman sijaintia hieman eri tavoin.
+```{r expdens, echo=FALSE, fig.cap="(ref:expdens)"}
+library(ggplot2)
+lambda <- 0.5
+mean_exp <- 1 / lambda
+median_exp <- log(2) / lambda
+ggplot() +
+  stat_function(fun = dexp, args = list(rate = lambda)) +
+  xlim(0, 10) +
+  ylim(0, 0.5) +
+  xlab("x") +
+  ylab("f(x)") +
+  geom_segment(aes(x = mean_exp, xend = mean_exp, y = 0,
+                   yend = dexp(mean_exp, lambda)), linetype = "dashed", color = "red") +
+  geom_segment(aes(x = median_exp, xend = median_exp, y = 0,
+                   yend = dexp(median_exp, lambda)), color = "blue")
+
 ```
 
 
+Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ otos riippumattomia havaintoja satunnaismuuttujasta $X$. Kaavan \@ref(eq:medhyp) hypoteeseja voidaan testata seuraavalla idealla. Mediaanin määritelmän mukaan, nollahypoteesin alla noin puolet havainnoista ovat pienempiä kuin $m_0$ ja puolet havainnoista ovat suurempia kuin $m_0$. Tämän idean muotoilu matemaattisesti johtaa niin kutsuttuun merkkitestiin (eng: *sign test*). Määritellään osoitinmuuttuja
+\begin{equation*}
+  \mathrm{I}_i =
+  \begin{cases}
+    1 & \text{jos}\ X_i < m_0, \\
+    0, & \text{jos}\ X_i \geq m_0,
+  \end{cases}
+\end{equation*}
+joka kertoo onko havainto $X_i$ suurempi vai pienempi kuin mediaani nollahypoteesin alla. Testisuureessa lasketaan, kuinka monta havaintoa jää arvon $m_0$ alapuolelle. Eli testisuureen määritellään olevan
+\begin{equation*}
+  (\#eq:signstat)
+  T = \sum_{i = 1}^n \mathrm{I}_i.
+\end{equation*}
 
-Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ otos riippumattomia havaintoja satunnaismuuttujasta $X$.
+Alla näytetään esimerkki merkkitestin testisuureen laskemisesta.
+
+:::{.example #signstat name="Merkkitestin testisuure"}
+
+Taulukon \@ref(tab:salarysign) ensimmäisessä sarakkeessa näkyy otos erään yrityksen työntekijöiden palkoista. Otoksen koko on $n = 10$. Otoksen avulla haluamme testata, onko yrityksen työntekijöiden mediaanipalkka $m_0 = 3200$ euroa. Taulukosta näemme, että kahden  työntekijän  palkka on pienempi kuin $m_0$, joten testisuureeksi saadaan $t = 2$. Merkkitestin nimi tuleekin siitä, että testisuuretta laskettaessa tarkastellaan erotuksien $\texttt{salary}_i - m_0$ merkkejä ($+$ tai $-$). Tässä tapauksessa testisuure on "$-$" merkkien määrä.
+
+```{r salarysign, echo=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
+set.seed(123)
+n <- 10
+m0 <- 3200L
+values <- signif(EnvStats::rpareto(n, location = 2500, shape = 2), 2)
+salary <- tibble::tibble(salary = values) %>%
+  mutate(diff = salary - m0) %>%
+  mutate(smaller = if_else(diff < 0, "-", "+"))
+
+salary_to_table <- salary
+names(salary_to_table) <- c("Palkka", "$\\texttt{salary}_i - m_0$", "Erotuksen merkki")
+
+knitr::kable(
+  salary_to_table,
+  caption = "Taulukon ensimmäinen sarake antaa otoksen erään yrityksen työntekijöiden palkoista. Toinen sarake antaa erotukset $\\texttt{salary}_i  - m_0$ ja kolmas sarake antaa erotuksien $\\texttt{salary}_i - m_0$ merkit.",
+  align = "ccc"
+)
+```
+
+Huomioi, että palkkajakauman sijaintiin liittyvissä tilastollisissa testeissä t-testin käyttäminen on usein hyvin arvelluttavaa, koska
+
+- palkkajakaumat ovat usein epäsymmetrisiä (toisin kuin normaalijakauma) ja
+
+- jakauman oikea häntä on usein paksu (todella korkeita palkkoja esiintyy enemmän, mitä odottaisi normaalijakauman alla),
+
+mutta t-testissä  palkkojen jakaumaksi oletettaisiin nimenomaan normaalijakauma! Merkkitestissä ainoa palkkojen jakaumaan liittyvä oletus on jatkuvuus.
+:::
+
+Jos nollahypoteesi pätee, niin testisuureen odotusarvo on $\mathbb{E}(T) = n/2$, koska puolet havainnoista ovat pienempiä kuin $m_0$ ja puolet ovat suurempia kuin $m_0$. Toisaalta jos testisuure poikkeaa paljolti arvosta $n/2$, niin meillä on näyttöä nollahypoteesia vastaan. Itseasiassa voimme sanoa testisuureesta paljon enemmän. Kaavan testisuureen \@ref(eq:signstat) laskeminen muistuttaa tilannetta, jossa heitämme kolikkoa monta kertaa peräkkäin ja laskemme esimerkiksi klaavojen määrän $n$ heiton jälkeen -- tässä tapauksessa emme kuitenkaan laske klaavojen määrää vaan sitä, kuinka moni havainto on pienempää kuin $m_0$. Eli testisuure noudattaa binomijakaumaa $T\sim \mathrm{Bin}(n, p)$. Kun binomijakauman parametreiksi asetetaan $n$ (vrt. "kolikon heittojen määrä") ja $p$ (vrt. "todennäköisyys saada klaava"), niin binomijakauman pistetodennäköisyysfunktio on
+\begin{equation*}
+  p_T(t) = \mathbb{P}\left(T = t\right) = \binom{n}{t} p^t(1 - p)^{n-t},
+  \quad t\in\{0, 1, 2, \ldots, n\},
+\end{equation*}
+jossa  $\binom{n}{t}$ on [binomikerroin](https://fi.wikipedia.org/wiki/Binomikerroin). Kuten jo todettua, niin nollahypoteesin alla todennäköisyys saada negatiivinen erotus $X_i - m_0$ on $1/2$. Tämän vuoksi kaavan \@ref(eq:medhyp) hypoteesit ovat yhtäpitäviä seuraavien hypoteesien kanssa
+\begin{align*}
+  &H_0: p = 1/2, \\
+  &H_1: p \neq 1/2,
+\end{align*}
+kun $T\sim \mathrm{Bin}(n, p)$. Eli merkkitestissä testaamme vain sitä, onko negatiivisten erotuksien $X_i - m_0$ suhteellinen osuus $50\%$. Nyt p-arvo voidaan laskea käsin tai käyttäen R:n funktiota  `binom.test()`.
+
+(ref:binom) Binomijakauman $\mathrm{Bin}(10, 1/2)$ pistetodennäköisyysfunktio $p_T(t)$ arvoilla $t\in\{0, 1, \ldots, 10\}$. Pinkki viiva vastaa testisuureen arvoa ($x$-akselilla $t = 2$). Pinkit pallot vastaavat niitä arvoja, jotka ovat poikeavampia kuin havaittu testisuure. Siniset kolmiot ovat niitä arvoja joita ei oteta mukaan p-arvon laskemiseen.
+
+:::{.example name="Merkkitestin p-arvo"}
+Jatketaan esimerkkiä \@ref(exm:signstat), jossa havaittu testisuure on $t = 2$ ja otoskoko on $n = 10$. Nollahypoteesin alla testisuure noudattaa jakaumaa $\mathrm{Bin}(10, 1/2)$. Muista, että p-arvo antaa todennäköisyyden havaita poikkeavimpia tai yhtä poikkeavia testisuureen arvoja kuin $t$ nollahypoteesin alla $H_0$. Tässä tapauksessa poikkeavuutta mitataan etäisyytenä testisuureen odotusarvosta $\mathbb{E}(T) = 5$. Havaitun testisuureen etäisyys odotusarvosta on $5 - 2 = 3$ ja arvoilla $\{0, 1, 2, 8, 9, 10\}$ etäisyys on sama tai vielä suurempi. Kuvassa \@ref(fig:binom) ollaan havainnollistettu poikkeavat arvot $\{0, 1, 2, 8, 9, 10\}$ pinkeillä palloilla.
+
+```{r binom, echo=FALSE, fig.cap="(ref:binom)"}
+n <- 10
+x <- 0:10
+t <- 2
+y <- dbinom(x, n, 0.5)
+tibble::tibble(x = x, y = y,
+               label = dplyr::if_else(abs(x - 5) >= 5 - t, "large", "small"))  |>
+  ggplot(aes(x = x,  y = y, color = label, shape = label)) +
+  geom_point(size = 4) +
+  geom_segment(aes(x = t, xend = t, y = 0, yend = dbinom(t, n, 0.5))) +
+  scale_colour_manual(values = c("large" = "hotpink", "small" = "skyblue")) +
+  theme(legend.position = "none") +
+  xlab("t") +
+  ylab("p(t)")
+```
+
+Eli p-arvo voidaan laskea kaavalla
+\begin{equation*}
+  \sum_{t\in A}  p_T(t),
+\end{equation*}
+jossa $A = \{0, 1, 2, 8, 9, 10\}$ ja $p_T$ on jakauman $\mathrm{Bin}(n, p)$ pistetodennäköisyysfunktio.
+
+```{r}
+n <- 10
+sum(dbinom(c(0:2, 8:10), n, 0.5))
+```
+
+Koska binomijakauma $\mathrm{Bin}(10, 1/2)$ on symmetrinen odotusarvon $5$ suhteen, niin p-arvo voidaan myös sieventää muotoon
+\begin{equation*}
+  2\mathbb{P}\left(T\leq 2\right),
+\end{equation*}
+joka voidaan näppärästi laskea binomijakauman kertymäfunktion avulla.
+```{r}
+2 * pbinom(t, n, 0.5)
+```
+
+Kuitenkin yleensä merkkitesti suoritetaan R:n funktiolla `binom.test()`, joka ottaa sisäänsä testisuureen $t = 2$, otoskoon $n = 10$ ja todennäköisyyden $\mathbb{P}(X_i\leq m_0)$, joka on $1/2$ nollahypoteesin alla.
+```{r}
+t <- 2
+binom.test(t, n, 0.5, alternative = "two.sided")
+```
+
+Joka tapauksessa p-arvoksi saadaan $\approx 0.11$. Tällöin esimerkiksi merkitsevyystasolla $\alpha = 0.05$ meillä ei ole tarpeeksi näyttöä nollahypoteesin (mediaanipalkka on $3200$ euroa) hylkäämiseen.
+:::
+
+:::{.proposition name="Normaaliaproksimaatio"}
+Suurella otoskoolla merkkitesti voidaan myös suorittaa normaaliaproksimaation (p-arvo lasketaan normaalijakaumasta) avulla samaan tapaan kuin "testi suhteelliselle osuudelle" kurssilla *Tilastotieteen perusteet*. Normaaliapproksimaatio oli käytännön kannalta hyödyllinen aikana, jolloin tehokkaita tietokoneita ei ollut, minkä vuoksi p-arvon laskeminen testisuureen tarkan jakauman eli binomijakauman avulla saattoi olla vaikeaa.
+:::
+
+Aivan kuten t-testin tapauksessa, voimme suorittaa yksisuuntaisen merkkitestin esimerkiksi hypoteeseilla
+\begin{align}
+  &H_0: m \leq m_0, \\
+  &H_1: m > m_0.
+\end{align}
+Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia (viikko 7, tehtävä 1).
 
 ## Merkkisijatesti {#sec:signedranktest}
 

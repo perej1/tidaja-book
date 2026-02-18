@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-17" />
+<meta name="date" content="2026-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -240,17 +240,168 @@ div.csl-indent {
 <h1><span class="header-section-number">Luku 5</span> Epäparametrisia tilastollisia testejä<a href="epäparametrisia-tilastollisia-testejä.html#ep%C3%A4parametrisia-tilastollisia-testej%C3%A4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sekä <em>Tilastotieteen perusteissa</em> että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> noudattaa jotain tunnettua jakaumaa <span class="math inline">\(F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)\)</span>, jossa parametrivektori <span class="math inline">\(\boldsymbol\theta\in\mathbb{R}^d\)</span> määrittää jakauman <span class="math inline">\(F_{\boldsymbol\theta}\)</span>. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta <span class="math inline">\(N(\mu, \sigma^2)\)</span>, niin <span class="math inline">\(\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d\)</span> ja voimme testata nollahypoteesia <span class="math inline">\(H_0: \mu = \mu_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> vastaan t-testin avulla.</p>
 <p>Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (<em>eng</em>: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.</p>
-<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample">5.3</a> käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla.</p>
+<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample">5.3</a> käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
 <div id="sec:signtest" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Merkkitesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Olkoon <span class="math inline">\(X\)</span> satunnaismuuttuja, joka noudattaa jakaumaa <span class="math inline">\(F = \mathbb{P}\left(X\leq x\right)\)</span> ja olkoon <span class="math inline">\(m\)</span> jakauman <span class="math inline">\(F\)</span> mediaani. Toisin sanoen <span class="math inline">\(m\in\mathbb{R}\)</span> on luku niin, että <span class="math inline">\(F(m) = 0.5\)</span>. Olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+
+Olkoon <span class="math inline">\(X\)</span> satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa <span class="math inline">\(F = \mathbb{P}\left(X\leq x\right)\)</span> ja olkoon <span class="math inline">\(m\)</span> jakauman <span class="math inline">\(F\)</span> mediaani. Toisin sanoen <span class="math inline">\(m\in\mathbb{R}\)</span> on luku niin, että <span class="math inline">\(F(m) = 0.5\)</span>. Olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display" id="eq:medhyp">\[\begin{align}
+  \tag{5.1}
+  &amp;H_0: m = m_0, \\
+  &amp;H_1: m \neq m_0.
+\end{align}\]</span>
+Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä tapauksessa jakauman sijainnin mittarina käytämme kuitenkin mediaania emmekä odotusarvoa kuten t-testissä. Symmetrisille jakaumille mediaani ja odotusarvo ovat yhtä suuria, mutta kuten kuva <a href="epäparametrisia-tilastollisia-testejä.html#fig:expdens">5.1</a> näyttää, epäsymmetrisen jakauman mediaani ja odotusarvo voivat olla erisuuria. Täten mediaani ja odotusarvo kuvaavat jakauman sijaintia hieman eri tavoin.
+<div class="figure"><span style="display:block;" id="fig:expdens"></span>
+<img src="tidaja-book_files/figure-html/expdens-1.png" alt="Musta viiva antaa erään eksponenttijakauman tiheysfunktion (rate \(\lambda = 0.5\)). Jakauman odotusarvoa (\(= 1/\lambda = 2\)) kuvaa punainen katkonainen pystyviiva ja mediaania (\(\ln(2) / \lambda \approx 1.39\)) sininen kiinteä pystyviiva." width="672" />
+<p class="caption">
+Kuva 5.1: Musta viiva antaa erään eksponenttijakauman tiheysfunktion (rate <span class="math inline">\(\lambda = 0.5\)</span>). Jakauman odotusarvoa (<span class="math inline">\(= 1/\lambda = 2\)</span>) kuvaa punainen katkonainen pystyviiva ja mediaania (<span class="math inline">\(\ln(2) / \lambda \approx 1.39\)</span>) sininen kiinteä pystyviiva.
+</p>
+</div>
+<p>Olkoon <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> otos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:medhyp">(5.1)</a> hypoteeseja voidaan testata seuraavalla idealla. Mediaanin määritelmän mukaan, nollahypoteesin alla noin puolet havainnoista ovat pienempiä kuin <span class="math inline">\(m_0\)</span> ja puolet havainnoista ovat suurempia kuin <span class="math inline">\(m_0\)</span>. Tämän idean muotoilu matemaattisesti johtaa niin kutsuttuun merkkitestiin (eng: <em>sign test</em>). Määritellään osoitinmuuttuja
+<span class="math display">\[\begin{equation*}
+  \mathrm{I}_i =
+  \begin{cases}
+    1 &amp; \text{jos}\ X_i &lt; m_0, \\
+    0, &amp; \text{jos}\ X_i \geq m_0,
+  \end{cases}
+\end{equation*}\]</span>
+joka kertoo onko havainto <span class="math inline">\(X_i\)</span> suurempi vai pienempi kuin mediaani nollahypoteesin alla. Testisuureessa lasketaan, kuinka monta havaintoa jää arvon <span class="math inline">\(m_0\)</span> alapuolelle. Eli testisuureen määritellään olevan
+<span class="math display" id="eq:signstat">\[\begin{equation*}
+  \tag{5.2}
+  T = \sum_{i = 1}^n \mathrm{I}_i.
+\end{equation*}\]</span></p>
+<p>Alla näytetään esimerkki merkkitestin testisuureen laskemisesta.</p>
+<div class="example">
+<p><span id="exm:signstat" class="example"><strong>Esimerkki 5.1  (Merkkitestin testisuure) </strong></span>Taulukon <a href="epäparametrisia-tilastollisia-testejä.html#tab:salarysign">5.1</a> ensimmäisessä sarakkeessa näkyy otos erään yrityksen työntekijöiden palkoista. Otoksen koko on <span class="math inline">\(n = 10\)</span>. Otoksen avulla haluamme testata, onko yrityksen työntekijöiden mediaanipalkka <span class="math inline">\(m_0 = 3200\)</span> euroa. Taulukosta näemme, että kahden työntekijän palkka on pienempi kuin <span class="math inline">\(m_0\)</span>, joten testisuureeksi saadaan <span class="math inline">\(t = 2\)</span>. Merkkitestin nimi tuleekin siitä, että testisuuretta laskettaessa tarkastellaan erotuksien <span class="math inline">\(\texttt{salary}_i - m_0\)</span> merkkejä (<span class="math inline">\(+\)</span> tai <span class="math inline">\(-\)</span>). Tässä tapauksessa testisuure on “<span class="math inline">\(-\)</span>” merkkien määrä.</p>
+<table>
+<caption><span id="tab:salarysign">Taulukko 5.1: </span>Taulukon ensimmäinen sarake antaa otoksen erään yrityksen työntekijöiden palkoista. Toinen sarake antaa erotukset <span class="math inline">\(\texttt{salary}_i  - m_0\)</span> ja kolmas sarake antaa erotuksien <span class="math inline">\(\texttt{salary}_i - m_0\)</span> merkit.</caption>
+<thead>
+<tr class="header">
+<th align="center">Palkka</th>
+<th align="center"><span class="math inline">\(\texttt{salary}_i - m_0\)</span></th>
+<th align="center">Erotuksen merkki</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">3000</td>
+<td align="center">-200</td>
+<td align="center">-</td>
+</tr>
+<tr class="even">
+<td align="center">5400</td>
+<td align="center">2200</td>
+<td align="center">+</td>
+</tr>
+<tr class="odd">
+<td align="center">3300</td>
+<td align="center">100</td>
+<td align="center">+</td>
+</tr>
+<tr class="even">
+<td align="center">7300</td>
+<td align="center">4100</td>
+<td align="center">+</td>
+</tr>
+<tr class="odd">
+<td align="center">10000</td>
+<td align="center">6800</td>
+<td align="center">+</td>
+</tr>
+<tr class="even">
+<td align="center">2600</td>
+<td align="center">-600</td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center">3600</td>
+<td align="center">400</td>
+<td align="center">+</td>
+</tr>
+<tr class="even">
+<td align="center">7600</td>
+<td align="center">4400</td>
+<td align="center">+</td>
+</tr>
+<tr class="odd">
+<td align="center">3700</td>
+<td align="center">500</td>
+<td align="center">+</td>
+</tr>
+<tr class="even">
+<td align="center">3400</td>
+<td align="center">200</td>
+<td align="center">+</td>
+</tr>
+</tbody>
+</table>
+<p>Huomioi, että palkkajakauman sijaintiin liittyvissä tilastollisissa testeissä t-testin käyttäminen on usein hyvin arvelluttavaa, koska</p>
+<ul>
+<li><p>palkkajakaumat ovat usein epäsymmetrisiä (toisin kuin normaalijakauma) ja</p></li>
+<li><p>jakauman oikea häntä on usein paksu (todella korkeita palkkoja esiintyy enemmän, mitä odottaisi normaalijakauman alla),</p></li>
+</ul>
+<p>mutta t-testissä palkkojen jakaumaksi oletettaisiin nimenomaan normaalijakauma! Merkkitestissä ainoa palkkojen jakaumaan liittyvä oletus on jatkuvuus.</p>
+</div>
+<p>Jos nollahypoteesi pätee, niin testisuureen odotusarvo on <span class="math inline">\(\mathbb{E}(T) = n/2\)</span>, koska puolet havainnoista ovat pienempiä kuin <span class="math inline">\(m_0\)</span> ja puolet ovat suurempia kuin <span class="math inline">\(m_0\)</span>. Toisaalta jos testisuure poikkeaa paljolti arvosta <span class="math inline">\(n/2\)</span>, niin meillä on näyttöä nollahypoteesia vastaan. Itseasiassa voimme sanoa testisuureesta paljon enemmän. Kaavan testisuureen <a href="epäparametrisia-tilastollisia-testejä.html#eq:signstat">(5.2)</a> laskeminen muistuttaa tilannetta, jossa heitämme kolikkoa monta kertaa peräkkäin ja laskemme esimerkiksi klaavojen määrän <span class="math inline">\(n\)</span> heiton jälkeen – tässä tapauksessa emme kuitenkaan laske klaavojen määrää vaan sitä, kuinka moni havainto on pienempää kuin <span class="math inline">\(m_0\)</span>. Eli testisuure noudattaa binomijakaumaa <span class="math inline">\(T\sim \mathrm{Bin}(n, p)\)</span>. Kun binomijakauman parametreiksi asetetaan <span class="math inline">\(n\)</span> (vrt. “kolikon heittojen määrä”) ja <span class="math inline">\(p\)</span> (vrt. “todennäköisyys saada klaava”), niin binomijakauman pistetodennäköisyysfunktio on
+<span class="math display">\[\begin{equation*}
+  p_T(t) = \mathbb{P}\left(T = t\right) = \binom{n}{t} p^t(1 - p)^{n-t},
+  \quad t\in\{0, 1, 2, \ldots, n\},
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\binom{n}{t}\)</span> on <a href="https://fi.wikipedia.org/wiki/Binomikerroin">binomikerroin</a>. Kuten jo todettua, niin nollahypoteesin alla todennäköisyys saada negatiivinen erotus <span class="math inline">\(X_i - m_0\)</span> on <span class="math inline">\(1/2\)</span>. Tämän vuoksi kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:medhyp">(5.1)</a> hypoteesit ovat yhtäpitäviä seuraavien hypoteesien kanssa
 <span class="math display">\[\begin{align*}
-  &amp;H_0: m = m_0
-  &amp;H_1: m \neq m_0
+  &amp;H_0: p = 1/2, \\
+  &amp;H_1: p \neq 1/2,
 \end{align*}\]</span>
-Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä tapauksessa jakauman sijainnin mittarina käytämme kuitenkin mediaania emmekä odotusarvoa kuten t-testin tapauksessa. Symmetrisille jakaumille mediaani ja odotusarvo ovat yhtä suuria, mutta kuten kuva plaa näyttää, epäsymmetrisen jakauman mediaani ja odotusarvo voivat olla erisuuria.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb180-1" tabindex="-1"></a><span class="co"># Here have a picture about median and mean of pareto distribution</span></span></code></pre></div>
-<p>Olkoon <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> otos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>.</p>
+kun <span class="math inline">\(T\sim \mathrm{Bin}(n, p)\)</span>. Eli merkkitestissä testaamme vain sitä, onko negatiivisten erotuksien <span class="math inline">\(X_i - m_0\)</span> suhteellinen osuus <span class="math inline">\(50\%\)</span>. Nyt p-arvo voidaan laskea käsin tai käyttäen R:n funktiota <code>binom.test()</code>.</p>
+
+<div class="example">
+<p><span id="exm:unlabeled-div-37" class="example"><strong>Esimerkki 5.2  (Merkkitestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signstat">5.1</a>, jossa havaittu testisuure on <span class="math inline">\(t = 2\)</span> ja otoskoko on <span class="math inline">\(n = 10\)</span>. Nollahypoteesin alla testisuure noudattaa jakaumaa <span class="math inline">\(\mathrm{Bin}(10, 1/2)\)</span>. Muista, että p-arvo antaa todennäköisyyden havaita poikkeavimpia tai yhtä poikkeavia testisuureen arvoja kuin <span class="math inline">\(t\)</span> nollahypoteesin alla <span class="math inline">\(H_0\)</span>. Tässä tapauksessa poikkeavuutta mitataan etäisyytenä testisuureen odotusarvosta <span class="math inline">\(\mathbb{E}(T) = 5\)</span>. Havaitun testisuureen etäisyys odotusarvosta on <span class="math inline">\(5 - 2 = 3\)</span> ja arvoilla <span class="math inline">\(\{0, 1, 2, 8, 9, 10\}\)</span> etäisyys on sama tai vielä suurempi. Kuvassa <a href="epäparametrisia-tilastollisia-testejä.html#fig:binom">5.2</a> ollaan havainnollistettu poikkeavat arvot <span class="math inline">\(\{0, 1, 2, 8, 9, 10\}\)</span> pinkeillä palloilla.</p>
+<div class="figure"><span style="display:block;" id="fig:binom"></span>
+<img src="tidaja-book_files/figure-html/binom-1.png" alt="Binomijakauman \(\mathrm{Bin}(10, 1/2)\) pistetodennäköisyysfunktio \(p_T(t)\) arvoilla \(t\in\{0, 1, \ldots, 10\}\). Pinkki viiva vastaa testisuureen arvoa (\(x\)-akselilla \(t = 2\)). Pinkit pallot vastaavat niitä arvoja, jotka ovat poikeavampia kuin havaittu testisuure. Siniset kolmiot ovat niitä arvoja joita ei oteta mukaan p-arvon laskemiseen." width="672" />
+<p class="caption">
+Kuva 5.2: Binomijakauman <span class="math inline">\(\mathrm{Bin}(10, 1/2)\)</span> pistetodennäköisyysfunktio <span class="math inline">\(p_T(t)\)</span> arvoilla <span class="math inline">\(t\in\{0, 1, \ldots, 10\}\)</span>. Pinkki viiva vastaa testisuureen arvoa (<span class="math inline">\(x\)</span>-akselilla <span class="math inline">\(t = 2\)</span>). Pinkit pallot vastaavat niitä arvoja, jotka ovat poikeavampia kuin havaittu testisuure. Siniset kolmiot ovat niitä arvoja joita ei oteta mukaan p-arvon laskemiseen.
+</p>
+</div>
+<p>Eli p-arvo voidaan laskea kaavalla
+<span class="math display">\[\begin{equation*}
+  \sum_{t\in A}  p_T(t),
+\end{equation*}\]</span>
+jossa <span class="math inline">\(A = \{0, 1, 2, 8, 9, 10\}\)</span> ja <span class="math inline">\(p_T\)</span> on jakauman <span class="math inline">\(\mathrm{Bin}(n, p)\)</span> pistetodennäköisyysfunktio.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb180-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb180-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb180-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>), n, <span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## [1] 0.109375</code></pre>
+<p>Koska binomijakauma <span class="math inline">\(\mathrm{Bin}(10, 1/2)\)</span> on symmetrinen odotusarvon <span class="math inline">\(5\)</span> suhteen, niin p-arvo voidaan myös sieventää muotoon
+<span class="math display">\[\begin{equation*}
+  2\mathbb{P}\left(T\leq 2\right),
+\end{equation*}\]</span>
+joka voidaan näppärästi laskea binomijakauman kertymäfunktion avulla.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb182-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pbinom</span>(t, n, <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## [1] 0.109375</code></pre>
+<p>Kuitenkin yleensä merkkitesti suoritetaan R:n funktiolla <code>binom.test()</code>, joka ottaa sisäänsä testisuureen <span class="math inline">\(t = 2\)</span>, otoskoon <span class="math inline">\(n = 10\)</span> ja todennäköisyyden <span class="math inline">\(\mathbb{P}(X_i\leq m_0)\)</span>, joka on <span class="math inline">\(1/2\)</span> nollahypoteesin alla.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb184-1" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb184-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb184-2" tabindex="-1"></a><span class="fu">binom.test</span>(t, n, <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  t and n
+## number of successes = 2, number of trials = 10, p-value = 0.1094
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.02521073 0.55609546
+## sample estimates:
+## probability of success 
+##                    0.2</code></pre>
+<p>Joka tapauksessa p-arvoksi saadaan <span class="math inline">\(\approx 0.11\)</span>. Tällöin esimerkiksi merkitsevyystasolla <span class="math inline">\(\alpha = 0.05\)</span> meillä ei ole tarpeeksi näyttöä nollahypoteesin (mediaanipalkka on <span class="math inline">\(3200\)</span> euroa) hylkäämiseen.</p>
+</div>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-38" class="proposition"><strong>Huomautus 5.1  (Normaaliaproksimaatio) </strong></span>Suurella otoskoolla merkkitesti voidaan myös suorittaa normaaliaproksimaation (p-arvo lasketaan normaalijakaumasta) avulla samaan tapaan kuin “testi suhteelliselle osuudelle” kurssilla <em>Tilastotieteen perusteet</em>. Normaaliapproksimaatio oli käytännön kannalta hyödyllinen aikana, jolloin tehokkaita tietokoneita ei ollut, minkä vuoksi p-arvon laskeminen testisuureen tarkan jakauman eli binomijakauman avulla saattoi olla vaikeaa.</p>
+</div>
+<p>Aivan kuten t-testin tapauksessa, voimme suorittaa yksisuuntaisen merkkitestin esimerkiksi hypoteeseilla
+<span class="math display">\[\begin{align}
+  &amp;H_0: m \leq m_0, \\
+  &amp;H_1: m &gt; m_0.
+\end{align}\]</span>
+Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia (viikko 7, tehtävä 1).</p>
 </div>
 <div id="sec:signedranktest" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Merkkisijatesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -258,6 +409,12 @@ Kuten t-testissä, olemme nyt myös kiinnostuneita jakauman sijainnista. Tässä
 <div id="sec:nonparamtwosample" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Kahden tai useamman otoksen vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+</div>
+</div>
+<h3>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-ross2021" class="csl-entry">
+Ross, Sheldon M. 2021. <em>Introduction to Probability and Statistics for Engineers and Scientists</em>. 6th ed. London, England: Academic Press.
 </div>
 </div>
             </section>
