@@ -165,7 +165,7 @@ Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot
 
 - parit $\{(X_1, Y_1)^T, (X_2, Y_2)^T, \ldots, (X_n, Y_n)^T\}$ ovat riippumattomia, ja
 
-- erotukset $X_i - Y_i$ (tai $X_i - Y_i$) noudattavat jatkuvaa jakaumaa.
+- erotukset $X_i - Y_i$ (tai $Y_i - X_i$) noudattavat jatkuvaa jakaumaa.
 
 Tällöin kahden ryhmän mediaanien yhtäsuuruutta voidaan testata parittaisella merkkitestillä. Parittainen merkkitesti on vain yhden otoksen merkkitesti erotuksille $X_i - Y_i$. Viikon 7 tehtävässä 1 suoritetaan parittainen yksisuuntainen merkkitesti askel askeleelta.
 
@@ -244,12 +244,12 @@ knitr::kable(
 ```
 :::
 
-Voidaan laskea, että testisuureen odotusarvo ja varianssi ovat
+Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
 \begin{equation*}
 \mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
 \mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
 \end{equation*}
-Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.
+Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.
 
 :::{.proposition}
 Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä *Wilcoxonin merkkisijatesti* kehittäjän sukunimen mukaan.
@@ -299,6 +299,32 @@ wilcox.test(salary_data, alternative = "two.sided", mu = 3200, exact = TRUE)
 ```
 
 Tarkka p-arvo eroaa hieman normaaliapproksimoidusta p-arvosta. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa $\alpha = 0.05$. Meillä on siis näyttöä sitä vastaan, että palkkajakauma olisi symmetrinen arvon $m_0 = 3200$ ympärillä.
+:::
+
+Merkkisijatestillä voidaan myös vertailla kahden populaation samankaltaisuutta, jos havainnot ovat parittaisia. Oletetaan, että olemme havainneet kaksi otosta $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ ja $\overrightarrow{Y} = \{Y_1, \ldots, Y_n\}$, joiden otoskoot ovat yhtäsuuret. Lisäksi oletetaan, että
+
+- Parin $(X_i, Y_i)^T$ sisällä saa olla riippuvuutta mutta
+
+- parit $\{(X_1, Y_1)^T, (X_2, Y_2)^T, \ldots, (X_n, Y_n)^T\}$ ovat riippumattomia, ja
+
+- erotukset $X_i - Y_i$ (tai $Y_i - X_i$) noudattavat jatkuvaa jakaumaa.
+
+Tällöin erotuksien $X_i - Y_i$ jakauman symmetrisyyttä nollan suhteen voidaan testata parittaisella merkkisijatestillä. Parittainen merkkisijatesti on vain yhden otoksen merkkitesti erotuksille $X_i - Y_i$. Myös yksisuuntainen testi on mahdollinen aivan kuten t-testin ja merkkitestin tapauksessa.
+
+:::{.proposition name="Merkkitestin ja merkkisijatestin oletuksista"}
+Sekä merkki- että merkkisijatestissä ainoat oletukset ovat seuraavat.
+
+- Havainnot $X_1, \ldots, X_n$ ovat riippumattomia ja samoin jakautuneita.
+
+- Havainnot $X_1, \ldots, X_n$ noudattavat **jatkuvaa** jakaumaa.
+
+Jakauman jatkuvuusoletus takaa seuraavat ominaisuudet.
+
+1. Nollaerotuksen $X_i - m_0 = 0$ todennäköisyys on nolla. Nollaerotukset ovat ongelmallisia siinä mielessä, että ne eivät ole $+$/$-$ merkkisiä.
+
+2. Merkkisijatestissä tapahtuman $|Y_i| = |Y_j|$, $i\neq j$, todennäköisyys on nolla. Tasahavainnot (eng: *tie*) $|Y_i| = |Y_j|$ ovat ongelmallisia, koska tällöin havaintojen $|Y_i|$ ja $|Y_j|$ sija on sama.
+
+Kuitenkin käytännön data-analyyseissa nollaerotukset ja tasahavainnot ovat mahdollisia. Esimerkiksi oletuksena funktio `wilcox.test()` pudottaa nollaerotukset analyysistä kokonaan pois ja tasahavainnoille annetaan sama keskisijaluku (eng: *mid-rank*). Keskisijaluku annetaan seuraavasti. Esimerkiksi, jos $|Y_1| = 1$, $|Y_2| = 4$ ja $|Y_3| = 4$, niin $R(|Y_1|) = 1$ ja $R(|Y_2|) = R(|Y_3|) = (2 + 3) / 2 = 2.5$. Kuitenkin keskisijalukujen tapauksessa testisuureen tarkka jakauma nollahypoteesin alla on monimutkaisempi.
 :::
 
 

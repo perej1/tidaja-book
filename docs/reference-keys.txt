@@ -151,8 +151,9 @@ exm:signrankstat
 tab:salarysignrank
 prp:unlabeled-div-39
 exm:unlabeled-div-40
+prp:unlabeled-div-41
 eq:euclidean
-exm:unlabeled-div-42
+exm:unlabeled-div-43
 fig:vec
 r-ohjelmointikielestä
 sec:inst

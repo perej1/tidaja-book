@@ -405,7 +405,7 @@ Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot
 <ul>
 <li><p>Parin <span class="math inline">\((X_i, Y_i)^T\)</span> sisällä saa olla riippuvuutta mutta</p></li>
 <li><p>parit <span class="math inline">\(\{(X_1, Y_1)^T, (X_2, Y_2)^T, \ldots, (X_n, Y_n)^T\}\)</span> ovat riippumattomia, ja</p></li>
-<li><p>erotukset <span class="math inline">\(X_i - Y_i\)</span> (tai <span class="math inline">\(X_i - Y_i\)</span>) noudattavat jatkuvaa jakaumaa.</p></li>
+<li><p>erotukset <span class="math inline">\(X_i - Y_i\)</span> (tai <span class="math inline">\(Y_i - X_i\)</span>) noudattavat jatkuvaa jakaumaa.</p></li>
 </ul>
 <p>Tällöin kahden ryhmän mediaanien yhtäsuuruutta voidaan testata parittaisella merkkitestillä. Parittainen merkkitesti on vain yhden otoksen merkkitesti erotuksille <span class="math inline">\(X_i - Y_i\)</span>. Viikon 7 tehtävässä 1 suoritetaan parittainen yksisuuntainen merkkitesti askel askeleelta.</p>
 </div>
@@ -615,12 +615,12 @@ Erotuksen sija
 </tbody>
 </table>
 </div>
-<p>Voidaan laskea, että testisuureen odotusarvo ja varianssi ovat
+<p>Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
 <span class="math display">\[\begin{equation*}
 \mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
 \mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
 \end{equation*}\]</span>
-Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span>. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.</p>
+Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.</p>
 <div class="proposition">
 <p><span id="prp:unlabeled-div-39" class="proposition"><strong>Huomautus 5.2  </strong></span>Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä <em>Wilcoxonin merkkisijatesti</em> kehittäjän sukunimen mukaan.</p>
 </div>
@@ -663,6 +663,26 @@ Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.</p>
 ## V = 47, p-value = 0.04883
 ## alternative hypothesis: true location is not equal to 3200</code></pre>
 <p>Tarkka p-arvo eroaa hieman normaaliapproksimoidusta p-arvosta. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>. Meillä on siis näyttöä sitä vastaan, että palkkajakauma olisi symmetrinen arvon <span class="math inline">\(m_0 = 3200\)</span> ympärillä.</p>
+</div>
+<p>Merkkisijatestillä voidaan myös vertailla kahden populaation samankaltaisuutta, jos havainnot ovat parittaisia. Oletetaan, että olemme havainneet kaksi otosta <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> ja <span class="math inline">\(\overrightarrow{Y} = \{Y_1, \ldots, Y_n\}\)</span>, joiden otoskoot ovat yhtäsuuret. Lisäksi oletetaan, että</p>
+<ul>
+<li><p>Parin <span class="math inline">\((X_i, Y_i)^T\)</span> sisällä saa olla riippuvuutta mutta</p></li>
+<li><p>parit <span class="math inline">\(\{(X_1, Y_1)^T, (X_2, Y_2)^T, \ldots, (X_n, Y_n)^T\}\)</span> ovat riippumattomia, ja</p></li>
+<li><p>erotukset <span class="math inline">\(X_i - Y_i\)</span> (tai <span class="math inline">\(Y_i - X_i\)</span>) noudattavat jatkuvaa jakaumaa.</p></li>
+</ul>
+<p>Tällöin erotuksien <span class="math inline">\(X_i - Y_i\)</span> jakauman symmetrisyyttä nollan suhteen voidaan testata parittaisella merkkisijatestillä. Parittainen merkkisijatesti on vain yhden otoksen merkkitesti erotuksille <span class="math inline">\(X_i - Y_i\)</span>. Myös yksisuuntainen testi on mahdollinen aivan kuten t-testin ja merkkitestin tapauksessa.</p>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-41" class="proposition"><strong>Huomautus 5.3  (Merkkitestin ja merkkisijatestin oletuksista) </strong></span>Sekä merkki- että merkkisijatestissä ainoat oletukset ovat seuraavat.</p>
+<ul>
+<li><p>Havainnot <span class="math inline">\(X_1, \ldots, X_n\)</span> ovat riippumattomia ja samoin jakautuneita.</p></li>
+<li><p>Havainnot <span class="math inline">\(X_1, \ldots, X_n\)</span> noudattavat <strong>jatkuvaa</strong> jakaumaa.</p></li>
+</ul>
+<p>Jakauman jatkuvuusoletus takaa seuraavat ominaisuudet.</p>
+<ol style="list-style-type: decimal">
+<li><p>Nollaerotuksen <span class="math inline">\(X_i - m_0 = 0\)</span> todennäköisyys on nolla. Nollaerotukset ovat ongelmallisia siinä mielessä, että ne eivät ole <span class="math inline">\(+\)</span>/<span class="math inline">\(-\)</span> merkkisiä.</p></li>
+<li><p>Merkkisijatestissä tapahtuman <span class="math inline">\(|Y_i| = |Y_j|\)</span>, <span class="math inline">\(i\neq j\)</span>, todennäköisyys on nolla. Tasahavainnot (eng: <em>tie</em>) <span class="math inline">\(|Y_i| = |Y_j|\)</span> ovat ongelmallisia, koska tällöin havaintojen <span class="math inline">\(|Y_i|\)</span> ja <span class="math inline">\(|Y_j|\)</span> sija on sama.</p></li>
+</ol>
+<p>Kuitenkin käytännön data-analyyseissa nollaerotukset ja tasahavainnot ovat mahdollisia. Esimerkiksi oletuksena funktio <code>wilcox.test()</code> pudottaa nollaerotukset analyysistä kokonaan pois ja tasahavainnoille annetaan sama keskisijaluku (eng: <em>mid-rank</em>). Keskisijaluku annetaan seuraavasti. Esimerkiksi, jos <span class="math inline">\(|Y_1| = 1\)</span>, <span class="math inline">\(|Y_2| = 4\)</span> ja <span class="math inline">\(|Y_3| = 4\)</span>, niin <span class="math inline">\(R(|Y_1|) = 1\)</span> ja <span class="math inline">\(R(|Y_2|) = R(|Y_3|) = (2 + 3) / 2 = 2.5\)</span>. Kuitenkin keskisijalukujen tapauksessa testisuureen tarkka jakauma nollahypoteesin alla on monimutkaisempi.</p>
 </div>
 </div>
 <div id="sec:nonparamtwosample" class="section level2 hasAnchor" number="5.3">
