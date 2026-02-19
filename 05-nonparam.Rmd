@@ -4,7 +4,7 @@ Sekä *Tilastotieteen perusteissa* että tällä kurssilla ollaan tähän asti k
 
 Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (*eng*: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
 
-Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa \@ref(sec:nonparamtwosample) käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
+Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa \@ref(sec:nonparamtwosample) ja \@ref(sec:nonparammultiplesample) käsittelemme kahden useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
 
 
 ## Merkkitesti {#sec:signtest}
@@ -176,8 +176,8 @@ Tällöin kahden ryhmän mediaanien yhtäsuuruutta voidaan testata parittaisella
 
 Olkoon $X$ satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa $F = \mathbb{P}\left(X\leq x\right)$. Jakauman $F$ mediaanin lisäksi ollaan usein kiinnostuneita siitä, onko jakauma symmetrinen mediaanin suhteen. Olemme siis kiinnostuneita testaamaan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
 \begin{align*}
-  &H_0: \text{Havainnot ovat symmetrisesti jakautuneet arvon $m_0$ ympärille}, \\
-  &H_1: \text{Havainnot eivät ole symmetrisesti jakautuneet arvon $m_0$ ympärille}.
+  &H_0: \text{Satunnaismuuttujan $X$ jakauma $F$ on symmetrinen arvon $m_0$ suhteen}, \\
+  &H_1: \text{Satunnaismuuttujan $X$ jakauma $F$ ei ole symmetrinen arvon $m_0$ suhteen}.
 \end{align*}
 Formaalisti nollahypoteesit voidaan ilmaista seuraavasti
 \begin{align*}
@@ -328,4 +328,6 @@ Kuitenkin käytännön data-analyyseissa nollaerotukset ja tasahavainnot ovat ma
 :::
 
 
-## Kahden tai useamman otoksen vertailu {#sec:nonparamtwosample}
+## Kahden jakauman vertailu {#sec:nonparamtwosample}
+
+## Useamman jakauman vertailu {#sec:nonparammultiplesample}

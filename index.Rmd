@@ -20,15 +20,15 @@ topics <- c(
   "Moniulotteinen lineaarinen regressio 1",
   "Moniulotteinen lineaarinen regressio 2",
   "Ryhmien odotusarvojen vertailu",
-  "Epäparametrisia tilastollisia testejä",
-  "Uusiomenetelmä ja permutaatiotesti",
+  "Epäparametrisia tilastollisia testejä (- useamman jakauman vertailu)",
+  "Uusiomenetelmä ja permutaatiotesti (+ useamman jakauman vertailu)",
   "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
   "Logistinen regressio",
   '"Above & Beyond"', 
   "Kertaus"
   )
 
-location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", "Luku 4", "Luku 5", rep("TODO", 5))
+location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", "Luku 4", "Luvut 5.1--5.3", rep("TODO", 4), "--")
 
 table <- tibble::tibble(Viikko = weeks, Aihe = topics, Luku = location)
 

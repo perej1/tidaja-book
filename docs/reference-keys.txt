@@ -181,6 +181,7 @@ epäparametrisia-tilastollisia-testejä
 sec:signtest
 sec:signedranktest
 sec:nonparamtwosample
+sec:nonparammultiplesample
 liitteet
 sec:vector
 sec:matrix

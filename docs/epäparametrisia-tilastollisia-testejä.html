@@ -209,7 +209,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.1" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest"><i class="fa fa-check"></i><b>5.1</b> Merkkitesti</a></li>
 <li class="chapter" data-level="5.2" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest"><i class="fa fa-check"></i><b>5.2</b> Merkkisijatesti</a></li>
-<li class="chapter" data-level="5.3" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample"><i class="fa fa-check"></i><b>5.3</b> Kahden tai useamman otoksen vertailu</a></li>
+<li class="chapter" data-level="5.3" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample"><i class="fa fa-check"></i><b>5.3</b> Kahden jakauman vertailu</a></li>
+<li class="chapter" data-level="5.4" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample"><i class="fa fa-check"></i><b>5.4</b> Useamman jakauman vertailu</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>6</b> Liitteet</a>
 <ul>
@@ -240,7 +241,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Luku 5</span> Epäparametrisia tilastollisia testejä<a href="epäparametrisia-tilastollisia-testejä.html#ep%C3%A4parametrisia-tilastollisia-testej%C3%A4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sekä <em>Tilastotieteen perusteissa</em> että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> noudattaa jotain tunnettua jakaumaa <span class="math inline">\(F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)\)</span>, jossa parametrivektori <span class="math inline">\(\boldsymbol\theta\in\mathbb{R}^d\)</span> määrittää jakauman <span class="math inline">\(F_{\boldsymbol\theta}\)</span>. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta <span class="math inline">\(N(\mu, \sigma^2)\)</span>, niin <span class="math inline">\(\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d\)</span> ja voimme testata nollahypoteesia <span class="math inline">\(H_0: \mu = \mu_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> vastaan t-testin avulla.</p>
 <p>Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (<em>eng</em>: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.</p>
-<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvussa <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample">5.3</a> käsittelemme useamman eri otoksen vertailua erään epäparametrisen testin avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
+<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample">5.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a> käsittelemme kahden useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
 <div id="sec:signtest" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Merkkitesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
@@ -414,8 +415,8 @@ Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot
 
 Olkoon <span class="math inline">\(X\)</span> satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa <span class="math inline">\(F = \mathbb{P}\left(X\leq x\right)\)</span>. Jakauman <span class="math inline">\(F\)</span> mediaanin lisäksi ollaan usein kiinnostuneita siitä, onko jakauma symmetrinen mediaanin suhteen. Olemme siis kiinnostuneita testaamaan seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
 <span class="math display">\[\begin{align*}
-  &amp;H_0: \text{Havainnot ovat symmetrisesti jakautuneet arvon $m_0$ ympärille}, \\
-  &amp;H_1: \text{Havainnot eivät ole symmetrisesti jakautuneet arvon $m_0$ ympärille}.
+  &amp;H_0: \text{Satunnaismuuttujan $X$ jakauma $F$ on symmetrinen arvon $m_0$ suhteen}, \\
+  &amp;H_1: \text{Satunnaismuuttujan $X$ jakauma $F$ ei ole symmetrinen arvon $m_0$ suhteen}.
 \end{align*}\]</span>
 Formaalisti nollahypoteesit voidaan ilmaista seuraavasti
 <span class="math display">\[\begin{align*}
@@ -686,7 +687,10 @@ Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.</p>
 </div>
 </div>
 <div id="sec:nonparamtwosample" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Kahden tai useamman otoksen vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">5.3</span> Kahden jakauman vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:nonparammultiplesample" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Useamman jakauman vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
