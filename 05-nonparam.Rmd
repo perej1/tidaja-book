@@ -64,9 +64,10 @@ set.seed(123)
 n <- 10
 m0 <- 3200L
 values <- signif(EnvStats::rpareto(n, location = 2500, shape = 2), 2)
+values[length(values)] <- 3500
 salary <- tibble::tibble(salary = values) %>%
   mutate(diff = salary - m0) %>%
-  mutate(smaller = if_else(diff < 0, "-", "+"))
+  mutate(smaller = if_else(diff < 0, "$-$", "$+$"))
 
 salary_to_table <- salary
 names(salary_to_table) <- c("Palkka", "$\\texttt{salary}_i - m_0$", "Erotuksen merkki")
@@ -155,7 +156,7 @@ Suurella otoskoolla merkkitesti voidaan myös suorittaa normaaliaproksimaation (
 
 Aivan kuten t-testin tapauksessa, voimme suorittaa yksisuuntaisen merkkitestin esimerkiksi hypoteeseilla
 \begin{align}
-  &H_0: m \leq m_0, \\
+  &H_0: m = m_0, \\
   &H_1: m > m_0.
 \end{align}
 Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia. Oletetaan, että olemme havainneet kaksi otosta $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ ja $\overrightarrow{Y} = \{Y_1, \ldots, Y_n\}$, joiden otoskoot ovat yhtäsuuret. Lisäksi oletetaan, että
@@ -170,5 +171,135 @@ Tällöin kahden ryhmän mediaanien yhtäsuuruutta voidaan testata parittaisella
 
 
 ## Merkkisijatesti {#sec:signedranktest}
+
+(ref:beta) Kiinteä musta käyrä kuvaa erään symmetrisen jakauman tiheysfunktiota. Kuvassa ollaan asetettu $m_0 = 0.5$ ja $a = 0.25$. Katkoviiva kuvaa jakauman mediaania $m_0 = 0.5$. Siniset alueet kuvaavat todennäköisyyksiä $\mathbb{P}\left(X \leq m_0 - a\right)$ ja $\mathbb{P}\left(X \geq m_0 + a\right)$. Kyseisen jakauman tapauksessa millä tahansa muulla $a$:n valinnalla siniset pinta-alat ovat yhtäsuuria. 
+
+Olkoon $X$ satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa $F = \mathbb{P}\left(X\leq x\right)$. Jakauman $F$ mediaanin lisäksi ollaan usein kiinnostuneita siitä, onko jakauma symmetrinen mediaanin suhteen. Olemme siis kiinnostuneita testaamaan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align*}
+  &H_0: \text{Havainnot ovat symmetrisesti jakautuneet arvon $m_0$ ympärille}, \\
+  &H_1: \text{Havainnot eivät ole symmetrisesti jakautuneet arvon $m_0$ ympärille}.
+\end{align*}
+Formaalisti nollahypoteesit voidaan ilmaista seuraavasti
+\begin{align*}
+  &H_0: \mathbb{P}\left(X \leq m_0 - a\right) = \mathbb{P}\left(X \geq m_0 + a\right) \quad \text{kaikille}\ a\in\mathbb{R}, \\
+  &H_1: \mathbb{P}\left(X \leq m_0 - a\right) \neq \mathbb{P}\left(X \geq m_0 + a\right) \quad \text{jollekin}\ a\in\mathbb{R}.
+\end{align*}
+Kuva \@ref(fig:beta) havainnollistaa nollahypoteesin tilannetta.
+```{r beta, echo=FALSE, warning=FALSE, fig.cap="(ref:beta)"}
+library(ggplot2)
+
+x <- seq(0, 1, length = 1000)
+df <- tibble::tibble(x = x, y = dbeta(x, shape1 = 2, shape2 = 2))
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(linewidth = 1) +
+  geom_area(data = subset(df, x < 0.25), fill = "skyblue", alpha = 0.5) +
+  geom_area(data = subset(df, x > 0.75), fill = "skyblue", alpha = 0.5) +
+  geom_segment(aes(x = 0.5, xend = 0.5, y = 0,
+                   yend = dbeta(0.5, shape1 = 2, shape2 = 2)),
+               linetype = "dashed") +
+  ylab("f(x)")
+```
+
+Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ otos riippumattomia havaintoja satunnaismuuttujasta $X$. Kaavan \@ref(eq:medhyp) hypoteeseja voidaan testata seuraavalla idealla. Kuten merkkitestissä, haluamme tarkastella sitä, kuinka moni havainto on pienempää kuin $m_0$ tai suurempaa kuin $m_0$. Tämän lisäksi otamme huomioon havaintojen etäisyyden arvosta $m_0$ tietyllä tavalla. Tämän idean matemaattinen formalisointi johtaa merkkisijatestiin (eng: *signed rank test*). Määritellään satunnaismuuttujat $Y_i = X_i - m_0$, $i\in\{1, \ldots, n\}$ ja olkoon $R(|Y_i|)$ satunnaismuuttujan $|Y_i|$ sija (eng: *rank*). Esimerkiksi jos $Y_1 = 2$, $Y_2 = -3$ ja $Y_3 = 0.5$, niin $|Y_1| = 2$, $|Y_2| = 3$ ja $|Y_3| = 0.5$, jolloin $R(|Y_3|) = 1$, $R(|Y_1|) = 2$ ja $R(|Y_2|) = 3$. Eli pienimmän itseisarvon sija on $1$, toiseksi pienimmän itseisarvon sija on $2$, ..., suurimman itseisarvon sija on $n$. Määritellään osoitinmuuttuja samaan tapaan kuin merkkitestissä,
+\begin{equation*}
+  \mathrm{I}_i =
+  \begin{cases}
+    1 & \text{jos}\ Y_i < 0, \\
+    0, & \text{jos}\ Y_i \geq 0.
+  \end{cases}
+\end{equation*}
+Toisin sanoen osoitinmuuttuja kertoo, onko havainto $X_i$ pienempää kuin $m_0$. Nyt merkkisijatestin testisuure on painotettu summa osoitinmuuttujista
+\begin{equation}
+  (\#eq:ranksignstat)
+  T = \sum_{i = 1}^n R(|Y_i|)\mathrm{I}_i.
+\end{equation}
+Kuten merkkitestissä, tavallaan laskemme niiden havaintojen $X_i$ määrän, jotka ovat pienempää kuin $m_0$. Ero on se, että testisuureessa painotamme enemmän niitä havaintoja, jotka ovat kauempana arvosta $m_0$.
+
+Alla on esimerkki merkkisijatestin testisuureen laskemisesta.
+
+:::{.example #signrankstat name="Merkkisijatestin testisuure"}
+Käytetään esimerkin \@ref(exm:signstat) palkkadataa. Taulukon \@ref(tab:salarysignrank) ensimmäisessä sarakkeessa näkyy otos erään yrityksen työntekijöiden palkoista. Otoksen koko on $n = 10$. Otoksen avulla haluamme testata, onko yrityksen työntekijöiden palkka symmetrisesti jakautunut arvon $m_0 = 3200$ euroa suhteen. Taulukon avulla voimme laskea merkkisijatestin havaitun testisuureen arvon. Taulukosta näemme, että kahden työntekijän palkka on pienempi kuin $m_0$ (työntekijöitä vastaavat rivit ollaan väritetty pinkillä). Näitä työntekijöitä vastaavien erotusten itseisarvojen sijat ovat
+\begin{equation*}
+  R(|\texttt{salary}_1 - m_0|) = 2 \quad\text{ja}\quad
+  R(|\texttt{salary}_6 - m_0|) = 6.
+\end{equation*}
+Havaitun testisuureen arvo on siis $t = 2 + 6 = 8$. Merkkisijatestin nimi tuleekin siitä, että testisuuretta laskettaessa tarkastellaan erotuksien $\texttt{salary}_i - m_0$ merkkejä ($+$ tai $-$) ja sijoja.
+
+```{r salarysignrank, echo=FALSE, message=FALSE}
+library(dplyr)
+salary <- salary %>%
+  mutate(ord = rank(abs(diff)))
+
+salary_to_table2 <- salary
+names(salary_to_table2) <- c("Palkka", "$\\texttt{salary}_i - m_0$", "Erotuksen merkki", "Erotuksen sija")
+
+knitr::kable(
+  salary_to_table2,
+  label = NA,
+  caption = "Taulukon ensimmäinen sarake antaa otoksen erään yrityksen työntekijöiden palkoista. Toinen sarake antaa erotukset $\\texttt{salary}_i  - m_0$, kolmas sarake antaa erotuksien $\\texttt{salary}_i - m_0$ merkit ja viimeinen sarake antaa erotusten itseisarvojen $|\\texttt{salary}_i - m_0|$ sijat.",
+  align = "ccc"
+) |>
+  kableExtra::row_spec(c(1, 6), background = "hotpink")
+```
+:::
+
+Voidaan laskea, että testisuureen odotusarvo ja varianssi ovat
+\begin{equation*}
+\mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
+\mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
+\end{equation*}
+Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.
+
+:::{.proposition}
+Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä *Wilcoxonin merkkisijatesti* kehittäjän sukunimen mukaan.
+:::
+
+:::{.example name="Merkkisijatestin p-arvo"}
+Jatketaan esimerkkiä \@ref(exm:signrankstat), jossa havaittu testisuure on $t = 8$ ja otoskoko on $n = 10$. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen $\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$.
+```{r}
+n <- 10
+t <- 8
+
+t_mean <- n * (n + 1)/ 4
+t_var <- n * (n + 1) * (2 * n + 1)/ 24
+t_tilde <- (t - t_mean) / sqrt(t_var)
+t_tilde
+```
+Eli saamme $\tilde t \approx -1.99$.
+
+Olkoon $\tilde T$ satunnaismuuttuja, joka noudattaa standardinormaalijakaumaa $N(0,1)$ ja olkoon $F$ jakauman kertymäfunktio. Standardinormaalijakauman symmetrisyyyden perusteella normaaliapproksimoitu p-arvo on
+\begin{equation*}
+  \mathbb{P}\left(|\tilde T|  \geq |\tilde t|\right) = \mathbb{P}\left(t \geq -\tilde t\right) + \mathbb{P}\left(t \leq \tilde t\right) = 2\mathbb{P}\left(t \leq \tilde t\right) = 2F(\tilde t),
+\end{equation*}
+Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.
+```{r}
+2 * pnorm(t_tilde)
+```
+
+Approksimoitu p-arvo voidaan laskea myös funktion `wilcox.test()` avulla. Jotta p-arvo lasketaan samoin kuin yllä, niin argumentit `exact` ja `correct` täytyy asettaa oikein. Alla olevassa koodissa vektori `salary_data` sisältää palkkadatan.
+
+```{r, echo=FALSE}
+salary_data <- salary$salary
+```
+
+
+```{r}
+salary_data
+wilcox.test(salary_data, alternative = "two.sided", mu = 3200, exact = FALSE,
+            correct = FALSE)
+```
+
+Huomioi, että funktio `wilcox.test()` raportoi erilaisen testisuureen kuin kaavassa \@ref(eq:ranksignstat) esitetty. Itseasiassa R raportoi testisuureen, joka lasketaan positiivisten erotuksien avulla. Eli R:n raportoima testisuure on $7 + 1 + 8 + 10 + 4 + 9 + 5 + 3$ taulukon \@ref(tab:salarysignrank) mukaan. Sillä ei ole väliä määritelläänkö testisuure positiivisten vai negatiivisten erotuksien avulla.
+
+Normaaliapproksimaatio on kätevä, jos työkaluina on vain paperi ja kynä. Kuitenkin nykyajan tietokoneilla tarkan p-arvon laskemisessa ei yleensä ole suurempia laskennallisia ongelmia.
+
+```{r}
+wilcox.test(salary_data, alternative = "two.sided", mu = 3200, exact = TRUE)
+```
+
+Tarkka p-arvo eroaa hieman normaaliapproksimoidusta p-arvosta. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa $\alpha = 0.05$. Meillä on siis näyttöä sitä vastaan, että palkkajakauma olisi symmetrinen arvon $m_0 = 3200$ ympärillä.
+:::
+
 
 ## Kahden tai useamman otoksen vertailu {#sec:nonparamtwosample}

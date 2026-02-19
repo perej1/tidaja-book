@@ -145,8 +145,14 @@ tab:salarysign
 exm:unlabeled-div-37
 fig:binom
 prp:unlabeled-div-38
-eq:euclidean
+fig:beta
+eq:ranksignstat
+exm:signrankstat
+tab:salarysignrank
+prp:unlabeled-div-39
 exm:unlabeled-div-40
+eq:euclidean
+exm:unlabeled-div-42
 fig:vec
 r-ohjelmointikielestä
 sec:inst

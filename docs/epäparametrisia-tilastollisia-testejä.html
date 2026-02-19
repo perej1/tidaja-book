@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-18" />
+<meta name="date" content="2026-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,52 +286,52 @@ joka kertoo onko havainto <span class="math inline">\(X_i\)</span> suurempi vai 
 <tr class="odd">
 <td align="center">3000</td>
 <td align="center">-200</td>
-<td align="center">-</td>
+<td align="center"><span class="math inline">\(-\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">5400</td>
 <td align="center">2200</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">3300</td>
 <td align="center">100</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">7300</td>
 <td align="center">4100</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">10000</td>
 <td align="center">6800</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">2600</td>
 <td align="center">-600</td>
-<td align="center">-</td>
+<td align="center"><span class="math inline">\(-\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">3600</td>
 <td align="center">400</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">7600</td>
 <td align="center">4400</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">3700</td>
 <td align="center">500</td>
-<td align="center">+</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 <tr class="even">
-<td align="center">3400</td>
-<td align="center">200</td>
-<td align="center">+</td>
+<td align="center">3500</td>
+<td align="center">300</td>
+<td align="center"><span class="math inline">\(+\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -398,7 +398,7 @@ joka voidaan näppärästi laskea binomijakauman kertymäfunktion avulla.</p>
 </div>
 <p>Aivan kuten t-testin tapauksessa, voimme suorittaa yksisuuntaisen merkkitestin esimerkiksi hypoteeseilla
 <span class="math display">\[\begin{align}
-  &amp;H_0: m \leq m_0, \\
+  &amp;H_0: m = m_0, \\
   &amp;H_1: m &gt; m_0.
 \end{align}\]</span>
 Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot ovat parittaisia. Oletetaan, että olemme havainneet kaksi otosta <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> ja <span class="math inline">\(\overrightarrow{Y} = \{Y_1, \ldots, Y_n\}\)</span>, joiden otoskoot ovat yhtäsuuret. Lisäksi oletetaan, että</p>
@@ -411,6 +411,259 @@ Merkkitestillä voidaan myös vertailla kahden ryhmän mediaaneja, jos havainnot
 </div>
 <div id="sec:signedranktest" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Merkkisijatesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+Olkoon <span class="math inline">\(X\)</span> satunnaismuuttuja, joka noudattaa jatkuvaa jakaumaa <span class="math inline">\(F = \mathbb{P}\left(X\leq x\right)\)</span>. Jakauman <span class="math inline">\(F\)</span> mediaanin lisäksi ollaan usein kiinnostuneita siitä, onko jakauma symmetrinen mediaanin suhteen. Olemme siis kiinnostuneita testaamaan seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{align*}
+  &amp;H_0: \text{Havainnot ovat symmetrisesti jakautuneet arvon $m_0$ ympärille}, \\
+  &amp;H_1: \text{Havainnot eivät ole symmetrisesti jakautuneet arvon $m_0$ ympärille}.
+\end{align*}\]</span>
+Formaalisti nollahypoteesit voidaan ilmaista seuraavasti
+<span class="math display">\[\begin{align*}
+  &amp;H_0: \mathbb{P}\left(X \leq m_0 - a\right) = \mathbb{P}\left(X \geq m_0 + a\right) \quad \text{kaikille}\ a\in\mathbb{R}, \\
+  &amp;H_1: \mathbb{P}\left(X \leq m_0 - a\right) \neq \mathbb{P}\left(X \geq m_0 + a\right) \quad \text{jollekin}\ a\in\mathbb{R}.
+\end{align*}\]</span>
+Kuva <a href="epäparametrisia-tilastollisia-testejä.html#fig:beta">5.3</a> havainnollistaa nollahypoteesin tilannetta.
+<div class="figure"><span style="display:block;" id="fig:beta"></span>
+<img src="tidaja-book_files/figure-html/beta-1.png" alt="Kiinteä musta käyrä kuvaa erään symmetrisen jakauman tiheysfunktiota. Kuvassa ollaan asetettu \(m_0 = 0.5\) ja \(a = 0.25\). Katkoviiva kuvaa jakauman mediaania \(m_0 = 0.5\). Siniset alueet kuvaavat todennäköisyyksiä \(\mathbb{P}\left(X \leq m_0 - a\right)\) ja \(\mathbb{P}\left(X \geq m_0 + a\right)\). Kyseisen jakauman tapauksessa millä tahansa muulla \(a\):n valinnalla siniset pinta-alat ovat yhtäsuuria." width="672" />
+<p class="caption">
+Kuva 5.3: Kiinteä musta käyrä kuvaa erään symmetrisen jakauman tiheysfunktiota. Kuvassa ollaan asetettu <span class="math inline">\(m_0 = 0.5\)</span> ja <span class="math inline">\(a = 0.25\)</span>. Katkoviiva kuvaa jakauman mediaania <span class="math inline">\(m_0 = 0.5\)</span>. Siniset alueet kuvaavat todennäköisyyksiä <span class="math inline">\(\mathbb{P}\left(X \leq m_0 - a\right)\)</span> ja <span class="math inline">\(\mathbb{P}\left(X \geq m_0 + a\right)\)</span>. Kyseisen jakauman tapauksessa millä tahansa muulla <span class="math inline">\(a\)</span>:n valinnalla siniset pinta-alat ovat yhtäsuuria.
+</p>
+</div>
+<p>Olkoon <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> otos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:medhyp">(5.1)</a> hypoteeseja voidaan testata seuraavalla idealla. Kuten merkkitestissä, haluamme tarkastella sitä, kuinka moni havainto on pienempää kuin <span class="math inline">\(m_0\)</span> tai suurempaa kuin <span class="math inline">\(m_0\)</span>. Tämän lisäksi otamme huomioon havaintojen etäisyyden arvosta <span class="math inline">\(m_0\)</span> tietyllä tavalla. Tämän idean matemaattinen formalisointi johtaa merkkisijatestiin (eng: <em>signed rank test</em>). Määritellään satunnaismuuttujat <span class="math inline">\(Y_i = X_i - m_0\)</span>, <span class="math inline">\(i\in\{1, \ldots, n\}\)</span> ja olkoon <span class="math inline">\(R(|Y_i|)\)</span> satunnaismuuttujan <span class="math inline">\(|Y_i|\)</span> sija (eng: <em>rank</em>). Esimerkiksi jos <span class="math inline">\(Y_1 = 2\)</span>, <span class="math inline">\(Y_2 = -3\)</span> ja <span class="math inline">\(Y_3 = 0.5\)</span>, niin <span class="math inline">\(|Y_1| = 2\)</span>, <span class="math inline">\(|Y_2| = 3\)</span> ja <span class="math inline">\(|Y_3| = 0.5\)</span>, jolloin <span class="math inline">\(R(|Y_3|) = 1\)</span>, <span class="math inline">\(R(|Y_1|) = 2\)</span> ja <span class="math inline">\(R(|Y_2|) = 3\)</span>. Eli pienimmän itseisarvon sija on <span class="math inline">\(1\)</span>, toiseksi pienimmän itseisarvon sija on <span class="math inline">\(2\)</span>, …, suurimman itseisarvon sija on <span class="math inline">\(n\)</span>. Määritellään osoitinmuuttuja samaan tapaan kuin merkkitestissä,
+<span class="math display">\[\begin{equation*}
+  \mathrm{I}_i =
+  \begin{cases}
+    1 &amp; \text{jos}\ Y_i &lt; 0, \\
+    0, &amp; \text{jos}\ Y_i \geq 0.
+  \end{cases}
+\end{equation*}\]</span>
+Toisin sanoen osoitinmuuttuja kertoo, onko havainto <span class="math inline">\(X_i\)</span> pienempää kuin <span class="math inline">\(m_0\)</span>. Nyt merkkisijatestin testisuure on painotettu summa osoitinmuuttujista
+<span class="math display" id="eq:ranksignstat">\[\begin{equation}
+  \tag{5.3}
+  T = \sum_{i = 1}^n R(|Y_i|)\mathrm{I}_i.
+\end{equation}\]</span>
+Kuten merkkitestissä, tavallaan laskemme niiden havaintojen <span class="math inline">\(X_i\)</span> määrän, jotka ovat pienempää kuin <span class="math inline">\(m_0\)</span>. Ero on se, että testisuureessa painotamme enemmän niitä havaintoja, jotka ovat kauempana arvosta <span class="math inline">\(m_0\)</span>.</p>
+<p>Alla on esimerkki merkkisijatestin testisuureen laskemisesta.</p>
+<div class="example">
+<p><span id="exm:signrankstat" class="example"><strong>Esimerkki 5.3  (Merkkisijatestin testisuure) </strong></span>Käytetään esimerkin <a href="epäparametrisia-tilastollisia-testejä.html#exm:signstat">5.1</a> palkkadataa. Taulukon <a href="epäparametrisia-tilastollisia-testejä.html#tab:salarysignrank">5.2</a> ensimmäisessä sarakkeessa näkyy otos erään yrityksen työntekijöiden palkoista. Otoksen koko on <span class="math inline">\(n = 10\)</span>. Otoksen avulla haluamme testata, onko yrityksen työntekijöiden palkka symmetrisesti jakautunut arvon <span class="math inline">\(m_0 = 3200\)</span> euroa suhteen. Taulukon avulla voimme laskea merkkisijatestin havaitun testisuureen arvon. Taulukosta näemme, että kahden työntekijän palkka on pienempi kuin <span class="math inline">\(m_0\)</span> (työntekijöitä vastaavat rivit ollaan väritetty pinkillä). Näitä työntekijöitä vastaavien erotusten itseisarvojen sijat ovat
+<span class="math display">\[\begin{equation*}
+  R(|\texttt{salary}_1 - m_0|) = 2 \quad\text{ja}\quad
+  R(|\texttt{salary}_6 - m_0|) = 6.
+\end{equation*}\]</span>
+Havaitun testisuureen arvo on siis <span class="math inline">\(t = 2 + 6 = 8\)</span>. Merkkisijatestin nimi tuleekin siitä, että testisuuretta laskettaessa tarkastellaan erotuksien <span class="math inline">\(\texttt{salary}_i - m_0\)</span> merkkejä (<span class="math inline">\(+\)</span> tai <span class="math inline">\(-\)</span>) ja sijoja.</p>
+<table>
+<caption>
+<span id="tab:salarysignrank">Taulukko 5.2: </span>Taulukon ensimmäinen sarake antaa otoksen erään yrityksen työntekijöiden palkoista. Toinen sarake antaa erotukset <span class="math inline">\(\texttt{salary}_i  - m_0\)</span>, kolmas sarake antaa erotuksien <span class="math inline">\(\texttt{salary}_i - m_0\)</span> merkit ja viimeinen sarake antaa erotusten itseisarvojen <span class="math inline">\(|\texttt{salary}_i - m_0|\)</span> sijat.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+Palkka
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\texttt{salary}_i - m_0\)</span>
+</th>
+<th style="text-align:center;">
+Erotuksen merkki
+</th>
+<th style="text-align:center;">
+Erotuksen sija
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;background-color: hotpink !important;">
+3000
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+-200
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+<span class="math inline">\(-\)</span>
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5400
+</td>
+<td style="text-align:center;">
+2200
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3300
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7300
+</td>
+<td style="text-align:center;">
+4100
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10000
+</td>
+<td style="text-align:center;">
+6800
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;background-color: hotpink !important;">
+2600
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+-600
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+<span class="math inline">\(-\)</span>
+</td>
+<td style="text-align:center;background-color: hotpink !important;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3600
+</td>
+<td style="text-align:center;">
+400
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7600
+</td>
+<td style="text-align:center;">
+4400
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3700
+</td>
+<td style="text-align:center;">
+500
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3500
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(+\)</span>
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Voidaan laskea, että testisuureen odotusarvo ja varianssi ovat
+<span class="math display">\[\begin{equation*}
+\mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
+\mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
+\end{equation*}\]</span>
+Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span>. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.</p>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-39" class="proposition"><strong>Huomautus 5.2  </strong></span>Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä <em>Wilcoxonin merkkisijatesti</em> kehittäjän sukunimen mukaan.</p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-40" class="example"><strong>Esimerkki 5.4  (Merkkisijatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signrankstat">5.3</a>, jossa havaittu testisuure on <span class="math inline">\(t = 8\)</span> ja otoskoko on <span class="math inline">\(n = 10\)</span>. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen <span class="math inline">\(\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span>.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb186-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-2" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb186-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-3" tabindex="-1"></a></span>
+<span id="cb186-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-4" tabindex="-1"></a>t_mean <span class="ot">&lt;-</span> n <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb186-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-5" tabindex="-1"></a>t_var <span class="ot">&lt;-</span> n <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">/</span> <span class="dv">24</span></span>
+<span id="cb186-6"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-6" tabindex="-1"></a>t_tilde <span class="ot">&lt;-</span> (t <span class="sc">-</span> t_mean) <span class="sc">/</span> <span class="fu">sqrt</span>(t_var)</span>
+<span id="cb186-7"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-7" tabindex="-1"></a>t_tilde</span></code></pre></div>
+<pre><code>## [1] -1.987624</code></pre>
+<p>Eli saamme <span class="math inline">\(\tilde t \approx -1.99\)</span>.</p>
+<p>Olkoon <span class="math inline">\(\tilde T\)</span> satunnaismuuttuja, joka noudattaa standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> ja olkoon <span class="math inline">\(F\)</span> jakauman kertymäfunktio. Standardinormaalijakauman symmetrisyyyden perusteella normaaliapproksimoitu p-arvo on
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(|\tilde T|  \geq |\tilde t|\right) = \mathbb{P}\left(t \geq -\tilde t\right) + \mathbb{P}\left(t \leq \tilde t\right) = 2\mathbb{P}\left(t \leq \tilde t\right) = 2F(\tilde t),
+\end{equation*}\]</span>
+Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb188-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(t_tilde)</span></code></pre></div>
+<pre><code>## [1] 0.04685328</code></pre>
+<p>Approksimoitu p-arvo voidaan laskea myös funktion <code>wilcox.test()</code> avulla. Jotta p-arvo lasketaan samoin kuin yllä, niin argumentit <code>exact</code> ja <code>correct</code> täytyy asettaa oikein. Alla olevassa koodissa vektori <code>salary_data</code> sisältää palkkadatan.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb190-1" tabindex="-1"></a>salary_data</span></code></pre></div>
+<pre><code>##  [1]  3000  5400  3300  7300 10000  2600  3600  7600  3700  3500</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb192-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(salary_data, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">mu =</span> <span class="dv">3200</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb192-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb192-2" tabindex="-1"></a>            <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon signed rank test
+## 
+## data:  salary_data
+## V = 47, p-value = 0.04685
+## alternative hypothesis: true location is not equal to 3200</code></pre>
+<p>Huomioi, että funktio <code>wilcox.test()</code> raportoi erilaisen testisuureen kuin kaavassa <a href="epäparametrisia-tilastollisia-testejä.html#eq:ranksignstat">(5.3)</a> esitetty. Itseasiassa R raportoi testisuureen, joka lasketaan positiivisten erotuksien avulla. Eli R:n raportoima testisuure on <span class="math inline">\(7 + 1 + 8 + 10 + 4 + 9 + 5 + 3\)</span> taulukon <a href="epäparametrisia-tilastollisia-testejä.html#tab:salarysignrank">5.2</a> mukaan. Sillä ei ole väliä määritelläänkö testisuure positiivisten vai negatiivisten erotuksien avulla.</p>
+<p>Normaaliapproksimaatio on kätevä, jos työkaluina on vain paperi ja kynä. Kuitenkin nykyajan tietokoneilla tarkan p-arvon laskemisessa ei yleensä ole suurempia laskennallisia ongelmia.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb194-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(salary_data, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">mu =</span> <span class="dv">3200</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon signed rank exact test
+## 
+## data:  salary_data
+## V = 47, p-value = 0.04883
+## alternative hypothesis: true location is not equal to 3200</code></pre>
+<p>Tarkka p-arvo eroaa hieman normaaliapproksimoidusta p-arvosta. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>. Meillä on siis näyttöä sitä vastaan, että palkkajakauma olisi symmetrinen arvon <span class="math inline">\(m_0 = 3200\)</span> ympärillä.</p>
+</div>
 </div>
 <div id="sec:nonparamtwosample" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Kahden tai useamman otoksen vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
