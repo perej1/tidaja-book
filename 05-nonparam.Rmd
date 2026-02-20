@@ -4,7 +4,7 @@ Sekä *Tilastotieteen perusteissa* että tällä kurssilla ollaan tähän asti k
 
 Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (*eng*: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
 
-Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa \@ref(sec:nonparamtwosample) ja \@ref(sec:nonparammultiplesample) käsittelemme kahden useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
+Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa \@ref(sec:ranksum) ja \@ref(sec:nonparammultiplesample) käsittelemme kahden tai useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
 
 
 ## Merkkitesti {#sec:signtest}
@@ -249,7 +249,7 @@ Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi 
 \mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
 \mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
 \end{equation*}
-Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.
+Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla.
 
 :::{.proposition}
 Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä *Wilcoxonin merkkisijatesti* kehittäjän sukunimen mukaan.
@@ -311,7 +311,7 @@ Merkkisijatestillä voidaan myös vertailla kahden populaation samankaltaisuutta
 
 Tällöin erotuksien $X_i - Y_i$ jakauman symmetrisyyttä nollan suhteen voidaan testata parittaisella merkkisijatestillä. Parittainen merkkisijatesti on vain yhden otoksen merkkitesti erotuksille $X_i - Y_i$. Myös yksisuuntainen testi on mahdollinen aivan kuten t-testin ja merkkitestin tapauksessa.
 
-:::{.proposition name="Merkkitestin ja merkkisijatestin oletuksista"}
+:::{.proposition #tie name="Merkkitestin ja merkkisijatestin oletuksista"}
 Sekä merkki- että merkkisijatestissä ainoat oletukset ovat seuraavat.
 
 - Havainnot $X_1, \ldots, X_n$ ovat riippumattomia ja samoin jakautuneita.
@@ -328,6 +328,45 @@ Kuitenkin käytännön data-analyyseissa nollaerotukset ja tasahavainnot ovat ma
 :::
 
 
-## Kahden jakauman vertailu {#sec:nonparamtwosample}
+## Sijasummatesti {#sec:ranksum}
+
+Parittainen merkkitesti ja parittainen merkkisijatesti tarjoavat epäparametrisia työkaluja kahden populaation vertailuun, kun otokset ovat parittain riippuvia (katso oletukset tarkemmin luvun \@ref(sec:signtest) tai luvun \@ref(sec:signedranktest) lopusta). Tässä luvussa käsittelemme erästä epäparametrista testiä kahden populaation vertailuun, kun otokset ovat riippumattomia. Käsiteltävälle tilastolliselle testille käytetään kirjallisuudessa nimeä sijasummatesti (eng: *rank sum test*), Mann-Whitney testi tai Wilcoxonin testi. Tässä käytämme nimeä sijasummatesti.
+
+Olkoon $X$ satunnaismuuttuja, joka noudattaa jakaumaa $F_X(x) = \mathbb{P}(X\leq x)$. Olkoon $Y$ satunnaismuuttuja, joka noudattaa jakaumaa $F_Y(y) = \mathbb{P}(Y\leq y)$.
+Sijasummatestissä testaamme seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align*}
+  &H_0: F_X = F_Y, \\
+  &H_1: F_X \neq F_Y.
+\end{align*}
+Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ satunnaisotos satunnaismuutujasta $X$ ja $\overrightarrow{Y} = \{Y_1, \ldots, Y_m\}$ satunnaisotos satunnaismuutujasta $Y$. Eli otoskoot voivat olla erisuuria $n\neq m$. Merkkitestissä oletamme, että
+
+1. Yhdistetyn otoksen $\overrightarrow{Z} =  \{X_1, \ldots, X_n, \ldots Y_1, \ldots, Y_m\}$ havainnot ovat riippumattomia  ja
+
+2.  Jakaumat $F_X$ ja $F_Y$ ovat jatkuvia.
+
+Oletus 2 takaa sen, että havaintoaineisto $\overrightarrow{Z}$ ei sisällä tasahavaintoja. Nimensä mukaisesti sijasummatestin testisuureen laskemisessa käytetään yhdistetyn otoksen havaintojen sijoja, ja sijojen muodostaminen monimutkaistuu, jos data sisältää tasahavaintoja (katso huomautus \@ref(prp:tie)). 
+
+Tarkemmin ottaen sijasummatestin testisuure lasketaan seuraavasti. Ensin muodostetaan yhdistetty otos $\overrightarrow{Z}$. Tämän jälkeen lasketaan sija kaikille yhdistetyn otoksen havainnoille, niin että pienimmän havainnon sija on $1$, toiseksi pienimmän havainnon sija on $2$, ..., suurimman havainnon sija on $n + m$. Merkitään ensimmäisen otoksen $\overrightarrow{X}$ havainnon $X_i$, $i\in\{1, \ldots, n\}$, sijaa notaatiolla $R(X_i)$. Tällöin sijasummatestin testisuure on ensimmäisen otoksen sijojen summa
+\begin{equation*}
+  W = \sum_{i = 1}^n R(X_i).
+\end{equation*}
+Testisuureen idea on se, että nollahypoteesin alla (satunnaismuuttujien $X$ ja $Y$ jakaumat ovat samoja), havaintoja $X_i$ vastaavat sijat eivät ole systemaattisesti erilaisia verratuna havaintojen $Y_i$ sijoihin. Esimerkiksi jos $X_i$ arvot ovat systemaattisesti suurempia kuin $Y_i$ arvot, niin meillä saattaa olla näyttöä nollahypoteesia vastaan.  
+
+Alla on  esimerkki sijasummatestin testisuureen laskemisesta.
+
+:::{.example #signedsumstat name="Sijasummatestin testisuure"}
+TODO
+:::
+
+Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
+\begin{equation*}
+\mathbb{E}(W) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
+\mathrm{Var}(W) = \frac{nm(n + m + 1)}{12}.
+\end{equation*}
+Suurella otoskoolla $(W - \mathbb{E}(W))/(\sqrt{\mathrm{Var}(W)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummmatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla `wilcox.test()`.
+
+:::{.example name="Sijasummatestin p-arvo"}
+Jatketaan esimerkkiä \@ref(exm:signedsumstat). TODO.
+:::
 
 ## Useamman jakauman vertailu {#sec:nonparammultiplesample}

@@ -151,7 +151,9 @@ exm:signrankstat
 tab:salarysignrank
 prp:unlabeled-div-39
 exm:unlabeled-div-40
-prp:unlabeled-div-41
+prp:tie
+exm:signedsumstat
+exm:unlabeled-div-41
 eq:euclidean
 exm:unlabeled-div-43
 fig:vec
@@ -180,7 +182,7 @@ sec:anova
 epäparametrisia-tilastollisia-testejä
 sec:signtest
 sec:signedranktest
-sec:nonparamtwosample
+sec:ranksum
 sec:nonparammultiplesample
 liitteet
 sec:vector

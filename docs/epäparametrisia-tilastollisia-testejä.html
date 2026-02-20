@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-02-19" />
+<meta name="date" content="2026-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,7 +209,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.1" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest"><i class="fa fa-check"></i><b>5.1</b> Merkkitesti</a></li>
 <li class="chapter" data-level="5.2" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest"><i class="fa fa-check"></i><b>5.2</b> Merkkisijatesti</a></li>
-<li class="chapter" data-level="5.3" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample"><i class="fa fa-check"></i><b>5.3</b> Kahden jakauman vertailu</a></li>
+<li class="chapter" data-level="5.3" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:ranksum"><i class="fa fa-check"></i><b>5.3</b> Sijasummatesti</a></li>
 <li class="chapter" data-level="5.4" data-path="epäparametrisia-tilastollisia-testejä.html"><a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample"><i class="fa fa-check"></i><b>5.4</b> Useamman jakauman vertailu</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>6</b> Liitteet</a>
@@ -241,7 +241,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Luku 5</span> Epäparametrisia tilastollisia testejä<a href="epäparametrisia-tilastollisia-testejä.html#ep%C3%A4parametrisia-tilastollisia-testej%C3%A4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sekä <em>Tilastotieteen perusteissa</em> että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> noudattaa jotain tunnettua jakaumaa <span class="math inline">\(F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)\)</span>, jossa parametrivektori <span class="math inline">\(\boldsymbol\theta\in\mathbb{R}^d\)</span> määrittää jakauman <span class="math inline">\(F_{\boldsymbol\theta}\)</span>. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta <span class="math inline">\(N(\mu, \sigma^2)\)</span>, niin <span class="math inline">\(\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d\)</span> ja voimme testata nollahypoteesia <span class="math inline">\(H_0: \mu = \mu_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> vastaan t-testin avulla.</p>
 <p>Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset testit (<em>eng</em>: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.</p>
-<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample">5.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a> käsittelemme kahden useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
+<p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:ranksum">5.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a> käsittelemme kahden tai useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
 <div id="sec:signtest" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Merkkitesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
@@ -621,7 +621,7 @@ Erotuksen sija
 \mathbb{E}(T) = \frac{n(n+1)}{4} \quad\text{ja}\quad
 \mathrm{Var}(T) = \frac{n(n + 1)(2n + 1)}{24}.
 \end{equation*}\]</span>
-Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa alkeisfunktioiden avulla.</p>
+Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen merkkisijatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla.</p>
 <div class="proposition">
 <p><span id="prp:unlabeled-div-39" class="proposition"><strong>Huomautus 5.2  </strong></span>Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä <em>Wilcoxonin merkkisijatesti</em> kehittäjän sukunimen mukaan.</p>
 </div>
@@ -673,7 +673,7 @@ Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.</p>
 </ul>
 <p>Tällöin erotuksien <span class="math inline">\(X_i - Y_i\)</span> jakauman symmetrisyyttä nollan suhteen voidaan testata parittaisella merkkisijatestillä. Parittainen merkkisijatesti on vain yhden otoksen merkkitesti erotuksille <span class="math inline">\(X_i - Y_i\)</span>. Myös yksisuuntainen testi on mahdollinen aivan kuten t-testin ja merkkitestin tapauksessa.</p>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-41" class="proposition"><strong>Huomautus 5.3  (Merkkitestin ja merkkisijatestin oletuksista) </strong></span>Sekä merkki- että merkkisijatestissä ainoat oletukset ovat seuraavat.</p>
+<p><span id="prp:tie" class="proposition"><strong>Huomautus 5.3  (Merkkitestin ja merkkisijatestin oletuksista) </strong></span>Sekä merkki- että merkkisijatestissä ainoat oletukset ovat seuraavat.</p>
 <ul>
 <li><p>Havainnot <span class="math inline">\(X_1, \ldots, X_n\)</span> ovat riippumattomia ja samoin jakautuneita.</p></li>
 <li><p>Havainnot <span class="math inline">\(X_1, \ldots, X_n\)</span> noudattavat <strong>jatkuvaa</strong> jakaumaa.</p></li>
@@ -686,8 +686,39 @@ Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.</p>
 <p>Kuitenkin käytännön data-analyyseissa nollaerotukset ja tasahavainnot ovat mahdollisia. Esimerkiksi oletuksena funktio <code>wilcox.test()</code> pudottaa nollaerotukset analyysistä kokonaan pois ja tasahavainnoille annetaan sama keskisijaluku (eng: <em>mid-rank</em>). Keskisijaluku annetaan seuraavasti. Esimerkiksi, jos <span class="math inline">\(|Y_1| = 1\)</span>, <span class="math inline">\(|Y_2| = 4\)</span> ja <span class="math inline">\(|Y_3| = 4\)</span>, niin <span class="math inline">\(R(|Y_1|) = 1\)</span> ja <span class="math inline">\(R(|Y_2|) = R(|Y_3|) = (2 + 3) / 2 = 2.5\)</span>. Kuitenkin keskisijalukujen tapauksessa testisuureen tarkka jakauma nollahypoteesin alla on monimutkaisempi.</p>
 </div>
 </div>
-<div id="sec:nonparamtwosample" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Kahden jakauman vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparamtwosample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec:ranksum" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Sijasummatesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:ranksum" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Parittainen merkkitesti ja parittainen merkkisijatesti tarjoavat epäparametrisia työkaluja kahden populaation vertailuun, kun otokset ovat parittain riippuvia (katso oletukset tarkemmin luvun <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> tai luvun <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> lopusta). Tässä luvussa käsittelemme erästä epäparametrista testiä kahden populaation vertailuun, kun otokset ovat riippumattomia. Käsiteltävälle tilastolliselle testille käytetään kirjallisuudessa nimeä sijasummatesti (eng: <em>rank sum test</em>), Mann-Whitney testi tai Wilcoxonin testi. Tässä käytämme nimeä sijasummatesti.</p>
+<p>Olkoon <span class="math inline">\(X\)</span> satunnaismuuttuja, joka noudattaa jakaumaa <span class="math inline">\(F_X(x) = \mathbb{P}(X\leq x)\)</span>. Olkoon <span class="math inline">\(Y\)</span> satunnaismuuttuja, joka noudattaa jakaumaa <span class="math inline">\(F_Y(y) = \mathbb{P}(Y\leq y)\)</span>.
+Sijasummatestissä testaamme seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{align*}
+  &amp;H_0: F_X = F_Y, \\
+  &amp;H_1: F_X \neq F_Y.
+\end{align*}\]</span>
+Olkoon <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</span> satunnaisotos satunnaismuutujasta <span class="math inline">\(X\)</span> ja <span class="math inline">\(\overrightarrow{Y} = \{Y_1, \ldots, Y_m\}\)</span> satunnaisotos satunnaismuutujasta <span class="math inline">\(Y\)</span>. Eli otoskoot voivat olla erisuuria <span class="math inline">\(n\neq m\)</span>. Merkkitestissä oletamme, että</p>
+<ol style="list-style-type: decimal">
+<li><p>Yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z} =  \{X_1, \ldots, X_n, \ldots Y_1, \ldots, Y_m\}\)</span> havainnot ovat riippumattomia ja</p></li>
+<li><p>Jakaumat <span class="math inline">\(F_X\)</span> ja <span class="math inline">\(F_Y\)</span> ovat jatkuvia.</p></li>
+</ol>
+<p>Oletus 2 takaa sen, että havaintoaineisto <span class="math inline">\(\overrightarrow{Z}\)</span> ei sisällä tasahavaintoja. Nimensä mukaisesti sijasummatestin testisuureen laskemisessa käytetään yhdistetyn otoksen havaintojen sijoja, ja sijojen muodostaminen monimutkaistuu, jos data sisältää tasahavaintoja (katso huomautus <a href="epäparametrisia-tilastollisia-testejä.html#prp:tie">5.3</a>).</p>
+<p>Tarkemmin ottaen sijasummatestin testisuure lasketaan seuraavasti. Ensin muodostetaan yhdistetty otos <span class="math inline">\(\overrightarrow{Z}\)</span>. Tämän jälkeen lasketaan sija kaikille yhdistetyn otoksen havainnoille, niin että pienimmän havainnon sija on <span class="math inline">\(1\)</span>, toiseksi pienimmän havainnon sija on <span class="math inline">\(2\)</span>, …, suurimman havainnon sija on <span class="math inline">\(n + m\)</span>. Merkitään ensimmäisen otoksen <span class="math inline">\(\overrightarrow{X}\)</span> havainnon <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i\in\{1, \ldots, n\}\)</span>, sijaa notaatiolla <span class="math inline">\(R(X_i)\)</span>. Tällöin sijasummatestin testisuure on ensimmäisen otoksen sijojen summa
+<span class="math display">\[\begin{equation*}
+  W = \sum_{i = 1}^n R(X_i).
+\end{equation*}\]</span>
+Testisuureen idea on se, että nollahypoteesin alla (satunnaismuuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> jakaumat ovat samoja), havaintoja <span class="math inline">\(X_i\)</span> vastaavat sijat eivät ole systemaattisesti erilaisia verratuna havaintojen <span class="math inline">\(Y_i\)</span> sijoihin. Esimerkiksi jos <span class="math inline">\(X_i\)</span> arvot ovat systemaattisesti suurempia kuin <span class="math inline">\(Y_i\)</span> arvot, niin meillä saattaa olla näyttöä nollahypoteesia vastaan.</p>
+<p>Alla on esimerkki sijasummatestin testisuureen laskemisesta.</p>
+<div class="example">
+<p><span id="exm:signedsumstat" class="example"><strong>Esimerkki 5.5  (Sijasummatestin testisuure) </strong></span>TODO</p>
+</div>
+<p>Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
+<span class="math display">\[\begin{equation*}
+\mathbb{E}(W) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
+\mathrm{Var}(W) = \frac{nm(n + m + 1)}{12}.
+\end{equation*}\]</span>
+Suurella otoskoolla <span class="math inline">\((W - \mathbb{E}(W))/(\sqrt{\mathrm{Var}(W)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummmatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla <code>wilcox.test()</code>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.6  (Sijasummatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signedsumstat">5.5</a>. TODO.</p>
+</div>
 </div>
 <div id="sec:nonparammultiplesample" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Useamman jakauman vertailu<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
