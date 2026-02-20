@@ -626,7 +626,7 @@ Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\math
 <p><span id="prp:unlabeled-div-39" class="proposition"><strong>Huomautus 5.2  </strong></span>Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä <em>Wilcoxonin merkkisijatesti</em> kehittäjän sukunimen mukaan.</p>
 </div>
 <div class="example">
-<p><span id="exm:unlabeled-div-40" class="example"><strong>Esimerkki 5.4  (Merkkisijatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signrankstat">5.3</a>, jossa havaittu testisuure on <span class="math inline">\(t = 8\)</span> ja otoskoko on <span class="math inline">\(n = 10\)</span>. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen <span class="math inline">\(\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span>.</p>
+<p><span id="exm:signrankp" class="example"><strong>Esimerkki 5.4  (Merkkisijatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signrankstat">5.3</a>, jossa havaittu testisuure on <span class="math inline">\(t = 8\)</span> ja otoskoko on <span class="math inline">\(n = 10\)</span>. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen <span class="math inline">\(\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span>.</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb186-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-2" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">8</span></span>
 <span id="cb186-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb186-3" tabindex="-1"></a></span>
@@ -702,22 +702,165 @@ Olkoon <span class="math inline">\(\overrightarrow{X} = \{X_1, \ldots, X_n\}\)</
 </ol>
 <p>Oletus 2 takaa sen, että havaintoaineisto <span class="math inline">\(\overrightarrow{Z}\)</span> ei sisällä tasahavaintoja. Nimensä mukaisesti sijasummatestin testisuureen laskemisessa käytetään yhdistetyn otoksen havaintojen sijoja, ja sijojen muodostaminen monimutkaistuu, jos data sisältää tasahavaintoja (katso huomautus <a href="epäparametrisia-tilastollisia-testejä.html#prp:tie">5.3</a>).</p>
 <p>Tarkemmin ottaen sijasummatestin testisuure lasketaan seuraavasti. Ensin muodostetaan yhdistetty otos <span class="math inline">\(\overrightarrow{Z}\)</span>. Tämän jälkeen lasketaan sija kaikille yhdistetyn otoksen havainnoille, niin että pienimmän havainnon sija on <span class="math inline">\(1\)</span>, toiseksi pienimmän havainnon sija on <span class="math inline">\(2\)</span>, …, suurimman havainnon sija on <span class="math inline">\(n + m\)</span>. Merkitään ensimmäisen otoksen <span class="math inline">\(\overrightarrow{X}\)</span> havainnon <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i\in\{1, \ldots, n\}\)</span>, sijaa notaatiolla <span class="math inline">\(R(X_i)\)</span>. Tällöin sijasummatestin testisuure on ensimmäisen otoksen sijojen summa
-<span class="math display">\[\begin{equation*}
-  W = \sum_{i = 1}^n R(X_i).
-\end{equation*}\]</span>
+<span class="math display" id="eq:ranksumstat">\[\begin{equation}
+  \tag{5.4}
+  T = \sum_{i = 1}^n R(X_i).
+\end{equation}\]</span>
 Testisuureen idea on se, että nollahypoteesin alla (satunnaismuuttujien <span class="math inline">\(X\)</span> ja <span class="math inline">\(Y\)</span> jakaumat ovat samoja), havaintoja <span class="math inline">\(X_i\)</span> vastaavat sijat eivät ole systemaattisesti erilaisia verratuna havaintojen <span class="math inline">\(Y_i\)</span> sijoihin. Esimerkiksi jos <span class="math inline">\(X_i\)</span> arvot ovat systemaattisesti suurempia kuin <span class="math inline">\(Y_i\)</span> arvot, niin meillä saattaa olla näyttöä nollahypoteesia vastaan.</p>
 <p>Alla on esimerkki sijasummatestin testisuureen laskemisesta.</p>
 <div class="example">
-<p><span id="exm:signedsumstat" class="example"><strong>Esimerkki 5.5  (Sijasummatestin testisuure) </strong></span>TODO</p>
+<p><span id="exm:signedsumstat" class="example"><strong>Esimerkki 5.5  (Sijasummatestin testisuure) </strong></span>Taulukon <a href="epäparametrisia-tilastollisia-testejä.html#tab:salarytwo">5.3</a> toisessa sarakeessa näkyy yhdistetty otos kahden eri yrityksen työntekijöiden palkoista. Ensimmäisestä yrityksestä on <span class="math inline">\(n = 10\)</span> kappaletta havaintoja <span class="math inline">\(\{x_1, \ldots, x_{10}\}\)</span> ja toisesta yrityksestä on <span class="math inline">\(m = 7\)</span> kappaletta havaintoja <span class="math inline">\(\{y_1, \ldots, y_{7}\}\)</span>. Yhdistetyn otoksen avulla haluamme testata, onko kahden eri yrityksen palkkajakaumat erilaiset.</p>
+<table>
+<caption><span id="tab:salarytwo">Taulukko 5.3: </span>Taulukon ensimmäinen sarake kertoo, kummassa yrityksessä työntekijä työskentelee. Toinen sarake antaa työntekijöiden palkat ja kolmas sarake antaa palkkojen sijat.</caption>
+<colgroup>
+<col width="13%" />
+<col width="10%" />
+<col width="76%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">ID</th>
+<th align="center">Palkka</th>
+<th align="center">Erotuksen sija</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_{1}\)</span></td>
+<td align="center">3000</td>
+<td align="center"><span style="     color: hotpink !important;">7</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_{2}\)</span></td>
+<td align="center">5400</td>
+<td align="center"><span style="     color: hotpink !important;">14</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_{3}\)</span></td>
+<td align="center">3300</td>
+<td align="center"><span style="     color: hotpink !important;">8</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_{4}\)</span></td>
+<td align="center">7300</td>
+<td align="center"><span style="     color: hotpink !important;">15</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_{5}\)</span></td>
+<td align="center">10000</td>
+<td align="center"><span style="     color: hotpink !important;">17</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_{6}\)</span></td>
+<td align="center">2600</td>
+<td align="center"><span style="     color: hotpink !important;">5</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_{7}\)</span></td>
+<td align="center">3600</td>
+<td align="center"><span style="     color: hotpink !important;">10</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_{8}\)</span></td>
+<td align="center">7600</td>
+<td align="center"><span style="     color: hotpink !important;">16</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_{9}\)</span></td>
+<td align="center">3700</td>
+<td align="center"><span style="     color: hotpink !important;">11</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_{10}\)</span></td>
+<td align="center">3500</td>
+<td align="center"><span style="     color: hotpink !important;">9</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(y_{1}\)</span></td>
+<td align="center">2310</td>
+<td align="center"><span style="     color: black !important;">1</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(y_{2}\)</span></td>
+<td align="center">4130</td>
+<td align="center"><span style="     color: black !important;">13</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(y_{3}\)</span></td>
+<td align="center">2590</td>
+<td align="center"><span style="     color: black !important;">4</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(y_{4}\)</span></td>
+<td align="center">2680</td>
+<td align="center"><span style="     color: black !important;">6</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(y_{5}\)</span></td>
+<td align="center">2340</td>
+<td align="center"><span style="     color: black !important;">2</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(y_{6}\)</span></td>
+<td align="center">3900</td>
+<td align="center"><span style="     color: black !important;">12</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(y_{7}\)</span></td>
+<td align="center">2510</td>
+<td align="center"><span style="     color: black !important;">3</span></td>
+</tr>
+</tbody>
+</table>
+<p>Havaittu testisuure on ensimmäisen otoksen <span class="math inline">\(\{x_1, \ldots, x_{10}\}\)</span> havaintojen sijojen (väritetty pinkillä) summa eli
+<span class="math display">\[\begin{equation*}
+  t = \sum_{i = 1}^{10} R(x_i) = 112.
+\end{equation*}\]</span>
+Taulukon viimeisen sarakkeen visuaalisen tarkastelun perusteella vaikuttaa siltä, että toista yritystä (<span class="math inline">\(y_i\)</span>) vastaavat sijat ovat systemaattisesti pienempiä kuin ensimmäistä yritystä (<span class="math inline">\(x_i\)</span>) vastaavat sijat. Kysymykseen onko tämä efekti tilastollisesti merkitsevä, vastaa p-arvo.</p>
 </div>
 <p>Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
 <span class="math display">\[\begin{equation*}
-\mathbb{E}(W) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
-\mathrm{Var}(W) = \frac{nm(n + m + 1)}{12}.
+\mathbb{E}(T) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
+\mathrm{Var}(T) = \frac{nm(n + m + 1)}{12}.
 \end{equation*}\]</span>
-Suurella otoskoolla <span class="math inline">\((W - \mathbb{E}(W))/(\sqrt{\mathrm{Var}(W)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummmatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla <code>wilcox.test()</code>.</p>
+Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span> noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0,1)\)</span> nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummatesti. Kuitenkin R:n funktiolla <code>wilcox.test()</code> p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla <code>wilcox.test()</code>.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.6  (Sijasummatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signedsumstat">5.5</a>. TODO.</p>
+<p><span id="exm:unlabeled-div-40" class="example"><strong>Esimerkki 5.6  (Sijasummatestin p-arvo) </strong></span>Jatketaan esimerkkiä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signedsumstat">5.5</a>, jossa havaittu testisuure on <span class="math inline">\(t = 112\)</span>, ensimmäisen otoksen koko on <span class="math inline">\(n = 10\)</span> ja toisen otoksen koko on <span class="math inline">\(m = 7\)</span>. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen <span class="math inline">\(\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})\)</span>.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb196-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb196-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-3" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">112</span></span>
+<span id="cb196-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-4" tabindex="-1"></a>t_mean <span class="ot">&lt;-</span> n <span class="sc">*</span> (n <span class="sc">+</span> m <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb196-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-5" tabindex="-1"></a>t_var <span class="ot">&lt;-</span> n <span class="sc">*</span> m <span class="sc">*</span> (n <span class="sc">+</span> m <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">12</span></span>
+<span id="cb196-6"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-6" tabindex="-1"></a>t_tilde <span class="ot">&lt;-</span> (t <span class="sc">-</span> t_mean) <span class="sc">/</span> <span class="fu">sqrt</span>(t_var)</span>
+<span id="cb196-7"><a href="epäparametrisia-tilastollisia-testejä.html#cb196-7" tabindex="-1"></a>t_tilde</span></code></pre></div>
+<pre><code>## [1] 2.14698</code></pre>
+<p>Samantyyppisellä perustelulla kuin esimerkissä <a href="epäparametrisia-tilastollisia-testejä.html#exm:signrankp">5.4</a> saamme laskettua normaaliapproksimoidun p-arvon seuraavasti.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb198-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span>t_tilde)</span></code></pre></div>
+<pre><code>## [1] 0.03179486</code></pre>
+<p>Approksimoitu p-arvo voidaan laskea myös funktion <code>wilcox.test()</code> avulla. Jotta p-arvo lasketaan samoin kuin yllä, niin argumentit <code>exact</code> ja <code>correct</code> täytyy asettaa oikein. Alla olevassa koodissa vektori <code>salary_data1</code> sisältää ensimmäisen yrityksen palkkadatan ja <code>salary_data1</code> sisältää toisen yrityksen palkkadatan.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb200-1" tabindex="-1"></a>salary_data1</span></code></pre></div>
+<pre><code>##  [1]  3000  5400  3300  7300 10000  2600  3600  7600  3700  3500</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb202-1" tabindex="-1"></a>salary_data2</span></code></pre></div>
+<pre><code>## [1] 2310 4130 2590 2680 2340 3900 2510</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb204-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(salary_data1, salary_data2, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb204-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb204-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test
+## 
+## data:  salary_data1 and salary_data2
+## W = 57, p-value = 0.03179
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Huomaa, että R raportoi itseasiassa keskitetyn testisuureen <span class="math inline">\(U = T - \frac{n(n+1)}{2}\)</span> eikä kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:ranksumstat">(5.4)</a> testisuuretta. Kuitenkin molemmat <span class="math inline">\(U\)</span> ja <span class="math inline">\(T\)</span> sisältävät saman informaation – testisuureen <span class="math inline">\(U\)</span> jakauma on vain hieman kivempi.</p>
+<p>Tarkka p-arvo testisuureen <span class="math inline">\(U\)</span> tarkasta jakaumasta lasketaan alla.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb206-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(salary_data1, salary_data2, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb206-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb206-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum exact test
+## 
+## data:  salary_data1 and salary_data2
+## W = 57, p-value = 0.03301
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Normaaliapproksimoitu ja tarkka p-arvo ovat melko lähellä toisiaan. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>. Meillä on siis näyttöä sen puolesta, että kahden yrityksen palkkajakaumat olisivat erilaiset.</p>
 </div>
 </div>
 <div id="sec:nonparammultiplesample" class="section level2 hasAnchor" number="5.4">

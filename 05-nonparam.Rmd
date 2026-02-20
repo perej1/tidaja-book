@@ -63,9 +63,9 @@ library(kableExtra)
 set.seed(123)
 n <- 10
 m0 <- 3200L
-values <- signif(EnvStats::rpareto(n, location = 2500, shape = 2), 2)
-values[length(values)] <- 3500
-salary <- tibble::tibble(salary = values) %>%
+salary_data <- signif(EnvStats::rpareto(n, location = 2500, shape = 2), 2)
+salary_data[length(salary_data)] <- 3500
+salary <- tibble::tibble(salary = salary_data) %>%
   mutate(diff = salary - m0) %>%
   mutate(smaller = if_else(diff < 0, "$-$", "$+$"))
 
@@ -255,7 +255,7 @@ Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa lik
 Tässä luvussa käsiteltyyn merkkisijatestiin viitataan usein kirjallisuudessa nimellä *Wilcoxonin merkkisijatesti* kehittäjän sukunimen mukaan.
 :::
 
-:::{.example name="Merkkisijatestin p-arvo"}
+:::{.example #signrankp name="Merkkisijatestin p-arvo"}
 Jatketaan esimerkkiä \@ref(exm:signrankstat), jossa havaittu testisuure on $t = 8$ ja otoskoko on $n = 10$. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen $\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$.
 ```{r}
 n <- 10
@@ -278,11 +278,6 @@ Nyt voimme laskea normaaliapproksimoidun p-arvon R:n avulla.
 ```
 
 Approksimoitu p-arvo voidaan laskea myös funktion `wilcox.test()` avulla. Jotta p-arvo lasketaan samoin kuin yllä, niin argumentit `exact` ja `correct` täytyy asettaa oikein. Alla olevassa koodissa vektori `salary_data` sisältää palkkadatan.
-
-```{r, echo=FALSE}
-salary_data <- salary$salary
-```
-
 
 ```{r}
 salary_data
@@ -347,26 +342,98 @@ Olkoon $\overrightarrow{X} = \{X_1, \ldots, X_n\}$ satunnaisotos satunnaismuutuj
 Oletus 2 takaa sen, että havaintoaineisto $\overrightarrow{Z}$ ei sisällä tasahavaintoja. Nimensä mukaisesti sijasummatestin testisuureen laskemisessa käytetään yhdistetyn otoksen havaintojen sijoja, ja sijojen muodostaminen monimutkaistuu, jos data sisältää tasahavaintoja (katso huomautus \@ref(prp:tie)). 
 
 Tarkemmin ottaen sijasummatestin testisuure lasketaan seuraavasti. Ensin muodostetaan yhdistetty otos $\overrightarrow{Z}$. Tämän jälkeen lasketaan sija kaikille yhdistetyn otoksen havainnoille, niin että pienimmän havainnon sija on $1$, toiseksi pienimmän havainnon sija on $2$, ..., suurimman havainnon sija on $n + m$. Merkitään ensimmäisen otoksen $\overrightarrow{X}$ havainnon $X_i$, $i\in\{1, \ldots, n\}$, sijaa notaatiolla $R(X_i)$. Tällöin sijasummatestin testisuure on ensimmäisen otoksen sijojen summa
-\begin{equation*}
-  W = \sum_{i = 1}^n R(X_i).
-\end{equation*}
+\begin{equation}
+  (\#eq:ranksumstat)
+  T = \sum_{i = 1}^n R(X_i).
+\end{equation}
 Testisuureen idea on se, että nollahypoteesin alla (satunnaismuuttujien $X$ ja $Y$ jakaumat ovat samoja), havaintoja $X_i$ vastaavat sijat eivät ole systemaattisesti erilaisia verratuna havaintojen $Y_i$ sijoihin. Esimerkiksi jos $X_i$ arvot ovat systemaattisesti suurempia kuin $Y_i$ arvot, niin meillä saattaa olla näyttöä nollahypoteesia vastaan.  
 
-Alla on  esimerkki sijasummatestin testisuureen laskemisesta.
+Alla on esimerkki sijasummatestin testisuureen laskemisesta.
 
 :::{.example #signedsumstat name="Sijasummatestin testisuure"}
-TODO
+Taulukon \@ref(tab:salarytwo) toisessa sarakeessa näkyy yhdistetty otos kahden eri yrityksen työntekijöiden palkoista. Ensimmäisestä yrityksestä on $n = 10$ kappaletta havaintoja $\{x_1, \ldots, x_{10}\}$ ja toisesta yrityksestä on $m = 7$ kappaletta havaintoja $\{y_1, \ldots, y_{7}\}$. Yhdistetyn otoksen avulla haluamme testata, onko kahden eri yrityksen palkkajakaumat erilaiset.
+
+```{r salarytwo, echo=FALSE}
+set.seed(679867)
+m <- 7
+company <- c(
+  stringr::str_c("$x_{", 1:n, "}$"),
+  stringr::str_c("$y_{", 1:m, "}$")
+)
+salary_data1 <- salary_data
+salary_data2 <- signif(rnorm(m, 2500, 200), 3)
+salary_data2[c(2,6)] <- c(4130, 3900)
+
+
+salary_two <- tibble::tibble(id = company, salary = c(salary_data1, salary_data2)) %>%
+  mutate(rank = rank(salary))
+
+salary_to_table <- salary_two %>%
+  mutate(rank = kableExtra::cell_spec(rank, color = ifelse((1:(n + m)) <= n, "hotpink", "black")))
+names(salary_to_table) <- c("ID", "Palkka", "Erotuksen sija")
+
+knitr::kable(
+  salary_to_table,
+  caption = "Taulukon ensimmäinen sarake kertoo, kummassa yrityksessä työntekijä työskentelee. Toinen sarake antaa työntekijöiden palkat ja kolmas sarake antaa palkkojen sijat.",
+  align = "ccc"
+) #|>
+  #kableExtra::row_spec(1:10, background = "hotpink")
+```
+
+Havaittu testisuure on ensimmäisen otoksen $\{x_1, \ldots, x_{10}\}$ havaintojen sijojen (väritetty pinkillä) summa eli
+\begin{equation*}
+  t = \sum_{i = 1}^{10} R(x_i) = `r sum(salary_two$rank[1:n])`.
+\end{equation*}
+Taulukon viimeisen sarakkeen visuaalisen tarkastelun perusteella vaikuttaa siltä, että toista yritystä ($y_i$) vastaavat sijat ovat systemaattisesti pienempiä kuin ensimmäistä yritystä ($x_i$) vastaavat sijat. Kysymykseen onko tämä efekti tilastollisesti merkitsevä, vastaa p-arvo.
 :::
 
 Voidaan laskea, että nollahypoteesin alla testisuureen odotusarvo ja varianssi ovat
 \begin{equation*}
-\mathbb{E}(W) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
-\mathrm{Var}(W) = \frac{nm(n + m + 1)}{12}.
+\mathbb{E}(T) = \frac{n(n + m + 1)}{2} \quad\text{ja}\quad
+\mathrm{Var}(T) = \frac{nm(n + m + 1)}{12}.
 \end{equation*}
-Suurella otoskoolla $(W - \mathbb{E}(W))/(\sqrt{\mathrm{Var}(W)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummmatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla `wilcox.test()`.
+Suurella otoskoolla $(T - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$ noudattaa likimain standardinormaalijakaumaa $N(0,1)$ nollahypoteesin alla. Normaalijakauman avulla voidaan siis suorittaa likimääräinen sijasummatesti. Kuitenkin R:n funktiolla `wilcox.test()` p-arvo voidaan laskea tarkasti, vaikka testisuureen tarkkaa jakaumaa ei voida ilmoittaa yksinkertaisella kaavalla. Eli antamalla argumentit eri tavoin, sekä merkkisijatesti että sijasummatesti voidaan suorittaa R:n funktiolla `wilcox.test()`.
 
 :::{.example name="Sijasummatestin p-arvo"}
-Jatketaan esimerkkiä \@ref(exm:signedsumstat). TODO.
+Jatketaan esimerkkiä \@ref(exm:signedsumstat), jossa havaittu testisuure on $t = 112$, ensimmäisen otoksen koko on $n = 10$ ja toisen otoksen koko on $m = 7$. Lasketaan ensin p-arvo normaaliapproksimaation avulla. Alla olevassa koodissa laskemme ensin suureen $\tilde t = (t - \mathbb{E}(T))/(\sqrt{\mathrm{Var}(T)})$.
+
+```{r}
+n <- 10
+m <- 7
+t <- 112
+t_mean <- n * (n + m + 1) / 2
+t_var <- n * m * (n + m + 1) / 12
+t_tilde <- (t - t_mean) / sqrt(t_var)
+t_tilde
+```
+
+Samantyyppisellä perustelulla kuin esimerkissä \@ref(exm:signrankp) saamme laskettua normaaliapproksimoidun p-arvon seuraavasti.
+
+```{r}
+2 * pnorm(-t_tilde)
+```
+
+Approksimoitu p-arvo voidaan laskea myös funktion `wilcox.test()` avulla. Jotta p-arvo lasketaan samoin kuin yllä, niin argumentit `exact` ja `correct` täytyy asettaa oikein. Alla olevassa koodissa vektori `salary_data1` sisältää ensimmäisen yrityksen palkkadatan ja `salary_data1` sisältää toisen yrityksen palkkadatan.
+
+```{r}
+salary_data1
+salary_data2
+
+wilcox.test(salary_data1, salary_data2, paired = FALSE,
+            alternative = "two.sided", exact = FALSE, correct = FALSE)
+```
+
+Huomaa, että R raportoi itseasiassa keskitetyn testisuureen $U = T - \frac{n(n+1)}{2}$ eikä kaavan \@ref(eq:ranksumstat) testisuuretta. Kuitenkin molemmat $U$ ja $T$ sisältävät saman informaation -- testisuureen $U$ jakauma on vain hieman kivempi.
+
+Tarkka p-arvo testisuureen $U$ tarkasta jakaumasta lasketaan alla.
+
+```{r}
+wilcox.test(salary_data1, salary_data2, paired = FALSE,
+            alternative = "two.sided", exact = TRUE)
+```
+
+Normaaliapproksimoitu ja tarkka p-arvo ovat melko lähellä toisiaan. Joka tapauksessa nollahypoteesi hylätään, kun käytetään merkitsevyystasoa $\alpha = 0.05$. Meillä on siis näyttöä sen puolesta, että kahden yrityksen palkkajakaumat olisivat erilaiset. 
 :::
+
 
 ## Useamman jakauman vertailu {#sec:nonparammultiplesample}

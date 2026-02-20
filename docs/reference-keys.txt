@@ -150,12 +150,14 @@ eq:ranksignstat
 exm:signrankstat
 tab:salarysignrank
 prp:unlabeled-div-39
-exm:unlabeled-div-40
+exm:signrankp
 prp:tie
+eq:ranksumstat
 exm:signedsumstat
-exm:unlabeled-div-41
+tab:salarytwo
+exm:unlabeled-div-40
 eq:euclidean
-exm:unlabeled-div-43
+exm:unlabeled-div-42
 fig:vec
 r-ohjelmointikielestä
 sec:inst
