@@ -162,9 +162,10 @@ exm:unlabeled-div-41
 eq:linearnonparam
 def:whitenoiserelax
 fig:conf
-prp:unlabeled-div-42
+exm:unlabeled-div-42
+prp:unlabeled-div-43
 eq:euclidean
-exm:unlabeled-div-44
+exm:unlabeled-div-45
 fig:vec
 r-ohjelmointikielestä
 sec:inst

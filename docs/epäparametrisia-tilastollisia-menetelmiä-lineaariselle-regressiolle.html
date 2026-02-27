@@ -277,13 +277,13 @@ Luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting">3.5</
 <span class="math display">\[\begin{equation*}
   y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\},
 \end{equation*}\]</span>
-vakiotermille <span class="math inline">\(\beta_0\)</span> ja kertoimille <span class="math inline">\(\beta_1, \ldots, \beta_j\)</span>. Muista, että parametrit <span class="math inline">\(\beta_j\)</span> ovat vakioita ja luottamusvälit ovat datasta riippuvia satunnaisia välejä. Eli <span class="math inline">\((1-\alpha)\)</span>-luottamusväli parametrille <span class="math inline">\(\beta_j\)</span> on satunnainen väli, joka sisältää todellisen todellisen parametrin arvon todennäköisyydellä <span class="math inline">\(1-\alpha\)</span>. Esimerkiksi <span class="math inline">\(0.95\)</span>-luottamusväli voidaan tulkita seuraavasti.</p>
+vakiotermille <span class="math inline">\(\beta_0\)</span> ja kertoimille <span class="math inline">\(\beta_1, \ldots, \beta_j\)</span>. Muista, että parametrit <span class="math inline">\(\beta_j\)</span> ovat vakioita ja luottamusvälit ovat datasta riippuvia satunnaisia välejä. Eli <span class="math inline">\((1-\alpha)\)</span>-luottamusväli parametrille <span class="math inline">\(\beta_j\)</span> on satunnainen väli, joka sisältää todellisen parametrin arvon todennäköisyydellä <span class="math inline">\(1-\alpha\)</span>. Esimerkiksi <span class="math inline">\(0.95\)</span>-luottamusväli voidaan tulkita seuraavasti.</p>
 <ol style="list-style-type: decimal">
 <li><p>Otoksen
 <span class="math display">\[\begin{equation*}
   \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
 \end{equation*}\]</span>
-avulla lasket <span class="math inline">\(0.95\)</span>-luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span>.</p></li>
+avulla lasketaan <span class="math inline">\(0.95\)</span>-luottamusväli parametrille <span class="math inline">\(\beta_j\)</span>.</p></li>
 <li><p>Oletetaan, että sinulla on saatavilla <span class="math inline">\(99\)</span> ylimääräistä kohdan 1 mukaista otosta. Lasket kaikista otoksista <span class="math inline">\(0.95\)</span>-luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span>. Lopulta saat siis yhteensä sata <span class="math inline">\(0.95\)</span>-luottamusväliä.</p></li>
 <li><p>Koska luottamusväli on satunnainen, niin jokainen väli on hieman erilainen. Lisäksi koska parametrin <span class="math inline">\(\beta_j\)</span> arvo on tuntematon, niin et tiedä, mitkä lasketuista väleistä peittävät parametrin todellisen arvon. Kuitenkin noin <span class="math inline">\(95\)</span> lasketuista luottamusväleistä sisältävät parametrin arvon <span class="math inline">\(\beta_j\)</span>. Kuva <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#fig:conf">6.1</a> havainnollistaa <span class="math inline">\(0.95\)</span>-luottamusvälin tulkintaa.</p></li>
 </ol>
@@ -295,24 +295,28 @@ avulla lasket <span class="math inline">\(0.95\)</span>-luottamusvälin parametr
 Kuva 6.1: Sata <span class="math inline">\(0.95\)</span>-luottamusväliä parametrille <span class="math inline">\(\beta_j\)</span>. Siniset välit peittävät parametrin todellisen arvon ja punaiset eivät. Tässä tapauksessa viisi väliä sadasta eivät sisällä parametria <span class="math inline">\(\beta_j\)</span>.
 </p>
 </div>
-<p>Tässä olemme kiinnostuneita laskemaan luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä (eng: <em>bootstrap method</em>), joka on epäparametrinen menetelmä luottamusvälien muodostamiseen. Alla kuvaamme, kuinka <span class="math inline">\((1-\alpha)\)</span>-luottamusväli muodostetaan parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä askel askeleelta.</p>
+<p>Tässä olemme kiinnostuneita luottamusvälin laskemisesta parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä (eng: <em>bootstrap method</em>), joka on epäparametrinen menetelmä luottamusvälien muodostamiseen. Alla kuvaamme, kuinka <span class="math inline">\((1-\alpha)\)</span>-luottamusväli muodostetaan parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä askel askeleelta.</p>
 <ol style="list-style-type: decimal">
 <li><p>Olkoon
 <span class="math display">\[\begin{equation*}
   \overrightarrow{Z}^{(1)} = \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots, (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\}
 \end{equation*}\]</span>
-alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Muodosta uusi <span class="math inline">\(n\)</span> kokoinen otos <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> palautusotannalla alkuperäisestä otoksesta <span class="math inline">\(\overrightarrow{Z}^{(1)}\)</span>. Uutta otosta kutsumme <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> kutsutaan uusio-otokseksi (eng: <em>bootstrap sample</em>).</p>
+alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Muodosta uusi <span class="math inline">\(n\)</span> kokoinen otos <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> palautusotannalla alkuperäisestä otoksesta <span class="math inline">\(\overrightarrow{Z}^{(1)}\)</span>. Uutta otosta kutsumme <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> uusio-otokseksi (eng: <em>bootstrap sample</em>).</p>
 <ul>
-<li>Palautusotanta: valitset havaintoja <span class="math inline">\((y_i, x_{i1}, x_{i2}, \ldots, x_{id})\)</span> alkuperäsistä otoksestä satunnaisesti niin, että sama havainto voidaan valita useampaan kertaan.</li>
+<li>Palautusotanta: valitset havaintoja (vektoreita) <span class="math inline">\((y_i, x_{i1}, x_{i2}, \ldots, x_{id})\)</span> alkuperäisestä otoksestä satunnaisesti niin, että sama havainto voidaan valita useampaan kertaan.</li>
 </ul></li>
-<li><p>Laske estimaatti <span class="math inline">\(\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T\)</span> pienimmän muodostetusta uusio-otoksesta <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span>.</p></li>
+<li><p>Laske estimaatti <span class="math inline">\(\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T\)</span> muodostetusta uusio-otoksesta <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span>.</p></li>
 <li><p>Toista edelliset askeleet <span class="math inline">\(m - 1\)</span> kertaa (esimerkiksi <span class="math inline">\(m = 999\)</span>).</p></li>
 <li><p>Nappaa alkuperäisen otoksen <span class="math inline">\(\overrightarrow{Z}^{(1)}\)</span> avulla laskettu estimaatti <span class="math inline">\(\hat\beta_j^{(1)}\)</span> parametrille <span class="math inline">\(\beta_j\)</span>. Poimi myös uusio-otosten avulla lasketut estimaatit <span class="math inline">\(\hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\)</span>.</p></li>
-<li><p>Järjestä estimaatit <span class="math inline">\(\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\)</span> suuruusjärjestykseen. Aseta luottamusvälin alapääksi <span class="math inline">\(\lfloor\frac{\alpha}{2}\times m\rfloor\)</span> järjestetty estimaatti. Aseta luottamusvälin yläpääksi <span class="math inline">\(\lceil\frac{\alpha}{2}\times m\rceil\)</span> järjestetty estimaatti.</p></li>
+<li><p>Järjestä estimaatit <span class="math inline">\(\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\)</span> suuruusjärjestykseen. Aseta luottamusvälin alapääksi <span class="math inline">\(\left[\frac{\alpha}{2}\times m\right]\)</span> järjestetty estimaatti. Aseta luottamusvälin yläpääksi <span class="math inline">\(\left[\frac{\alpha}{2}\times m\right]\)</span> järjestetty estimaatti. Tässä notaatio <span class="math inline">\([\cdot]\)</span> tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea estimaatteja <span class="math inline">\(\left\{\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\right\}\)</span> vastaavat <span class="math inline">\(\alpha/2\)</span>- ja <span class="math inline">\((1 - \alpha/2)\)</span>-otoskvantiilit.</p></li>
 </ol>
 <p>Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys <em>bootstrap</em> viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-42" class="example"><strong>Esimerkki 6.1  </strong></span>TODO</p>
+</div>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-42" class="proposition"><strong>Huomautus 6.1  </strong></span>Plaa</p>
+<p><span id="prp:unlabeled-div-43" class="proposition"><strong>Huomautus 6.1  </strong></span>Uusiomenetelmää voidaan käyttää myös muunlaisten luottamusvälien laskemiseen. Esimerkiksi lineaarisen mallin ennustuksille voidaan laskea luottamusvälit käyttämällä uusiomenetelmää. Uusiomenetelmä ei ole myöskään sidoksissa lineaariseen regressioon vaan menetelmää voidaan käyttää muissa yhteyksissä. Kuitenkin tällä kurssilla käytämme uusiomenetelmää ainoastaan luottamusvälien laskemiseen lineaarisen mallin parametreille <span class="math inline">\(\beta_j\)</span>.</p>
+<p>Huomaa myös, että oletuksen <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> alla parametreille <span class="math inline">\(\beta_j\)</span> voidaan laskea parametrinen luottamusväli. Tämä jätetään kuitenkin kurssin ulkopuolelle, koska parametristen luottamusvälien laskemisen filosofiaa käytiin kurssilla <em>Tilastotieteen perusteet</em>.</p>
 </div>
 
 </div>
