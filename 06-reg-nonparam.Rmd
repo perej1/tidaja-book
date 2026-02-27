@@ -1,0 +1,118 @@
+# Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle
+
+Palataan tässä luvussa takaisin lineaariseen regressiomalliin
+\begin{equation}
+  (\#eq:linearnonparam)
+  y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\}.
+\end{equation}
+Luvussa \@ref(sec:regtesting) käsittelimme tilastollisia testejä liittyen mallin merkitsevyyteen (F-testi) ja parametrien $\beta_j$ merkitsevyyteen (t-testi). Nämä testit ovat parametrisia, koska testeissä oletamme satunaisvirheiden noudattavan normaalijakaumaa -- satunnaisvirheet ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa.
+
+Kuitenkin usein on kohtuutonta olettaa, että satunnaistermit $\varepsilon_i$ noudattavat jotain tiettyä parametrista jakaumaa kuten normaalijakaumaa. Tämän vuoksi tässä luvussa esittelemme epäparametrisia menetelmiä lineaarisen regression kontekstissa. Luvussa \@ref(sec:permutation) annamme epäparametriset vastineet merkitsevyystesteille. Luvussa \@ref(sec:bootstrap) esittelemme epäparametrisen menetelmän luottamusvälien muodostamiseen parametreille $\beta_j$.
+
+**Kaikissa tämän luvun menetelmissä oletamme, että virhetermit ovat määritelmän \@ref(def:whitenoiserelax) mukaista valkoista kohinaa. Ero siis määritelmien \@ref(def:whitenoise) ja \@ref(def:whitenoiserelax) välillä on, että nyt emme oleta virhetermeille mitään tiettyä jakaumaa.**
+
+:::{.definition #whitenoiserelax name="Valkoinen kohina"}
+Mallin \@ref(eq:linearnonparam) virheet $\varepsilon_i$ ovat satunnaismuuttujia, joille pätee seuraavat oletukset.
+
+1. Satunnaisvirheet $\varepsilon_i$ ovat riippumattomia ja samoin jakautuneita.
+
+2. Kaikkien satunnaisvirheiden $\varepsilon_i$ odotusarvo on nolla ja varianssi ei riipu indeksistä $i$ eli
+\begin{equation*}
+  \mathbb{E}(\varepsilon_i) = 0 \quad\text{ja}\quad \mathrm{Var}(\varepsilon_i) = \sigma^2 > 0 \quad\text{kaikille}\quad i\in\{1,\ldots, n\}.
+\end{equation*}
+:::
+
+## Permutaatiotesti {#sec:permutation}
+
+### Mallin merkitsevyys
+
+### Parametrien merkitsevyys
+
+## Uusiomenetelmä {#sec:bootstrap}
+
+Luottamusväli on eräs menetelmä kuvata parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
+\begin{equation*}
+  y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\},
+\end{equation*}
+vakiotermille $\beta_0$ ja kertoimille $\beta_1, \ldots, \beta_j$. Muista, että parametrit $\beta_j$ ovat vakioita ja luottamusvälit ovat datasta riippuvia satunnaisia välejä. Eli $(1-\alpha)$-luottamusväli parametrille $\beta_j$ on satunnainen väli, joka sisältää todellisen todellisen parametrin arvon todennäköisyydellä $1-\alpha$. Esimerkiksi $0.95$-luottamusväli voidaan tulkita seuraavasti.
+
+1. Otoksen 
+\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}
+avulla lasket $0.95$-luottamusvälin parametrille $\beta_j$.
+
+2. Oletetaan, että sinulla on saatavilla $99$ ylimääräistä kohdan 1 mukaista otosta. Lasket kaikista otoksista $0.95$-luottamusvälin parametrille $\beta_j$. Lopulta saat siis yhteensä sata $0.95$-luottamusväliä.
+
+3. Koska luottamusväli on satunnainen, niin jokainen väli on hieman erilainen. Lisäksi koska parametrin $\beta_j$ arvo on tuntematon, niin et tiedä, mitkä lasketuista väleistä peittävät parametrin todellisen arvon. Kuitenkin noin $95$ lasketuista luottamusväleistä sisältävät parametrin arvon $\beta_j$. Kuva \@ref(fig:conf) havainnollistaa $0.95$-luottamusvälin tulkintaa.
+
+(ref:conf) Sata $0.95$-luottamusväliä parametrille $\beta_j$. Siniset välit peittävät parametrin todellisen arvon ja punaiset eivät. Tässä tapauksessa viisi väliä sadasta eivät sisällä parametria $\beta_j$.
+
+Tarkemmin luottamusvälin käsitettä voit kerrata kurssilta *Tilastotieteen perusteet*.
+
+```{r conf, fig.cap="(ref:conf)", message=FALSE, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+
+set.seed(123)
+
+# Number of confidence intervals
+n  <- 100
+
+# Length of the interval
+l  <- 2
+
+# Std fro centers such that approximately 95% of the invervals cover zero
+sigma <- l / (2 * 1.96)
+
+# Generate centers
+centers <- rnorm(n, mean = 0, sd = sigma)
+
+# y-positions just for plotting
+yvals <- 1:n
+
+df <- tibble::tibble(
+  x_start = centers - l / 2,
+  x_end = centers + l / 2,
+  y = yvals,
+  label = if_else(x_start <= 0 & x_end >= 0, "in", "out")
+)
+
+# Check proportion intersecting y-axis
+# table(df$label) / n
+
+ggplot(df) +
+  geom_segment(aes(x = x_start, xend = x_end, y = y, yend = y, colour = label),
+               linewidth = 0.7) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  labs(x = expression(beta[j]), y = NULL) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x=element_blank(),
+        legend.position = "none") +
+  scale_colour_manual(values = c("in" = "skyblue", "out" = "red"))
+  
+```
+
+Tässä olemme kiinnostuneita laskemaan luottamusvälin parametrille $\beta_j$ uusiomenetelmällä (eng: *bootstrap method*), joka on epäparametrinen menetelmä luottamusvälien muodostamiseen. Alla kuvaamme, kuinka $(1-\alpha)$-luottamusväli muodostetaan parametrille $\beta_j$ uusiomenetelmällä askel askeleelta.
+
+1. Olkoon
+\begin{equation*}
+  \overrightarrow{Z}^{(1)} = \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots, (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\}
+\end{equation*}
+alkuperäinen otos, jonka otoskoko on $n$. Muodosta uusi $n$ kokoinen otos $\overrightarrow{Z}^{(2)}$ palautusotannalla alkuperäisestä otoksesta $\overrightarrow{Z}^{(1)}$. Uutta otosta kutsumme $\overrightarrow{Z}^{(2)}$ kutsutaan uusio-otokseksi (eng: *bootstrap sample*).
+
+    - Palautusotanta: valitset havaintoja $(y_i, x_{i1}, x_{i2}, \ldots, x_{id})$ alkuperäsistä otoksestä satunnaisesti niin, että sama havainto voidaan valita useampaan kertaan.
+
+2. Laske estimaatti $\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T$ pienimmän muodostetusta uusio-otoksesta $\overrightarrow{Z}^{(2)}$.
+
+3. Toista edelliset askeleet $m - 1$ kertaa (esimerkiksi $m = 999$).
+
+4. Nappaa alkuperäisen otoksen $\overrightarrow{Z}^{(1)}$ avulla laskettu estimaatti $\hat\beta_j^{(1)}$ parametrille $\beta_j$. Poimi myös uusio-otosten avulla lasketut estimaatit $\hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}$.
+
+5. Järjestä estimaatit $\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}$ suuruusjärjestykseen. Aseta luottamusvälin alapääksi $\lfloor\frac{\alpha}{2}\times m\rfloor$ järjestetty estimaatti. Aseta luottamusvälin yläpääksi $\lceil\frac{\alpha}{2}\times m\rceil$ järjestetty estimaatti.
+
+Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys *bootstrap* viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä.
+
+:::{.proposition}
+Plaa
+:::

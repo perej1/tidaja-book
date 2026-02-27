@@ -159,8 +159,12 @@ exm:unlabeled-div-40
 eq:chistat
 fig:chi
 exm:unlabeled-div-41
+eq:linearnonparam
+def:whitenoiserelax
+fig:conf
+prp:unlabeled-div-42
 eq:euclidean
-exm:unlabeled-div-43
+exm:unlabeled-div-44
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -189,6 +193,11 @@ sec:signtest
 sec:signedranktest
 sec:ranksum
 sec:nonparammultiplesample
+epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle
+sec:permutation
+mallin-merkitsevyys
+parametrien-merkitsevyys
+sec:bootstrap
 liitteet
 sec:vector
 sec:matrix

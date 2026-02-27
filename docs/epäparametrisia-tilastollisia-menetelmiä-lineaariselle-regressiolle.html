@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 6 Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 6 Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 6 Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 6 Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="liitteet.html"/>
-
+<link rel="prev" href="epäparametrisia-tilastollisia-testejä.html"/>
+<link rel="next" href="liitteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -242,55 +242,88 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lähteet" class="section level1 unnumbered hasAnchor">
-<h1>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div class="csl-entry">
-Peng, Roger D. 2016. <em>R <span>P</span>rogramming for <span>D</span>ata <span>S</span>cience</em>. Lulu.com.
+<div id="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Luku 6</span> Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#ep%C3%A4parametrisia-tilastollisia-menetelmi%C3%A4-lineaariselle-regressiolle" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Palataan tässä luvussa takaisin lineaariseen regressiomalliin
+<span class="math display" id="eq:linearnonparam">\[\begin{equation}
+  \tag{6.1}
+  y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\}.
+\end{equation}\]</span>
+Luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting">3.5</a> käsittelimme tilastollisia testejä liittyen mallin merkitsevyyteen (F-testi) ja parametrien <span class="math inline">\(\beta_j\)</span> merkitsevyyteen (t-testi). Nämä testit ovat parametrisia, koska testeissä oletamme satunaisvirheiden noudattavan normaalijakaumaa – satunnaisvirheet ovat määritelmän <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> mukaista valkoista kohinaa.</p>
+<p>Kuitenkin usein on kohtuutonta olettaa, että satunnaistermit <span class="math inline">\(\varepsilon_i\)</span> noudattavat jotain tiettyä parametrista jakaumaa kuten normaalijakaumaa. Tämän vuoksi tässä luvussa esittelemme epäparametrisia menetelmiä lineaarisen regression kontekstissa. Luvussa <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:permutation">6.1</a> annamme epäparametriset vastineet merkitsevyystesteille. Luvussa <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:bootstrap">6.2</a> esittelemme epäparametrisen menetelmän luottamusvälien muodostamiseen parametreille <span class="math inline">\(\beta_j\)</span>.</p>
+<p><strong>Kaikissa tämän luvun menetelmissä oletamme, että virhetermit ovat määritelmän <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#def:whitenoiserelax">6.1</a> mukaista valkoista kohinaa. Ero siis määritelmien <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> ja <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#def:whitenoiserelax">6.1</a> välillä on, että nyt emme oleta virhetermeille mitään tiettyä jakaumaa.</strong></p>
+<div class="definition">
+<p><span id="def:whitenoiserelax" class="definition"><strong>Määritelmä 6.1  (Valkoinen kohina) </strong></span>Mallin <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#eq:linearnonparam">(6.1)</a> virheet <span class="math inline">\(\varepsilon_i\)</span> ovat satunnaismuuttujia, joille pätee seuraavat oletukset.</p>
+<ol style="list-style-type: decimal">
+<li><p>Satunnaisvirheet <span class="math inline">\(\varepsilon_i\)</span> ovat riippumattomia ja samoin jakautuneita.</p></li>
+<li><p>Kaikkien satunnaisvirheiden <span class="math inline">\(\varepsilon_i\)</span> odotusarvo on nolla ja varianssi ei riipu indeksistä <span class="math inline">\(i\)</span> eli
+<span class="math display">\[\begin{equation*}
+  \mathbb{E}(\varepsilon_i) = 0 \quad\text{ja}\quad \mathrm{Var}(\varepsilon_i) = \sigma^2 &gt; 0 \quad\text{kaikille}\quad i\in\{1,\ldots, n\}.
+\end{equation*}\]</span></p></li>
+</ol>
 </div>
-<div class="csl-entry">
-Ross, Sheldon M. 2021. <em>Introduction to Probability and Statistics for Engineers and Scientists</em>. 6th ed. London, England: Academic Press.
+<div id="sec:permutation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Permutaatiotesti<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:permutation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mallin-merkitsevyys" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Mallin merkitsevyys<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#mallin-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div class="csl-entry">
-Taleb, Nassim Nicholas, and George A. Martin. 2012. <span>“How to <span>P</span>revent <span>O</span>ther <span>F</span>inancial <span>C</span>rises.”</span> <em>SAIS Review of International Affairs</em> 32 (1): 49–60. <a href="https://doi.org/10.1353/sais.2012.0010">https://doi.org/10.1353/sais.2012.0010</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley. 2019. <em>Advanced <span>R</span></em>. Vol. 2. Chapman; Hall/CRC.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2017. <em>R for <span>D</span>ata <span>S</span>cience</em>. Vol. 2. O’Reilly.
+<div id="parametrien-merkitsevyys" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Parametrien merkitsevyys<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#parametrien-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
+<div id="sec:bootstrap" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Uusiomenetelmä<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Luottamusväli on eräs menetelmä kuvata parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
+<span class="math display">\[\begin{equation*}
+  y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\},
+\end{equation*}\]</span>
+vakiotermille <span class="math inline">\(\beta_0\)</span> ja kertoimille <span class="math inline">\(\beta_1, \ldots, \beta_j\)</span>. Muista, että parametrit <span class="math inline">\(\beta_j\)</span> ovat vakioita ja luottamusvälit ovat datasta riippuvia satunnaisia välejä. Eli <span class="math inline">\((1-\alpha)\)</span>-luottamusväli parametrille <span class="math inline">\(\beta_j\)</span> on satunnainen väli, joka sisältää todellisen todellisen parametrin arvon todennäköisyydellä <span class="math inline">\(1-\alpha\)</span>. Esimerkiksi <span class="math inline">\(0.95\)</span>-luottamusväli voidaan tulkita seuraavasti.</p>
+<ol style="list-style-type: decimal">
+<li><p>Otoksen
+<span class="math display">\[\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+\end{equation*}\]</span>
+avulla lasket <span class="math inline">\(0.95\)</span>-luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span>.</p></li>
+<li><p>Oletetaan, että sinulla on saatavilla <span class="math inline">\(99\)</span> ylimääräistä kohdan 1 mukaista otosta. Lasket kaikista otoksista <span class="math inline">\(0.95\)</span>-luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span>. Lopulta saat siis yhteensä sata <span class="math inline">\(0.95\)</span>-luottamusväliä.</p></li>
+<li><p>Koska luottamusväli on satunnainen, niin jokainen väli on hieman erilainen. Lisäksi koska parametrin <span class="math inline">\(\beta_j\)</span> arvo on tuntematon, niin et tiedä, mitkä lasketuista väleistä peittävät parametrin todellisen arvon. Kuitenkin noin <span class="math inline">\(95\)</span> lasketuista luottamusväleistä sisältävät parametrin arvon <span class="math inline">\(\beta_j\)</span>. Kuva <a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#fig:conf">6.1</a> havainnollistaa <span class="math inline">\(0.95\)</span>-luottamusvälin tulkintaa.</p></li>
+</ol>
+
+<p>Tarkemmin luottamusvälin käsitettä voit kerrata kurssilta <em>Tilastotieteen perusteet</em>.</p>
+<div class="figure"><span style="display:block;" id="fig:conf"></span>
+<img src="tidaja-book_files/figure-html/conf-1.png" alt="Sata \(0.95\)-luottamusväliä parametrille \(\beta_j\). Siniset välit peittävät parametrin todellisen arvon ja punaiset eivät. Tässä tapauksessa viisi väliä sadasta eivät sisällä parametria \(\beta_j\)." width="672" />
+<p class="caption">
+Kuva 6.1: Sata <span class="math inline">\(0.95\)</span>-luottamusväliä parametrille <span class="math inline">\(\beta_j\)</span>. Siniset välit peittävät parametrin todellisen arvon ja punaiset eivät. Tässä tapauksessa viisi väliä sadasta eivät sisällä parametria <span class="math inline">\(\beta_j\)</span>.
+</p>
+</div>
+<p>Tässä olemme kiinnostuneita laskemaan luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä (eng: <em>bootstrap method</em>), joka on epäparametrinen menetelmä luottamusvälien muodostamiseen. Alla kuvaamme, kuinka <span class="math inline">\((1-\alpha)\)</span>-luottamusväli muodostetaan parametrille <span class="math inline">\(\beta_j\)</span> uusiomenetelmällä askel askeleelta.</p>
+<ol style="list-style-type: decimal">
+<li><p>Olkoon
+<span class="math display">\[\begin{equation*}
+  \overrightarrow{Z}^{(1)} = \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots, (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\}
+\end{equation*}\]</span>
+alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Muodosta uusi <span class="math inline">\(n\)</span> kokoinen otos <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> palautusotannalla alkuperäisestä otoksesta <span class="math inline">\(\overrightarrow{Z}^{(1)}\)</span>. Uutta otosta kutsumme <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span> kutsutaan uusio-otokseksi (eng: <em>bootstrap sample</em>).</p>
+<ul>
+<li>Palautusotanta: valitset havaintoja <span class="math inline">\((y_i, x_{i1}, x_{i2}, \ldots, x_{id})\)</span> alkuperäsistä otoksestä satunnaisesti niin, että sama havainto voidaan valita useampaan kertaan.</li>
+</ul></li>
+<li><p>Laske estimaatti <span class="math inline">\(\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T\)</span> pienimmän muodostetusta uusio-otoksesta <span class="math inline">\(\overrightarrow{Z}^{(2)}\)</span>.</p></li>
+<li><p>Toista edelliset askeleet <span class="math inline">\(m - 1\)</span> kertaa (esimerkiksi <span class="math inline">\(m = 999\)</span>).</p></li>
+<li><p>Nappaa alkuperäisen otoksen <span class="math inline">\(\overrightarrow{Z}^{(1)}\)</span> avulla laskettu estimaatti <span class="math inline">\(\hat\beta_j^{(1)}\)</span> parametrille <span class="math inline">\(\beta_j\)</span>. Poimi myös uusio-otosten avulla lasketut estimaatit <span class="math inline">\(\hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\)</span>.</p></li>
+<li><p>Järjestä estimaatit <span class="math inline">\(\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\)</span> suuruusjärjestykseen. Aseta luottamusvälin alapääksi <span class="math inline">\(\lfloor\frac{\alpha}{2}\times m\rfloor\)</span> järjestetty estimaatti. Aseta luottamusvälin yläpääksi <span class="math inline">\(\lceil\frac{\alpha}{2}\times m\rceil\)</span> järjestetty estimaatti.</p></li>
+</ol>
+<p>Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys <em>bootstrap</em> viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä.</p>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-42" class="proposition"><strong>Huomautus 6.1  </strong></span>Plaa</p>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="liitteet.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="epäparametrisia-tilastollisia-testejä.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="liitteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
