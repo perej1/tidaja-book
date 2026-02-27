@@ -240,7 +240,7 @@ div.csl-indent {
 <div id="epäparametrisia-tilastollisia-testejä" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Luku 5</span> Epäparametrisia tilastollisia testejä<a href="epäparametrisia-tilastollisia-testejä.html#ep%C3%A4parametrisia-tilastollisia-testej%C3%A4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Sekä <em>Tilastotieteen perusteissa</em> että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> noudattaa jotain tunnettua jakaumaa <span class="math inline">\(F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)\)</span>, jossa parametrivektori <span class="math inline">\(\boldsymbol\theta\in\mathbb{R}^d\)</span> määrittää jakauman <span class="math inline">\(F_{\boldsymbol\theta}\)</span>. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta <span class="math inline">\(N(\mu, \sigma^2)\)</span>, niin <span class="math inline">\(\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d\)</span> ja voimme testata nollahypoteesia <span class="math inline">\(H_0: \mu = \mu_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> vastaan t-testin avulla.</p>
-<p>Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset (<em>eng</em>: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.</p>
+<p>Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset (eng: <em>nonparametric</em>) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.</p>
 <p>Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest">5.1</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:signedranktest">5.2</a> käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa <a href="epäparametrisia-tilastollisia-testejä.html#sec:ranksum">5.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a> käsittelemme kahden tai useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan <em>Introduction to probability and statistics for engineers and scientists</em> luvusta 12 <span class="citation">(<a href="#ref-ross2021">Ross 2021</a>)</span>.</p>
 <div id="sec:signtest" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Merkkitesti<a href="epäparametrisia-tilastollisia-testejä.html#sec:signtest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -866,8 +866,119 @@ Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\math
 </div>
 <div id="sec:nonparammultiplesample" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Kruskal–Wallis testi<a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Merkkitesti ja merkkisijatesti antavat epäparametriset vaihtoehdot yhden otoksen t-testille (ja parittaiselle t-testille). Toisaalta sijasummatesti antaa epäparametrisen vaihtoehdon kahden otoksen t-testille. Viimeiseksi Kruskal–Wallis testi on epäparametrinen versio ANOVA:sta (katso luku <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a>).</p>
+<p>Olkoon <span class="math inline">\(X_1, X_2, \ldots, X_d\)</span> satunnaismuuttujia, joista kukin noudattaa jakaumaa <span class="math inline">\(F_j\)</span>, <span class="math inline">\(j\in\{1,2, \ldots, d\}\)</span>. Kruskal–Wallis testissä testaamme seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{align*}
+  &amp;H_0: F_1 = F_2 = \cdots = F_d, \\
+  &amp;H_1: F_j \neq F_k \quad\text{jollekin}\quad j,k\in\{1,2, \ldots, d\}.
+\end{align*}\]</span>
+Olkoon <span class="math inline">\(\overrightarrow{X}_j = \{X_{1j}, \ldots, X_{n_jj}\}\)</span> satunnaisotos satunnaismuutujasta <span class="math inline">\(X_j\)</span>. Eli otoskoot <span class="math inline">\(n_j\)</span> voivat olla erisuuria. Kruskal–Wallis testissä oletamme, että</p>
+<ol style="list-style-type: decimal">
+<li><p>Yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z} = \overrightarrow{X}_1 \cup \overrightarrow{X}_2 \cup \cdots \cup \overrightarrow{X}_d\)</span> havainnot ovat riippumattomia ja</p></li>
+<li><p>jakaumat <span class="math inline">\(F_i\)</span> ovat jatkuvia.</p></li>
+</ol>
+<p>Oletus 2 takaa sen, että havaintoaineisto <span class="math inline">\(\overrightarrow{Z}\)</span> ei sisällä tasahavaintoja<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Kuten sijasummatestissä myös Kruskal–Wallis testin testisuure liittyy ryhmien havaintojen <span class="math inline">\(\overrightarrow{X}_j\)</span> sijojen summiin. Ensin lasketaan yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z}\)</span> havaintoja vastaavat sijat <span class="math inline">\(R(X_{ij})\)</span>. Tämän jälkeen jokaiselle ryhmälle lasketaan sijojen summa
+<span class="math display">\[\begin{equation*}
+  S_j = \sum_{i = 1}^{n_j} R(X_{ij}).
+\end{equation*}\]</span>
+Testisuureen <span class="math inline">\(T\)</span> ideana on vertailla eri ryhmiä vastaavia sijojen summia <span class="math inline">\(S_j\)</span>
+<span class="math display">\[\begin{equation*}
+  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}
+\end{equation*}\]</span>
+avulla. Olkoon <span class="math inline">\(n = \sum_{j = 1}^j n_j\)</span> yhdistetyn otoksen otoskoko. Testisuureen <span class="math inline">\(T\)</span> jakauma on monimutkainen mutta nollahypoteesin alla muokattu testisuure
+<span class="math display" id="eq:chistat">\[\begin{equation}
+  \tag{5.5}
+  \tilde T = \frac{12}{n(n + 1)} T - 3(n + 1)
+\end{equation}\]</span>
+noudattaa likimain khi-neliöjakaumaa <span class="math inline">\(\chi^2_{d-1}\)</span> vapausasteella <span class="math inline">\(d - 1\)</span>. Tällöin p-arvo saadaan approksimoitua todennäköisyydellä <span class="math inline">\(\mathbb{P}\left(\tilde T\geq \tilde t\right)\)</span>. jossa <span class="math inline">\(\tilde t\)</span> on kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:chistat">(5.5)</a> mukainen havaittu testisuure. Kuva <a href="epäparametrisia-tilastollisia-testejä.html#fig:chi">5.4</a> havainnolistaa p-arvon laskemista khi-neliöjakaumasta.</p>
+
+<div class="figure"><span style="display:block;" id="fig:chi"></span>
+<img src="tidaja-book_files/figure-html/chi-1.png" alt="Kiinteä musta käyrä kuvaa khi-neliöjakauman \(\chi_3^2\) tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen \(\tilde t\) arvoa. Jos havaituksi testisuureeksi saadaan \(\tilde t = 7.5\), niin sininen pinta-ala kuvaa p-arvoa." width="672" />
+<p class="caption">
+Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inline">\(\chi_3^2\)</span> tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen <span class="math inline">\(\tilde t\)</span> arvoa. Jos havaituksi testisuureeksi saadaan <span class="math inline">\(\tilde t = 7.5\)</span>, niin sininen pinta-ala kuvaa p-arvoa.
+</p>
+</div>
+<p>Kruskal–Wallis testi voidaan suorittaa R:ssä funktiolla <code>kruskal.test()</code>. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio <code>kruskal.test()</code> käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal–Wallis testin funktiolla <code>kruskal.test()</code> ja “manuaalisesti”.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.7  </strong></span>Plaa</p>
+<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.7  (Kruskal-Wallis testin suorittaminen) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> analyysi Kruskal–Wallis testin avulla ANOVA:n sijasta. Meillä on siis <span class="math inline">\(n = 20\)</span> kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehtaita vastaavat otokset suklaalevyistä.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb208-1" tabindex="-1"></a>choco</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##    factory1 factory2 factory3 factory4
+##       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1    103.     102.     101.      89.5
+##  2     98.3    111.     110.      91.8
+##  3    111.     102.     103.      82.8
+##  4    101.      93.7    110.      78.0
+##  5    107.     104.      97.2     98.3
+##  6    102.     101.      95.6     89.5
+##  7    107.      91.2     93.9     92.4
+##  8    101.      87.8     88.4     83.5
+##  9     97.8     93.7    102.      99.6
+## 10    107.      95.6    108.      96.0
+## 11     93.4    100.0    102.      92.3
+## 12    103.     105.     105.      86.6
+## 13     91.8     97.7     97.9     82.7
+## 14     88.9     96.8     96.7     81.8
+## 15     97.4     98.4    101.      81.5
+## 16     98.8     96.4     98.2     88.5
+## 17    108.      98.0     95.0     82.6
+## 18    101.      98.6    105.      91.3
+## 19     99.3     94.8    109.      90.4
+## 20    104.      94.9    104.      95.1</code></pre>
+<p>Haluamme siis tutkia, onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal–Wallis testi käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>Muokataan data siten, että sen voi syöttää helposti funktioon <code>kruskal.test()</code>. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb210-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-2" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco <span class="sc">%&gt;%</span></span>
+<span id="cb210-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;factory&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;weight&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb210-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span>
+<span id="cb210-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-5" tabindex="-1"></a></span>
+<span id="cb210-6"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-6" tabindex="-1"></a>choco_mod</span></code></pre></div>
+<pre><code>## # A tibble: 80 × 2
+##    factory  weight
+##    &lt;fct&gt;     &lt;dbl&gt;
+##  1 factory1  103. 
+##  2 factory2  102. 
+##  3 factory3  101. 
+##  4 factory4   89.5
+##  5 factory1   98.3
+##  6 factory2  111. 
+##  7 factory3  110. 
+##  8 factory4   91.8
+##  9 factory1  111. 
+## 10 factory2  102. 
+## # ℹ 70 more rows</code></pre>
+<p>Nyt voimme suorittaa Kruskal–Wallis testin.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb212-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  weight by factory
+## Kruskal-Wallis chi-squared = 32.714, df = 3, p-value = 3.701e-07</code></pre>
+<p>Testin antama p-arvo on selkeästi pienempää kuin asetettu merkitsevyystaso. Meillä on siis näyttöä sen puolesta, että ainakin yhdessä tehtaassa suklaanlevyjen painojen jakauma on erilainen kuin muissa tehtaissa.</p>
+<p>Voimme myös suorittaa testin käsin. Tätä varten laskemme ensin tehtaita vastaavien sijojen summat <span class="math inline">\(S_i\)</span>.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-1" tabindex="-1"></a>rank_sums <span class="ot">&lt;-</span> choco_mod <span class="sc">%&gt;%</span></span>
+<span id="cb214-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">rank</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb214-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-3" tabindex="-1"></a>  <span class="fu">group_by</span>(factory) <span class="sc">%&gt;%</span></span>
+<span id="cb214-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rank_sum =</span> <span class="fu">sum</span>(rank))</span>
+<span id="cb214-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-5" tabindex="-1"></a></span>
+<span id="cb214-6"><a href="epäparametrisia-tilastollisia-testejä.html#cb214-6" tabindex="-1"></a>rank_sums</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   factory  rank_sum
+##   &lt;fct&gt;       &lt;dbl&gt;
+## 1 factory1     1051
+## 2 factory2      828
+## 3 factory3     1042
+## 4 factory4      319</code></pre>
+<p>Nyt voimme laskea testisuureen.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(choco_mod)</span>
+<span id="cb216-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-2" tabindex="-1"></a>ni <span class="ot">&lt;-</span> <span class="fu">table</span>(choco_mod<span class="sc">$</span>factory)</span>
+<span id="cb216-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-3" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">sum</span>(rank_sums<span class="sc">$</span>rank_sum<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> ni)</span>
+<span id="cb216-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-4" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">/</span> (n <span class="sc">*</span> (n<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">*</span> ts <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb216-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-5" tabindex="-1"></a>t</span></code></pre></div>
+<pre><code>## [1] 32.71389</code></pre>
+<p>Tehtaita on yhteensä <span class="math inline">\(d = 4\)</span> kappaletta, joten testisuure noudattaa likimain jakaumaa khi-neliöjakaumaa vapausasteella <span class="math inline">\(k - 1 = 3\)</span>. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota <code>kruskal.test()</code> käyttäen.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb218-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(t, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 3.70075e-07</code></pre>
 </div>
 
 </div>
@@ -877,6 +988,12 @@ Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\math
 <div id="ref-ross2021" class="csl-entry">
 Ross, Sheldon M. 2021. <em>Introduction to Probability and Statistics for Engineers and Scientists</em>. 6th ed. London, England: Academic Press.
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="16">
+<li id="fn16"><p>Painotamme vielä tässä kohtaa, että kaikkia luvun testejä (merkkitesti, merkkisijatesti, sijasummatesti ja Kruskal–Wallis testi) käytetään myös diskreeteille havaintoaineistoille. Kaikista testeistä on olemassa versioita, jotka toimivat esimerkiksi tasahavaintojen tapauksissa.<a href="epäparametrisia-tilastollisia-testejä.html#fnref16" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

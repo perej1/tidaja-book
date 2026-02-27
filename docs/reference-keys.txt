@@ -156,6 +156,8 @@ eq:ranksumstat
 exm:signedsumstat
 tab:salarytwo
 exm:unlabeled-div-40
+eq:chistat
+fig:chi
 exm:unlabeled-div-41
 eq:euclidean
 exm:unlabeled-div-43

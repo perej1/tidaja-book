@@ -2,7 +2,7 @@
 
 Sekä *Tilastotieteen perusteissa* että tällä kurssilla ollaan tähän asti keskitytty parametrisiin tilastollisiin testeihin. Parametrisissa tilastollisissa testeissä oletetaan, että satunnaisotos $X_1, X_2, \ldots, X_n$ noudattaa jotain tunnettua jakaumaa $F_{\boldsymbol\theta}(x) = \mathbb{P}(X\leq x)$, jossa parametrivektori $\boldsymbol\theta\in\mathbb{R}^d$ määrittää jakauman $F_{\boldsymbol\theta}$. Esimerkiksi jos oletetaan että satunnaisotos ollaan generoitu normaalijakaumasta $N(\mu, \sigma^2)$, niin $\boldsymbol\theta = (\mu, \sigma^2)^T\in\mathbb{R}^d$ ja voimme testata nollahypoteesia $H_0: \mu = \mu_0$ vaihtoehtoista hypoteesia $H_1: \mu \neq \mu_0$ vastaan t-testin avulla.
 
-Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset (*eng*: nonparametric) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
+Aina emme kuitenkaan tiedä datan generoivaa jakaumaa. Eli emme voi olettaa datan tulevan normaalijakaumasta, tasajakaumasta, eksponenttijakaumasta tai mistä tahansa muusta jakaumasta. Yllättävää kyllä, myös tämäntyyppisiin tilanteisiin on olemassa tilastollisia testejä. Epäparametriset (eng: *nonparametric*) testit, joita käsitellään tässä luvussa, eivät oleta datan tulevan mistään tietystä jakaumasta.
 
 Luvuissa \@ref(sec:signtest) ja \@ref(sec:signedranktest) käsittelemme kahta erillistä epäparametrista testiä liittyen jakauman sijaintiin. Luvuissa \@ref(sec:ranksum) ja \@ref(sec:nonparammultiplesample) käsittelemme kahden tai useamman eri jakauman vertailua eräiden epäparametristen testien avulla. Lisätietoa luvun aiheista löydät esimerkiksi kirjan *Introduction to probability and statistics for engineers and scientists*  luvusta 12 [@ross2021].
 
@@ -440,11 +440,103 @@ Normaaliapproksimoitu ja tarkka p-arvo ovat melko lähellä toisiaan. Joka tapau
 
 ## Kruskal--Wallis testi {#sec:nonparammultiplesample}
 
-:::{.example}
-Plaa
+Merkkitesti ja merkkisijatesti antavat epäparametriset vaihtoehdot yhden otoksen t-testille (ja parittaiselle t-testille). Toisaalta sijasummatesti antaa epäparametrisen vaihtoehdon kahden otoksen t-testille. Viimeiseksi Kruskal--Wallis testi on epäparametrinen versio ANOVA:sta (katso luku \@ref(sec:anova)).
 
+Olkoon $X_1, X_2, \ldots, X_d$ satunnaismuuttujia, joista kukin noudattaa jakaumaa $F_j$, $j\in\{1,2, \ldots, d\}$. Kruskal--Wallis testissä testaamme seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{align*}
+  &H_0: F_1 = F_2 = \cdots = F_d, \\
+  &H_1: F_j \neq F_k \quad\text{jollekin}\quad j,k\in\{1,2, \ldots, d\}.
+\end{align*}
+Olkoon $\overrightarrow{X}_j = \{X_{1j}, \ldots, X_{n_jj}\}$ satunnaisotos satunnaismuutujasta $X_j$. Eli otoskoot $n_j$ voivat olla erisuuria. Kruskal--Wallis testissä oletamme, että
+
+1. Yhdistetyn otoksen $\overrightarrow{Z} = \overrightarrow{X}_1 \cup \overrightarrow{X}_2 \cup \cdots \cup \overrightarrow{X}_d$ havainnot ovat riippumattomia ja
+
+2. jakaumat $F_i$ ovat jatkuvia.
+
+Oletus 2 takaa sen, että havaintoaineisto $\overrightarrow{Z}$ ei sisällä tasahavaintoja^[Painotamme vielä tässä kohtaa, että kaikkia luvun testejä (merkkitesti, merkkisijatesti, sijasummatesti ja Kruskal--Wallis testi) käytetään myös diskreeteille havaintoaineistoille. Kaikista testeistä on olemassa versioita, jotka toimivat esimerkiksi tasahavaintojen tapauksissa.]. Kuten sijasummatestissä myös Kruskal--Wallis testin testisuure liittyy ryhmien havaintojen $\overrightarrow{X}_j$ sijojen summiin. Ensin lasketaan yhdistetyn otoksen $\overrightarrow{Z}$ havaintoja vastaavat sijat $R(X_{ij})$. Tämän jälkeen jokaiselle ryhmälle lasketaan sijojen summa
+\begin{equation*}
+  S_j = \sum_{i = 1}^{n_j} R(X_{ij}).
+\end{equation*}
+Testisuureen $T$ ideana on vertailla eri ryhmiä vastaavia sijojen summia $S_j$
+\begin{equation*}
+  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}
+\end{equation*}
+avulla. Olkoon $n = \sum_{j = 1}^j n_j$ yhdistetyn otoksen otoskoko. Testisuureen $T$ jakauma on monimutkainen mutta nollahypoteesin alla muokattu testisuure
+\begin{equation}
+  (\#eq:chistat)
+  \tilde T = \frac{12}{n(n + 1)} T - 3(n + 1)
+\end{equation}
+noudattaa likimain khi-neliöjakaumaa $\chi^2_{d-1}$ vapausasteella $d - 1$. Tällöin p-arvo  saadaan approksimoitua todennäköisyydellä $\mathbb{P}\left(\tilde T\geq \tilde t\right)$. jossa $\tilde t$ on kaavan \@ref(eq:chistat) mukainen havaittu testisuure. Kuva \@ref(fig:chi) havainnolistaa p-arvon laskemista khi-neliöjakaumasta.
+
+(ref:chi) Kiinteä musta käyrä kuvaa khi-neliöjakauman $\chi_3^2$ tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen $\tilde t$ arvoa. Jos havaituksi testisuureeksi saadaan $\tilde t = 7.5$, niin sininen pinta-ala kuvaa p-arvoa.
+
+```{r chi, echo=FALSE, warning=FALSE, fig.cap="(ref:chi)"}
+
+x <- seq(0, 10, length = 1000)
+df <- tibble::tibble(x = x, y = dchisq(x, 3))
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(linewidth = 1) +
+  geom_area(data = subset(df, x > 7.5), fill = "skyblue", alpha = 0.5) +
+  geom_segment(aes(x = 7.5, xend = 7.5, y = 0,
+                   yend = dchisq(7.5, 3)),
+               linetype = "dashed") +
+  ylab("f(x)")
+```
+
+Kruskal--Wallis testi voidaan suorittaa R:ssä funktiolla `kruskal.test()`. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio `kruskal.test()` käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal--Wallis testin funktiolla `kruskal.test()` ja "manuaalisesti".
+
+:::{.example name="Kruskal-Wallis testin suorittaminen"}
 ```{r, echo=FALSE}
 choco <- readr::read_csv("data/choco.csv", col_types = "dddd")
 ```
 
+Suoritetaan esimerkin \@ref(exm:anova) analyysi Kruskal--Wallis testin avulla ANOVA:n sijasta. Meillä on siis $n = 20$ kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehtaita vastaavat otokset suklaalevyistä.
+```{r}
+choco
+```
+
+Haluamme siis tutkia, onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal--Wallis testi käyttäen merkitsevyystasoa $\alpha = 0.05$.
+
+Muokataan data siten, että sen voi syöttää helposti funktioon `kruskal.test()`. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.
+```{r}
+library(tidyr)
+choco_mod <- choco %>%
+  pivot_longer(everything(), names_to = "factory", values_to = "weight") %>%
+  mutate(factory = factor(factory))
+
+choco_mod
+```
+
+Nyt voimme suorittaa Kruskal--Wallis testin.
+```{r}
+kruskal.test(weight ~ factory, data = choco_mod)
+```
+
+Testin antama p-arvo on selkeästi pienempää kuin asetettu merkitsevyystaso. Meillä on siis näyttöä sen puolesta, että ainakin yhdessä tehtaassa suklaanlevyjen painojen jakauma on erilainen kuin muissa tehtaissa.
+
+
+Voimme myös suorittaa testin käsin. Tätä varten laskemme ensin tehtaita vastaavien sijojen summat $S_i$.
+```{r}
+rank_sums <- choco_mod %>%
+  mutate(rank = rank(weight)) %>%
+  group_by(factory) %>%
+  summarise(rank_sum = sum(rank))
+
+rank_sums
+```
+
+Nyt voimme laskea testisuureen.
+```{r}
+n <- nrow(choco_mod)
+ni <- table(choco_mod$factory)
+ts <- sum(rank_sums$rank_sum^2 / ni)
+t <- 12 / (n * (n+1)) * ts - 3 * (n + 1)
+t
+```
+
+Tehtaita on yhteensä $d = 4$ kappaletta, joten testisuure noudattaa likimain jakaumaa khi-neliöjakaumaa vapausasteella $k - 1 = 3$. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota `kruskal.test()` käyttäen.
+```{r}
+1 - pchisq(t, 3)
+```
 :::
