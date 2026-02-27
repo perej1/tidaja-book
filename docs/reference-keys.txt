@@ -156,8 +156,9 @@ eq:ranksumstat
 exm:signedsumstat
 tab:salarytwo
 exm:unlabeled-div-40
+exm:unlabeled-div-41
 eq:euclidean
-exm:unlabeled-div-42
+exm:unlabeled-div-43
 fig:vec
 r-ohjelmointikielestä
 sec:inst

@@ -438,4 +438,13 @@ Normaaliapproksimoitu ja tarkka p-arvo ovat melko lähellä toisiaan. Joka tapau
 :::
 
 
-## Useamman jakauman vertailu {#sec:nonparammultiplesample}
+## Kruskal--Wallis testi {#sec:nonparammultiplesample}
+
+:::{.example}
+Plaa
+
+```{r, echo=FALSE}
+choco <- readr::read_csv("data/choco.csv", col_types = "dddd")
+```
+
+:::
