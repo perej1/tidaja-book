@@ -451,24 +451,24 @@ Olkoon $\overrightarrow{X}_j = \{X_{1j}, \ldots, X_{n_jj}\}$ satunnaisotos satun
 
 1. Yhdistetyn otoksen $\overrightarrow{Z} = \overrightarrow{X}_1 \cup \overrightarrow{X}_2 \cup \cdots \cup \overrightarrow{X}_d$ havainnot ovat riippumattomia ja
 
-2. jakaumat $F_i$ ovat jatkuvia.
+2. jakaumat $F_j$ ovat jatkuvia.
 
-Oletus 2 takaa sen, että havaintoaineisto $\overrightarrow{Z}$ ei sisällä tasahavaintoja^[Painotamme vielä tässä kohtaa, että kaikkia luvun testejä (merkkitesti, merkkisijatesti, sijasummatesti ja Kruskal--Wallis testi) käytetään myös diskreeteille havaintoaineistoille. Kaikista testeistä on olemassa versioita, jotka toimivat esimerkiksi tasahavaintojen tapauksissa.]. Kuten sijasummatestissä myös Kruskal--Wallis testin testisuure liittyy ryhmien havaintojen $\overrightarrow{X}_j$ sijojen summiin. Ensin lasketaan yhdistetyn otoksen $\overrightarrow{Z}$ havaintoja vastaavat sijat $R(X_{ij})$. Tämän jälkeen jokaiselle ryhmälle lasketaan sijojen summa
+Oletus 2 takaa sen, että havaintoaineisto $\overrightarrow{Z}$ ei sisällä tasahavaintoja^[Painotamme vielä tässä kohtaa, että kaikkia luvun testejä (merkkitesti, merkkisijatesti, sijasummatesti ja Kruskal--Wallis testi) käytetään myös diskreeteille havaintoaineistoille. Kaikista testeistä on olemassa versioita, jotka toimivat esimerkiksi tasahavaintojen tapauksissa.]. Kuten sijasummatestissä myös Kruskal--Wallis testin testisuure liittyy ryhmien havaintojen $\overrightarrow{X}_j$ sijojen summiin. Ensin lasketaan yhdistetyn otoksen $\overrightarrow{Z}$ havaintoja vastaavat sijat $R(X_{ij})$. Tämän jälkeen jokaiselle ryhmälle $j\in\{1,2, \ldots, d\}$ lasketaan sijojen summa
 \begin{equation*}
   S_j = \sum_{i = 1}^{n_j} R(X_{ij}).
 \end{equation*}
 Testisuureen $T$ ideana on vertailla eri ryhmiä vastaavia sijojen summia $S_j$
 \begin{equation*}
-  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}
+  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}.
 \end{equation*}
-avulla. Olkoon $n = \sum_{j = 1}^j n_j$ yhdistetyn otoksen otoskoko. Testisuureen $T$ jakauma on monimutkainen mutta nollahypoteesin alla muokattu testisuure
+Olkoon $n = \sum_{j = 1}^j n_j$ yhdistetyn otoksen otoskoko. Testisuureen $T$ jakauma on monimutkainen nollahypoteesin alla mutta muokattu testisuure
 \begin{equation}
   (\#eq:chistat)
   \tilde T = \frac{12}{n(n + 1)} T - 3(n + 1)
 \end{equation}
-noudattaa likimain khi-neliöjakaumaa $\chi^2_{d-1}$ vapausasteella $d - 1$. Tällöin p-arvo  saadaan approksimoitua todennäköisyydellä $\mathbb{P}\left(\tilde T\geq \tilde t\right)$. jossa $\tilde t$ on kaavan \@ref(eq:chistat) mukainen havaittu testisuure. Kuva \@ref(fig:chi) havainnolistaa p-arvon laskemista khi-neliöjakaumasta.
+noudattaa likimain khi-neliöjakaumaa $\chi^2_{d-1}$ vapausasteella $d - 1$ nollahypoteesin alla. Tällöin p-arvo  saadaan approksimoitua todennäköisyydellä $\mathbb{P}\left(\tilde T\geq \tilde t\right)$. jossa $\tilde t$ on kaavan \@ref(eq:chistat) mukainen havaittu testisuure. Kuva \@ref(fig:chi) havainnolistaa p-arvon laskemista khi-neliöjakaumasta.
 
-(ref:chi) Kiinteä musta käyrä kuvaa khi-neliöjakauman $\chi_3^2$ tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen $\tilde t$ arvoa. Jos havaituksi testisuureeksi saadaan $\tilde t = 7.5$, niin sininen pinta-ala kuvaa p-arvoa.
+(ref:chi) Kiinteä musta käyrä kuvaa khi-neliöjakauman $\chi_3^2$ tiheysfunktiota. Tässä tapauksessa vapausaste on $3$, joten vertailtavia populaatioita on $4$ kappaletta. Katkoviiva kuvaa havaitun testisuureen $\tilde t$ arvoa. Jos havaituksi testisuureeksi saadaan $\tilde t = 7.5$, niin sininen pinta-ala kuvaa p-arvoa.
 
 ```{r chi, echo=FALSE, warning=FALSE, fig.cap="(ref:chi)"}
 
@@ -484,19 +484,19 @@ ggplot(df, aes(x = x, y = y)) +
   ylab("f(x)")
 ```
 
-Kruskal--Wallis testi voidaan suorittaa R:ssä funktiolla `kruskal.test()`. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio `kruskal.test()` käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal--Wallis testin funktiolla `kruskal.test()` ja "manuaalisesti".
+Kruskal--Wallis testi voidaan suorittaa R:ssä funktiolla `kruskal.test()`. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio `kruskal.test()` käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal--Wallis testin ensin funktiolla `kruskal.test()` ja sitten "manuaalisesti".
 
 :::{.example name="Kruskal-Wallis testin suorittaminen"}
 ```{r, echo=FALSE}
 choco <- readr::read_csv("data/choco.csv", col_types = "dddd")
 ```
 
-Suoritetaan esimerkin \@ref(exm:anova) analyysi Kruskal--Wallis testin avulla ANOVA:n sijasta. Meillä on siis $n = 20$ kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehtaita vastaavat otokset suklaalevyistä.
+Suoritetaan esimerkin \@ref(exm:anova) analyysi Kruskal--Wallis testin avulla ANOVA:n sijasta. Meillä on siis $n = 20$ kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehdasta vastaavat otokset suklaalevyistä.
 ```{r}
 choco
 ```
 
-Haluamme siis tutkia, onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal--Wallis testi käyttäen merkitsevyystasoa $\alpha = 0.05$.
+Haluamme siis tutkia, onko jossain tehtaassa suklaalevyjen keskimääräinen paino poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal--Wallis testi käyttäen merkitsevyystasoa $\alpha = 0.05$.
 
 Muokataan data siten, että sen voi syöttää helposti funktioon `kruskal.test()`. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.
 ```{r}
@@ -526,17 +526,17 @@ rank_sums <- choco_mod %>%
 rank_sums
 ```
 
-Nyt voimme laskea testisuureen.
+Nyt voimme laskea testisuureen ($t$ tai $\tilde t$).
 ```{r}
 n <- nrow(choco_mod)
 ni <- table(choco_mod$factory)
-ts <- sum(rank_sums$rank_sum^2 / ni)
-t <- 12 / (n * (n+1)) * ts - 3 * (n + 1)
-t
+t <- sum(rank_sums$rank_sum^2 / ni)
+t_tilde <- 12 / (n * (n+1)) * t - 3 * (n + 1)
+t_tilde
 ```
 
-Tehtaita on yhteensä $d = 4$ kappaletta, joten testisuure noudattaa likimain jakaumaa khi-neliöjakaumaa vapausasteella $k - 1 = 3$. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota `kruskal.test()` käyttäen.
+Tehtaita on yhteensä $d = 4$ kappaletta, joten testisuure noudattaa likimain khi-neliöjakaumaa vapausasteella $k - 1 = 3$. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota `kruskal.test()` käyttäen.
 ```{r}
-1 - pchisq(t, 3)
+1 - pchisq(t_tilde, 3)
 ```
 :::

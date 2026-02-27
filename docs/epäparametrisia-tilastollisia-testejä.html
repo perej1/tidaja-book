@@ -875,32 +875,32 @@ Suurella otoskoolla <span class="math inline">\((T - \mathbb{E}(T))/(\sqrt{\math
 Olkoon <span class="math inline">\(\overrightarrow{X}_j = \{X_{1j}, \ldots, X_{n_jj}\}\)</span> satunnaisotos satunnaismuutujasta <span class="math inline">\(X_j\)</span>. Eli otoskoot <span class="math inline">\(n_j\)</span> voivat olla erisuuria. Kruskal–Wallis testissä oletamme, että</p>
 <ol style="list-style-type: decimal">
 <li><p>Yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z} = \overrightarrow{X}_1 \cup \overrightarrow{X}_2 \cup \cdots \cup \overrightarrow{X}_d\)</span> havainnot ovat riippumattomia ja</p></li>
-<li><p>jakaumat <span class="math inline">\(F_i\)</span> ovat jatkuvia.</p></li>
+<li><p>jakaumat <span class="math inline">\(F_j\)</span> ovat jatkuvia.</p></li>
 </ol>
-<p>Oletus 2 takaa sen, että havaintoaineisto <span class="math inline">\(\overrightarrow{Z}\)</span> ei sisällä tasahavaintoja<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Kuten sijasummatestissä myös Kruskal–Wallis testin testisuure liittyy ryhmien havaintojen <span class="math inline">\(\overrightarrow{X}_j\)</span> sijojen summiin. Ensin lasketaan yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z}\)</span> havaintoja vastaavat sijat <span class="math inline">\(R(X_{ij})\)</span>. Tämän jälkeen jokaiselle ryhmälle lasketaan sijojen summa
+<p>Oletus 2 takaa sen, että havaintoaineisto <span class="math inline">\(\overrightarrow{Z}\)</span> ei sisällä tasahavaintoja<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>. Kuten sijasummatestissä myös Kruskal–Wallis testin testisuure liittyy ryhmien havaintojen <span class="math inline">\(\overrightarrow{X}_j\)</span> sijojen summiin. Ensin lasketaan yhdistetyn otoksen <span class="math inline">\(\overrightarrow{Z}\)</span> havaintoja vastaavat sijat <span class="math inline">\(R(X_{ij})\)</span>. Tämän jälkeen jokaiselle ryhmälle <span class="math inline">\(j\in\{1,2, \ldots, d\}\)</span> lasketaan sijojen summa
 <span class="math display">\[\begin{equation*}
   S_j = \sum_{i = 1}^{n_j} R(X_{ij}).
 \end{equation*}\]</span>
 Testisuureen <span class="math inline">\(T\)</span> ideana on vertailla eri ryhmiä vastaavia sijojen summia <span class="math inline">\(S_j\)</span>
 <span class="math display">\[\begin{equation*}
-  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}
+  T = \sum_{j = 1}^d \frac{S_j^2}{n_j}.
 \end{equation*}\]</span>
-avulla. Olkoon <span class="math inline">\(n = \sum_{j = 1}^j n_j\)</span> yhdistetyn otoksen otoskoko. Testisuureen <span class="math inline">\(T\)</span> jakauma on monimutkainen mutta nollahypoteesin alla muokattu testisuure
+Olkoon <span class="math inline">\(n = \sum_{j = 1}^j n_j\)</span> yhdistetyn otoksen otoskoko. Testisuureen <span class="math inline">\(T\)</span> jakauma on monimutkainen nollahypoteesin alla mutta muokattu testisuure
 <span class="math display" id="eq:chistat">\[\begin{equation}
   \tag{5.5}
   \tilde T = \frac{12}{n(n + 1)} T - 3(n + 1)
 \end{equation}\]</span>
-noudattaa likimain khi-neliöjakaumaa <span class="math inline">\(\chi^2_{d-1}\)</span> vapausasteella <span class="math inline">\(d - 1\)</span>. Tällöin p-arvo saadaan approksimoitua todennäköisyydellä <span class="math inline">\(\mathbb{P}\left(\tilde T\geq \tilde t\right)\)</span>. jossa <span class="math inline">\(\tilde t\)</span> on kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:chistat">(5.5)</a> mukainen havaittu testisuure. Kuva <a href="epäparametrisia-tilastollisia-testejä.html#fig:chi">5.4</a> havainnolistaa p-arvon laskemista khi-neliöjakaumasta.</p>
+noudattaa likimain khi-neliöjakaumaa <span class="math inline">\(\chi^2_{d-1}\)</span> vapausasteella <span class="math inline">\(d - 1\)</span> nollahypoteesin alla. Tällöin p-arvo saadaan approksimoitua todennäköisyydellä <span class="math inline">\(\mathbb{P}\left(\tilde T\geq \tilde t\right)\)</span>. jossa <span class="math inline">\(\tilde t\)</span> on kaavan <a href="epäparametrisia-tilastollisia-testejä.html#eq:chistat">(5.5)</a> mukainen havaittu testisuure. Kuva <a href="epäparametrisia-tilastollisia-testejä.html#fig:chi">5.4</a> havainnolistaa p-arvon laskemista khi-neliöjakaumasta.</p>
 
 <div class="figure"><span style="display:block;" id="fig:chi"></span>
-<img src="tidaja-book_files/figure-html/chi-1.png" alt="Kiinteä musta käyrä kuvaa khi-neliöjakauman \(\chi_3^2\) tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen \(\tilde t\) arvoa. Jos havaituksi testisuureeksi saadaan \(\tilde t = 7.5\), niin sininen pinta-ala kuvaa p-arvoa." width="672" />
+<img src="tidaja-book_files/figure-html/chi-1.png" alt="Kiinteä musta käyrä kuvaa khi-neliöjakauman \(\chi_3^2\) tiheysfunktiota. Tässä tapauksessa vapausaste on \(3\), joten vertailtavia populaatioita on \(4\) kappaletta. Katkoviiva kuvaa havaitun testisuureen \(\tilde t\) arvoa. Jos havaituksi testisuureeksi saadaan \(\tilde t = 7.5\), niin sininen pinta-ala kuvaa p-arvoa." width="672" />
 <p class="caption">
-Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inline">\(\chi_3^2\)</span> tiheysfunktiota. Katkoviiva kuvaa havaitun testisuureen <span class="math inline">\(\tilde t\)</span> arvoa. Jos havaituksi testisuureeksi saadaan <span class="math inline">\(\tilde t = 7.5\)</span>, niin sininen pinta-ala kuvaa p-arvoa.
+Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inline">\(\chi_3^2\)</span> tiheysfunktiota. Tässä tapauksessa vapausaste on <span class="math inline">\(3\)</span>, joten vertailtavia populaatioita on <span class="math inline">\(4\)</span> kappaletta. Katkoviiva kuvaa havaitun testisuureen <span class="math inline">\(\tilde t\)</span> arvoa. Jos havaituksi testisuureeksi saadaan <span class="math inline">\(\tilde t = 7.5\)</span>, niin sininen pinta-ala kuvaa p-arvoa.
 </p>
 </div>
-<p>Kruskal–Wallis testi voidaan suorittaa R:ssä funktiolla <code>kruskal.test()</code>. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio <code>kruskal.test()</code> käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal–Wallis testin funktiolla <code>kruskal.test()</code> ja “manuaalisesti”.</p>
+<p>Kruskal–Wallis testi voidaan suorittaa R:ssä funktiolla <code>kruskal.test()</code>. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio <code>kruskal.test()</code> käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal–Wallis testin ensin funktiolla <code>kruskal.test()</code> ja sitten “manuaalisesti”.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.7  (Kruskal-Wallis testin suorittaminen) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> analyysi Kruskal–Wallis testin avulla ANOVA:n sijasta. Meillä on siis <span class="math inline">\(n = 20\)</span> kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehtaita vastaavat otokset suklaalevyistä.</p>
+<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.7  (Kruskal-Wallis testin suorittaminen) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> analyysi Kruskal–Wallis testin avulla ANOVA:n sijasta. Meillä on siis <span class="math inline">\(n = 20\)</span> kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehdasta vastaavat otokset suklaalevyistä.</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb208-1" tabindex="-1"></a>choco</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 4
 ##    factory1 factory2 factory3 factory4
@@ -925,7 +925,7 @@ Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inli
 ## 18    101.      98.6    105.      91.3
 ## 19     99.3     94.8    109.      90.4
 ## 20    104.      94.9    104.      95.1</code></pre>
-<p>Haluamme siis tutkia, onko joku tehdas, jossa suklaalevyjen keskimääräinen paino on poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal–Wallis testi käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>Haluamme siis tutkia, onko jossain tehtaassa suklaalevyjen keskimääräinen paino poikkeava verrattuna muihin tehtaisiin? Suoritetaan Kruskal–Wallis testi käyttäen merkitsevyystasoa <span class="math inline">\(\alpha = 0.05\)</span>.</p>
 <p>Muokataan data siten, että sen voi syöttää helposti funktioon <code>kruskal.test()</code>. Muutamme datan siis sellaiseen muotoon, jossa ensimmäinen sarake kertoo suklaalevyn tuotantosijainnin ja toinen sarake levyä vastaavan painon.</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb210-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb210-2" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco <span class="sc">%&gt;%</span></span>
@@ -969,15 +969,15 @@ Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inli
 ## 2 factory2      828
 ## 3 factory3     1042
 ## 4 factory4      319</code></pre>
-<p>Nyt voimme laskea testisuureen.</p>
+<p>Nyt voimme laskea testisuureen (<span class="math inline">\(t\)</span> tai <span class="math inline">\(\tilde t\)</span>).</p>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(choco_mod)</span>
 <span id="cb216-2"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-2" tabindex="-1"></a>ni <span class="ot">&lt;-</span> <span class="fu">table</span>(choco_mod<span class="sc">$</span>factory)</span>
-<span id="cb216-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-3" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">sum</span>(rank_sums<span class="sc">$</span>rank_sum<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> ni)</span>
-<span id="cb216-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-4" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">/</span> (n <span class="sc">*</span> (n<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">*</span> ts <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb216-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-5" tabindex="-1"></a>t</span></code></pre></div>
+<span id="cb216-3"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-3" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">sum</span>(rank_sums<span class="sc">$</span>rank_sum<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> ni)</span>
+<span id="cb216-4"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-4" tabindex="-1"></a>t_tilde <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">/</span> (n <span class="sc">*</span> (n<span class="sc">+</span><span class="dv">1</span>)) <span class="sc">*</span> t <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb216-5"><a href="epäparametrisia-tilastollisia-testejä.html#cb216-5" tabindex="-1"></a>t_tilde</span></code></pre></div>
 <pre><code>## [1] 32.71389</code></pre>
-<p>Tehtaita on yhteensä <span class="math inline">\(d = 4\)</span> kappaletta, joten testisuure noudattaa likimain jakaumaa khi-neliöjakaumaa vapausasteella <span class="math inline">\(k - 1 = 3\)</span>. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota <code>kruskal.test()</code> käyttäen.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb218-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(t, <span class="dv">3</span>)</span></code></pre></div>
+<p>Tehtaita on yhteensä <span class="math inline">\(d = 4\)</span> kappaletta, joten testisuure noudattaa likimain khi-neliöjakaumaa vapausasteella <span class="math inline">\(k - 1 = 3\)</span>. Nyt voimme laskea p-arvon käsin. Saamme saman p-arvon kuin funktiota <code>kruskal.test()</code> käyttäen.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb218-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(t_tilde, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 3.70075e-07</code></pre>
 </div>
 
