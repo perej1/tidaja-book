@@ -266,6 +266,68 @@ Luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting">3.5</
 <h2><span class="header-section-number">6.1</span> Permutaatiotesti<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:permutation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="mallin-merkitsevyys" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Mallin merkitsevyys<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#mallin-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tällä kurssilla olemme käyneet jo F-testin, joka on parametrinen testi mallin merkitsevyydelle. F-testin testisuure kaavassa <a href="moniulotteinen-lineaarinen-regressio.html#eq:fstat">(3.11)</a> lasketaan selitysasteen <span class="math inline">\(R^2\)</span> (joka aina välillä <span class="math inline">\([0,1]\)</span>) avulla. Muista, että selitysaste kuvaa sitä, kuinka suuren osan selitettävän muuttujan <span class="math inline">\(y\)</span> vaihtelusta lineaarinen malli selittää. Jos <span class="math inline">\(R^2\approx 1\)</span>, niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos <span class="math inline">\(R^2\approx 0\)</span>, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.</p>
+<p>Myös epäparametrinen testi mallin merkitsevyydelle voidaan rakentaa selitysasteen avulla. Ideana on tutkia onko <span class="math inline">\(R^2\)</span> arvo tietynlainen (esimerkiksi <span class="math inline">\(0.2\)</span>, <span class="math inline">\(0.001\)</span> tai <span class="math inline">\(0.5\)</span>) vain sattumalta vai kuvaako <span class="math inline">\(R^2\)</span> arvo sitä, että malli on oleellinen selitettävän ilmiön kannalta. Voisi siis ajatella, että jos “satunnaisella” datalla saamme samaa suuruusluokkaa olevan <span class="math inline">\(R^2\)</span> arvon kuin alkuperäisellä datalla, niin malli ei ole merkitsevä. Permutaatiotesti (eng: <em>permutation test</em>) perustuu juuri tähän ideaan. Permutaatiotestissä testaamme seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+    &amp;H_0: \beta_1  = \beta_2 = \cdots = \beta_d = 0, \\
+    &amp;H_1: \beta_j \neq 0 \quad\text{jollekin}\quad j\in\{1, \ldots, d\}.
+  \end{split}
+\end{equation*}\]</span>
+Nämä ovat siis täysin samat hypoteesit kuin F-testissä. Permutaatiotesti merkitsevyystasolla <span class="math inline">\(\alpha\)</span> (esimerkiksi <span class="math inline">\(\alpha = 0.05\)</span>) suoritetaan seuraavasti.</p>
+<ol style="list-style-type: decimal">
+<li><p>Olkoon
+<span class="math display">\[\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
+\end{equation*}\]</span>
+alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Kirjoitetaan havainto <span class="math inline">\(i\)</span> muodossa <span class="math inline">\((y_i, x_{i1}, x_{i2}, \ldots, x_{id}) = (y_i, \boldsymbol x_i)\)</span>, jossa <span class="math inline">\(\boldsymbol x_i\in\mathbb{R}^d\)</span>. Laske <span class="math inline">\(R^2\)</span> alkuperäisestä otoksesta <span class="math inline">\(\left\{(y_1, \boldsymbol x_1), \ldots, (y_n, \boldsymbol x_n)\right\}\)</span>.</p></li>
+<li><p>Muodosta uusi <span class="math inline">\(n\)</span> kokoinen otos, joka koostuu uusista pareista <span class="math inline">\((y_i, \boldsymbol x_{\ell})\)</span>, joissa mahdollisesti <span class="math inline">\(\ell\neq i\)</span>. Tämäntyyppisiä permutaatioituja otoksia on mahdollista muodostaa <span class="math inline">\(n!\)</span> kappaletta. Muodosta siis kaikki mahdolliset permutaatioidut otokset.</p></li>
+<li><p>Laske <span class="math inline">\(R_k^2\)</span> jokaiselle <span class="math inline">\(k = 1, \ldots, n!\)</span> permutaatioidulle otokselle.</p></li>
+<li><p>Järjestä arvot <span class="math inline">\(R_1^2, \ldots, R_{n!}\)</span> suuruusjärjestykseen. Laske <span class="math inline">\(\left[(1 - \alpha)\times m\right]\)</span> järjestetty selitysaste. Tässä notaatio <span class="math inline">\([\cdot]\)</span> tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita <span class="math inline">\(\left\{R_1^2, \ldots, R_{n!}^2\right\}\)</span> vastaava <span class="math inline">\(1 - \alpha\)</span>-otoskvantiili. Jos alkuperäisestä otoksesta laskettu <span class="math inline">\(R^2\)</span> on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi <span class="math inline">\(H_0\)</span> hylätään.</p></li>
+</ol>
+<div class="proposition">
+<p><span id="prp:permutation" class="proposition"><strong>Huomautus 6.1  </strong></span>Yllä olevassa permutaatiotestin kuvauksessa muodostamme <span class="math inline">\(n!\)</span> otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on <span class="math inline">\(n = 10\)</span>, niin meidän täytyisi muodostaa <span class="math inline">\(n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6\)</span> permutaatioitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi <span class="math inline">\(m = 1000\)</span> kappaletta.</p>
+</div>
+<p>Alla sovellamme permutaatiotestiä mallin merkitsevyydelle käytännössä.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-42" class="example"><strong>Esimerkki 6.1  (Permutaatiotesti ja mallin merkitsevyys) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
+<ul>
+<li><p><span class="math inline">\(Y = \text{voitto kuukaudessa tuhansina euroina}\)</span> (<code>profit</code>),</p></li>
+<li><p><span class="math inline">\(X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}\)</span> (<code>advertisement</code>) ja</p></li>
+<li><p><span class="math inline">\(X_2 = \text{tuotteen hinta tuhansina euroina}\)</span> (<code>price</code>).</p></li>
+</ul>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb220-1" tabindex="-1"></a>sale</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    profit advertisement price
+##     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1 -15.2          2.88  4.78 
+##  2   4.97         7.88  2.27 
+##  3  -8.51         4.09  3.39 
+##  4   2.64         8.83  2.86 
+##  5  13.8          9.40  0.515
+##  6 -16.2          0.456 4.50 
+##  7   5.91         5.28  1.23 
+##  8   8.85         8.92  0.210
+##  9   4.98         5.51  1.64 
+## 10 -18.5          4.57  4.77</code></pre>
+<p>Tavoitteenamme on testata lineaarisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
+\end{equation*}\]</span>
+merkitsevyyttä permutaatiotestillä. Asetamme merkitsevyystasoksi <span class="math inline">\(\alpha = 0.05\)</span>. Ennen kuin kirjoitamme permutaatiotestin algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu selitysaste <span class="math inline">\(R^2\)</span> saadaan napattua <code>lm()</code> funktion tuottamasta muuttujasta.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-1" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb222-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-2" tabindex="-1"></a>sale_lm_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> sale))</span>
+<span id="cb222-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-3" tabindex="-1"></a></span>
+<span id="cb222-4"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-4" tabindex="-1"></a><span class="co"># Inspect how to pick beta2</span></span>
+<span id="cb222-5"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-5" tabindex="-1"></a><span class="fu">names</span>(sale_lm_summary)</span></code></pre></div>
+<pre><code>##  [1] &quot;call&quot;          &quot;terms&quot;         &quot;residuals&quot;     &quot;coefficients&quot; 
+##  [5] &quot;aliased&quot;       &quot;sigma&quot;         &quot;df&quot;            &quot;r.squared&quot;    
+##  [9] &quot;adj.r.squared&quot; &quot;fstatistic&quot;    &quot;cov.unscaled&quot;</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb224-1" tabindex="-1"></a>rsquared <span class="ot">&lt;-</span> sale_lm_summary<span class="sc">$</span>r.squared</span>
+<span id="cb224-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb224-2" tabindex="-1"></a>rsquared</span></code></pre></div>
+<pre><code>## [1] 0.94611</code></pre>
+<p>Seuraavaksi näytämme, miten permutaatioitu otos muodostetaan. Permutaatioidun otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota <code>sample()</code>. On erittäin tärkeää, että funktiossa <code>sample()</code> asetat <code>replace = FALSE</code>. Tällöin on mahdollista valita sama <span class="math inline">\(\boldsymbol x_i\)</span> (eli (eli rivi) vain kerran.</p>
+</div>
 </div>
 <div id="parametrien-merkitsevyys" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Parametrien merkitsevyys<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#parametrien-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -273,7 +335,7 @@ Luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:regtesting">3.5</
 </div>
 <div id="sec:bootstrap" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Uusiomenetelmä<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#sec:bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Luottamusväli on eräs menetelmä kuvata parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
+<p>Luottamusväli on eräs vaihtoehtoinen menetelmä tilastollisen testaamisen rinnalla kuvaamaan parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
 <span class="math display">\[\begin{equation*}
   y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\},
 \end{equation*}\]</span>
@@ -281,7 +343,7 @@ vakiotermille <span class="math inline">\(\beta_0\)</span> ja kertoimille <span 
 <ol style="list-style-type: decimal">
 <li><p>Otoksen
 <span class="math display">\[\begin{equation*}
-  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
 \end{equation*}\]</span>
 avulla lasketaan <span class="math inline">\(0.95\)</span>-luottamusväli parametrille <span class="math inline">\(\beta_j\)</span>.</p></li>
 <li><p>Oletetaan, että sinulla on saatavilla <span class="math inline">\(99\)</span> ylimääräistä kohdan 1 mukaista otosta. Lasket kaikista otoksista <span class="math inline">\(0.95\)</span>-luottamusvälin parametrille <span class="math inline">\(\beta_j\)</span>. Lopulta saat siis yhteensä sata <span class="math inline">\(0.95\)</span>-luottamusväliä.</p></li>
@@ -315,13 +377,13 @@ alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Mu
 </ol>
 <p>Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys <em>bootstrap</em> viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä. Alla sovellamme uusiomenetelmää käytännössä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-42" class="example"><strong>Esimerkki 6.1  (Uusiomenetelmä) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
+<p><span id="exm:unlabeled-div-43" class="example"><strong>Esimerkki 6.2  (Uusiomenetelmä) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
 <ul>
 <li><p><span class="math inline">\(Y = \text{voitto kuukaudessa tuhansina euroina}\)</span> (<code>profit</code>),</p></li>
 <li><p><span class="math inline">\(X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}\)</span> (<code>advertisement</code>) ja</p></li>
 <li><p><span class="math inline">\(X_2 = \text{tuotteen hinta tuhansina euroina}\)</span> (<code>price</code>).</p></li>
 </ul>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb220-1" tabindex="-1"></a>sale</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb226-1" tabindex="-1"></a>sale</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##    profit advertisement price
 ##     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;
@@ -340,25 +402,25 @@ alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Mu
   \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
 \end{equation*}\]</span>
 kertoimelle <span class="math inline">\(\beta_2\)</span>. Ennen kuin kirjoitamme uusiomenetelmä algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu estimaatti parametrille <span class="math inline">\(\beta_2\)</span> saadaan napattua <code>lm()</code> funktion tuottamasta muuttujasta.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-1" tabindex="-1"></a><span class="co"># Fit model</span></span>
-<span id="cb222-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-2" tabindex="-1"></a>sale_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> sale)</span>
-<span id="cb222-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-3" tabindex="-1"></a></span>
-<span id="cb222-4"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-4" tabindex="-1"></a><span class="co"># Inspect how to pick beta2</span></span>
-<span id="cb222-5"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb222-5" tabindex="-1"></a><span class="fu">names</span>(sale_lm)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-1" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb228-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-2" tabindex="-1"></a>sale_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> sale)</span>
+<span id="cb228-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-3" tabindex="-1"></a></span>
+<span id="cb228-4"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-4" tabindex="-1"></a><span class="co"># Inspect how to pick beta2</span></span>
+<span id="cb228-5"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-5" tabindex="-1"></a><span class="fu">names</span>(sale_lm)</span></code></pre></div>
 <pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
 ##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
 ##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb224-1" tabindex="-1"></a>sale_lm<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-1" tabindex="-1"></a>sale_lm<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>##   (Intercept) advertisement         price 
 ##      5.885823      1.032046     -5.191414</code></pre>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb226-1" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> sale_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
-<span id="cb226-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb226-2" tabindex="-1"></a>beta2</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb232-1" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> sale_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
+<span id="cb232-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb232-2" tabindex="-1"></a>beta2</span></code></pre></div>
 <pre><code>##     price 
 ## -5.191414</code></pre>
 <p>Seuraavaksi näytämme, miten uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota <code>sample()</code>. On erittäin tärkeää, että funktiossa <code>sample()</code> asetat <code>replace = TRUE</code>. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sale)</span>
-<span id="cb228-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-2" tabindex="-1"></a>boot_sample <span class="ot">&lt;-</span> sale[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb228-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb228-3" tabindex="-1"></a>boot_sample</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb234-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sale)</span>
+<span id="cb234-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb234-2" tabindex="-1"></a>boot_sample <span class="ot">&lt;-</span> sale[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb234-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb234-3" tabindex="-1"></a>boot_sample</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##    profit advertisement price
 ##     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;
@@ -374,36 +436,36 @@ kertoimelle <span class="math inline">\(\beta_2\)</span>. Ennen kuin kirjoitamme
 ## 10 -18.5          4.57  4.77</code></pre>
 <p>Vertaamalla muuttujia <code>sale</code> ja <code>boot_sample</code> huomataan, että kaikki taulukon <code>boot_sample</code> rivit ovat taulukon <code>sale</code> rivejä. Kuitenkin taulukossa <code>boot_sample</code> sama rivi voi esiintyä useamman kerran. Uusio-otoksesta saadaan laskettua estimaatti kertoimelle <span class="math inline">\(\beta_2\)</span> samaan tyyliin kuin alkuperäisen otoksen avulla.</p>
 <p>Nyt olemme valmiita kirjoittamaan uusiomenetelmä algoritmin askeleet 1–4. Algoritmin voi kirjoittaa lyhyemminkin tai sen voi suorittaa käyttämällä R paketteja. Selkeyden vuoksi toteutamme algoritmin <code>for</code> silmukan avulla.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-1" tabindex="-1"></a><span class="co"># Number of repetitions (including the estimate from the original sample)</span></span>
-<span id="cb230-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb230-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-3" tabindex="-1"></a></span>
-<span id="cb230-4"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-4" tabindex="-1"></a><span class="co"># Sample size</span></span>
-<span id="cb230-5"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sale)</span>
-<span id="cb230-6"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-6" tabindex="-1"></a></span>
-<span id="cb230-7"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-7" tabindex="-1"></a><span class="co"># Create a vector for storing all the estimates</span></span>
-<span id="cb230-8"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-8" tabindex="-1"></a>beta_boot <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, m)</span>
-<span id="cb230-9"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-9" tabindex="-1"></a></span>
-<span id="cb230-10"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-10" tabindex="-1"></a><span class="co"># Compute the parameter estimate from the original sample and store it</span></span>
-<span id="cb230-11"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-11" tabindex="-1"></a>sale_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> sale)</span>
-<span id="cb230-12"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-12" tabindex="-1"></a>beta_boot[<span class="dv">1</span>] <span class="ot">&lt;-</span> sale_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
-<span id="cb230-13"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-13" tabindex="-1"></a></span>
-<span id="cb230-14"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-14" tabindex="-1"></a></span>
-<span id="cb230-15"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-15" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>m) {</span>
-<span id="cb230-16"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-16" tabindex="-1"></a>  <span class="co"># Construct the ith bootstrap sample and formulate the corresponding</span></span>
-<span id="cb230-17"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-17" tabindex="-1"></a>  <span class="co"># linear regression model</span></span>
-<span id="cb230-18"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-18" tabindex="-1"></a>  boot_sample <span class="ot">&lt;-</span> sale[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb230-19"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-19" tabindex="-1"></a>  boot_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> boot_sample)</span>
-<span id="cb230-20"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-20" tabindex="-1"></a>  </span>
-<span id="cb230-21"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-21" tabindex="-1"></a>  <span class="co"># Compute the parameter estimate from the bootsrap sample and store it</span></span>
-<span id="cb230-22"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-22" tabindex="-1"></a>  beta_boot[i] <span class="ot">&lt;-</span> boot_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
-<span id="cb230-23"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb230-23" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-1" tabindex="-1"></a><span class="co"># Number of repetitions (including the estimate from the original sample)</span></span>
+<span id="cb236-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb236-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-3" tabindex="-1"></a></span>
+<span id="cb236-4"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-4" tabindex="-1"></a><span class="co"># Sample size</span></span>
+<span id="cb236-5"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sale)</span>
+<span id="cb236-6"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-6" tabindex="-1"></a></span>
+<span id="cb236-7"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-7" tabindex="-1"></a><span class="co"># Create a vector for storing all the estimates</span></span>
+<span id="cb236-8"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-8" tabindex="-1"></a>beta_boot <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, m)</span>
+<span id="cb236-9"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-9" tabindex="-1"></a></span>
+<span id="cb236-10"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-10" tabindex="-1"></a><span class="co"># Compute the parameter estimate from the original sample and store it</span></span>
+<span id="cb236-11"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-11" tabindex="-1"></a>sale_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> sale)</span>
+<span id="cb236-12"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-12" tabindex="-1"></a>beta_boot[<span class="dv">1</span>] <span class="ot">&lt;-</span> sale_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
+<span id="cb236-13"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-13" tabindex="-1"></a></span>
+<span id="cb236-14"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-14" tabindex="-1"></a></span>
+<span id="cb236-15"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-15" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>m) {</span>
+<span id="cb236-16"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-16" tabindex="-1"></a>  <span class="co"># Construct the ith bootstrap sample and formulate the corresponding</span></span>
+<span id="cb236-17"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-17" tabindex="-1"></a>  <span class="co"># linear regression model</span></span>
+<span id="cb236-18"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-18" tabindex="-1"></a>  boot_sample <span class="ot">&lt;-</span> sale[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb236-19"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-19" tabindex="-1"></a>  boot_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(profit <span class="sc">~</span> advertisement <span class="sc">+</span> price, <span class="at">data =</span> boot_sample)</span>
+<span id="cb236-20"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-20" tabindex="-1"></a>  </span>
+<span id="cb236-21"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-21" tabindex="-1"></a>  <span class="co"># Compute the parameter estimate from the bootsrap sample and store it</span></span>
+<span id="cb236-22"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-22" tabindex="-1"></a>  beta_boot[i] <span class="ot">&lt;-</span> boot_lm<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span>
+<span id="cb236-23"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb236-23" tabindex="-1"></a>}</span></code></pre></div>
 <p>Vektori <code>beta_boot</code> sisältää nyt alkuperäisellä otoksella lasketun estimaatin <span class="math inline">\(\hat\beta_2^{(1)}\)</span> parametrille <span class="math inline">\(\beta_2\)</span> ja vastaavat uusio-otoksista lasketut estimaatit <span class="math inline">\(\hat\beta_2^{(2)}, \ldots, \hat\beta_2^{(m)}\)</span>.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb231-1" tabindex="-1"></a><span class="fu">head</span>(beta_boot)</span></code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb237-1" tabindex="-1"></a><span class="fu">head</span>(beta_boot)</span></code></pre></div>
 <pre><code>## [1] -5.191414 -7.197275 -5.941904 -5.981090 -6.093608 -3.877759</code></pre>
 <p>Jäljellä on vielä algoritmin 5 askel. Eli haluamme laskea <span class="math inline">\(\alpha/2\)</span>- ja <span class="math inline">\((1 - \alpha/2)\)</span>-otoskvantiilit estimaateista <span class="math inline">\(\left\{\hat\beta_1^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_2^{(m)}\right\}\)</span>, kun <span class="math inline">\(\alpha = 0.05\)</span>. Tämän voimme suorittaa helposti funktiolla <code>quantile()</code>.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb233-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb233-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb233-2" tabindex="-1"></a>boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(beta_boot, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
-<span id="cb233-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb233-3" tabindex="-1"></a>boot_ci</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb239-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb239-2"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb239-2" tabindex="-1"></a>boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(beta_boot, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb239-3"><a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#cb239-3" tabindex="-1"></a>boot_ci</span></code></pre></div>
 <pre><code>##      2.5%     97.5% 
 ## -7.115774 -3.163906</code></pre>
 <p>Nyt vektori <code>boot_ci</code> sisältää luottamusvälin ala- ja ylärajan. Eli parametrille <span class="math inline">\(\beta_2\)</span> saimme <span class="math inline">\(0.95\)</span>-luottamusväliksi <span class="math inline">\(\approx [-7.1, -3.2]\)</span>.</p>
@@ -424,7 +486,7 @@ Kuva 6.3: Sama tilanne kuin kuvassa <a href="epäparametrisia-tilastollisia-mene
 </div>
 </div>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-43" class="proposition"><strong>Huomautus 6.1  </strong></span>Uusiomenetelmää voidaan käyttää myös muunlaisten luottamusvälien laskemiseen. Esimerkiksi lineaarisen mallin ennustuksille voidaan laskea luottamusvälit käyttämällä uusiomenetelmää. Uusiomenetelmä ei ole myöskään sidoksissa lineaariseen regressioon vaan menetelmää voidaan käyttää muissa yhteyksissä. Kuitenkin tällä kurssilla käytämme uusiomenetelmää ainoastaan luottamusvälien laskemiseen lineaarisen mallin parametreille <span class="math inline">\(\beta_j\)</span>.</p>
+<p><span id="prp:unlabeled-div-44" class="proposition"><strong>Huomautus 6.2  </strong></span>Uusiomenetelmää voidaan käyttää myös muunlaisten luottamusvälien laskemiseen. Esimerkiksi lineaarisen mallin ennustuksille voidaan laskea luottamusvälit käyttämällä uusiomenetelmää. Uusiomenetelmä ei ole myöskään sidoksissa lineaariseen regressioon vaan menetelmää voidaan käyttää muissa yhteyksissä. Kuitenkin tällä kurssilla käytämme uusiomenetelmää ainoastaan luottamusvälien laskemiseen lineaarisen mallin parametreille <span class="math inline">\(\beta_j\)</span>.</p>
 <p>Huomaa myös, että oletuksen <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> alla parametreille <span class="math inline">\(\beta_j\)</span> voidaan laskea parametrinen luottamusväli. Tämä jätetään kuitenkin kurssin ulkopuolelle, koska parametristen luottamusvälien laskemisen filosofiaa käytiin kurssilla <em>Tilastotieteen perusteet</em>.</p>
 </div>
 

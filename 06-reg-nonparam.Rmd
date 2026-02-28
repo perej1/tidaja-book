@@ -24,13 +24,81 @@ Mallin \@ref(eq:linearnonparam) virheet $\varepsilon_i$ ovat satunnaismuuttujia,
 
 ## Permutaatiotesti {#sec:permutation}
 
+
+
 ### Mallin merkitsevyys
+
+Tällä kurssilla olemme käyneet jo F-testin, joka on parametrinen testi mallin merkitsevyydelle. F-testin testisuure kaavassa \@ref(eq:fstat) lasketaan selitysasteen $R^2$ (joka aina välillä $[0,1]$) avulla. Muista, että selitysaste kuvaa sitä, kuinka suuren osan selitettävän muuttujan $y$ vaihtelusta lineaarinen malli selittää. Jos $R^2\approx 1$, niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos $R^2\approx 0$, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.
+
+Myös epäparametrinen testi mallin merkitsevyydelle voidaan rakentaa selitysasteen avulla. Ideana on tutkia onko $R^2$ arvo tietynlainen (esimerkiksi $0.2$, $0.001$ tai $0.5$) vain sattumalta vai kuvaako $R^2$ arvo sitä, että malli on oleellinen selitettävän ilmiön kannalta. Voisi siis ajatella, että jos "satunnaisella" datalla saamme samaa suuruusluokkaa olevan $R^2$ arvon kuin alkuperäisellä datalla, niin malli ei ole merkitsevä. Permutaatiotesti (eng: *permutation test*) perustuu juuri tähän ideaan. Permutaatiotestissä testaamme seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{equation*}
+  \begin{split}
+    &H_0: \beta_1  = \beta_2 = \cdots = \beta_d = 0, \\
+    &H_1: \beta_j \neq 0 \quad\text{jollekin}\quad j\in\{1, \ldots, d\}.
+  \end{split}
+\end{equation*}
+Nämä ovat siis täysin samat hypoteesit kuin F-testissä. Permutaatiotesti merkitsevyystasolla $\alpha$ (esimerkiksi $\alpha = 0.05$) suoritetaan seuraavasti.
+
+1. Olkoon
+\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
+\end{equation*}
+alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(y_i, x_{i1}, x_{i2}, \ldots, x_{id}) = (y_i, \boldsymbol x_i)$, jossa $\boldsymbol x_i\in\mathbb{R}^d$. Laske $R^2$ alkuperäisestä otoksesta $\left\{(y_1, \boldsymbol x_1), \ldots, (y_n, \boldsymbol x_n)\right\}$.
+
+2. Muodosta uusi $n$ kokoinen otos, joka koostuu uusista pareista $(y_i, \boldsymbol x_{\ell})$, joissa mahdollisesti $\ell\neq i$. Tämäntyyppisiä permutaatioituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutaatioidut otokset.
+
+3. Laske $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+
+4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $1 - \alpha$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
+
+:::{.proposition #permutation}
+Yllä olevassa permutaatiotestin kuvauksessa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutaatioitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta.
+:::
+
+Alla sovellamme permutaatiotestiä mallin merkitsevyydelle käytännössä.
+
+:::{.example name="Permutaatiotesti ja mallin merkitsevyys"}
+Käytämme samaa dataa kuin esimerkissä \@ref(exm:fitreg). Eli meillä on kuvitteellinen $n = 10$ kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista $(Y, X_1, X_2)$, jossa
+
+- $Y = \text{voitto kuukaudessa tuhansina euroina}$ (`profit`),
+
+- $X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}$ (`advertisement`) ja
+
+- $X_2 = \text{tuotteen hinta tuhansina euroina}$ (`price`).
+
+```{r, echo=FALSE}
+sale <- readr::read_csv("data/sales.csv", col_types = "ddd")
+```
+
+
+```{r}
+sale
+```
+
+Tavoitteenamme on testata lineaarisen regressiomallin
+\begin{equation*}
+  \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
+\end{equation*}
+merkitsevyyttä permutaatiotestillä. Asetamme merkitsevyystasoksi $\alpha = 0.05$. Ennen kuin kirjoitamme permutaatiotestin algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu selitysaste $R^2$ saadaan napattua `lm()` funktion tuottamasta muuttujasta.
+```{r}
+# Fit model
+sale_lm_summary <- summary(lm(profit ~ advertisement + price, data = sale))
+
+# Inspect how to pick beta2
+names(sale_lm_summary)
+
+rsquared <- sale_lm_summary$r.squared
+rsquared
+```
+
+Seuraavaksi näytämme, miten permutaatioitu otos muodostetaan. Permutaatioidun otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = FALSE`. Tällöin on mahdollista valita sama $\boldsymbol x_i$ (eli (eli rivi) vain kerran.
+:::
 
 ### Parametrien merkitsevyys
 
 ## Uusiomenetelmä {#sec:bootstrap}
 
-Luottamusväli on eräs menetelmä kuvata parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
+Luottamusväli on eräs vaihtoehtoinen menetelmä tilastollisen testaamisen rinnalla kuvaamaan parametriin liittyvää epävarmuutta. Tässä tapauksessa olemme kiinnostuneita luottamusväleistä lineaarisen mallin
 \begin{equation*}
   y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\},
 \end{equation*}
@@ -38,7 +106,7 @@ vakiotermille $\beta_0$ ja kertoimille $\beta_1, \ldots, \beta_j$. Muista, että
 
 1. Otoksen 
 \begin{equation*}
-  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
 \end{equation*}
 avulla lasketaan $0.95$-luottamusväli parametrille $\beta_j$.
 
@@ -117,7 +185,6 @@ Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, 
 
 :::{.example name="Uusiomenetelmä"}
 ```{r, echo=FALSE}
-sale <- readr::read_csv("data/sales.csv", col_types = "ddd")
 set.seed(123)
 ```
 

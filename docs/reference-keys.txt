@@ -116,6 +116,7 @@ exm:unlabeled-div-29
 exm:unlabeled-div-30
 fig:t-dist
 exm:unlabeled-div-31
+eq:fstat
 exm:unlabeled-div-32
 eq:predconfint
 exm:unlabeled-div-33
@@ -161,13 +162,15 @@ fig:chi
 exm:unlabeled-div-41
 eq:linearnonparam
 def:whitenoiserelax
-fig:conf
+prp:permutation
 exm:unlabeled-div-42
+fig:conf
+exm:unlabeled-div-43
 fig:twoboot
 fig:oneboot
-prp:unlabeled-div-43
+prp:unlabeled-div-44
 eq:euclidean
-exm:unlabeled-div-45
+exm:unlabeled-div-46
 fig:vec
 r-ohjelmointikielestä
 sec:inst

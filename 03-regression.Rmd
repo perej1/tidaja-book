@@ -19,7 +19,7 @@ Regressiomallit ovat eräitä tärkeimpiä ja eniten käytettyjä tilastollisia 
 
 Tilanne regressioanalyysissä on yleensä seuraavanlainen. Saatavilla on $n$ kappaletta $(d + 1)$-ulotteisia havaintoja
 \begin{equation*}
-  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
 \end{equation*}
 satunaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti kuvaa selitettävää muuttujaa ja muut komponentit antavat selittävät muuttujat. Havaintoaineiston avulla sovitetaan regressiomalli, joka yleisesti ottaen voi olla muotoa
 \begin{equation}
@@ -134,7 +134,7 @@ Lisäksi tilastollisen mallintamisen opettelun näkökulmasta lineaarinen regres
 
 Kuten luvun esittelyssä, oletetaan että saatavilla on $n$ kappaletta $(d+1)$-ulotteisia havaintoja
 \begin{equation*}
-  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$d$-uloinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$d$-uloinen havainto nro $n$}}\right\}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
 \end{equation*}
 satunnaisvektorista $(Y, X_1, \ldots, X_d)$, jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat selittävien muuttujien havainnot. Selittäviä muuttujia on siis $d$ kappaletta. Moniulotteisessa lineaarisessa regressiossa oletetaan seuraavanlainen suhde selitettävän ja selittävien muuttujien välillä,
 \begin{equation}
@@ -819,11 +819,12 @@ F-testin nolla- ja vastahypoteesit ovat
 F-testissä vakioparametria $\beta_0$ ei oteta huomioon, koska kiinnostuksen kohteena on analysoida sitä, onko mikään selittäjä oleellinen mallinettavan ilmiön kannalta.
 
 Määritellään testisuure
-\begin{equation*}
+\begin{equation}
+  (\#eq:fstat)
   F = \frac{n - d - 1}{d}\frac{R^2}{1 - R^2}
   = \frac{\frac{\sum_{i = 1}^n\left(\hat y_i - \bar y\right)^2}{d}}{\frac{\sum_{i = 1}^n\left(\hat y_i - y_i\right)^2}{n - d - 1}}
   = \frac{\frac{\sum_{i = 1}^n\left(\hat y_i - \bar y\right)^2}{d}}{s^2},
-\end{equation*}
+\end{equation}
 joka oleellisesti kuvaa suhdetta
 \begin{equation*}
   \frac{\text{Regression selittämä vaihtelu}}{\text{Selittämättä jäänyt vaihtelu}}.
