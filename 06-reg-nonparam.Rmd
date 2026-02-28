@@ -1,11 +1,11 @@
 # Epäparametrisia tilastollisia menetelmiä lineaariselle regressiolle
 
-Palataan tässä luvussa takaisin lineaariseen regressiomalliin
+Luvussa \@ref(sec:regtesting) käsittelimme tilastollisia testejä liittyen lineaariseen regressiomalliin
 \begin{equation}
   (\#eq:linearnonparam)
   y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\}.
 \end{equation}
-Luvussa \@ref(sec:regtesting) käsittelimme tilastollisia testejä liittyen lineaariseen regressiomalliin. Nämä testit ovat parametrisia, koska testeissä oletamme satunaisvirheiden noudattavan normaalijakaumaa -- satunnaisvirheet ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa.
+Käsitellyt testit olivat parametrisia, koska testeissä oletimme satunaisvirheiden noudattavan normaalijakaumaa (katso määritelmä \@ref(def:whitenoise) valkoiselle kohinalle).
 
 Kuitenkin usein on kohtuutonta olettaa, että satunnaistermit $\varepsilon_i$ noudattavat jotain tiettyä parametrista jakaumaa kuten normaalijakaumaa. Tämän vuoksi tässä luvussa esittelemme epäparametrisia menetelmiä lineaarisen regression kontekstissa. Luvussa \@ref(sec:permutation) annamme epäparametriset vastineet luvun \@ref(sec:regtesting) tilastollisille testeille. Luvussa \@ref(sec:bootstrap) esittelemme epäparametrisen menetelmän luottamusvälien muodostamiseen parametreille $\beta_j$.
 
@@ -24,22 +24,22 @@ Mallin \@ref(eq:linearnonparam) virheet $\varepsilon_i$ ovat satunnaismuuttujia,
 
 ## Permutaatiotesti {#sec:permutation}
 
-Ensin esittelemme epäparametrisen vastineen lineaarisen mallin merkitsevyyden testaamiseen (parametrinen testi olisi F-testi). Tämän jälkeen esittelemme epäparametrisen vastineen yhden parametrin $\beta_j$, $j\in\{0,1, \ldots, d\}$, merkitsevyyden testaamiseen (parametrinen testi olisi t-testi).
+Ensin esittelemme epäparametrisen vastineen lineaarisen mallin merkitsevyyden testaamiseen (parametrinen testi olisi F-testi). Tämän jälkeen esittelemme epäparametrisen vastineen yhden kertoimen $\beta_j$, $j\in\{1, \ldots, d\}$, merkitsevyyden testaamiseen (parametrinen testi olisi t-testi).
 
-Luvun molempien testien ideat ovat samankaltaisia. Tämän vuoksi käymme mallin merkitsevyyden testaamiseen liittyvän teorian hieman tarkemmin.
+Luvun molempien testien ideat ovat hyvin samankaltaisia -- testeissä dataa "sekoitetaan" eli permutoidaan jollain tavalla. Tämän vuoksi näitä tilastollisia testejä kutsutaan permutaatiotesteiksi.
 
 ### Mallin merkitsevyys
 
-Tällä kurssilla olemme käyneet jo F-testin, joka on parametrinen testi mallin merkitsevyydelle. F-testin testisuure kaavassa \@ref(eq:fstat) lasketaan selitysasteen $R^2$ (joka aina välillä $[0,1]$) avulla. Muista, että selitysaste kuvaa sitä, kuinka suuren osan selitettävän muuttujan $y$ vaihtelusta lineaarinen malli selittää. Jos $R^2\approx 1$, niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos $R^2\approx 0$, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.
+F-testin testisuure kaavassa \@ref(eq:fstat) lasketaan selitysasteen $R^2$ (joka aina välillä $[0,1]$) avulla. Muista, että $R^2$ kuvaa sitä, kuinka suuren osan selitettävän muuttujan $y$ vaihtelusta sovitettu malli selittää. Jos $R^2\approx 1,$ niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos $R^2\approx 0$, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.
 
-Myös epäparametrinen testi mallin merkitsevyydelle voidaan rakentaa selitysasteen avulla. Ideana on tutkia onko $R^2$ arvo tietynlainen (esimerkiksi $0.2$, $0.001$ tai $0.5$) vain sattumalta vai kuvaako $R^2$ arvo sitä, että malli on oleellinen selitettävän ilmiön kannalta. Voisi siis ajatella, että jos "satunnaisella" datalla saamme samaa suuruusluokkaa olevan $R^2$ arvon kuin alkuperäisellä datalla, niin malli ei ole merkitsevä. Permutaatiotesti (eng: *permutation test*) perustuu juuri tähän ideaan. Permutaatiotestissä testaamme seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+Myös epäparametrinen testi mallin merkitsevyydelle voidaan rakentaa selitysasteen avulla. Ideana on tutkia, onko $R^2$ arvo tietynlainen (esimerkiksi $0.2$, $0.001$ tai $0.5$) vain sattumalta vai kuvaako $R^2$ arvo sitä, että malli on oleellinen selitettävän ilmiön kannalta. Voisi siis ajatella, että jos "satunnaisella" datalla saamme samaa suuruusluokkaa olevan $R^2$ arvon kuin alkuperäisellä datalla, niin malli ei ole merkitsevä. Permutaatiotesti (eng: *permutation test*) perustuu juuri tähän ideaan. Permutaatiotestissä testaamme seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
 \begin{equation*}
   \begin{split}
     &H_0: \beta_1  = \beta_2 = \cdots = \beta_d = 0, \\
     &H_1: \beta_j \neq 0 \quad\text{jollekin}\quad j\in\{1, \ldots, d\}.
   \end{split}
 \end{equation*}
-Nämä ovat siis täysin samat hypoteesit kuin F-testissä. Permutaatiotesti merkitsevyystasolla $\alpha$ (esimerkiksi $\alpha = 0.05$) suoritetaan seuraavasti.
+Nämä ovat siis täysin samat hypoteesit kuin F-testissä. Permutaatiotesti mallin merkitsevyydelle merkitsevyystasolla $\alpha$ (esimerkiksi $\alpha = 0.05$) suoritetaan seuraavasti.
 
 1. Olkoon
 \begin{equation*}
@@ -49,14 +49,14 @@ alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(
 
 2. Olkoon $i,\ell\in\{1, \ldots, n\}$. Muodosta uusi $n$ kokoinen otos, joka koostuu uusista pareista $(y_i, \boldsymbol x_{\ell})$, joissa mahdollisesti $\ell\neq i$. Muodosta parit niin, että jokainen alkuperäisen otoksen $y_i$ ja $x_\ell$ käytetään tasan kerran.
 
-3. Askeleen 2 tyyppisiä permutaatioituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutaatioidut otokset.
+3. Askeleen 2 mukaisia permutoituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutoidut otokset.
 
-3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutoidulle otokselle.
 
 4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
 
 :::{.proposition #permutation}
-Yllä olevassa permutaatiotestin kuvauksessa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutaatioitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta.
+Yllä kuvatussa permutaatiotestin algoritmissa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutoitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta. Tällöin permutaatiotestin tuloksiin liitty pientä satunnaisuutta riippuen siitä, mitkä permutoidut otokset valitaan. Pidä tämä mielessä kun pääset tutkimaan esimerkkiin \@ref(exm:perm) liittyviä kuvia \@ref(fig:twoperm) ja \@ref(fig:oneperm)). 
 :::
 
 Alla sovellamme permutaatiotestiä mallin merkitsevyydelle käytännössä.
@@ -96,7 +96,7 @@ rsquared <- sale_lm_summary$r.squared
 rsquared
 ```
 
-Seuraavaksi näytämme, miten yksi permutaatioitu otos muodostetaan. Permutaatioidun otoksen voi muodostaa valitsemalla selittävektoreiden arvoja alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = FALSE`. Tällöin on mahdollista valita sama arvo $\boldsymbol x_i$ vain kerran.
+Seuraavaksi näytämme, miten yksi permutoitu otos muodostetaan. Permutoidun otoksen voi muodostaa valitsemalla selittävektoreiden arvoja alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = FALSE`. Tällöin on mahdollista valita sama arvo $\boldsymbol x_i$ vain kerran.
 ```{r}
 n <- nrow(sale)
 
@@ -115,7 +115,127 @@ mutta taulukossa `perm_sample`
 \begin{equation*}
   (2.88, 4.78) = (\texttt{advertisement}_7, \texttt{price}_7).
 \end{equation*}
-Permutaatioidusta otoksesta saadaan laskettua selitysaste $R_k^2$ samaan tyyliin kuin alkuperäisestä otoksesta.
+Permutoidusta otoksesta saadaan laskettua selitysaste $R_k^2$ samaan tyyliin kuin alkuperäisestä otoksesta.
+
+Nyt olemme valmiita kirjoittamaan permutaatiotestin algoritmin askeleet 1--4. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
+```{r}
+# Number of permutation samples
+m <- 1000
+
+# Sample size
+n <- nrow(sale)
+
+# Create a vector for storing R^2
+rsq_perm <- rep(NA, m)
+
+# Compute R^2 from the original sample
+sale_lm_summary <- summary(lm(profit ~ advertisement + price, data = sale))
+rsq_original <- sale_lm_summary$r.squared
+
+for (i in 1:m) {
+  # Construct the ith permuted sample
+  perm_sample_x <- sale[sample(1:n, n, replace = FALSE), -1]
+
+  # Combine original y and permuted x
+  perm_sample <- dplyr::bind_cols(sale[, 1], perm_sample_x)
+  
+  # Compute R^2 from the permuted sample
+  perm_lm_summary <- summary(lm(profit ~ advertisement + price,
+                                data = perm_sample))
+  rsq_perm[i] <- perm_lm_summary$r.squared
+}
+```
+
+Vektori `rsq_perm` sisältää nyt permutoituja otoksia vastaavat selitysasteet $R_1^2, \ldots, R_m^2$.
+```{r}
+head(rsq_perm)
+```
+
+Jäljellä on vielä algoritmin askel 5. Haluamme siis laskea $(1-\alpha)$-otoskvantiilin selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$, kun $\alpha = 0.05$. Tämän voi helposti suorittaa funktiolla `quantile()`.
+```{r}
+alpha <- 0.05
+rsq_perm_quantile <- quantile(rsq_perm, probs = 1 - alpha)
+rsq_perm_quantile
+rsq_original > rsq_perm_quantile
+```
+
+Alkuperäisestä otoksesta laskettu selitysaste on suurempi kuin yllä oleva $0.95$-otoskvantiili, joten permutaatiotestin nollahypoteesi hylätään. Halutessasi voit myös laskea permutaatiotestin p-arvon vertaamalla kuinka suuri osuus selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$ on suurempaa kuin alkuperäisestä otoksesta laskettu selitysaste.
+```{r}
+mean(rsq_original < rsq_perm)
+```
+Tässä tapauksessa p-arvo on käytännössä nolla.
+:::
+
+
+### Parametrien merkitsevyys
+
+Nyt haluamme testata yhden kertoimen merkitsevyyttä $\beta_j$, $j\in\{1, \ldots, d\}$ samaan tyyliin kuin koko mallin merkitsevyyttä edellä. Esittelemme siis toisenlaisen permutaatiotestin, jolla testataan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+\begin{equation*}
+  \begin{split}
+    &H_0: \beta_j = 0, \\
+    &H_1: \beta_j \neq 0.
+  \end{split}
+\end{equation*}
+Nyt emme permutoi vektoreita $\boldsymbol x_i = (x_{i1}, x_{i2}, \ldots, x_{id})$ vaan ainoastaan parametria $\beta_j$ vastaavaa selittäjää. Tarkemmin ottaen permutaatiotesti parametrille $\beta_j$ merkitsevyystasolla $\alpha$ (esimerkiksi $\alpha = 0.05$) suoritetaan seuraavasti.
+
+1. Olkoon
+\begin{equation*}
+  \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
+\end{equation*}
+alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(y_i, x_{i1}, x_{i2}, \ldots, x_{id}) = (y_i, \boldsymbol x_i)$, jossa $\boldsymbol x_i\in\mathbb{R}^d$. Laske selitysaste $R^2$ alkuperäisestä otoksesta $\left\{(y_1, \boldsymbol x_1), \ldots, (y_n, \boldsymbol x_n)\right\}$.
+
+2. Merkitään selittäjää $j$ vastaavaa otosta notaatiolla $\boldsymbol x_{\cdot j} = (x_{1j}, \ldots, x_{nj})^T\in\mathbb{R}^n$. Muodosta uusi $n$ kokoinen otos niin, että jokainen havainto vastaa alkuperäisen otoksen havaintoa $(y_i, \boldsymbol x_i)$ muuten paitsi, että sarakevektori $\boldsymbol x_{\cdot j}$ on permutoitu.
+
+3. Askeleen 2 mukaisia permutoituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutoidut otokset.
+
+3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+
+4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
+
+Huomautus \@ref(prp:permutation) pätee myös yllä kuvattuun permutaatiotestille parametrin merkitsevyydelle. Eli yleensä kaikkia mahdollisia permotoituja otoksia ei muodosteta.
+
+Alla sovellamme permutaatiotestiä kertoimen merkitsevyydelle käytännössä.
+
+:::{.example #perm name="Permutaatiotesti ja kertoimen merkitsevyys"}
+Käytämme samaa dataa kuin esimerkissä \@ref(exm:fitreg). Eli meillä on kuvitteellinen $n = 10$ kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista $(Y, X_1, X_2)$, jossa
+
+- $Y = \text{voitto kuukaudessa tuhansina euroina}$ (`profit`),
+
+- $X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}$ (`advertisement`) ja
+
+- $X_2 = \text{tuotteen hinta tuhansina euroina}$ (`price`).
+
+```{r}
+sale
+```
+
+Tavoitteenamme on testata lineaarisen regressiomallin
+\begin{equation*}
+  \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
+\end{equation*}
+kertoimen $\beta_1$ merkitsevyyttä permutaatiotestillä. Asetamme merkitsevyystasoksi $\alpha = 0.05$. Ennen kuin kirjoitamme permutaatiotestin algoritmin kokonaisuudessaan, näytämme tarkemmin, miten yksi permutoitu otos muodostetaan. Alla on taas tärkeää asettaa `replace = FALSE` funktiossa `sample()`.
+```{r, message=FALSE}
+library(dplyr)
+
+# Sample size
+n <- nrow(sale)
+
+# Permutate observations of the advertisement
+perm_advertisement <- sale$advertisement[sample(1:n, n, replace = FALSE)]
+
+# Replace original observations of the advertisement with the permuted sample
+perm_sample <- sale %>%
+  mutate(advertisement = perm_advertisement)
+perm_sample
+```
+Taulukoissa `sale` ja `perm_sample` sarakkeet `profit` ja `price` ovat samat. Kuitenkin taulukossa `perm_sample` sarakkeen `advertisement` arvot ovat vaihtaneet paikkoja. Esimerkiksi taulukossa `sale`,
+\begin{equation*}
+2.88 = \texttt{advertisement}_1
+\end{equation*}
+mutta taulukossa `perm_sample`
+\begin{equation*}
+  2.88 = \texttt{advertisement}_2.
+\end{equation*}
 
 Nyt olemme valmiita kirjoittamaan permutaatiotestin algoritmin askeleet 1--4. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
 ```{r}
@@ -134,13 +254,13 @@ rsq_original <- sale_lm_summary$r.squared
 
 
 for (i in 1:m) {
-  # Construct the ith permutated sample
-  perm_sample_x <- sale[sample(1:n, n, replace = FALSE), -1]
-
-  # Combine original y and permutated x
-  perm_sample <- dplyr::bind_cols(sale[, 1], perm_sample_x)
+  # Construct the ith permuted sample
+  perm_advertisement <- sale$advertisement[sample(1:n, n, replace = FALSE)]
   
-  # Compute R^2 from the permutated sample
+  perm_sample <- sale %>%
+    mutate(advertisement = perm_advertisement)
+
+  # Compute R^2 from the permuted sample
   perm_lm_summary <- summary(lm(profit ~ advertisement + price,
                                 data = perm_sample))
   rsq_perm[i] <- perm_lm_summary$r.squared
@@ -162,13 +282,73 @@ rsq_original > rsq_perm_quantile
 
 Alkuperäisestä otoksesta laskettu selitysaste on suurempi kuin yllä oleva $0.95$-otoskvantiili, joten permutaatiotestin nollahypoteesi hylätään. Halutessasi voit myös laskea permutaatiotestin p-arvon vertaamalla kuinka suuri osuus selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$ on suurempaa kuin alkuperäisestä otoksesta laskettu selitysaste.
 ```{r}
-mean(rsq_original < rsq_perm_quantile)
+mean(rsq_original < rsq_perm)
 ```
-Tässä tapauksessa p-arvo on käytännössä nolla.
+Tässä tapauksessa p-arvo on suurempaa kuin merkitsevyystaso, joten nollahypoteesia ei hylätä. Meillä ei siis ole näyttöä sen puolesta, että mainostus selittäisi voittojen määrää.
 
+Tässä voidaan myös todeta, että permutaatiotestin tuloksiin liittyy satunnaisuutta, jos kaikkia $n!$ permutaatioita ei käytetä. Tämän vuoksi jokaisella algoritmin ajolla saat hieman erilaiset luottamusvälit. Tätä havainnollistaa myös kuvat \@ref(fig:twoperm) ja \@ref(fig:oneperm).
+
+(ref:twoperm) Vasemmassa kuvassa näkyvä sininen histogrammi on muodostettu $m = 1000$ kappaleesta estimaatteja $\left\{R_1^2, \ldots, R_m^2\right\}$, jotka laskettiin tässä esimerkissä permutoiduista otoksista. Vasemman kuvan sininen pystyviiva kuvaa $0.95$-otoskvantiilia estimaateista $\left\{R_1^2, \ldots, R_m^2\right\}$. Oikeassa kuvassa permutaatiotesti suoritettiin uudelleen, jolloin saatiin hieman erilaiset $m = 1000$ estimaattia (punainen histogrammi) ja otoskvantiili (punainen pystyviiva).
+
+```{r, twoperm, fig.cap="(ref:twoperm)", fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyr)
+
+# Create a vector for storing R^2
+rsq_perm2 <- rep(NA, m)
+
+for (i in 1:m) {
+  perm_advertisement <- sale$advertisement[sample(1:n, n, replace = FALSE)]
+  
+  perm_sample <- sale %>%
+    mutate(advertisement = perm_advertisement)
+
+  perm_lm_summary <- summary(lm(profit ~ advertisement + price,
+                                data = perm_sample))
+  rsq_perm2[i] <- perm_lm_summary$r.squared
+}
+
+rsq_perm_quantile2 <- quantile(rsq_perm2, probs = 1 - alpha)
+
+df <- tibble::tibble(perm1 = rsq_perm, perm2 = rsq_perm2) |>
+  pivot_longer(everything(), names_to = "perm", values_to = "rsq") |>
+  mutate(perm = factor(perm))
+
+xlims <- range(df$rsq)
+
+par(mar = c(4, 4, .1, .1))
+df |>
+  filter(perm == "perm1") |>
+  ggplot(aes(x = rsq)) +
+  geom_histogram(position = "identity", alpha = 0.2, fill = "blue") +
+  geom_vline(xintercept = rsq_perm_quantile, linetype = "dashed", color = "blue") +
+  ylab("Määrä") +
+  xlab(expression(R^2)) +
+  xlim(xlims[1], xlims[2])
+
+df |>
+  filter(perm == "perm2") |>
+  ggplot(aes(x = rsq)) +
+  geom_histogram(position = "identity", alpha = 0.2, fill = "red") +
+  geom_vline(xintercept = rsq_perm_quantile2, linetype = "dashed", color = "red") +
+  ylab("Määrä") +
+  xlab(expression(R^2)) +
+  xlim(xlims[1], xlims[2])
+```
+
+(ref:oneperm) Sama tilanne kuin kuvassa \@ref(fig:twoperm). Nyt vain histogrammit ja otoskvantiilit ollaan piirretty samaan kuvaan. Tästä kuvasta nähdään selkeämmin, että eri permutaatiotestin ajoilla saadaan hieman erilaiset tulokset.
+
+```{r, oneperm, fig.cap="(ref:oneperm)", message=FALSE, echo=FALSE}
+ggplot(df, aes(x = rsq, fill = perm)) +
+  geom_histogram(position = "identity", alpha = 0.2) +
+  geom_vline(xintercept = rsq_perm_quantile, linetype = "dashed", color = "blue") +
+  geom_vline(xintercept = rsq_perm_quantile2, linetype = "dashed", color = "red") +
+  scale_fill_manual(values = c("perm1" = "blue", "perm2" = "red")) +
+  ylab("Määrä") +
+  xlab(expression(R^2)) +
+  theme(legend.position = "none")
+```
 :::
 
-### Parametrien merkitsevyys
 
 ## Uusiomenetelmä {#sec:bootstrap}
 

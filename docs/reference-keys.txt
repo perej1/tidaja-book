@@ -164,6 +164,9 @@ eq:linearnonparam
 def:whitenoiserelax
 prp:permutation
 exm:unlabeled-div-42
+exm:perm
+fig:twoperm
+fig:oneperm
 fig:conf
 exm:unlabeled-div-43
 fig:twoboot
