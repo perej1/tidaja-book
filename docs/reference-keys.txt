@@ -163,6 +163,8 @@ eq:linearnonparam
 def:whitenoiserelax
 fig:conf
 exm:unlabeled-div-42
+fig:twoboot
+fig:oneboot
 prp:unlabeled-div-43
 eq:euclidean
 exm:unlabeled-div-45

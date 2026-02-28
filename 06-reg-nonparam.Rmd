@@ -99,22 +99,165 @@ Tässä olemme kiinnostuneita luottamusvälin laskemisesta parametrille $\beta_j
 \begin{equation*}
   \overrightarrow{Z}^{(1)} = \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots, (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\}
 \end{equation*}
-alkuperäinen otos, jonka otoskoko on $n$. Muodosta uusi $n$ kokoinen otos $\overrightarrow{Z}^{(2)}$ palautusotannalla alkuperäisestä otoksesta $\overrightarrow{Z}^{(1)}$. Uutta otosta kutsumme $\overrightarrow{Z}^{(2)}$ uusio-otokseksi (eng: *bootstrap sample*).
+alkuperäinen otos, jonka otoskoko on $n$. Muodosta uusi $n$ kokoinen otos $\overrightarrow{Z}^{(2)}$ palautusotannalla alkuperäisestä otoksesta $\overrightarrow{Z}^{(1)}$. Uutta otosta $\overrightarrow{Z}^{(2)}$ kutsumme uusio-otokseksi (eng: *bootstrap sample*).
 
     - Palautusotanta: valitset havaintoja (vektoreita) $(y_i, x_{i1}, x_{i2}, \ldots, x_{id})$ alkuperäisestä otoksestä satunnaisesti niin, että sama havainto voidaan valita useampaan kertaan.
 
-2. Laske estimaatti $\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T$ muodostetusta uusio-otoksesta $\overrightarrow{Z}^{(2)}$.
+2. Laske estimaatti $\hat{\boldsymbol\beta}^{(2)} = \left(\hat\beta_0^{(2)}, \hat\beta_1^{(2)}, \ldots, \hat\beta_d^{(2)}\right)^T$ muodostetusta uusio-otoksesta $\overrightarrow{Z}^{(2)}$.
 
-3. Toista edelliset askeleet $m - 1$ kertaa (esimerkiksi $m = 999$).
+3. Toista edelliset askeleet $m - 1$ kertaa (esimerkiksi $m = 1000$).
+
+    - Mitä suurempi $m$, sitä parempi estimaatti luottamusvälille saadaan. Kuitenkin mitä suurempi $m$ arvo, sitä pidempään uusiomenetelmän suorittamisessa kestää tietokoneelta.
 
 4. Nappaa alkuperäisen otoksen $\overrightarrow{Z}^{(1)}$ avulla laskettu estimaatti $\hat\beta_j^{(1)}$ parametrille $\beta_j$. Poimi myös uusio-otosten avulla lasketut estimaatit $\hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}$.
 
 5. Järjestä estimaatit $\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}$ suuruusjärjestykseen. Aseta luottamusvälin alapääksi $\left[\frac{\alpha}{2}\times m\right]$ järjestetty estimaatti. Aseta luottamusvälin yläpääksi $\left[\frac{\alpha}{2}\times m\right]$ järjestetty estimaatti. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea estimaatteja $\left\{\hat\beta_j^{(1)}, \hat\beta_j^{(2)}, \ldots, \hat\beta_j^{(m)}\right\}$ vastaavat $\alpha/2$- ja $(1 - \alpha/2)$-otoskvantiilit.
 
-Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys *bootstrap* viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä.
+Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys *bootstrap* viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä. Alla sovellamme uusiomenetelmää käytännössä.
 
-:::{.example}
-TODO
+:::{.example name="Uusiomenetelmä"}
+```{r, echo=FALSE}
+sale <- readr::read_csv("data/sales.csv", col_types = "ddd")
+set.seed(123)
+```
+
+Käytämme samaa dataa kuin esimerkissä \@ref(exm:fitreg). Eli meillä on kuvitteellinen $n = 10$ kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista $(Y, X_1, X_2)$, jossa
+
+- $Y = \text{voitto kuukaudessa tuhansina euroina}$ (`profit`),
+
+- $X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}$ (`advertisement`) ja
+
+- $X_2 = \text{tuotteen hinta tuhansina euroina}$ (`price`).
+
+```{r}
+sale
+```
+
+Tavoitteenamme on laskea $0.95$-luottamusväli uusiomenetelmällä lineaarisen regressiomallin
+\begin{equation*}
+  \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
+\end{equation*}
+kertoimelle $\beta_2$. Ennen kuin kirjoitamme uusiomenetelmä algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu estimaatti parametrille $\beta_2$ saadaan napattua `lm()` funktion tuottamasta muuttujasta.
+```{r}
+# Fit model
+sale_lm <- lm(profit ~ advertisement + price, data = sale)
+
+# Inspect how to pick beta2
+names(sale_lm)
+sale_lm$coefficients
+
+beta2 <- sale_lm$coefficients[3]
+beta2
+```
+
+Seuraavaksi näytämme, miten uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = TRUE`. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran.
+```{r}
+n <- nrow(sale)
+boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
+boot_sample
+```
+
+Vertaamalla muuttujia `sale` ja `boot_sample` huomataan, että kaikki taulukon `boot_sample` rivit ovat taulukon `sale` rivejä. Kuitenkin taulukossa `boot_sample` sama rivi voi esiintyä useamman kerran. Uusio-otoksesta saadaan laskettua estimaatti kertoimelle $\beta_2$ samaan tyyliin kuin alkuperäisen otoksen avulla.
+
+Nyt olemme valmiita kirjoittamaan uusiomenetelmä algoritmin askeleet 1--4. Algoritmin voi kirjoittaa lyhyemminkin tai sen voi suorittaa käyttämällä R paketteja. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
+```{r}
+# Number of repetitions (including the estimate from the original sample)
+m <- 1000
+
+# Sample size
+n <- nrow(sale)
+
+# Create a vector for storing all the estimates
+beta_boot <- rep(NA, m)
+
+# Compute the parameter estimate from the original sample and store it
+sale_lm <- lm(profit ~ advertisement + price, data = sale)
+beta_boot[1] <- sale_lm$coefficients[3]
+
+
+for (i in 2:m) {
+  # Construct the ith bootstrap sample and formulate the corresponding
+  # linear regression model
+  boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
+  boot_lm <- lm(profit ~ advertisement + price, data = boot_sample)
+  
+  # Compute the parameter estimate from the bootsrap sample and store it
+  beta_boot[i] <- boot_lm$coefficients[3]
+}
+```
+
+Vektori `beta_boot` sisältää nyt alkuperäisellä otoksella lasketun estimaatin $\hat\beta_2^{(1)}$ parametrille $\beta_2$ ja vastaavat uusio-otoksista lasketut estimaatit $\hat\beta_2^{(2)}, \ldots, \hat\beta_2^{(m)}$.
+```{r}
+head(beta_boot)
+```
+
+Jäljellä on vielä algoritmin 5 askel. Eli haluamme laskea $\alpha/2$- ja $(1 - \alpha/2)$-otoskvantiilit estimaateista $\left\{\hat\beta_1^{(2)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_2^{(m)}\right\}$, kun $\alpha = 0.05$. Tämän voimme suorittaa helposti funktiolla `quantile()`.
+```{r}
+alpha <- 0.05
+boot_ci <- quantile(beta_boot, probs = c(alpha / 2, 1 - alpha / 2))
+boot_ci
+```
+Nyt vektori `boot_ci` sisältää luottamusvälin ala- ja ylärajan. Eli parametrille $\beta_2$ saimme $0.95$-luottamusväliksi $\approx [-7.1, -3.2]$.
+
+Huomaa, että uusio-otoksien muodostamiseen (koodissa `boot_sample`) liittyy satunnaisuutta. Tämän vuoksi jokaisella algoritmin ajolla saat hieman erilaiset luottamusvälit. Tätä havainnollistaa myös kuvat \@ref(fig:twoboot) ja \@ref(fig:oneboot).
+
+(ref:twoboot) Vasemmassa kuvassa näkyvä sininen histogrammi on muodostettu $m = 1000$ kappaleesta estimaatteja $\left\{\hat\beta_2^{(1)}, \hat\beta_2^{(2)}, \ldots, \hat\beta_2^{(m)}\right\}$, jotka laskettiin tässä esimerkissä. Vasemman kuvan siniset pystyviivat kuvaavat $0.95$-luottamusvälin ylä- ja alarajaa. Oikeassa kuvassa uusiomenetelmä suoritettiin uudelleen, jolloin saatiin hieman erilaiset $m = 1000$ estimaattia (punainen histogrammi) ja luottamusväli (punaiset pystyviivat).
+
+```{r, twoboot, fig.cap="(ref:twoboot)", fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyr)
+beta_boot2 <- rep(NA, m)
+beta_boot2[1] <- beta_boot[1]
+
+for (i in 2:m) {
+  boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
+  boot_lm <- lm(profit ~ advertisement + price, data = boot_sample)
+  beta_boot2[i] <- boot_lm$coefficients[3]
+}
+
+boot_ci2 <- quantile(beta_boot2, probs = c(alpha / 2, 1 - alpha / 2))
+
+df <- tibble::tibble(boot1 = beta_boot, boot2 = beta_boot2) |>
+  pivot_longer(everything(), names_to = "boot", values_to = "beta") |>
+  mutate(boot = factor(boot))
+
+xlims <- range(df$beta)
+
+par(mar = c(4, 4, .1, .1))
+df |>
+  filter(boot == "boot1") |>
+  ggplot(aes(x = beta)) +
+  geom_histogram(position = "identity", alpha = 0.2, fill = "blue") +
+  geom_vline(xintercept = boot_ci, linetype = "dashed", color = "blue") +
+  ylab("Määrä") +
+  xlab(expression(hat(beta)[2])) +
+  xlim(xlims[1], xlims[2]) +
+  ylim(0, 142)
+
+df |>
+  filter(boot == "boot2") |>
+  ggplot(aes(x = beta)) +
+  geom_histogram(position = "identity", alpha = 0.2, fill = "red") +
+  geom_vline(xintercept = boot_ci2, linetype = "dashed", color = "red") +
+  ylab("Määrä") +
+  xlab(expression(hat(beta)[2])) +
+  xlim(xlims[1], xlims[2]) +
+  ylim(0, 142)
+```
+
+(ref:oneboot) Sama tilanne kuin kuvassa \@ref(fig:twoboot). Nyt vain histogrammit ja luottamusvälit ollaan piirretty samaan kuvaan. Tästä kuvasta nähdään selkeämmin, että eri uusiomenetelmän ajoilla saadaan hieman erilaiset tulokset.
+
+```{r, oneboot, fig.cap="(ref:oneboot)", message=FALSE, echo=FALSE}
+ggplot(df, aes(x = beta, fill = boot)) +
+  geom_histogram(position = "identity", alpha = 0.2) +
+  geom_vline(xintercept = boot_ci, linetype = "dashed", color = "blue") +
+  geom_vline(xintercept = boot_ci2, linetype = "dashed", color = "red") +
+  scale_fill_manual(values = c("boot1" = "blue", "boot2" = "red")) +
+  ylab("Määrä") +
+  xlab(expression(hat(beta)[2])) +
+  theme(legend.position = "none")
+```
+
+
 :::
 
 :::{.proposition}
