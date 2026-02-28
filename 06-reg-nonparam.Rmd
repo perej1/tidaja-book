@@ -5,13 +5,13 @@ Palataan tässä luvussa takaisin lineaariseen regressiomalliin
   (\#eq:linearnonparam)
   y_i = \beta_0  + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id} + \varepsilon_i, \quad i\in\{1, \ldots, n\}.
 \end{equation}
-Luvussa \@ref(sec:regtesting) käsittelimme tilastollisia testejä liittyen mallin merkitsevyyteen (F-testi) ja parametrien $\beta_j$ merkitsevyyteen (t-testi). Nämä testit ovat parametrisia, koska testeissä oletamme satunaisvirheiden noudattavan normaalijakaumaa -- satunnaisvirheet ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa.
+Luvussa \@ref(sec:regtesting) käsittelimme tilastollisia testejä liittyen lineaariseen regressiomalliin. Nämä testit ovat parametrisia, koska testeissä oletamme satunaisvirheiden noudattavan normaalijakaumaa -- satunnaisvirheet ovat määritelmän \@ref(def:whitenoise) mukaista valkoista kohinaa.
 
-Kuitenkin usein on kohtuutonta olettaa, että satunnaistermit $\varepsilon_i$ noudattavat jotain tiettyä parametrista jakaumaa kuten normaalijakaumaa. Tämän vuoksi tässä luvussa esittelemme epäparametrisia menetelmiä lineaarisen regression kontekstissa. Luvussa \@ref(sec:permutation) annamme epäparametriset vastineet merkitsevyystesteille. Luvussa \@ref(sec:bootstrap) esittelemme epäparametrisen menetelmän luottamusvälien muodostamiseen parametreille $\beta_j$.
+Kuitenkin usein on kohtuutonta olettaa, että satunnaistermit $\varepsilon_i$ noudattavat jotain tiettyä parametrista jakaumaa kuten normaalijakaumaa. Tämän vuoksi tässä luvussa esittelemme epäparametrisia menetelmiä lineaarisen regression kontekstissa. Luvussa \@ref(sec:permutation) annamme epäparametriset vastineet luvun \@ref(sec:regtesting) tilastollisille testeille. Luvussa \@ref(sec:bootstrap) esittelemme epäparametrisen menetelmän luottamusvälien muodostamiseen parametreille $\beta_j$.
 
-**Kaikissa tämän luvun menetelmissä oletamme, että virhetermit ovat määritelmän \@ref(def:whitenoiserelax) mukaista valkoista kohinaa. Ero siis määritelmien \@ref(def:whitenoise) ja \@ref(def:whitenoiserelax) välillä on, että nyt emme oleta virhetermeille mitään tiettyä jakaumaa.**
+**Kaikissa tämän luvun menetelmissä oletamme, että virhetermit ovat määritelmän \@ref(def:whitenoiserelax) mukaista valkoista kohinaa. Ero määritelmien \@ref(def:whitenoise) ja \@ref(def:whitenoiserelax) välillä on, että nyt emme oleta virhetermeille mitään tiettyä jakaumaa.**
 
-:::{.definition #whitenoiserelax name="Valkoinen kohina"}
+:::{.definition #whitenoiserelax name="Valkoinen kohina, joustavampi määritelmä"}
 Mallin \@ref(eq:linearnonparam) virheet $\varepsilon_i$ ovat satunnaismuuttujia, joille pätee seuraavat oletukset.
 
 1. Satunnaisvirheet $\varepsilon_i$ ovat riippumattomia ja samoin jakautuneita.
@@ -24,7 +24,9 @@ Mallin \@ref(eq:linearnonparam) virheet $\varepsilon_i$ ovat satunnaismuuttujia,
 
 ## Permutaatiotesti {#sec:permutation}
 
+Ensin esittelemme epäparametrisen vastineen lineaarisen mallin merkitsevyyden testaamiseen (parametrinen testi olisi F-testi). Tämän jälkeen esittelemme epäparametrisen vastineen yhden parametrin $\beta_j$, $j\in\{0,1, \ldots, d\}$, merkitsevyyden testaamiseen (parametrinen testi olisi t-testi).
 
+Luvun molempien testien ideat ovat samankaltaisia. Tämän vuoksi käymme mallin merkitsevyyden testaamiseen liittyvän teorian hieman tarkemmin.
 
 ### Mallin merkitsevyys
 
@@ -43,13 +45,15 @@ Nämä ovat siis täysin samat hypoteesit kuin F-testissä. Permutaatiotesti mer
 \begin{equation*}
   \left\{\underbrace{(y_1, x_{11}, x_{12}, \ldots, x_{1d})}_{\text{$(d+1)$-ulotteinen havainto nro $1$}}, \ldots, \underbrace{(y_n, x_{n1}, x_{n2}, \ldots, x_{nd})}_{\text{$(d+1)$-ulotteinen havainto nro $n$}}\right\}
 \end{equation*}
-alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(y_i, x_{i1}, x_{i2}, \ldots, x_{id}) = (y_i, \boldsymbol x_i)$, jossa $\boldsymbol x_i\in\mathbb{R}^d$. Laske $R^2$ alkuperäisestä otoksesta $\left\{(y_1, \boldsymbol x_1), \ldots, (y_n, \boldsymbol x_n)\right\}$.
+alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(y_i, x_{i1}, x_{i2}, \ldots, x_{id}) = (y_i, \boldsymbol x_i)$, jossa $\boldsymbol x_i\in\mathbb{R}^d$. Laske selitysaste $R^2$ alkuperäisestä otoksesta $\left\{(y_1, \boldsymbol x_1), \ldots, (y_n, \boldsymbol x_n)\right\}$.
 
-2. Muodosta uusi $n$ kokoinen otos, joka koostuu uusista pareista $(y_i, \boldsymbol x_{\ell})$, joissa mahdollisesti $\ell\neq i$. Tämäntyyppisiä permutaatioituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutaatioidut otokset.
+2. Olkoon $i,\ell\in\{1, \ldots, n\}$. Muodosta uusi $n$ kokoinen otos, joka koostuu uusista pareista $(y_i, \boldsymbol x_{\ell})$, joissa mahdollisesti $\ell\neq i$. Muodosta parit niin, että jokainen alkuperäisen otoksen $y_i$ ja $x_\ell$ käytetään tasan kerran.
 
-3. Laske $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+3. Askeleen 2 tyyppisiä permutaatioituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutaatioidut otokset.
 
-4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $1 - \alpha$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
+3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+
+4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
 
 :::{.proposition #permutation}
 Yllä olevassa permutaatiotestin kuvauksessa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutaatioitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta.
@@ -68,6 +72,7 @@ Käytämme samaa dataa kuin esimerkissä \@ref(exm:fitreg). Eli meillä on kuvit
 
 ```{r, echo=FALSE}
 sale <- readr::read_csv("data/sales.csv", col_types = "ddd")
+set.seed(123)
 ```
 
 
@@ -79,19 +84,88 @@ Tavoitteenamme on testata lineaarisen regressiomallin
 \begin{equation*}
   \texttt{profit}_i = \beta_0 + \beta_1 \texttt{advertisement}_i + \beta_2 \texttt{price}_i + \varepsilon_i
 \end{equation*}
-merkitsevyyttä permutaatiotestillä. Asetamme merkitsevyystasoksi $\alpha = 0.05$. Ennen kuin kirjoitamme permutaatiotestin algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu selitysaste $R^2$ saadaan napattua `lm()` funktion tuottamasta muuttujasta.
+merkitsevyyttä permutaatiotestillä. Asetamme merkitsevyystasoksi $\alpha = 0.05$. Ennen kuin kirjoitamme permutaatiotestin algoritmin kokonaisuudessaan, kuvailemme tarkemmin muutamaa tärkeää askelta. Alkuperäisestä otoksesta laskettu selitysaste $R^2$ saadaan napattua funktion `summary()` tuottamasta muuttujasta.
 ```{r}
-# Fit model
+# Fit model and compute summary
 sale_lm_summary <- summary(lm(profit ~ advertisement + price, data = sale))
 
-# Inspect how to pick beta2
+# Inspect how to pick R^2
 names(sale_lm_summary)
 
 rsquared <- sale_lm_summary$r.squared
 rsquared
 ```
 
-Seuraavaksi näytämme, miten permutaatioitu otos muodostetaan. Permutaatioidun otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = FALSE`. Tällöin on mahdollista valita sama $\boldsymbol x_i$ (eli (eli rivi) vain kerran.
+Seuraavaksi näytämme, miten yksi permutaatioitu otos muodostetaan. Permutaatioidun otoksen voi muodostaa valitsemalla selittävektoreiden arvoja alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = FALSE`. Tällöin on mahdollista valita sama arvo $\boldsymbol x_i$ vain kerran.
+```{r}
+n <- nrow(sale)
+
+# Permutate observations of the explanatory variables
+perm_sample_x <- sale[sample(1:n, n, replace = FALSE), -1]
+
+# Combine original y and permutated x
+perm_sample <- dplyr::bind_cols(sale[, 1], perm_sample_x)
+perm_sample
+```
+Taulukoissa `sale` ja `perm_sample` selitettävää muuttujaa vastaava sarake (eli `profit`) on sama. Kuitenkin taulukossa `perm_sample` vektorit $(\texttt{advertisement}_i, \texttt{price}_i)$ ovat vaihtaneet paikkoja. Esimerkiksi taulukossa `sale`,
+\begin{equation*}
+(2.88, 4.78) = (\texttt{advertisement}_1, \texttt{price}_1)
+\end{equation*}
+mutta taulukossa `perm_sample`
+\begin{equation*}
+  (2.88, 4.78) = (\texttt{advertisement}_7, \texttt{price}_7).
+\end{equation*}
+Permutaatioidusta otoksesta saadaan laskettua selitysaste $R_k^2$ samaan tyyliin kuin alkuperäisestä otoksesta.
+
+Nyt olemme valmiita kirjoittamaan permutaatiotestin algoritmin askeleet 1--4. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
+```{r}
+# Number of permutation samples
+m <- 1000
+
+# Sample size
+n <- nrow(sale)
+
+# Create a vector for storing R^2
+rsq_perm <- rep(NA, m)
+
+# Compute R^2 from the original sample
+sale_lm_summary <- summary(lm(profit ~ advertisement + price, data = sale))
+rsq_original <- sale_lm_summary$r.squared
+
+
+for (i in 1:m) {
+  # Construct the ith permutated sample
+  perm_sample_x <- sale[sample(1:n, n, replace = FALSE), -1]
+
+  # Combine original y and permutated x
+  perm_sample <- dplyr::bind_cols(sale[, 1], perm_sample_x)
+  
+  # Compute R^2 from the permutated sample
+  perm_lm_summary <- summary(lm(profit ~ advertisement + price,
+                                data = perm_sample))
+  rsq_perm[i] <- perm_lm_summary$r.squared
+}
+```
+
+Vektori `rsq_perm` sisältää nyt permutaatioituja otoksia vastaavat selitysasteet $R_1^2, \ldots, R_m^2$.
+```{r}
+head(rsq_perm)
+```
+
+Jäljellä on vielä algoritmin askel 5. Haluamme siis laskea $(1-\alpha)$-otoskvantiilin selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$, kun $\alpha = 0.05$. Tämän voi helposti suorittaa funktiolla `quantile()`.
+```{r}
+alpha <- 0.05
+rsq_perm_quantile <- quantile(rsq_perm, probs = 1 - alpha)
+rsq_perm_quantile
+rsq_original > rsq_perm_quantile
+```
+
+Alkuperäisestä otoksesta laskettu selitysaste on suurempi kuin yllä oleva $0.95$-otoskvantiili, joten permutaatiotestin nollahypoteesi hylätään. Halutessasi voit myös laskea permutaatiotestin p-arvon vertaamalla kuinka suuri osuus selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$ on suurempaa kuin alkuperäisestä otoksesta laskettu selitysaste.
+```{r}
+mean(rsq_original < rsq_perm_quantile)
+```
+Tässä tapauksessa p-arvo on käytännössä nolla.
+
 :::
 
 ### Parametrien merkitsevyys
@@ -217,7 +291,7 @@ beta2 <- sale_lm$coefficients[3]
 beta2
 ```
 
-Seuraavaksi näytämme, miten uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = TRUE`. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran.
+<!-- Seuraavaksi näytämme, miten yksi uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = TRUE`. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran. -->
 ```{r}
 n <- nrow(sale)
 boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
@@ -226,7 +300,7 @@ boot_sample
 
 Vertaamalla muuttujia `sale` ja `boot_sample` huomataan, että kaikki taulukon `boot_sample` rivit ovat taulukon `sale` rivejä. Kuitenkin taulukossa `boot_sample` sama rivi voi esiintyä useamman kerran. Uusio-otoksesta saadaan laskettua estimaatti kertoimelle $\beta_2$ samaan tyyliin kuin alkuperäisen otoksen avulla.
 
-Nyt olemme valmiita kirjoittamaan uusiomenetelmä algoritmin askeleet 1--4. Algoritmin voi kirjoittaa lyhyemminkin tai sen voi suorittaa käyttämällä R paketteja. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
+Nyt olemme valmiita kirjoittamaan uusiomenetelmä algoritmin askeleet 1--4. Selkeyden vuoksi toteutamme algoritmin `for` silmukan avulla.
 ```{r}
 # Number of repetitions (including the estimate from the original sample)
 m <- 1000
@@ -248,7 +322,7 @@ for (i in 2:m) {
   boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
   boot_lm <- lm(profit ~ advertisement + price, data = boot_sample)
   
-  # Compute the parameter estimate from the bootsrap sample and store it
+  # Compute the parameter estimate from the bootstrap sample and store it
   beta_boot[i] <- boot_lm$coefficients[3]
 }
 ```
@@ -323,8 +397,6 @@ ggplot(df, aes(x = beta, fill = boot)) +
   xlab(expression(hat(beta)[2])) +
   theme(legend.position = "none")
 ```
-
-
 :::
 
 :::{.proposition}
