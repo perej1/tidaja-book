@@ -51,12 +51,12 @@ alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(
 
 3. Askeleen 2 mukaisia permutoituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutoidut otokset.
 
-3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutoidulle otokselle.
+4. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutoidulle otokselle.
 
-4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
+5. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
 
 :::{.proposition #permutation}
-Yllä kuvatussa permutaatiotestin algoritmissa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutoitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta. Tällöin permutaatiotestin tuloksiin liitty pientä satunnaisuutta riippuen siitä, mitkä permutoidut otokset valitaan. Pidä tämä mielessä kun pääset tutkimaan esimerkkiin \@ref(exm:perm) liittyviä kuvia \@ref(fig:twoperm) ja \@ref(fig:oneperm)). 
+Yllä kuvatussa permutaatiotestin algoritmissa muodostamme $n!$ otosta askeleessa 2. Tämä voi olla kuitenkin laskennallisesti liian vaativaa jopa suhteellisen pienille otoksille. Esimerkiksi jos otoskoko on $n = 10$, niin meidän täytyisi muodostaa $n! = 10 \cdot 9 \cdot \ldots \cdot 2\cdot 1 \approx 3.6 \cdot 10^6$ permutoitua otosta. Usein tapana on siis suorittaa permutaatiotesti satunnaisesti valituilla otoksilla, kun otoksia valitaan esimerkiksi $m = 1000$ kappaletta. Tällöin permutaatiotestin tuloksiin liittyy pientä satunnaisuutta riippuen siitä, mitkä permutoidut otokset valitaan. Pidä tämä mielessä kun pääset tutkimaan esimerkkiin \@ref(exm:perm) liittyviä kuvia \@ref(fig:twoperm) ja \@ref(fig:oneperm)). 
 :::
 
 Alla sovellamme permutaatiotestiä mallin merkitsevyydelle käytännössä.
@@ -169,7 +169,7 @@ Tässä tapauksessa p-arvo on käytännössä nolla.
 
 ### Parametrien merkitsevyys
 
-Nyt haluamme testata yhden kertoimen merkitsevyyttä $\beta_j$, $j\in\{1, \ldots, d\}$ samaan tyyliin kuin koko mallin merkitsevyyttä edellä. Esittelemme siis toisenlaisen permutaatiotestin, jolla testataan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
+Nyt haluamme testata yhden kertoimen merkitsevyyttä $\beta_j$, $j\in\{1, \ldots, d\}$, samaan tyyliin kuin koko mallin merkitsevyyttä edellä. Esittelemme siis toisenlaisen permutaatiotestin, jolla testataan seuraavaa nollahypoteesia $H_0$ vaihtoehtoista hypoteesia $H_1$ vastaan
 \begin{equation*}
   \begin{split}
     &H_0: \beta_j = 0, \\
@@ -188,11 +188,11 @@ alkuperäinen otos, jonka otoskoko on $n$. Kirjoitetaan havainto $i$ muodossa $(
 
 3. Askeleen 2 mukaisia permutoituja otoksia on mahdollista muodostaa $n!$ kappaletta. Muodosta siis kaikki mahdolliset permutoidut otokset.
 
-3. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutaatioidulle otokselle.
+4. Laske selitysaste $R_k^2$ jokaiselle $k = 1, \ldots, n!$ permutoidulle otokselle.
 
-4. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
+5. Järjestä arvot $R_1^2, \ldots, R_{n!}$ suuruusjärjestykseen. Laske $\left[(1 - \alpha)\times m\right]$ järjestetty selitysaste. Tässä notaatio $[\cdot]$ tarkoittaa pyöristämistä lähimpään kokonaislukuun. Tarkoitus on siis laskea selitysasteita $\left\{R_1^2, \ldots, R_{n!}^2\right\}$ vastaava $(1 - \alpha)$-otoskvantiili. Jos alkuperäisestä otoksesta laskettu $R^2$ on suurempi kuin laskettu otoskvantiili, niin nollahypoteesi $H_0$ hylätään.
 
-Huomautus \@ref(prp:permutation) pätee myös yllä kuvattuun permutaatiotestille parametrin merkitsevyydelle. Eli yleensä kaikkia mahdollisia permotoituja otoksia ei muodosteta.
+Huomautus \@ref(prp:permutation) pätee myös yllä kuvattuun permutaatiotestille parametrin merkitsevyydelle. Eli yleensä kaikkia mahdollisia permutoituja otoksia ei muodosteta.
 
 Alla sovellamme permutaatiotestiä kertoimen merkitsevyydelle käytännössä.
 
@@ -280,13 +280,14 @@ rsq_perm_quantile
 rsq_original > rsq_perm_quantile
 ```
 
-Alkuperäisestä otoksesta laskettu selitysaste on suurempi kuin yllä oleva $0.95$-otoskvantiili, joten permutaatiotestin nollahypoteesi hylätään. Halutessasi voit myös laskea permutaatiotestin p-arvon vertaamalla kuinka suuri osuus selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$ on suurempaa kuin alkuperäisestä otoksesta laskettu selitysaste.
+Alkuperäisestä otoksesta laskettu selitysaste on pienempi kuin yllä oleva $0.95$-otoskvantiili, joten permutaatiotestin nollahypoteesia ei hylätä. Halutessasi voit myös laskea permutaatiotestin p-arvon vertaamalla kuinka suuri osuus selitysasteista $\left\{R_1^2, \ldots, R_m^2\right\}$ on suurempaa kuin alkuperäisestä otoksesta laskettu selitysaste.
 ```{r}
 mean(rsq_original < rsq_perm)
 ```
-Tässä tapauksessa p-arvo on suurempaa kuin merkitsevyystaso, joten nollahypoteesia ei hylätä. Meillä ei siis ole näyttöä sen puolesta, että mainostus selittäisi voittojen määrää.
 
-Tässä voidaan myös todeta, että permutaatiotestin tuloksiin liittyy satunnaisuutta, jos kaikkia $n!$ permutaatioita ei käytetä. Tämän vuoksi jokaisella algoritmin ajolla saat hieman erilaiset luottamusvälit. Tätä havainnollistaa myös kuvat \@ref(fig:twoperm) ja \@ref(fig:oneperm).
+Meillä ei siis ole näyttöä sen puolesta, että mainostus selittäisi voittojen määrää.
+
+Permutaatiotestin tuloksiin liittyy satunnaisuutta, jos kaikkia $n!$ permutaatioita ei käytetä. Tämän vuoksi jokaisella algoritmin ajolla saat hieman erilaiset luottamusvälit. Tätä havainnollistaa myös kuvat \@ref(fig:twoperm) ja \@ref(fig:oneperm).
 
 (ref:twoperm) Vasemmassa kuvassa näkyvä sininen histogrammi on muodostettu $m = 1000$ kappaleesta estimaatteja $\left\{R_1^2, \ldots, R_m^2\right\}$, jotka laskettiin tässä esimerkissä permutoiduista otoksista. Vasemman kuvan sininen pystyviiva kuvaa $0.95$-otoskvantiilia estimaateista $\left\{R_1^2, \ldots, R_m^2\right\}$. Oikeassa kuvassa permutaatiotesti suoritettiin uudelleen, jolloin saatiin hieman erilaiset $m = 1000$ estimaattia (punainen histogrammi) ja otoskvantiili (punainen pystyviiva).
 
@@ -323,7 +324,8 @@ df |>
   geom_vline(xintercept = rsq_perm_quantile, linetype = "dashed", color = "blue") +
   ylab("Määrä") +
   xlab(expression(R^2)) +
-  xlim(xlims[1], xlims[2])
+  xlim(xlims[1], 1) +
+  ylim(0, 250)
 
 df |>
   filter(perm == "perm2") |>
@@ -332,12 +334,13 @@ df |>
   geom_vline(xintercept = rsq_perm_quantile2, linetype = "dashed", color = "red") +
   ylab("Määrä") +
   xlab(expression(R^2)) +
-  xlim(xlims[1], xlims[2])
+  xlim(xlims[1], 1) +
+  ylim(0, 250)
 ```
 
 (ref:oneperm) Sama tilanne kuin kuvassa \@ref(fig:twoperm). Nyt vain histogrammit ja otoskvantiilit ollaan piirretty samaan kuvaan. Tästä kuvasta nähdään selkeämmin, että eri permutaatiotestin ajoilla saadaan hieman erilaiset tulokset.
 
-```{r, oneperm, fig.cap="(ref:oneperm)", message=FALSE, echo=FALSE}
+```{r, oneperm, fig.cap="(ref:oneperm)", message=FALSE, echo=FALSE, warning=FALSE}
 ggplot(df, aes(x = rsq, fill = perm)) +
   geom_histogram(position = "identity", alpha = 0.2) +
   geom_vline(xintercept = rsq_perm_quantile, linetype = "dashed", color = "blue") +
@@ -345,7 +348,9 @@ ggplot(df, aes(x = rsq, fill = perm)) +
   scale_fill_manual(values = c("perm1" = "blue", "perm2" = "red")) +
   ylab("Määrä") +
   xlab(expression(R^2)) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  xlim(xlims[1], 1) +
+  ylim(0, 250)
 ```
 :::
 
@@ -471,7 +476,7 @@ beta2 <- sale_lm$coefficients[3]
 beta2
 ```
 
-<!-- Seuraavaksi näytämme, miten yksi uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = TRUE`. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran. -->
+Seuraavaksi näytämme, miten yksi uusio-otos muodostetaan. Uusio-otoksen voi muodostaa valitsemalla rivejä alkuperäisestä taulukosta käyttämällä funktiota `sample()`. On erittäin tärkeää, että funktiossa `sample()` asetat `replace = TRUE`. Tällöin on mahdollista valita sama havainto (eli rivi) useamman kerran.
 ```{r}
 n <- nrow(sale)
 boot_sample <- sale[sample(1:n, n, replace = TRUE), ]
@@ -494,7 +499,6 @@ beta_boot <- rep(NA, m)
 # Compute the parameter estimate from the original sample and store it
 sale_lm <- lm(profit ~ advertisement + price, data = sale)
 beta_boot[1] <- sale_lm$coefficients[3]
-
 
 for (i in 2:m) {
   # Construct the ith bootstrap sample and formulate the corresponding
@@ -567,7 +571,7 @@ df |>
 
 (ref:oneboot) Sama tilanne kuin kuvassa \@ref(fig:twoboot). Nyt vain histogrammit ja luottamusvälit ollaan piirretty samaan kuvaan. Tästä kuvasta nähdään selkeämmin, että eri uusiomenetelmän ajoilla saadaan hieman erilaiset tulokset.
 
-```{r, oneboot, fig.cap="(ref:oneboot)", message=FALSE, echo=FALSE}
+```{r, oneboot, fig.cap="(ref:oneboot)", message=FALSE, echo=FALSE, warning=FALSE}
 ggplot(df, aes(x = beta, fill = boot)) +
   geom_histogram(position = "identity", alpha = 0.2) +
   geom_vline(xintercept = boot_ci, linetype = "dashed", color = "blue") +
@@ -575,7 +579,9 @@ ggplot(df, aes(x = beta, fill = boot)) +
   scale_fill_manual(values = c("boot1" = "blue", "boot2" = "red")) +
   ylab("Määrä") +
   xlab(expression(hat(beta)[2])) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  xlim(xlims[1], xlims[2]) +
+  ylim(0, 142)
 ```
 :::
 
