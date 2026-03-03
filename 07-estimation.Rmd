@@ -1,0 +1,5 @@
+# Estimoinnista
+
+## Suurimman uskottavuuden menetelmä {#sec:mle}
+
+## Momenttimenetelmä {#sec:moment}

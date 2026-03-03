@@ -207,6 +207,9 @@ sec:permutation
 mallin-merkitsevyys
 parametrien-merkitsevyys
 sec:bootstrap
+estimoinnista
+sec:mle
+sec:moment
 liitteet
 sec:vector
 sec:matrix

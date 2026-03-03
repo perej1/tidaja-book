@@ -28,7 +28,7 @@ topics <- c(
   "Kertaus"
   )
 
-location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", "Luku 4", "Luvut 5.1--5.3", "Luvut 5.4 ja 6", rep("TODO", 3), "Ei uutta materiaalia")
+location <- c("Luku 1", "Luvut 2.1--2.2", "Luvut 2.3--2.5", "Luvut 3.1--3.3", "Luvut 3.4--3.5", "Luku 4", "Luvut 5.1--5.3", "Luvut 5.4 ja 6", "Luku 7", rep("TODO", 2), "Ei uutta materiaalia")
 
 table <- tibble::tibble(Viikko = weeks, Aihe = topics, Luku = location)
 
