@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-03" />
+<meta name="date" content="2026-03-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -249,8 +249,49 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="estimoinnista" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Luku 7</span> Estimoinnista<a href="estimoinnista.html#estimoinnista" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li><p>tarkentuvuus</p></li>
+<li><p>harhattomuus</p></li>
+<li><p>mean squared error</p></li>
+</ul>
 <div id="sec:mle" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Suurimman uskottavuuden menetelmä<a href="estimoinnista.html#sec:mle" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos yksiulotteisesta parametrisesta jakaumasta <span class="math inline">\(F_{\theta}\)</span>, <span class="math inline">\(\theta\in\mathbb{R}\)</span>. Suurimman uskottavuuden (SU, eng: <em>maximum likelihood</em>) menetelmä on eräs tärkeimmistä estimointimenetelmä määrittää paras arvaus parametrille <span class="math inline">\(\theta\)</span> havaitun datan perusteella <span class="math inline">\(\overrightarrow{x}\)</span>. Huomioi, että SU-menetelmässä jakauman “muoto” ollaan päätetty etukäteen.</p>
+<div class="example">
+<p><span id="exm:mleidea" class="example"><strong>Esimerkki 7.1  (SU-menetelmän tavoite) </strong></span>Meillä on saatavilla seuraava otos jostain jakaumasta.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="estimoinnista.html#cb265-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1] 4.439524 4.769823 6.558708 5.070508 5.129288 6.715065 5.460916 3.734939
+##  [9] 4.313147 4.554338</code></pre>
+<p>Oletetaan, että otos <span class="math inline">\(x\)</span> tulee tietystä jakaumasta. Esimerkiksi oletetaan, että otoksen havainnot noudattavat jakaumaa <span class="math inline">\(N(\mu, \sigma^2)\)</span>, jonka tiheysfunktio on
+<span class="math display">\[\begin{equation*}
+  f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
+\end{equation*}\]</span>
+Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrivektorin <span class="math inline">\(\theta = (\mu, \sigma^2)\)</span>. Voisiko parametrivektori olla <span class="math inline">\(\theta = (5, 1)\)</span>, <span class="math inline">\(\theta = (3, 1)\)</span> tai <span class="math inline">\(\theta = (5, 9)\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlenormal">7.1</a> avulla.</p>
+
+<div class="figure"><span style="display:block;" id="fig:mlenormal"></span>
+<img src="tidaja-book_files/figure-html/mlenormal-1.png" alt="Rastit \(x\)-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: \((\mu, \sigma^2) = (5, 1)\), punainen katkoviiva: \((\mu, \sigma^2) = (3, 1)\) ja musta pisteviiva: \((\mu, \sigma^2) = (5, 9)\))." width="672" />
+<p class="caption">
+Kuva 7.1: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: <span class="math inline">\((\mu, \sigma^2) = (5, 1)\)</span>, punainen katkoviiva: <span class="math inline">\((\mu, \sigma^2) = (3, 1)\)</span> ja musta pisteviiva: <span class="math inline">\((\mu, \sigma^2) = (5, 9)\)</span>).
+</p>
+</div>
+<p>Toisaalta voimme olettaa, että otos <code>x</code> tulee eksponenttijakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda)\)</span>, jonka tiheysfunktio on muotoa
+<span class="math display">\[\begin{equation*}
+  f(x; \lambda) =
+  \begin{cases}
+    \lambda e^{-\lambda x},&amp; x\geq 0, \\
+    0,&amp; x &lt; 0.
+  \end{cases}
+\end{equation*}\]</span>
+Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrin <span class="math inline">\(\theta = \lambda\)</span>. Voisiko parametri olla <span class="math inline">\(\lambda = 0.2\)</span>, <span class="math inline">\(\lambda = 1\)</span> tai <span class="math inline">\(\lambda = 0.5\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlexp">7.2</a> avulla.</p>
+
+<div class="figure"><span style="display:block;" id="fig:mlexp"></span>
+<img src="tidaja-book_files/figure-html/mlexp-1.png" alt="Rastit \(x\)-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: \(\lambda = 0.2\), punainen katkoviiva: \(\lambda = 1\) ja musta pisteviiva: \(\lambda = 0.5\))." width="672" />
+<p class="caption">
+Kuva 7.2: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: <span class="math inline">\(\lambda = 0.2\)</span>, punainen katkoviiva: <span class="math inline">\(\lambda = 1\)</span> ja musta pisteviiva: <span class="math inline">\(\lambda = 0.5\)</span>).
+</p>
+</div>
+</div>
+<p>Kun jakauman muoto <span class="math inline">\(F_\sigma\)</span> (normaalijakauma, eksponenttijakauma, Poisson jakauma, tasajakauma, binomijakauma, …) ollaan päätetty, niin SU-menetelmän ideana onkin analysoida millä dataan perustuvalla arvauksella <span class="math inline">\(\hat\theta\)</span>, data sopisi parhaiten jakaumaan <span class="math inline">\(F_{\hat\theta}\)</span>. Tätä arviointia ei tehdä visuaalisesti kuten esimerkissä <a href="estimoinnista.html#exm:mleidea">7.1</a> vaan SU-menetelmä tarjoaa matemaattisen menetelmän löytää sopivin arvaus <span class="math inline">\(\hat\theta\)</span>, jota kutsutaan suurimman uskottavuuden estimaattoriksi (SU-estimaattori).</p>
 </div>
 <div id="sec:moment" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Momenttimenetelmä<a href="estimoinnista.html#sec:moment" class="anchor-section" aria-label="Anchor link to header"></a></h2>

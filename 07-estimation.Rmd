@@ -1,5 +1,81 @@
 # Estimoinnista
 
+- tarkentuvuus
+
+- harhattomuus
+
+- mean squared error
+
 ## Suurimman uskottavuuden menetelmä {#sec:mle}
+
+Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos yksiulotteisesta parametrisesta jakaumasta $F_{\theta}$, $\theta\in\mathbb{R}$. Suurimman uskottavuuden (SU, eng: *maximum likelihood*) menetelmä on eräs tärkeimmistä estimointimenetelmä määrittää paras arvaus parametrille $\theta$ havaitun datan perusteella $\overrightarrow{x}$. Huomioi, että SU-menetelmässä jakauman "muoto" ollaan päätetty etukäteen.
+
+:::{.example #mleidea name="SU-menetelmän tavoite"}
+
+```{r, echo=FALSE}
+set.seed(123)
+x <- rnorm(10, 5, 1)
+```
+
+
+Meillä on saatavilla seuraava otos jostain jakaumasta.
+```{r}
+x
+```
+
+Oletetaan, että otos $x$ tulee tietystä jakaumasta. Esimerkiksi oletetaan, että otoksen havainnot noudattavat jakaumaa $N(\mu, \sigma^2)$, jonka tiheysfunktio on
+\begin{equation*}
+  f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
+\end{equation*}
+Datan `x` perusteella haluamme estimoida tuntemattoman parametrivektorin $\theta = (\mu, \sigma^2)$. Voisiko parametrivektori olla $\theta = (5, 1)$, $\theta = (3, 1)$ tai $\theta = (5, 9)$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlenormal) avulla.
+
+(ref:mlenormal) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: $(\mu, \sigma^2) = (5, 1)$, punainen katkoviiva: $(\mu, \sigma^2) = (3, 1)$ ja musta pisteviiva: $(\mu, \sigma^2) = (5, 9)$).
+
+```{r mlenormal, fig.cap="(ref:mlenormal)", echo=FALSE}
+library(ggplot2)
+tibble::tibble(x = x, y = 0) |>
+  ggplot(aes(x = x, y = y)) +
+  geom_point(shape = 4, size = 3) +
+  stat_function(fun = dnorm, args = list(mean = 5, sd = 1), color = "blue") +
+  stat_function(fun = dnorm, args = list(mean = 3, sd = 1),
+                linetype = "dashed", color = "red") +
+  stat_function(fun = dnorm, args = list(mean = 5, sd = 3),
+                linetype = "dotted") +
+  xlab("x") +
+  ylab("f(x)") +
+  xlim(-1, 11)
+```
+
+Toisaalta voimme olettaa, että otos `x` tulee eksponenttijakaumasta $\mathrm{Exp}(\lambda)$, jonka tiheysfunktio on muotoa
+\begin{equation*}
+  f(x; \lambda) =
+  \begin{cases}
+    \lambda e^{-\lambda x},& x\geq 0, \\
+    0,& x < 0.
+  \end{cases}
+\end{equation*}
+Datan `x` perusteella haluamme estimoida tuntemattoman parametrin $\theta = \lambda$. Voisiko parametri olla $\lambda = 0.2$, $\lambda = 1$ tai $\lambda = 0.5$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlexp) avulla.
+
+(ref:mlexp) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: $\lambda = 0.2$, punainen katkoviiva: $\lambda = 1$ ja musta pisteviiva: $\lambda = 0.5$).
+
+```{r mlexp, fig.cap="(ref:mlexp)", echo=FALSE}
+library(ggplot2)
+
+tibble::tibble(x = x, y = 0) |>
+  ggplot(aes(x = x, y = y)) +
+  geom_point(shape = 4, size = 3) +
+  stat_function(fun = dexp, args = list(rate = 0.2), color = "blue") +
+  stat_function(fun = dexp, args = list(rate = 1),
+                linetype = "dashed", color = "red") +
+  stat_function(fun = dexp, args = list(rate = 0.5),
+                linetype = "dotted") +
+  xlab("x") +
+  ylab("f(x)") +
+  xlim(0.5, 11)
+```
+:::
+
+Kun jakauman muoto $F_\sigma$ (normaalijakauma, eksponenttijakauma, Poisson jakauma, tasajakauma, binomijakauma, ...) ollaan päätetty, niin SU-menetelmän ideana onkin analysoida millä dataan perustuvalla arvauksella $\hat\theta$, data sopisi parhaiten jakaumaan $F_{\hat\theta}$. Tätä arviointia ei tehdä visuaalisesti kuten esimerkissä \@ref(exm:mleidea) vaan SU-menetelmä tarjoaa matemaattisen menetelmän löytää sopivin arvaus $\hat\theta$, jota kutsutaan suurimman uskottavuuden estimaattoriksi (SU-estimaattori).
+
 
 ## Momenttimenetelmä {#sec:moment}

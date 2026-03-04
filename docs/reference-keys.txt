@@ -172,6 +172,9 @@ exm:unlabeled-div-43
 fig:twoboot
 fig:oneboot
 prp:unlabeled-div-44
+exm:mleidea
+fig:mlenormal
+fig:mlexp
 eq:euclidean
 exm:unlabeled-div-46
 fig:vec
