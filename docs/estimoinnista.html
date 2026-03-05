@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-04" />
+<meta name="date" content="2026-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -256,25 +256,31 @@ div.csl-indent {
 </ul>
 <div id="sec:mle" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Suurimman uskottavuuden menetelmä<a href="estimoinnista.html#sec:mle" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos yksiulotteisesta parametrisesta jakaumasta <span class="math inline">\(F_{\theta}\)</span>, <span class="math inline">\(\theta\in\mathbb{R}\)</span>. Suurimman uskottavuuden (SU, eng: <em>maximum likelihood</em>) menetelmä on eräs tärkeimmistä estimointimenetelmä määrittää paras arvaus parametrille <span class="math inline">\(\theta\)</span> havaitun datan perusteella <span class="math inline">\(\overrightarrow{x}\)</span>. Huomioi, että SU-menetelmässä jakauman “muoto” ollaan päätetty etukäteen.</p>
+<p>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos yksiulotteisesta parametrisesta jakaumasta<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> <span class="math inline">\(F_{\theta_0}\)</span>, <span class="math inline">\(\theta_0\in\mathbb{R}^d\)</span>. Suurimman uskottavuuden (SU, eng: <em>maximum likelihood</em>) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille <span class="math inline">\(\theta_0\)</span> havaitun datan perusteella <span class="math inline">\(\overrightarrow{x}\)</span>. SU-menetelmän idea on seuraava.</p>
+<ol style="list-style-type: decimal">
+<li><p>Data-analyytikko tekee valistuneen arvauksen siitä millainen on jakauman <span class="math inline">\(F_{\theta_0}\)</span> “muoto”. Voidaan esimerkiksi olettaa, että data tulee normaalijakaumasta, eksponenttijakaumasta, Poisson jakaumasta, tasajakaumasta, binomijakaumasta jne. Tässä vaiheessa ei vielä oteta kantaa siihen, mikä on jakauman <span class="math inline">\(F_{\theta_0}\)</span> todelllinen parametri <span class="math inline">\(\theta_0\)</span>.</p></li>
+<li><p>Seuraavaksi SU-menetelmällä valitaan kaikista mahdollisista jakaumavaihtoehdoista <span class="math inline">\(\{F_{\theta} : \theta\in\mathbb{R}^d\}\)</span> se jakauma <span class="math inline">\(F_{\hat\theta}\)</span>, josta otos <span class="math inline">\(\overrightarrow{x}\)</span> tulee kaikista todennäköisimmin. Tätä jakaumaa vastaava parametri <span class="math inline">\(\hat\theta\)</span> on suurimman uskottavuuden estimaatti tuntemattomalle parametrille <span class="math inline">\(\theta_0\)</span> otokseen <span class="math inline">\(\overrightarrow{x}\)</span> perustuen.</p></li>
+</ol>
+<p>Seuraava esimerkki avaa tarkemmin SU-menetelmän ideaa.</p>
 <div class="example">
-<p><span id="exm:mleidea" class="example"><strong>Esimerkki 7.1  (SU-menetelmän tavoite) </strong></span>Meillä on saatavilla seuraava otos jostain jakaumasta.</p>
+<p><span id="exm:mleidea" class="example"><strong>Esimerkki 7.1  (SU-menetelmän idea) </strong></span>Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa <span class="math inline">\(n = 10\)</span> oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="estimoinnista.html#cb265-1" tabindex="-1"></a>x</span></code></pre></div>
-<pre><code>##  [1] 4.439524 4.769823 6.558708 5.070508 5.129288 6.715065 5.460916 3.734939
-##  [9] 4.313147 4.554338</code></pre>
-<p>Oletetaan, että otos <span class="math inline">\(x\)</span> tulee tietystä jakaumasta. Esimerkiksi oletetaan, että otoksen havainnot noudattavat jakaumaa <span class="math inline">\(N(\mu, \sigma^2)\)</span>, jonka tiheysfunktio on
+<pre><code>##  [1] 1.68691452 1.15322054 2.65810974 0.06315472 0.11242195 0.63300243
+##  [7] 0.62845458 0.29053361 5.45247293 0.05830689</code></pre>
+<p>Olisiko järkevää olettaa, että otoksen havainnot noudattavat normaalijakaumaa <span class="math inline">\(N(\mu_0, \sigma_0^2)\)</span>? Normaalijakauman tiheysfunktio on muotoa
 <span class="math display">\[\begin{equation*}
   f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
 \end{equation*}\]</span>
-Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrivektorin <span class="math inline">\(\theta = (\mu, \sigma^2)\)</span>. Voisiko parametrivektori olla <span class="math inline">\(\theta = (5, 1)\)</span>, <span class="math inline">\(\theta = (3, 1)\)</span> tai <span class="math inline">\(\theta = (5, 9)\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlenormal">7.1</a> avulla.</p>
+Tällöin datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrivektorin <span class="math inline">\(\theta_0 = (\mu_0, \sigma_0^2)\)</span>. Voisiko parametrivektori olla <span class="math inline">\(\theta_0 = (3, 1)\)</span>, <span class="math inline">\(\theta_0 = (3, 3)\)</span> tai <span class="math inline">\(\theta_0 = (4, 1)\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlenormal">7.1</a> avulla.</p>
 
 <div class="figure"><span style="display:block;" id="fig:mlenormal"></span>
-<img src="tidaja-book_files/figure-html/mlenormal-1.png" alt="Rastit \(x\)-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: \((\mu, \sigma^2) = (5, 1)\), punainen katkoviiva: \((\mu, \sigma^2) = (3, 1)\) ja musta pisteviiva: \((\mu, \sigma^2) = (5, 9)\))." width="672" />
+<img src="tidaja-book_files/figure-html/mlenormal-1.png" alt="Rastit \(x\)-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: \((\mu, \sigma^2) = (3, 1)\), punainen katkoviiva: \((\mu, \sigma^2) = (3, 3)\) ja musta pisteviiva: \((\mu, \sigma^2) = (4, 1)\))." width="672" />
 <p class="caption">
-Kuva 7.1: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: <span class="math inline">\((\mu, \sigma^2) = (5, 1)\)</span>, punainen katkoviiva: <span class="math inline">\((\mu, \sigma^2) = (3, 1)\)</span> ja musta pisteviiva: <span class="math inline">\((\mu, \sigma^2) = (5, 9)\)</span>).
+Kuva 7.1: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: <span class="math inline">\((\mu, \sigma^2) = (3, 1)\)</span>, punainen katkoviiva: <span class="math inline">\((\mu, \sigma^2) = (3, 3)\)</span> ja musta pisteviiva: <span class="math inline">\((\mu, \sigma^2) = (4, 1)\)</span>).
 </p>
 </div>
-<p>Toisaalta voimme olettaa, että otos <code>x</code> tulee eksponenttijakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda)\)</span>, jonka tiheysfunktio on muotoa
+<p>Kuvan <a href="estimoinnista.html#fig:mlenormal">7.1</a> havaintojen (rastien) perusteella näyttää kuitenkin siltä, että ostovälien jakauma ei ole symmetrinen. Lisäksi ostovälit eivät voi olla negatiivisia. Eli on melko epärealistista olettaa, että data tulisi normaalijakaumasta.</p>
+<p>Toisaalta voimme olettaa, että otos <code>x</code> tulee eksponenttijakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>, jonka tiheysfunktio on muotoa
 <span class="math display">\[\begin{equation*}
   f(x; \lambda) =
   \begin{cases}
@@ -282,7 +288,7 @@ Kuva 7.1: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havai
     0,&amp; x &lt; 0.
   \end{cases}
 \end{equation*}\]</span>
-Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrin <span class="math inline">\(\theta = \lambda\)</span>. Voisiko parametri olla <span class="math inline">\(\lambda = 0.2\)</span>, <span class="math inline">\(\lambda = 1\)</span> tai <span class="math inline">\(\lambda = 0.5\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlexp">7.2</a> avulla.</p>
+Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrin <span class="math inline">\(\theta_0 = \lambda_0\)</span>. Voisiko parametri olla <span class="math inline">\(\lambda_0 = 0.2\)</span>, <span class="math inline">\(\lambda_0 = 1\)</span> tai <span class="math inline">\(\lambda_0 = 0.5\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlexp">7.2</a> avulla.</p>
 
 <div class="figure"><span style="display:block;" id="fig:mlexp"></span>
 <img src="tidaja-book_files/figure-html/mlexp-1.png" alt="Rastit \(x\)-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: \(\lambda = 0.2\), punainen katkoviiva: \(\lambda = 1\) ja musta pisteviiva: \(\lambda = 0.5\))." width="672" />
@@ -290,13 +296,118 @@ Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrin <sp
 Kuva 7.2: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: <span class="math inline">\(\lambda = 0.2\)</span>, punainen katkoviiva: <span class="math inline">\(\lambda = 1\)</span> ja musta pisteviiva: <span class="math inline">\(\lambda = 0.5\)</span>).
 </p>
 </div>
+<p>Oletus siitä, että ostotapahtumien aikavälit ovat eksponenttijakaumasta on paljon realistisempi. Ensinnäkin jakaumasta on mahdollista saada vain positiivisia arvoja. Lisäksi eksponenttijakauma on yksi yleisimmistä malleista esimerkiksi odotusajalle</p>
+<ul>
+<li><p>seuraavaan ostotapahtumaan,</p></li>
+<li><p>seuraavaan tietokoneen vastaanottamaan datapakettiin,</p></li>
+<li><p>seuraavaan junan komponentin vikaantumiseen jne.,</p></li>
+</ul>
+<p>kun tapahtumien keskimääräinen taajuus <span class="math inline">\(\lambda\)</span> pysyy vakiona. Mitä suurempi <span class="math inline">\(\lambda\)</span> sitä tiheämmin tapahtumia (tässä tapauksessa ostoja nettikaupasta) tapahtuu.</p>
 </div>
-<p>Kun jakauman muoto <span class="math inline">\(F_\sigma\)</span> (normaalijakauma, eksponenttijakauma, Poisson jakauma, tasajakauma, binomijakauma, …) ollaan päätetty, niin SU-menetelmän ideana onkin analysoida millä dataan perustuvalla arvauksella <span class="math inline">\(\hat\theta\)</span>, data sopisi parhaiten jakaumaan <span class="math inline">\(F_{\hat\theta}\)</span>. Tätä arviointia ei tehdä visuaalisesti kuten esimerkissä <a href="estimoinnista.html#exm:mleidea">7.1</a> vaan SU-menetelmä tarjoaa matemaattisen menetelmän löytää sopivin arvaus <span class="math inline">\(\hat\theta\)</span>, jota kutsutaan suurimman uskottavuuden estimaattoriksi (SU-estimaattori).</p>
+<p>Kuten esimerkiksi kuvasta <a href="estimoinnista.html#fig:mlexp">7.2</a> huomataan, on erittäin vaikea arvioida visuaalisesti, mikä olisi todellinen parametrin arvo <span class="math inline">\(\theta_0\)</span>. Tässä kuvaan astuu SU-menetelmä, jota kuvailemme seuraavaksi tarkemmin.</p>
+<p>Tässä oletamme otoksen <span class="math inline">\(\overrightarrow{x}\)</span> havaintojen olevan riippumattomia, mikä yksinkertaistaa SU-menetelmän suorittamista. Lisäksi käytämme seuraavia notaatioita. Olkoon <span class="math inline">\(F_\theta\)</span> parametrin <span class="math inline">\(\theta\)</span> määräämä jakauma. Tällöin <span class="math inline">\(f(x;\theta)\)</span> tarkoittaa parametrin <span class="math inline">\(\theta\)</span> määräämää tiheysfunktiota, jos jakauma <span class="math inline">\(F_\theta\)</span> on jatkuva. Toisaalta jos jakauma <span class="math inline">\(F_\theta\)</span> on diskreetti (kuten binomijakauma), niin <span class="math inline">\(f(x;\theta)\)</span> tarkoittaa parametrin <span class="math inline">\(\theta\)</span> määräämää pistetodennäköisyysfunktiota. Notaatiossa <span class="math inline">\(f(x_1; x_2)\)</span> puolipisteen vasemmalla olevaa suuretta <span class="math inline">\(x_1\)</span> käsitellään muuttujana ja oikealla puolella olevaa suuretta <span class="math inline">\(x_2\)</span> käsitellään vakiona. Tällöin voimme myös kirjoittaa <span class="math inline">\(f(\theta; x)\)</span>, jos haluamme käsitellä tiheys- tai pistetodennäköisyysfunktiota parametrin <span class="math inline">\(\theta\)</span> funktiona.</p>
+<p>SU-menetelmän ensimmäinen askel on määrittää niin kutsuttu uskottavuusfunktio <span class="math inline">\(L\left(\theta; \overrightarrow{x}\right)\)</span>. Uskottavuusfunktio on siis jakauman parametrin <span class="math inline">\(\theta\)</span> funktio, kun ollaan havaittu otos <span class="math inline">\(\overrightarrow{x}\)</span>. Uskottavuusfunktio määritellään tiheys- tai pistetodennäköisyysfunktion arvojen tulona
+<span class="math display">\[\begin{equation*}
+  L\left(\theta; \overrightarrow{x}\right) = f(\theta; x_1)\cdot f(\theta; x_2) \ldots\cdot f(\theta; x_n) = \prod_{i = 1}^n f(\theta; x_i),
+\end{equation*}\]</span>
+kun havaintojen <span class="math inline">\(x_i\)</span> oletetaan olevan riippumattomia. Alla on esimerkki uskottavuusfunktion määrittämisestä saadun otoksen avulla.</p>
+<div class="example">
+<p><span id="exm:mlf" class="example"><strong>Esimerkki 7.2  (Uskottavuusfunktion määrittäminen) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{10}\}\)</span> riippumattomia havaintoja. Oletetaan, että havainnot tulevat eksponenttijakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>, jossa parametri <span class="math inline">\(\lambda_0\)</span> on tuntematon. Nyt otosta vastaava uskottavuusfunktio on
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+  L\left(\lambda; \overrightarrow{x}\right)
+  &amp;= \left(\lambda e^{-\lambda x_1}\right) \cdot
+  \left(\lambda e^{-\lambda x_2}\right) \cdot \ldots \cdot
+  \left(\lambda e^{-\lambda x_{10}}\right) \\
+  &amp;= \lambda^{10} \left(e^{-\lambda x_1} \cdot e^{-\lambda x_2} \cdot \ldots
+  \cdot e^{-\lambda x_{10}}\right) \\
+  &amp;= \lambda^{10} e^{-\lambda \left(x_1 + x_2 + \cdot + x_{10}\right)}
+  = \lambda^{10} e^{-\lambda \left(\sum_{i = 1}^n x_i\right)}
+  \end{split}
+\end{equation*}\]</span></p>
+</div>
+<p>Kun uskottavuusfunktio ollaan määritetty, niin sitä käytetään halutun parametri(vektori)n <span class="math inline">\(\theta_0\)</span> estimointiin. Etsimme siis arvon <span class="math inline">\(\hat\theta\)</span>, jolla maksimoimme uskottavuusfunktion
+<span class="math display">\[\begin{equation*}
+   L\left(\hat\theta; \overrightarrow{x} \right) = \max_{\theta} L\left(\theta; \overrightarrow{x} \right).
+\end{equation*}\]</span>
+Näin määritettyä suuretta <span class="math inline">\(\hat\theta\)</span> kutsutaan parametrin <span class="math inline">\(\theta_0\)</span> suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin – selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun on tarvitaan numeerisia algoritmeja.</p>
+<p>Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (patsi lisätietona huomautuksessa <a href="estimoinnista.html#prp:extra">7.1</a>). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.</p>
+
+<div class="example">
+<p><span id="exm:mle" class="example"><strong>Esimerkki 7.3  (Uskottavuusfunktion maksimin löytäminen) </strong></span>Oletetaan, että esimerkin <a href="estimoinnista.html#exm:mleidea">7.1</a> otoksen <code>x</code> havainnot ovat riippumattomia ja tulevat jakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Kirjoitetaan nyt otosta vastaava uskottavuusfunktio, jonka kaava ratkaistiin esimerkissä <a href="estimoinnista.html#exm:mlf">7.2</a>. Tätä varten muodostamme oman R funktion. Funktioita voidaan muodostaa seuraavalla syntaksilla.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="estimoinnista.html#cb267-1" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(parameter_1, parameter_2, ..., parameter_d) {</span>
+<span id="cb267-2"><a href="estimoinnista.html#cb267-2" tabindex="-1"></a>  <span class="co"># Do something with parameters 1, ..., d and save the result in a variable.</span></span>
+<span id="cb267-3"><a href="estimoinnista.html#cb267-3" tabindex="-1"></a>  <span class="co"># The name of the variable can be for example output.</span></span>
+<span id="cb267-4"><a href="estimoinnista.html#cb267-4" tabindex="-1"></a>  output <span class="ot">&lt;-</span> ...</span>
+<span id="cb267-5"><a href="estimoinnista.html#cb267-5" tabindex="-1"></a>  </span>
+<span id="cb267-6"><a href="estimoinnista.html#cb267-6" tabindex="-1"></a>  <span class="co"># Then return the output</span></span>
+<span id="cb267-7"><a href="estimoinnista.html#cb267-7" tabindex="-1"></a>  output</span>
+<span id="cb267-8"><a href="estimoinnista.html#cb267-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>Katso lisätietoja funktioista esimerkiksi monisteen <a href="https://www.mv.helsinki.fi/home/mjxpirin/medstat_course/material/Rmoniste_tiltu1.pdf"><em>R tutuksi</em></a> luvusta 6.</p>
+<p>Uskottavuusfunktio muodostetaan alla.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="estimoinnista.html#cb268-1" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) {</span>
+<span id="cb268-2"><a href="estimoinnista.html#cb268-2" tabindex="-1"></a>  lambda<span class="sc">^</span><span class="dv">10</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda <span class="sc">*</span> <span class="fu">sum</span>(x))</span>
+<span id="cb268-3"><a href="estimoinnista.html#cb268-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>Nyt voimme laskea uskottavuusfunktion arvon esimerkiksi kohdassa <span class="math inline">\(\lambda = 0.1\)</span>.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="estimoinnista.html#cb269-1" tabindex="-1"></a><span class="fu">likelihood</span>(<span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## [1] 2.798059e-11</code></pre>
+Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan <a href="estimoinnista.html#fig:mle">7.3</a> perusteella suurimman uskottavuuden estimaatti on noin <span class="math inline">\(\hat\lambda \approx 0.8\)</span>. Eli estimoimme keskimääräiseksi odotusajaksi <span class="math inline">\(1/\hat\lambda = 1.25\)</span> sekuntia datan perusteella.
+<div class="figure"><span style="display:block;" id="fig:mle"></span>
+<img src="tidaja-book_files/figure-html/mle-1.png" alt="Katkoviivalla kuvattu käyrä antaa 7.1 dataa x vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion \(L(\lambda;\overrightarrow{x})\) maksimin kohdalle." width="672" />
+<p class="caption">
+Kuva 7.3: Katkoviivalla kuvattu käyrä antaa <a href="estimoinnista.html#exm:mleidea">7.1</a> dataa <code>x</code> vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion <span class="math inline">\(L(\lambda;\overrightarrow{x})\)</span> maksimin kohdalle.
+</p>
+</div>
+</div>
+<p>Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin Eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span>. Tämä on siis kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.</p>
+<div class="proposition">
+<p><span id="prp:extra" class="proposition"><strong>Huomautus 7.1  (Lisätietoa esimerkistä <a href="estimoinnista.html#exm:mle">7.3</a>) </strong></span>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}\)</span> kokoa <span class="math inline">\(n\)</span> oleva otos riippumattomia havaintoja jakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Esimerkin <a href="estimoinnista.html#exm:mlf">7.2</a> uskottavuusfunktio otoskoolle <span class="math inline">\(10\)</span> voidaan yleistää otoskoolle <span class="math inline">\(n\)</span>,
+<span class="math display">\[\begin{equation*}
+  L\left(\lambda; \overrightarrow{x}\right)
+  = \lambda^n e^{-\lambda \left(\sum_{i = 1}^n x_i\right)}
+  = \lambda^n e^{-\lambda n\bar x},
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\bar x = \frac{1}{n}\sum_{i = 1}^n x_i\)</span>. Yleinen kikka on käsitellä funktiota <span class="math inline">\(\ln L\)</span> alkuperäisen uskottavuusfunktion <span class="math inline">\(L\)</span> sijaan, koska nämä funktiot saavuttavat maksimin samassa kohdassa (mieti miksi). Nyt
+<span class="math display">\[\begin{equation*}
+  \ln L\left(\lambda; \overrightarrow{x}\right)
+  = \ln\left(\lambda^n\right) + \ln\left(e^{-\lambda n\bar x}\right)
+  = n\ln\lambda - \lambda n\bar x.
+\end{equation*}\]</span>
+Seuraavaksi selvitetään funktion <span class="math inline">\(\ln L\)</span> derivaatan nollakohdat.
+<span class="math display">\[\begin{align*}
+  &amp;\frac{\mathrm{d}\ln L\left(\lambda; \overrightarrow{x}\right)}
+  {\mathrm{d}\lambda} = 0 \\
+  \iff &amp;\frac{n}{\lambda} - n\bar x = 0 \\
+  \iff &amp; \lambda = \frac{1}{\bar x}.
+\end{align*}\]</span>
+Täytyy vielä todistaa, että <span class="math inline">\(\lambda = 1/\bar x\)</span> on maksimi (eikä esimerkiksi minimi). Voimme laskea, että
+<span class="math display">\[\begin{equation*}
+  \frac{\mathrm{d}^2\ln L\left(\lambda; \overrightarrow{x}\right)}
+  {\mathrm{d}\lambda^2}
+  = - \frac{n}{\lambda^2} &lt; 0 \quad\text{kaikilla}\quad \lambda &gt; 0.
+\end{equation*}\]</span>
+Koska funktion <span class="math inline">\(\ln L\)</span> toinen derivaatta on negatiivinen kaikilla mahdollisilla parametrin <span class="math inline">\(\lambda\)</span> arvoilla, niin <span class="math inline">\(\ln L\)</span> on <a href="https://fi.wikipedia.org/wiki/Konveksi_funktio#Konkaavi_funktio">konkaavi</a>, joten <span class="math inline">\(1/\bar x\)</span> on funktion <span class="math inline">\(\ln L\)</span> ja täten uskottavuusfunktion <span class="math inline">\(L\)</span> maksimikohta. Kaiken kaikkiaan <span class="math inline">\(\hat \lambda = 1 / \bar x\)</span> on parametrin <span class="math inline">\(\lambda_0\)</span> suurimman uskottavuuden estimaattori. Nyt voimme vielä laskea esimerkkiin <a href="estimoinnista.html#exm:mle">7.3</a> liittyvän suurimman uskottavuuden estimaatin tarkasti.</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="estimoinnista.html#cb271-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(x)</span></code></pre></div>
+<pre><code>## [1] 0.7851394</code></pre>
+</div>
+<p>Suurimman uskottavuuden teoreettisista ominaisuuksista voimme sanoa seuraavat faktat.</p>
+<ul>
+<li><p>Tiettyjen (melko lievien) oletusten alla suurimman uskottavuuden estimaattori on tarkentuva eli <span class="math inline">\(\hat\theta \approx \theta_0\)</span> suurella otoskoolla <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Suurimman uskottavuuden estimaattori voi olla harhainen. Itseasiassa SU-estimaattori eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span> on harhainen.</p></li>
+</ul>
+<p>Tässä kävimme esimerkkejä liittyen SU-menetelmään vain jatkuvien jakaumien tapauksissa. Kuitenkin SU-menetelmä toimii samalla tavalla myös diskreeteille jakaumille (viikko 9, tehtävä 1).</p>
 </div>
 <div id="sec:moment" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Momenttimenetelmä<a href="estimoinnista.html#sec:moment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="17">
+<li id="fn17"><p>Tehtävissä ja suurimmassa osassa esimerkkejä jakauman <span class="math inline">\(F_{\theta_0}\)</span> määräämä parametri <span class="math inline">\(\theta_0\)</span> on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri <span class="math inline">\(\theta_0\)</span> on vektori kuten normaalijakauman tapauksessa <span class="math inline">\(\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n\)</span>.<a href="estimoinnista.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.<a href="estimoinnista.html#fnref18" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

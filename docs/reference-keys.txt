@@ -175,6 +175,10 @@ prp:unlabeled-div-44
 exm:mleidea
 fig:mlenormal
 fig:mlexp
+exm:mlf
+exm:mle
+fig:mle
+prp:extra
 eq:euclidean
 exm:unlabeled-div-46
 fig:vec

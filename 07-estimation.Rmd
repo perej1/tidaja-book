@@ -8,45 +8,51 @@
 
 ## Suurimman uskottavuuden menetelmä {#sec:mle}
 
-Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos yksiulotteisesta parametrisesta jakaumasta $F_{\theta}$, $\theta\in\mathbb{R}$. Suurimman uskottavuuden (SU, eng: *maximum likelihood*) menetelmä on eräs tärkeimmistä estimointimenetelmä määrittää paras arvaus parametrille $\theta$ havaitun datan perusteella $\overrightarrow{x}$. Huomioi, että SU-menetelmässä jakauman "muoto" ollaan päätetty etukäteen.
+Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos yksiulotteisesta parametrisesta jakaumasta^[Tehtävissä ja suurimmassa osassa esimerkkejä jakauman $F_{\theta_0}$ määräämä parametri $\theta_0$ on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri $\theta_0$ on vektori kuten normaalijakauman tapauksessa $\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n$.] $F_{\theta_0}$, $\theta_0\in\mathbb{R}^d$. Suurimman uskottavuuden (SU, eng: *maximum likelihood*) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille $\theta_0$ havaitun datan perusteella $\overrightarrow{x}$. SU-menetelmän idea on seuraava.
 
-:::{.example #mleidea name="SU-menetelmän tavoite"}
+1. Data-analyytikko tekee valistuneen arvauksen siitä millainen on jakauman $F_{\theta_0}$ "muoto". Voidaan esimerkiksi olettaa, että data tulee normaalijakaumasta, eksponenttijakaumasta, Poisson jakaumasta, tasajakaumasta, binomijakaumasta jne. Tässä vaiheessa ei vielä oteta kantaa siihen, mikä on jakauman $F_{\theta_0}$ todelllinen parametri $\theta_0$.
 
+2. Seuraavaksi SU-menetelmällä valitaan kaikista mahdollisista jakaumavaihtoehdoista $\{F_{\theta} : \theta\in\mathbb{R}^d\}$ se jakauma $F_{\hat\theta}$, josta otos $\overrightarrow{x}$ tulee kaikista todennäköisimmin. Tätä jakaumaa vastaava parametri $\hat\theta$ on suurimman uskottavuuden estimaatti tuntemattomalle parametrille $\theta_0$ otokseen $\overrightarrow{x}$ perustuen.
+
+Seuraava esimerkki avaa tarkemmin SU-menetelmän ideaa.
+
+:::{.example #mleidea name="SU-menetelmän idea"}
 ```{r, echo=FALSE}
 set.seed(123)
-x <- rnorm(10, 5, 1)
+x <- rexp(10, 0.5)
 ```
 
-
-Meillä on saatavilla seuraava otos jostain jakaumasta.
+Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa $n = 10$ oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa^[Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.].
 ```{r}
 x
 ```
 
-Oletetaan, että otos $x$ tulee tietystä jakaumasta. Esimerkiksi oletetaan, että otoksen havainnot noudattavat jakaumaa $N(\mu, \sigma^2)$, jonka tiheysfunktio on
+Olisiko järkevää olettaa, että otoksen havainnot noudattavat normaalijakaumaa $N(\mu_0, \sigma_0^2)$? Normaalijakauman tiheysfunktio on muotoa
 \begin{equation*}
   f(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}.
 \end{equation*}
-Datan `x` perusteella haluamme estimoida tuntemattoman parametrivektorin $\theta = (\mu, \sigma^2)$. Voisiko parametrivektori olla $\theta = (5, 1)$, $\theta = (3, 1)$ tai $\theta = (5, 9)$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlenormal) avulla.
+Tällöin datan `x` perusteella haluamme estimoida tuntemattoman parametrivektorin $\theta_0 = (\mu_0, \sigma_0^2)$. Voisiko parametrivektori olla $\theta_0 = (3, 1)$, $\theta_0 = (3, 3)$ tai $\theta_0 = (4, 1)$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlenormal) avulla.
 
-(ref:mlenormal) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: $(\mu, \sigma^2) = (5, 1)$, punainen katkoviiva: $(\mu, \sigma^2) = (3, 1)$ ja musta pisteviiva: $(\mu, \sigma^2) = (5, 9)$).
+(ref:mlenormal) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten normaalijakaumien tiheysfunktioita (sininen kiinteä viiva: $(\mu, \sigma^2) = (3, 1)$, punainen katkoviiva: $(\mu, \sigma^2) = (3, 3)$ ja musta pisteviiva: $(\mu, \sigma^2) = (4, 1)$).
 
 ```{r mlenormal, fig.cap="(ref:mlenormal)", echo=FALSE}
 library(ggplot2)
 tibble::tibble(x = x, y = 0) |>
   ggplot(aes(x = x, y = y)) +
   geom_point(shape = 4, size = 3) +
-  stat_function(fun = dnorm, args = list(mean = 5, sd = 1), color = "blue") +
-  stat_function(fun = dnorm, args = list(mean = 3, sd = 1),
+  stat_function(fun = dnorm, args = list(mean = 3, sd = 1), color = "blue") +
+  stat_function(fun = dnorm, args = list(mean = 3, sd = 3),
                 linetype = "dashed", color = "red") +
-  stat_function(fun = dnorm, args = list(mean = 5, sd = 3),
+  stat_function(fun = dnorm, args = list(mean = 4, sd = 1),
                 linetype = "dotted") +
   xlab("x") +
   ylab("f(x)") +
-  xlim(-1, 11)
+  xlim(0, 6)
 ```
 
-Toisaalta voimme olettaa, että otos `x` tulee eksponenttijakaumasta $\mathrm{Exp}(\lambda)$, jonka tiheysfunktio on muotoa
+Kuvan \@ref(fig:mlenormal) havaintojen (rastien) perusteella näyttää kuitenkin siltä, että ostovälien jakauma ei ole symmetrinen. Lisäksi ostovälit eivät voi olla negatiivisia. Eli on melko epärealistista olettaa, että data tulisi normaalijakaumasta.
+
+Toisaalta voimme olettaa, että otos `x` tulee eksponenttijakaumasta $\mathrm{Exp}(\lambda_0)$, jonka tiheysfunktio on muotoa
 \begin{equation*}
   f(x; \lambda) =
   \begin{cases}
@@ -54,7 +60,7 @@ Toisaalta voimme olettaa, että otos `x` tulee eksponenttijakaumasta $\mathrm{Ex
     0,& x < 0.
   \end{cases}
 \end{equation*}
-Datan `x` perusteella haluamme estimoida tuntemattoman parametrin $\theta = \lambda$. Voisiko parametri olla $\lambda = 0.2$, $\lambda = 1$ tai $\lambda = 0.5$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlexp) avulla.
+Datan `x` perusteella haluamme estimoida tuntemattoman parametrin $\theta_0 = \lambda_0$. Voisiko parametri olla $\lambda_0 = 0.2$, $\lambda_0 = 1$ tai $\lambda_0 = 0.5$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlexp) avulla.
 
 (ref:mlexp) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: $\lambda = 0.2$, punainen katkoviiva: $\lambda = 1$ ja musta pisteviiva: $\lambda = 0.5$).
 
@@ -71,11 +77,135 @@ tibble::tibble(x = x, y = 0) |>
                 linetype = "dotted") +
   xlab("x") +
   ylab("f(x)") +
-  xlim(0.5, 11)
+  xlim(0, 6)
+```
+
+Oletus siitä, että ostotapahtumien aikavälit ovat eksponenttijakaumasta on paljon realistisempi. Ensinnäkin jakaumasta on mahdollista saada vain positiivisia arvoja. Lisäksi eksponenttijakauma on yksi yleisimmistä malleista esimerkiksi odotusajalle 
+
+- seuraavaan ostotapahtumaan,
+
+- seuraavaan tietokoneen vastaanottamaan datapakettiin,
+
+- seuraavaan junan komponentin vikaantumiseen jne.,
+
+kun tapahtumien keskimääräinen taajuus $\lambda$ pysyy vakiona. Mitä suurempi $\lambda$ sitä tiheämmin tapahtumia (tässä tapauksessa ostoja nettikaupasta) tapahtuu.
+:::
+
+Kuten esimerkiksi kuvasta \@ref(fig:mlexp) huomataan, on erittäin vaikea arvioida visuaalisesti, mikä olisi todellinen parametrin arvo $\theta_0$. Tässä kuvaan astuu SU-menetelmä, jota kuvailemme seuraavaksi tarkemmin.
+
+Tässä oletamme otoksen $\overrightarrow{x}$ havaintojen olevan riippumattomia, mikä yksinkertaistaa SU-menetelmän suorittamista. Lisäksi käytämme seuraavia notaatioita. Olkoon $F_\theta$ parametrin $\theta$ määräämä jakauma. Tällöin $f(x;\theta)$ tarkoittaa parametrin $\theta$ määräämää tiheysfunktiota, jos jakauma $F_\theta$ on jatkuva. Toisaalta jos jakauma $F_\theta$ on diskreetti (kuten binomijakauma), niin $f(x;\theta)$ tarkoittaa parametrin $\theta$ määräämää pistetodennäköisyysfunktiota. Notaatiossa $f(x_1; x_2)$ puolipisteen vasemmalla olevaa suuretta $x_1$ käsitellään muuttujana ja oikealla puolella olevaa suuretta $x_2$ käsitellään vakiona. Tällöin voimme myös kirjoittaa $f(\theta; x)$, jos haluamme käsitellä tiheys- tai pistetodennäköisyysfunktiota parametrin $\theta$ funktiona.
+
+SU-menetelmän ensimmäinen askel on määrittää niin kutsuttu uskottavuusfunktio $L\left(\theta; \overrightarrow{x}\right)$. Uskottavuusfunktio on siis jakauman parametrin $\theta$ funktio, kun ollaan havaittu otos $\overrightarrow{x}$. Uskottavuusfunktio määritellään tiheys- tai pistetodennäköisyysfunktion arvojen tulona
+\begin{equation*}
+  L\left(\theta; \overrightarrow{x}\right) = f(\theta; x_1)\cdot f(\theta; x_2) \ldots\cdot f(\theta; x_n) = \prod_{i = 1}^n f(\theta; x_i),
+\end{equation*}
+kun havaintojen $x_i$ oletetaan olevan riippumattomia. Alla on esimerkki uskottavuusfunktion määrittämisestä saadun otoksen avulla.
+
+:::{.example #mlf name="Uskottavuusfunktion määrittäminen"}
+Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, x_{10}\}$ riippumattomia havaintoja. Oletetaan, että havainnot tulevat eksponenttijakaumasta $\mathrm{Exp}(\lambda_0)$, jossa parametri $\lambda_0$ on tuntematon. Nyt otosta vastaava uskottavuusfunktio on
+\begin{equation*}
+  \begin{split}
+  L\left(\lambda; \overrightarrow{x}\right)
+  &= \left(\lambda e^{-\lambda x_1}\right) \cdot
+  \left(\lambda e^{-\lambda x_2}\right) \cdot \ldots \cdot
+  \left(\lambda e^{-\lambda x_{10}}\right) \\
+  &= \lambda^{10} \left(e^{-\lambda x_1} \cdot e^{-\lambda x_2} \cdot \ldots
+  \cdot e^{-\lambda x_{10}}\right) \\
+  &= \lambda^{10} e^{-\lambda \left(x_1 + x_2 + \cdot + x_{10}\right)}
+  = \lambda^{10} e^{-\lambda \left(\sum_{i = 1}^n x_i\right)}
+  \end{split}
+\end{equation*}
+:::
+
+Kun uskottavuusfunktio ollaan määritetty, niin sitä käytetään halutun parametri(vektori)n $\theta_0$ estimointiin. Etsimme siis arvon $\hat\theta$, jolla maksimoimme uskottavuusfunktion
+\begin{equation*}
+   L\left(\hat\theta; \overrightarrow{x} \right) = \max_{\theta} L\left(\theta; \overrightarrow{x} \right).
+\end{equation*}
+Näin määritettyä suuretta $\hat\theta$ kutsutaan parametrin $\theta_0$ suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin -- selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun on tarvitaan numeerisia algoritmeja.
+
+Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (patsi lisätietona huomautuksessa \@ref(prp:extra)). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.
+
+(ref:mle) Katkoviivalla kuvattu käyrä antaa \@ref(exm:mleidea) dataa `x` vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion $L(\lambda;\overrightarrow{x})$ maksimin kohdalle.
+
+:::{.example #mle name="Uskottavuusfunktion maksimin löytäminen"}
+Oletetaan, että esimerkin \@ref(exm:mleidea) otoksen `x` havainnot ovat riippumattomia ja tulevat jakaumasta $\mathrm{Exp}(\lambda_0)$. Kirjoitetaan nyt otosta vastaava uskottavuusfunktio, jonka kaava ratkaistiin esimerkissä \@ref(exm:mlf). Tätä varten muodostamme oman R funktion. Funktioita voidaan muodostaa seuraavalla syntaksilla.
+```{r, eval=FALSE}
+function_name <- function(parameter_1, parameter_2, ..., parameter_d) {
+  # Do something with parameters 1, ..., d and save the result in a variable.
+  # The name of the variable can be for example output.
+  output <- ...
+  
+  # Then return the output
+  output
+}
+```
+Katso lisätietoja funktioista esimerkiksi monisteen [*R tutuksi*](https://www.mv.helsinki.fi/home/mjxpirin/medstat_course/material/Rmoniste_tiltu1.pdf) luvusta 6.
+
+Uskottavuusfunktio muodostetaan alla.
+```{r}
+likelihood <- function(lambda) {
+  lambda^10 * exp(-lambda * sum(x))
+}
+```
+
+Nyt voimme laskea uskottavuusfunktion arvon esimerkiksi kohdassa $\lambda = 0.1$.
+```{r}
+likelihood(0.1)
+```
+Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan \@ref(fig:mle) perusteella suurimman uskottavuuden estimaatti on noin $\hat\lambda \approx 0.8$. Eli estimoimme keskimääräiseksi odotusajaksi $1/\hat\lambda = 1.25$ sekuntia datan perusteella.
+```{r mle, fig.cap="(ref:mle)", echo=FALSE, message=FALSE}
+library(dplyr)
+mle <- 1 / mean(x)
+tibble::tibble(x = seq(0, 3, length.out = 1000), y = likelihood(x)) |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line(linetype = "dashed") + 
+  geom_segment(x = mle, xend = mle, y = 0, yend = likelihood(mle),
+               color = "red", linewidth = 0.1) +
+  ylab(expression(L(lambda))) +
+  scale_x_continuous(breaks = seq(0, 3, by = 0.2))
 ```
 :::
 
-Kun jakauman muoto $F_\sigma$ (normaalijakauma, eksponenttijakauma, Poisson jakauma, tasajakauma, binomijakauma, ...) ollaan päätetty, niin SU-menetelmän ideana onkin analysoida millä dataan perustuvalla arvauksella $\hat\theta$, data sopisi parhaiten jakaumaan $F_{\hat\theta}$. Tätä arviointia ei tehdä visuaalisesti kuten esimerkissä \@ref(exm:mleidea) vaan SU-menetelmä tarjoaa matemaattisen menetelmän löytää sopivin arvaus $\hat\theta$, jota kutsutaan suurimman uskottavuuden estimaattoriksi (SU-estimaattori).
+Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin Eksponenttijakauman parametrille $\lambda_0$. Tämä on siis kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.
 
+:::{.proposition #extra name="Lisätietoa esimerkistä \@ref(exm:mle)"}
+Olkoon $\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}$ kokoa $n$ oleva otos riippumattomia havaintoja jakaumasta $\mathrm{Exp}(\lambda_0)$. Esimerkin \@ref(exm:mlf) uskottavuusfunktio otoskoolle $10$ voidaan yleistää otoskoolle $n$,
+\begin{equation*}
+  L\left(\lambda; \overrightarrow{x}\right)
+  = \lambda^n e^{-\lambda \left(\sum_{i = 1}^n x_i\right)}
+  = \lambda^n e^{-\lambda n\bar x},
+\end{equation*}
+jossa $\bar x = \frac{1}{n}\sum_{i = 1}^n x_i$. Yleinen kikka on käsitellä funktiota $\ln L$ alkuperäisen uskottavuusfunktion $L$ sijaan, koska nämä funktiot saavuttavat maksimin samassa kohdassa (mieti miksi). Nyt
+\begin{equation*}
+  \ln L\left(\lambda; \overrightarrow{x}\right)
+  = \ln\left(\lambda^n\right) + \ln\left(e^{-\lambda n\bar x}\right)
+  = n\ln\lambda - \lambda n\bar x.
+\end{equation*}
+Seuraavaksi selvitetään funktion $\ln L$ derivaatan nollakohdat.
+\begin{align*}
+  &\frac{\mathrm{d}\ln L\left(\lambda; \overrightarrow{x}\right)}
+  {\mathrm{d}\lambda} = 0 \\
+  \iff &\frac{n}{\lambda} - n\bar x = 0 \\
+  \iff & \lambda = \frac{1}{\bar x}.
+\end{align*}
+Täytyy vielä todistaa, että $\lambda = 1/\bar x$ on maksimi (eikä esimerkiksi minimi). Voimme laskea, että
+\begin{equation*}
+  \frac{\mathrm{d}^2\ln L\left(\lambda; \overrightarrow{x}\right)}
+  {\mathrm{d}\lambda^2}
+  = - \frac{n}{\lambda^2} < 0 \quad\text{kaikilla}\quad \lambda > 0. 
+\end{equation*}
+Koska funktion $\ln L$ toinen derivaatta on negatiivinen kaikilla mahdollisilla parametrin $\lambda$ arvoilla, niin $\ln L$ on [konkaavi](https://fi.wikipedia.org/wiki/Konveksi_funktio#Konkaavi_funktio), joten $1/\bar x$ on funktion $\ln L$ ja täten uskottavuusfunktion $L$ maksimikohta. Kaiken kaikkiaan $\hat \lambda = 1 / \bar x$ on parametrin $\lambda_0$ suurimman uskottavuuden estimaattori. Nyt voimme vielä laskea esimerkkiin \@ref(exm:mle) liittyvän suurimman uskottavuuden estimaatin tarkasti.
+```{r}
+1 / mean(x)
+```
+:::
+
+Suurimman uskottavuuden teoreettisista ominaisuuksista voimme sanoa seuraavat faktat.
+
+- Tiettyjen (melko lievien) oletusten alla suurimman uskottavuuden estimaattori on tarkentuva eli $\hat\theta \approx \theta_0$ suurella otoskoolla $n$.
+
+- Suurimman uskottavuuden estimaattori voi olla harhainen. Itseasiassa SU-estimaattori eksponenttijakauman parametrille $\lambda_0$ on harhainen.
+
+Tässä kävimme esimerkkejä liittyen SU-menetelmään vain jatkuvien jakaumien tapauksissa. Kuitenkin SU-menetelmä toimii samalla tavalla myös diskreeteille jakaumille (viikko 9, tehtävä 1).
 
 ## Momenttimenetelmä {#sec:moment}
