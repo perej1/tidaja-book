@@ -125,7 +125,7 @@ Näin määritettyä suuretta $\hat\theta$ kutsutaan parametrin $\theta_0$ suuri
 
 Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (patsi lisätietona huomautuksessa \@ref(prp:extra)). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.
 
-(ref:mle) Katkoviivalla kuvattu käyrä antaa \@ref(exm:mleidea) dataa `x` vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion $L(\lambda;\overrightarrow{x})$ maksimin kohdalle.
+(ref:mle) Katkoviivalla kuvattu käyrä antaa \@ref(exm:mleidea) dataa `x` vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion $L(\lambda; \overrightarrow{x})$ maksimin kohdalle.
 
 :::{.example #mle name="Uskottavuusfunktion maksimin löytäminen"}
 Oletetaan, että esimerkin \@ref(exm:mleidea) otoksen `x` havainnot ovat riippumattomia ja tulevat jakaumasta $\mathrm{Exp}(\lambda_0)$. Kirjoitetaan nyt otosta vastaava uskottavuusfunktio, jonka kaava ratkaistiin esimerkissä \@ref(exm:mlf). Tätä varten muodostamme oman R funktion. Funktioita voidaan muodostaa seuraavalla syntaksilla.
@@ -208,4 +208,93 @@ Suurimman uskottavuuden teoreettisista ominaisuuksista voimme sanoa seuraavat fa
 
 Tässä kävimme esimerkkejä liittyen SU-menetelmään vain jatkuvien jakaumien tapauksissa. Kuitenkin SU-menetelmä toimii samalla tavalla myös diskreeteille jakaumille (viikko 9, tehtävä 1).
 
-## Momenttimenetelmä {#sec:moment}
+
+## Esittely momentteihin {#sec:moment}
+
+Satunnaismuuttujan $X$ momentteja (eng: *moment*) ovat odotusarvot $\mathbb{E}(f(X))$ eri funktion $f$ valinnoilla. Esimerkiksi
+
+- raaka odotusarvo $\mu = \mathbb{E}(X)$ valinnalla $f(x) = x$ ja
+
+- varianssi $\mathrm{Var}(X) = \mathbb{E}\left(\left(X - \mu\right)^2\right)$ valinnalla $f(x) = \left(x - \mu\right)^2$
+
+ovat momentteja. Odotusarvo kuvaa satunnaismuuttujaa $X$ vastaavan jakauman sijaintia ja varianssi kuvaa satunnaismuuttujaan $X$ liittyvää vaihtelua. Momentit siis kuvaavat satunnaismuuttujan $X$ jakaumaa jollain tavalla. Tämän vuoksi on myös tyypillistä estimoida momentteja otoksen avulla. Olkoon $\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}$ otos riippumattomia havaintoja satunnaismuuttujasta $X$. Tällöin tutut tarkentuvat ja harhattomat estimaattorit odotusarvolle ja varianssille ovat
+\begin{equation}
+  (\#eq:sampletwomoments)
+  \bar x = \frac{1}{n}\sum_{i = 1}^n x_i \quad\text{ja}\quad
+  s^2 = \frac{1}{n - 1} \sum_{i = 1}^n \left(x_i  - \bar x\right)^2.
+\end{equation}
+
+On myös muita momentteja, kuten vinous (eng: *skewness*). Merkitään $\mu = \mathbb{E}(X)$ ja $\sigma = \sqrt{\mathrm{Var}(X)}$. Tällöin vinous $\gamma_1$ määritellään seuraavasti,
+\begin{equation*}
+  \gamma_1 = \mathbb{E}\left(\left(\frac{X - \mu}{\sigma}\right)^3\right)
+  = \frac{\mathbb{E}\left(\left(X - \mu\right)^3\right)}{\sigma^3}.
+\end{equation*}
+Eli vinous on satunnaismuuttujan $X$ momentti, koska valinnalla $f(x) = \left((x - \mu)/\sigma\right)^3$ voimme kirjoittaa $\gamma_1 = f(X)$. Vinous kuvaan jakauman (epä)symmetrisyyttä odotusarvon $\mu$ ympärillä.
+
+- Jos $\gamma_1 = 0$, niin tyypillisesti satunnaismuuttujan $X$ jakauma on symmetrinen odotusarvon $\mu$ suhteen.
+
+- Jos $\gamma_1 > 0$, niin tyypillisesti satunnaismuuttujan $X$ jakauma on oikealle vino.
+
+    $\rightarrow$ Satunnaismuuttujan $X$ jakauman oikea häntä on pidempi kuin vasen häntä.
+
+- Jos $\gamma_1 < 0$, niin satunnaismuuttujan $X$ jakauma on tyypillisesti vasemmalle vino.
+
+    $\rightarrow$ Satunnaismuuttujan $X$ vasen häntä on pidempi kuin oikea häntä.
+
+(ref:skew) Musta kiinteä käyrä on erään symmetrisen jakauman ($\gamma_1 = 0$) tiheysfunktio, punainen katkoviivakäyrä on erään oikealle vinon jakauman ($\gamma_1 > 0$) tiheysfunktio ja sininen pisteviivakäyrä on erään vasemmalle vinon jakauman ($\gamma_1 < 0$) tiheysfunktio.
+
+Kuvassa \@ref(fig:skew) näkyy esimerkit symmetrisestä, oikealle vinosta ja vasemmalle vinosta jakaumasta.
+```{r skew, fig.cap="(ref:skew)", echo=FALSE, message=FALSE}
+
+ggplot() +
+  stat_function(fun = dbeta, args = list(shape1 = 4,  shape2 = 4)) +
+  stat_function(fun = dbeta, args = list(shape1 = 2,  shape2 = 5),
+                linetype = "dashed", color = "red") +
+  stat_function(fun = dbeta, args = list(shape1 = 5,  shape2 = 1),
+                linetype = "dotted", color = "blue") +
+  xlim(0, 1)
+```
+
+Taas kerran koska käytännön sovelluksissa saatavilla on ainostaan data $\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}$ eikä alla olevaa jakaumaa tiedetä, niin on luonnollista estimoida vinous otoksen avulla. Tarkentuva ja harhaton estimattori vinoudelle onkin
+\begin{equation*}
+  \hat\gamma_1 = \frac{n}{(n - 1)(n - 2)}\sum_{i = 1}^n \left(\frac{x_i - \bar x}{s}\right)^3,
+\end{equation*}
+jossa $\bar x$ ja $s = \sqrt{s^2}$ saadaan kaavasta \@ref(eq:sampletwomoments).
+
+Esitellään vielä yksi momentti, johon koodattu jotain tietoa satunnaismuuttujan $X$ jakaumasta. Huipukkuus (eng: *kurtosis, peakedness*) $\gamma_2$ määritellään olevan
+\begin{equation*}
+  \gamma_2 = \mathbb{E}\left(\left(\frac{X - \mu}{\sigma}\right)^4\right)
+  = \frac{\mathbb{E}\left(\left(X - \mu\right)^4\right)}{\mathrm{Var}(X)^2}.
+\end{equation*}
+Myös huipukkuus on satunnaismuuttujan $X$ momentti, koska valinnalla $f(x) = \left((x - \mu)/\sigma\right)^4$ voimme kirjoittaa $\gamma_2 = f(X)$. Huipukkuus kuvaa jakauman häntien paksuutta.
+
+- Korkea huipukkuuden arvo kuvaa sitä, että äärihavaintojen todennäköisyys on suhteellisen suuri.
+
+- Pieni huipukkuuden arvo kuvaa, sitä että äärihavaintojen todennäköisyys on suhteellisen pieni.
+
+Hyvä  vertailukohta-arvo huipukkuudelle on 3, koska normaalijakaumalle $\gamma_2 = 3$. Jos $\gamma_2 < 3$, niin jakauman hännät ovat kevyemmät kuin normaalijakauman. Jos $\gamma_2 > 3$, niin jakauman hännät ovat paksummat kuin normaalijakauman^[Tämän vuoksi lasketaankin usein liikahuipukkuus (eng: *excess kurtosis*) $\tilde\gamma_2 = \gamma_2 - 3$, jotta vertailukohta on $0$ eikä $3$.]. Kuvassa \@ref(fig:kurt) näkyy normaalijakauma, normaalijakaumaa kevythäntäisempi jakauma ja normaalijakaumaa paksuhäntäisempi jakauma.
+
+(ref:kurt) Musta kiinteä käyrä on erään normaalijakauman ($\gamma_2 = 3$) tiheysfunktio, punainen katkoviivakäyrä on paksuhäntäisen jakauman ($\gamma_2 > 3$) tiheysfunktio ja sininen pisteviivakäyrä on erään kevythäntäisen jakauman ($\gamma_2 < 3$) tiheysfunktio.
+
+```{r kurt, fig.cap="(ref:kurt)", echo=FALSE, message=FALSE}
+
+
+tibble::tibble(x = seq(-4, 4.5, length.out = 1000), y = dt(x - 0.5, df = 1)) |>
+  ggplot(aes(x = x,  y = y)) +
+  geom_line(linetype = "dashed", color = "red") +
+  stat_function(fun = dnorm, args = list(mean = 0.5)) +
+  stat_function(fun = dbeta, args = list(shape1 = 1,  shape2 = 1),
+                linetype = "dotted", color = "blue") +
+  xlim(-4, 4.5)
+```
+
+Tarkentuva estimaattori huipukkuudelle on
+\begin{equation*}
+  \hat\gamma_2 = \frac{\frac{1}{n}\sum_{i = 1}^n \left(x_i - \bar x\right)^4}{\left(\frac{1}{n}\sum_{i = 1}^n (x_i - \bar x)^2\right)^2}.
+\end{equation*}
+Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.
+
+
+## Momenttimenetelmä {#sec:momentmethod}
+
+

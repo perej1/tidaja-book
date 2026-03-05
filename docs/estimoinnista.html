@@ -220,7 +220,8 @@ div.csl-indent {
 <li class="chapter" data-level="7" data-path="estimoinnista.html"><a href="estimoinnista.html"><i class="fa fa-check"></i><b>7</b> Estimoinnista</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:mle"><i class="fa fa-check"></i><b>7.1</b> Suurimman uskottavuuden menetelmä</a></li>
-<li class="chapter" data-level="7.2" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:moment"><i class="fa fa-check"></i><b>7.2</b> Momenttimenetelmä</a></li>
+<li class="chapter" data-level="7.2" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:moment"><i class="fa fa-check"></i><b>7.2</b> Esittely momentteihin</a></li>
+<li class="chapter" data-level="7.3" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:momentmethod"><i class="fa fa-check"></i><b>7.3</b> Momenttimenetelmä</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>8</b> Liitteet</a>
 <ul>
@@ -353,9 +354,9 @@ Näin määritettyä suuretta <span class="math inline">\(\hat\theta\)</span> ku
 <pre><code>## [1] 2.798059e-11</code></pre>
 Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan <a href="estimoinnista.html#fig:mle">7.3</a> perusteella suurimman uskottavuuden estimaatti on noin <span class="math inline">\(\hat\lambda \approx 0.8\)</span>. Eli estimoimme keskimääräiseksi odotusajaksi <span class="math inline">\(1/\hat\lambda = 1.25\)</span> sekuntia datan perusteella.
 <div class="figure"><span style="display:block;" id="fig:mle"></span>
-<img src="tidaja-book_files/figure-html/mle-1.png" alt="Katkoviivalla kuvattu käyrä antaa 7.1 dataa x vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion \(L(\lambda;\overrightarrow{x})\) maksimin kohdalle." width="672" />
+<img src="tidaja-book_files/figure-html/mle-1.png" alt="Katkoviivalla kuvattu käyrä antaa 7.1 dataa x vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion \(L(\lambda; \overrightarrow{x})\) maksimin kohdalle." width="672" />
 <p class="caption">
-Kuva 7.3: Katkoviivalla kuvattu käyrä antaa <a href="estimoinnista.html#exm:mleidea">7.1</a> dataa <code>x</code> vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion <span class="math inline">\(L(\lambda;\overrightarrow{x})\)</span> maksimin kohdalle.
+Kuva 7.3: Katkoviivalla kuvattu käyrä antaa <a href="estimoinnista.html#exm:mleidea">7.1</a> dataa <code>x</code> vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion <span class="math inline">\(L(\lambda; \overrightarrow{x})\)</span> maksimin kohdalle.
 </p>
 </div>
 </div>
@@ -398,7 +399,70 @@ Koska funktion <span class="math inline">\(\ln L\)</span> toinen derivaatta on n
 <p>Tässä kävimme esimerkkejä liittyen SU-menetelmään vain jatkuvien jakaumien tapauksissa. Kuitenkin SU-menetelmä toimii samalla tavalla myös diskreeteille jakaumille (viikko 9, tehtävä 1).</p>
 </div>
 <div id="sec:moment" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Momenttimenetelmä<a href="estimoinnista.html#sec:moment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.2</span> Esittely momentteihin<a href="estimoinnista.html#sec:moment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Satunnaismuuttujan <span class="math inline">\(X\)</span> momentteja (eng: <em>moment</em>) ovat odotusarvot <span class="math inline">\(\mathbb{E}(f(X))\)</span> eri funktion <span class="math inline">\(f\)</span> valinnoilla. Esimerkiksi</p>
+<ul>
+<li><p>raaka odotusarvo <span class="math inline">\(\mu = \mathbb{E}(X)\)</span> valinnalla <span class="math inline">\(f(x) = x\)</span> ja</p></li>
+<li><p>varianssi <span class="math inline">\(\mathrm{Var}(X) = \mathbb{E}\left(\left(X - \mu\right)^2\right)\)</span> valinnalla <span class="math inline">\(f(x) = \left(x - \mu\right)^2\)</span></p></li>
+</ul>
+<p>ovat momentteja. Odotusarvo kuvaa satunnaismuuttujaa <span class="math inline">\(X\)</span> vastaavan jakauman sijaintia ja varianssi kuvaa satunnaismuuttujaan <span class="math inline">\(X\)</span> liittyvää vaihtelua. Momentit siis kuvaavat satunnaismuuttujan <span class="math inline">\(X\)</span> jakaumaa jollain tavalla. Tämän vuoksi on myös tyypillistä estimoida momentteja otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}\)</span> otos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Tällöin tutut tarkentuvat ja harhattomat estimaattorit odotusarvolle ja varianssille ovat
+<span class="math display" id="eq:sampletwomoments">\[\begin{equation}
+  \tag{7.1}
+  \bar x = \frac{1}{n}\sum_{i = 1}^n x_i \quad\text{ja}\quad
+  s^2 = \frac{1}{n - 1} \sum_{i = 1}^n \left(x_i  - \bar x\right)^2.
+\end{equation}\]</span></p>
+<p>On myös muita momentteja, kuten vinous (eng: <em>skewness</em>). Merkitään <span class="math inline">\(\mu = \mathbb{E}(X)\)</span> ja <span class="math inline">\(\sigma = \sqrt{\mathrm{Var}(X)}\)</span>. Tällöin vinous <span class="math inline">\(\gamma_1\)</span> määritellään seuraavasti,
+<span class="math display">\[\begin{equation*}
+  \gamma_1 = \mathbb{E}\left(\left(\frac{X - \mu}{\sigma}\right)^3\right)
+  = \frac{\mathbb{E}\left(\left(X - \mu\right)^3\right)}{\sigma^3}.
+\end{equation*}\]</span>
+Eli vinous on satunnaismuuttujan <span class="math inline">\(X\)</span> momentti, koska valinnalla <span class="math inline">\(f(x) = \left((x - \mu)/\sigma\right)^3\)</span> voimme kirjoittaa <span class="math inline">\(\gamma_1 = f(X)\)</span>. Vinous kuvaan jakauman (epä)symmetrisyyttä odotusarvon <span class="math inline">\(\mu\)</span> ympärillä.</p>
+<ul>
+<li><p>Jos <span class="math inline">\(\gamma_1 = 0\)</span>, niin tyypillisesti satunnaismuuttujan <span class="math inline">\(X\)</span> jakauma on symmetrinen odotusarvon <span class="math inline">\(\mu\)</span> suhteen.</p></li>
+<li><p>Jos <span class="math inline">\(\gamma_1 &gt; 0\)</span>, niin tyypillisesti satunnaismuuttujan <span class="math inline">\(X\)</span> jakauma on oikealle vino.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Satunnaismuuttujan <span class="math inline">\(X\)</span> jakauman oikea häntä on pidempi kuin vasen häntä.</p></li>
+<li><p>Jos <span class="math inline">\(\gamma_1 &lt; 0\)</span>, niin satunnaismuuttujan <span class="math inline">\(X\)</span> jakauma on tyypillisesti vasemmalle vino.</p>
+<p><span class="math inline">\(\rightarrow\)</span> Satunnaismuuttujan <span class="math inline">\(X\)</span> vasen häntä on pidempi kuin oikea häntä.</p></li>
+</ul>
+
+Kuvassa <a href="estimoinnista.html#fig:skew">7.4</a> näkyy esimerkit symmetrisestä, oikealle vinosta ja vasemmalle vinosta jakaumasta.
+<div class="figure"><span style="display:block;" id="fig:skew"></span>
+<img src="tidaja-book_files/figure-html/skew-1.png" alt="Musta kiinteä käyrä on erään symmetrisen jakauman (\(\gamma_1 = 0\)) tiheysfunktio, punainen katkoviivakäyrä on erään oikealle vinon jakauman (\(\gamma_1 &gt; 0\)) tiheysfunktio ja sininen pisteviivakäyrä on erään vasemmalle vinon jakauman (\(\gamma_1 &lt; 0\)) tiheysfunktio." width="672" />
+<p class="caption">
+Kuva 7.4: Musta kiinteä käyrä on erään symmetrisen jakauman (<span class="math inline">\(\gamma_1 = 0\)</span>) tiheysfunktio, punainen katkoviivakäyrä on erään oikealle vinon jakauman (<span class="math inline">\(\gamma_1 &gt; 0\)</span>) tiheysfunktio ja sininen pisteviivakäyrä on erään vasemmalle vinon jakauman (<span class="math inline">\(\gamma_1 &lt; 0\)</span>) tiheysfunktio.
+</p>
+</div>
+<p>Taas kerran koska käytännön sovelluksissa saatavilla on ainostaan data <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}\)</span> eikä alla olevaa jakaumaa tiedetä, niin on luonnollista estimoida vinous otoksen avulla. Tarkentuva ja harhaton estimattori vinoudelle onkin
+<span class="math display">\[\begin{equation*}
+  \hat\gamma_1 = \frac{n}{(n - 1)(n - 2)}\sum_{i = 1}^n \left(\frac{x_i - \bar x}{s}\right)^3,
+\end{equation*}\]</span>
+jossa <span class="math inline">\(\bar x\)</span> ja <span class="math inline">\(s = \sqrt{s^2}\)</span> saadaan kaavasta <a href="estimoinnista.html#eq:sampletwomoments">(7.1)</a>.</p>
+<p>Esitellään vielä yksi momentti, johon koodattu jotain tietoa satunnaismuuttujan <span class="math inline">\(X\)</span> jakaumasta. Huipukkuus (eng: <em>kurtosis, peakedness</em>) <span class="math inline">\(\gamma_2\)</span> määritellään olevan
+<span class="math display">\[\begin{equation*}
+  \gamma_2 = \mathbb{E}\left(\left(\frac{X - \mu}{\sigma}\right)^4\right)
+  = \frac{\mathbb{E}\left(\left(X - \mu\right)^4\right)}{\mathrm{Var}(X)^2}.
+\end{equation*}\]</span>
+Myös huipukkuus on satunnaismuuttujan <span class="math inline">\(X\)</span> momentti, koska valinnalla <span class="math inline">\(f(x) = \left((x - \mu)/\sigma\right)^4\)</span> voimme kirjoittaa <span class="math inline">\(\gamma_2 = f(X)\)</span>. Huipukkuus kuvaa jakauman häntien paksuutta.</p>
+<ul>
+<li><p>Korkea huipukkuuden arvo kuvaa sitä, että äärihavaintojen todennäköisyys on suhteellisen suuri.</p></li>
+<li><p>Pieni huipukkuuden arvo kuvaa, sitä että äärihavaintojen todennäköisyys on suhteellisen pieni.</p></li>
+</ul>
+<p>Hyvä vertailukohta-arvo huipukkuudelle on 3, koska normaalijakaumalle <span class="math inline">\(\gamma_2 = 3\)</span>. Jos <span class="math inline">\(\gamma_2 &lt; 3\)</span>, niin jakauman hännät ovat kevyemmät kuin normaalijakauman. Jos <span class="math inline">\(\gamma_2 &gt; 3\)</span>, niin jakauman hännät ovat paksummat kuin normaalijakauman<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>. Kuvassa <a href="estimoinnista.html#fig:kurt">7.5</a> näkyy normaalijakauma, normaalijakaumaa kevythäntäisempi jakauma ja normaalijakaumaa paksuhäntäisempi jakauma.</p>
+
+<div class="figure"><span style="display:block;" id="fig:kurt"></span>
+<img src="tidaja-book_files/figure-html/kurt-1.png" alt="Musta kiinteä käyrä on erään normaalijakauman (\(\gamma_2 = 3\)) tiheysfunktio, punainen katkoviivakäyrä on paksuhäntäisen jakauman (\(\gamma_2 &gt; 3\)) tiheysfunktio ja sininen pisteviivakäyrä on erään kevythäntäisen jakauman (\(\gamma_2 &lt; 3\)) tiheysfunktio." width="672" />
+<p class="caption">
+Kuva 7.5: Musta kiinteä käyrä on erään normaalijakauman (<span class="math inline">\(\gamma_2 = 3\)</span>) tiheysfunktio, punainen katkoviivakäyrä on paksuhäntäisen jakauman (<span class="math inline">\(\gamma_2 &gt; 3\)</span>) tiheysfunktio ja sininen pisteviivakäyrä on erään kevythäntäisen jakauman (<span class="math inline">\(\gamma_2 &lt; 3\)</span>) tiheysfunktio.
+</p>
+</div>
+<p>Tarkentuva estimaattori huipukkuudelle on
+<span class="math display">\[\begin{equation*}
+  \hat\gamma_2 = \frac{\frac{1}{n}\sum_{i = 1}^n \left(x_i - \bar x\right)^4}{\left(\frac{1}{n}\sum_{i = 1}^n (x_i - \bar x)^2\right)^2}.
+\end{equation*}\]</span>
+Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.</p>
+</div>
+<div id="sec:momentmethod" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Momenttimenetelmä<a href="estimoinnista.html#sec:momentmethod" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
@@ -407,6 +471,7 @@ Koska funktion <span class="math inline">\(\ln L\)</span> toinen derivaatta on n
 <ol start="17">
 <li id="fn17"><p>Tehtävissä ja suurimmassa osassa esimerkkejä jakauman <span class="math inline">\(F_{\theta_0}\)</span> määräämä parametri <span class="math inline">\(\theta_0\)</span> on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri <span class="math inline">\(\theta_0\)</span> on vektori kuten normaalijakauman tapauksessa <span class="math inline">\(\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n\)</span>.<a href="estimoinnista.html#fnref17" class="footnote-back">↩︎</a></p></li>
 <li id="fn18"><p>Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.<a href="estimoinnista.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>Tämän vuoksi lasketaankin usein liikahuipukkuus (eng: <em>excess kurtosis</em>) <span class="math inline">\(\tilde\gamma_2 = \gamma_2 - 3\)</span>, jotta vertailukohta on <span class="math inline">\(0\)</span> eikä <span class="math inline">\(3\)</span>.<a href="estimoinnista.html#fnref19" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

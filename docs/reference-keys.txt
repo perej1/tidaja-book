@@ -179,6 +179,9 @@ exm:mlf
 exm:mle
 fig:mle
 prp:extra
+eq:sampletwomoments
+fig:skew
+fig:kurt
 eq:euclidean
 exm:unlabeled-div-46
 fig:vec
@@ -217,6 +220,7 @@ sec:bootstrap
 estimoinnista
 sec:mle
 sec:moment
+sec:momentmethod
 liitteet
 sec:vector
 sec:matrix
