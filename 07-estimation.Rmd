@@ -1,10 +1,21 @@
 # Estimoinnista
 
-- tarkentuvuus
+Kurssilla *Tilastotieteen perusteet* esiteltiin tilastollisen estimoinnin peruskäsitteitä ja ideaa. On siis tavallista olettaa, että data noudattaa jotain tilastollista mallia, joka riippuu parametri(vektorista) $\theta_0$. Tilastollinen malli voi tässä tapauksessa tarkoittaa esimerkiksi seuraavaa.
 
-- harhattomuus
+- Verkkokaupan ostotapahtumien aikavali on satunnainen mutta noudattaa eksponenttijakaumaa parametrilla $\theta_0 = \lambda_0$.
 
-- mean squared error
+- Voittoja mallinnetaan lineaarisella regressiolla
+\begin{equation*}
+  \texttt{voitto}_i = \beta_0 + \beta_1 \texttt{mainostus}_i + \beta_2 \texttt{hinta}_i + \varepsilon_i,
+\end{equation*}
+jossa $\theta_0 = \left(\beta_0, \beta_1, \beta_2\right)$.
+
+Kuitenkin työelämän data-analyyseissä mallin parametrivektori $\theta_0$ on tuntematon^[Yleensä myös tilastoliinen malli on yksinkertaistus sotkuisesta oikean elämän ilmiöstä.]. Saatavilla on vain dataa, jonka avulla voimme "arvata" eli estimoida parametrin $\theta_0$ arvon.
+
+Haluttuja estimaattorin $\hat\theta$ ominaisuuksia ovat tarkentuvuus ja harhattomuus. Tarkentuvuus tarkoittaa sitä, että suurella otoskoolla estimaattorin^[Muista, että estimaattori on funktio, jonka syöte on data.] antama estimaatti^[Muista, että estimaatti on estimaattorin tuottama lukuarvo, kun estimaattoriin on syötetty saatu data.] on lähellä parametrin arvoa eli $\hat\theta \approx \theta$. Harhattomuus tarkoittaa sitä, että monesta otoksesta laskettujen estimaattien keskiarvo on lähellä oikeaa parametrin arvoa eli formaalisti $\mathbb{E}\left(\hat\theta\right) = \theta$.
+
+Tässä luvussa esittelemme erilaisia estimointimenetelmiä. Luvussa \@ref(sec:mle) esittelemme suurimman uskottavuuden menetelmän ja luvussa \@ref(sec:momentmethod) esittelemme momenttimenetelmän. Ennen momenttimenetelmää luvussa \@ref(sec:moment) tutustumme momentin käsitteeseen tilastotieteen näkökulmasta.
+
 
 ## Suurimman uskottavuuden menetelmä {#sec:mle}
 
@@ -294,7 +305,21 @@ Tarkentuva estimaattori huipukkuudelle on
 \end{equation*}
 Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.
 
+:::{.proposition}
+Yllä oletimme sanomatta, että kaikki relevantit satunnaismuuttujan $X$ momentit $\mathbb{E}\left(f(X)\right)$ ovat olemassa. Näin ei kuitenkaan aina ole. Jos jakauman hännät ovat tarpeeksi paksut kuten [Cauchy jakauman](https://fi.wikipedia.org/wiki/Cauchy-jakauma), niin edes odotusarvo $\mathbb{E}\left(X\right)$ ei ole olemassa. Tällöin myös varianssi $\mathrm{Var}(X)$, vinous $\gamma_1$ ja huipukkuus $\gamma_2$ eivät ole hyvin määriteltyjä.
+
+Myös alla olevassa luvussa oletamme, että kaikki relevantit momentit ovat olemassa.
+
+Lisätietoa: Jos joku momentti ei ole hyvin määritelty, niin käytännössä tämä tarkoittaa sitä, että jakauma tuottaa poikkeavia havaintoja suhteellisen suurella todennäköisyydellä. Toisin sanoen tiheysfunktion hännät ovat paksuja. Mitä vähemmän momentteja ollaan määritelty sitä paksummat hännät.
+:::
 
 ## Momenttimenetelmä {#sec:momentmethod}
 
+Oletetaan, että muuttuja $X$ noudattaa parametrin $\theta_0$ määräämää jakaumaa $F_{\theta_0}$. Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos riippumattomia havaintoja jakaumasta $F_{\theta_0}$. Kuten luvussa \@ref(sec:mle), tavoitteena on estimoida parametri $\theta_0$ otoksen $\overrightarrow{x}$ avulla. Nyt esittelemme kuitenkin vaihtoehtoisen estimointimenetelmän SU-menetelmän rinnalle.
+
+Luvussa \@ref(sec:moment) havaitsimme, että momentit $\mathbb{E}(f(X))$ kertovat paljon muuttujan $X$ jakaumasta. Ehkä voimme siis käyttää momentteja parametrin $\theta_0$ estimointiin. Tämän idean formalisointi johtaa momenttimenetelmään (eng: *moment method*).
+
+Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja $\mathbb{E}(f_j(X))$, $j\in\{1, \ldots, d\}$ parametrin estimointiin. Kuitenkin tässä luvussa rajoitumme tapaukseen, jossa käytämme keskusmomentteja (eng: *central moment*) $\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)$. Keskusmomentin tapauksessa funktio $f$ on siis aina muotoa $f(x) = x^j$.
+
+Kuten luvussa \@ref(sec:moment) käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla.
 

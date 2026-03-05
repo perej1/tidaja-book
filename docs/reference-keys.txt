@@ -182,8 +182,9 @@ prp:extra
 eq:sampletwomoments
 fig:skew
 fig:kurt
+prp:unlabeled-div-45
 eq:euclidean
-exm:unlabeled-div-46
+exm:unlabeled-div-47
 fig:vec
 r-ohjelmointikielestä
 sec:inst
