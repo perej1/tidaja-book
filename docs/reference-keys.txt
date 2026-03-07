@@ -183,6 +183,7 @@ eq:sampletwomoments
 fig:skew
 fig:kurt
 prp:unlabeled-div-45
+eq:system
 eq:euclidean
 exm:unlabeled-div-47
 fig:vec

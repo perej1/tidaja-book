@@ -315,11 +315,21 @@ Lisätietoa: Jos joku momentti ei ole hyvin määritelty, niin käytännössä t
 
 ## Momenttimenetelmä {#sec:momentmethod}
 
-Oletetaan, että muuttuja $X$ noudattaa parametrin $\theta_0$ määräämää jakaumaa $F_{\theta_0}$. Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos riippumattomia havaintoja jakaumasta $F_{\theta_0}$. Kuten luvussa \@ref(sec:mle), tavoitteena on estimoida parametri $\theta_0$ otoksen $\overrightarrow{x}$ avulla. Nyt esittelemme kuitenkin vaihtoehtoisen estimointimenetelmän SU-menetelmän rinnalle.
+Oletetaan, että muuttuja $X$ noudattaa parametrin $\theta_0$ määräämää jakaumaa $F_{\theta_0}$. Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos riippumattomia havaintoja jakaumasta $F_{\theta_0}$. Kuten luvussa \@ref(sec:mle), tavoitteena on estimoida parametri $\theta_0$ otoksen $\overrightarrow{x}$ avulla. Nyt esittelemme kuitenkin vaihtoehtoisen estimointimenetelmän SU-menetelmän rinnalle. Luvussa \@ref(sec:moment) havaitsimme, että momentit $\mathbb{E}(f(X))$ kertovat paljon muuttujan $X$ jakaumasta. Ehkä voimme siis käyttää momentteja parametrin $\theta_0$ estimointiin. Tämän idean formalisointi johtaa momenttimenetelmään (eng: *method of moments*).
 
-Luvussa \@ref(sec:moment) havaitsimme, että momentit $\mathbb{E}(f(X))$ kertovat paljon muuttujan $X$ jakaumasta. Ehkä voimme siis käyttää momentteja parametrin $\theta_0$ estimointiin. Tämän idean formalisointi johtaa momenttimenetelmään (eng: *moment method*).
+Merkitään otoksen $\overrightarrow{x}$ avulla estimoitua momenttia $\mathbb{E}(f(X))$ notaatiolla $\hat m_f$. Esimerkiksi jos $f(x) = x$, niin $\hat m_f = \bar x = \frac{1}{n} \sum_{i=1}^n x_i$ luvun \@ref(sec:moment) mukaan. Olkoon jakauman $F_{\theta_0}$ parametrivektori $d$-ulotteinen. Tällöin momenttimenetelmässä muodostetaan $d$ yhtälöä, joissa $d$ valittua teoreettista momenttia $\mathbb{E}(f_j(X))$ laitetaan vastaamaan estimaatteja $\hat m_{f_j}$, $j\in\{1, \ldots, d\}$,
+\begin{equation}
+  (\#eq:system)
+  \begin{split}
+    \mathbb{E}(f_1(X)) &= \hat m_{f_1}, \\
+    \mathbb{E}(f_2(X)) &= \hat m_{f_2}, \\
+    &\vdots \\
+    \mathbb{E}(f_d(X)) &= \hat m_{f_d}.
+  \end{split}
+\end{equation}
+Yllä olevan yhtälöryhmän ratkaisu $\hat\theta\in\mathbb{R}^d$ on momenttiestimaattori $d$-ulotteiselle parametrille $\theta_0$.
 
-Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja $\mathbb{E}(f_j(X))$, $j\in\{1, \ldots, d\}$ parametrin estimointiin. Kuitenkin tässä luvussa rajoitumme tapaukseen, jossa käytämme keskusmomentteja (eng: *central moment*) $\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)$. Keskusmomentin tapauksessa funktio $f$ on siis aina muotoa $f(x) = x^j$.
-
-Kuten luvussa \@ref(sec:moment) käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla.
-
+Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja $\mathbb{E}(f_j(X))$ yhtälöryhmässä \@ref(eq:system)^[Välillä yhtälöryhmässä \@ref(eq:system) tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.]. On kuitenkin erittäin yleistä käyttää $d$ ensimmäistä keskusmomenttia (eng: *central moment*) $\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)$. Keskusmomentin tapauksessa funktio $f$ on siis aina muotoa $f(x) = x^j$. Kuten luvussa \@ref(sec:moment) käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori $\hat m_j = \hat m_{x^j}$ keskusmomentille $\mathbb{E}\left(X^j\right)$ on
+\begin{equation*}
+  \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
+\end{equation*}
