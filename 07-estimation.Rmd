@@ -1,6 +1,6 @@
 # Estimoinnista
 
-Kurssilla *Tilastotieteen perusteet* esiteltiin tilastollisen estimoinnin peruskäsitteitä ja ideaa. On siis tavallista olettaa, että data noudattaa jotain tilastollista mallia, joka riippuu parametri(vektorista) $\theta_0$. Tilastollinen malli voi tässä tapauksessa tarkoittaa esimerkiksi seuraavaa.
+Kurssilla *Tilastotieteen perusteet* esiteltiin tilastollisen estimoinnin peruskäsitteitä ja ideaa. On siis tavallista olettaa, että data noudattaa jotain tilastollista mallia, joka riippuu parametri(vektorista) $\theta_0$. Alla on kaksi esimerkkiä tilastollisista malleista.
 
 - Verkkokaupan ostotapahtumien aikavali on satunnainen mutta noudattaa eksponenttijakaumaa parametrilla $\theta_0 = \lambda_0$.
 
@@ -14,12 +14,12 @@ Kuitenkin työelämän data-analyyseissä mallin parametrivektori $\theta_0$ on 
 
 Haluttuja estimaattorin $\hat\theta$ ominaisuuksia ovat tarkentuvuus ja harhattomuus. Tarkentuvuus tarkoittaa sitä, että suurella otoskoolla estimaattorin^[Muista, että estimaattori on funktio, jonka syöte on data.] antama estimaatti^[Muista, että estimaatti on estimaattorin tuottama lukuarvo, kun estimaattoriin on syötetty saatu data.] on lähellä parametrin arvoa eli $\hat\theta \approx \theta$. Harhattomuus tarkoittaa sitä, että monesta otoksesta laskettujen estimaattien keskiarvo on lähellä oikeaa parametrin arvoa eli formaalisti $\mathbb{E}\left(\hat\theta\right) = \theta$.
 
-Tässä luvussa esittelemme erilaisia estimointimenetelmiä. Luvussa \@ref(sec:mle) esittelemme suurimman uskottavuuden menetelmän ja luvussa \@ref(sec:momentmethod) esittelemme momenttimenetelmän. Ennen momenttimenetelmää luvussa \@ref(sec:moment) tutustumme momentin käsitteeseen tilastotieteen näkökulmasta.
+Tässä luvussa esittelemme kaksi erilaista estimointimenetelmää. Luvussa \@ref(sec:mle) esittelemme suurimman uskottavuuden menetelmän ja luvussa \@ref(sec:momentmethod) esittelemme momenttimenetelmän. Ennen momenttimenetelmää luvussa \@ref(sec:moment) tutustumme momentin käsitteeseen. Vaikka rajoitumme yksiulotteisiin jakaumiin, niin esitellyt menetelmät yleistyvät myös moniulotteisille jakaumille.
 
 
 ## Suurimman uskottavuuden menetelmä {#sec:mle}
 
-Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos yksiulotteisesta parametrisesta jakaumasta^[Tehtävissä ja suurimmassa osassa esimerkkejä jakauman $F_{\theta_0}$ määräämä parametri $\theta_0$ on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri $\theta_0$ on vektori kuten normaalijakauman tapauksessa $\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n$.] $F_{\theta_0}$, $\theta_0\in\mathbb{R}^d$. Suurimman uskottavuuden (SU, eng: *maximum likelihood*) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille $\theta_0$ havaitun datan perusteella $\overrightarrow{x}$. SU-menetelmän idea on seuraava.
+Olkoon $\overrightarrow{x} = \{x_1, \ldots, x_n\}$ otos yksiulotteisesta parametrisesta jakaumasta $F_{\theta_0}$, $\theta_0\in\mathbb{R}^d$. Suurimman uskottavuuden (SU, eng: *maximum likelihood*) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille $\theta_0$ havaitun datan perusteella $\overrightarrow{x}$. SU-menetelmän idea on seuraava.
 
 1. Data-analyytikko tekee valistuneen arvauksen siitä millainen on jakauman $F_{\theta_0}$ "muoto". Voidaan esimerkiksi olettaa, että data tulee normaalijakaumasta, eksponenttijakaumasta, Poisson jakaumasta, tasajakaumasta, binomijakaumasta jne. Tässä vaiheessa ei vielä oteta kantaa siihen, mikä on jakauman $F_{\theta_0}$ todelllinen parametri $\theta_0$.
 
@@ -33,7 +33,7 @@ set.seed(123)
 x <- rexp(10, 0.5)
 ```
 
-Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa $n = 10$ oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa^[Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.].
+Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa $n = 10$ oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa^[Todellisuudessa tämäntyyppisen otoksen otoskoko olisi todennäköisesti paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.].
 ```{r}
 x
 ```
@@ -133,9 +133,9 @@ Kun uskottavuusfunktio ollaan määritetty, niin sitä käytetään halutun para
 \begin{equation*}
    L\left(\hat\theta; \overrightarrow{x} \right) = \max_{\theta} L\left(\theta; \overrightarrow{x} \right).
 \end{equation*}
-Näin määritettyä suuretta $\hat\theta$ kutsutaan parametrin $\theta_0$ suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin -- selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun on tarvitaan numeerisia algoritmeja.
+Näin määritettyä suuretta $\hat\theta$ kutsutaan parametrin $\theta_0$ suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin -- selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun tarvitaan numeerisia algoritmeja.
 
-Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (patsi lisätietona huomautuksessa \@ref(prp:extra)). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.
+Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (paitsi lisätietona huomautuksessa \@ref(prp:extra)). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.
 
 (ref:mle) Katkoviivalla kuvattu käyrä antaa \@ref(exm:mleidea) dataa `x` vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion $L(\lambda; \overrightarrow{x})$ maksimin kohdalle.
 
@@ -178,7 +178,7 @@ tibble::tibble(x = seq(0, 3, length.out = 1000), y = likelihood(x)) |>
 ```
 :::
 
-Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin Eksponenttijakauman parametrille $\lambda_0$. Tämä on siis kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.
+Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin eksponenttijakauman parametrille $\lambda_0$. Tämä on kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.
 
 :::{.proposition #extra name="Lisätietoa esimerkistä \@ref(exm:mle)"}
 Olkoon $\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}$ kokoa $n$ oleva otos riippumattomia havaintoja jakaumasta $\mathrm{Exp}(\lambda_0)$. Esimerkin \@ref(exm:mlf) uskottavuusfunktio otoskoolle $10$ voidaan yleistää otoskoolle $n$,
@@ -200,7 +200,7 @@ Seuraavaksi selvitetään funktion $\ln L$ derivaatan nollakohdat.
   \iff &\frac{n}{\lambda} - n\bar x = 0 \\
   \iff & \lambda = \frac{1}{\bar x}.
 \end{align*}
-Täytyy vielä todistaa, että $\lambda = 1/\bar x$ on maksimi (eikä esimerkiksi minimi). Voimme laskea, että
+Täytyy vielä todistaa, että $\lambda = 1/\bar x$ on maksimikohta (eikä esimerkiksi minimikohta). Voimme laskea, että
 \begin{equation*}
   \frac{\mathrm{d}^2\ln L\left(\lambda; \overrightarrow{x}\right)}
   {\mathrm{d}\lambda^2}
@@ -304,7 +304,7 @@ Tarkentuva estimaattori huipukkuudelle on
 \begin{equation*}
   \hat\gamma_2 = \frac{\frac{1}{n}\sum_{i = 1}^n \left(x_i - \bar x\right)^4}{\left(\frac{1}{n}\sum_{i = 1}^n (x_i - \bar x)^2\right)^2}.
 \end{equation*}
-Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.
+Kyseinen estimaattori on harhainen äärellisillä otoksilla. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.
 
 :::{.proposition}
 Yllä oletimme sanomatta, että kaikki relevantit satunnaismuuttujan $X$ momentit $\mathbb{E}\left(f(X)\right)$ ovat olemassa. Näin ei kuitenkaan aina ole. Jos jakauman hännät ovat tarpeeksi paksut kuten [Cauchy jakauman](https://fi.wikipedia.org/wiki/Cauchy-jakauma), niin edes odotusarvo $\mathbb{E}\left(X\right)$ ei ole olemassa. Tällöin myös varianssi $\mathrm{Var}(X)$, vinous $\gamma_1$ ja huipukkuus $\gamma_2$ eivät ole hyvin määriteltyjä.
@@ -341,7 +341,7 @@ Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametr
 \end{equation*}
 jossa $f(x;\lambda)$ on kaavan \@ref(eq:expf) mukainen eksponenttijakauman tiheysfunktio.
 
-:::{.example name="Momenttimenetelmä ja eksponenttijakauma"}
+:::{.example #expmoment name="Momenttimenetelmä ja eksponenttijakauma"}
 Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}$ riippumattomia havaintoja satunnaismuuttujasta $X$, joka noudattaa jakaumaa $\mathrm{Exp}(\lambda_0)$. Estimoidaan parametri $\lambda_0$ momenttimenetelmällä. Koska parametri(vektori) $\theta_0 = \lambda_0$ on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia $\mathbb{E}(X)$, jonka arvo on $\mathbb{E}(X) = 1/\lambda$. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
 \begin{equation}
   \begin{split}
@@ -370,4 +370,33 @@ x
 sqrt(2 / mean(x^2))
 ```
 Estimaatin $\hat\lambda_2$ avulla arvioitu keskimääräinen odotusaika ostotapahtumien välillä $1/\hat\lambda_2 \approx `r round(1 / sqrt(2 / mean(x^2)), 1)`$ on pidempi kuin estimaatin $\hat\lambda_1$ avulla arvioitu keskimääräinen odotusaika $1/\hat\lambda_1 \approx 1.3$.
+:::
+
+Momenttiestimaattorin teoreettisista ominaisuuksista voimme sanoa samantyyppiset faktat kuin SU-estimaattorista.
+
+- Tiettyjen (melko lievien) oletusten alla momenttiestimaattori on tarkentuva eli $\hat\theta \approx \theta_0$ suurella otoskoolla $n$.
+
+- Momenttiestimaattori voi olla harhainen.
+
+- Usein momenttiestimaattori ei ole "optimaalinen". Kuitenkin momenttiestimaattoreita käytetään monissa sovelluksissa esimerkiksi niiden yksinkertaisuuden vuoksi.
+
+Esimerkissä \@ref(exm:expmoment) parametri on yksiulotteinen, joten yksi yhtälö riittää momenttiestimaattorin muodostukseen. Viikon 9 tehtävässä 2 pääset muodostamaan momenttiestimaattorin kaksiulotteiselle parametrille -- eli tehtävässä täytyy ratkaista yhtälöpari.
+
+:::{.proposition name="Estimaattoreiden vertailu?"}
+Kuten esimerkissä \@ref(exm:expmoment) huomattiin, eri menetelmien avulla voidaan päätyä samoihin estimaattoreihin. Eli tarkemmin ottaen esimerkissä \@ref(exm:expmoment) huomattiin, että eräs momenttiestimaattori eksponenttijakauman parametrille $\lambda_0$ on sama kuin SU-estimaattori. Tämäntyyppisiä yhtäläisyyksiä esiintyy myös muissa asiayhteyksissä. Esimerkiksi jos lineaarisen regressiomallin
+\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_d x_{id} + \varepsilon_i
+\end{equation*}
+virhetermit ovat oletuksen \@ref(def:whitenoise) mukaista valkoista kohinaa (**erityisesti oletamme, että satunnaiset virhetermit ovat normaalijakautuneita**), niin SU-estimaattori parametrille $\boldsymbol\beta = (\beta_0, \beta_1, \ldots, \beta_d)^T$ on sama kuin pienimmän neliösumman estimaattori, jota käsiteltiin luvussa \@ref(sec:fitting).
+
+Kuitenkin usein eri menetelmillä johdetut estimaattorit ovat erilaisia. Estimaattoreiden hyvyyksien vertailuun on useita tapoja.
+
+- Voidaan analysoida keskineliövirhettä $\mathbb{E}\left(\left(\hat\theta - \theta_0\right)^2\right)$, joka ottaa huomioon estimaattoriin $\hat\theta$ liittyvän varianssin ja harhan, koska voimme kirjoittaa
+\begin{equation*}
+  \mathbb{E}\left(\left(\hat\theta - \theta_0\right)^2\right)
+  = \mathrm{Var}\left(\hat\theta\right) + \left(\mathrm{Bias}\left(\hat\theta\right)\right)^2,
+\end{equation*}
+jossa harha määritellään $\mathrm{Bias}(\hat\theta) = \mathbb{E}\left(\hat\theta\right) - \theta$. Joissain asiayhteyksissä haluamme vähentää estimaattoriin liittyvää varianssia sillä kustannuksella, että teemme estimaattorista harhaisen. Tämän vuoksi käytännön sovelluksissa käytetään joskus tarkoituksenmukaisesti harhaisia estimaattoreita!
+
+- Voidaan analysoida mitä estimaattorille tapahtuu, kun otoskoko kasvaa kohti ääretöntä. Vähittäisvaatimus estimaattorille on tarkentuvuus mutta on myös muita haluttuja ominaisuuksia, joiden halutaan täyttyvän suurille otoskoille. Tämäntyyppisten ominaisuuksien analysointi on tuottanut oman tilastotieteen haaraan nimeltään [asymptoottinen tilastotiede](https://en.wikipedia.org/wiki/Asymptotic_theory_(statistics)) (eng: *asymptotic statistics*).
 :::

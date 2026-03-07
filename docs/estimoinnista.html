@@ -250,7 +250,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="estimoinnista" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Luku 7</span> Estimoinnista<a href="estimoinnista.html#estimoinnista" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Kurssilla <em>Tilastotieteen perusteet</em> esiteltiin tilastollisen estimoinnin peruskäsitteitä ja ideaa. On siis tavallista olettaa, että data noudattaa jotain tilastollista mallia, joka riippuu parametri(vektorista) <span class="math inline">\(\theta_0\)</span>. Tilastollinen malli voi tässä tapauksessa tarkoittaa esimerkiksi seuraavaa.</p>
+<p>Kurssilla <em>Tilastotieteen perusteet</em> esiteltiin tilastollisen estimoinnin peruskäsitteitä ja ideaa. On siis tavallista olettaa, että data noudattaa jotain tilastollista mallia, joka riippuu parametri(vektorista) <span class="math inline">\(\theta_0\)</span>. Alla on kaksi esimerkkiä tilastollisista malleista.</p>
 <ul>
 <li><p>Verkkokaupan ostotapahtumien aikavali on satunnainen mutta noudattaa eksponenttijakaumaa parametrilla <span class="math inline">\(\theta_0 = \lambda_0\)</span>.</p></li>
 <li><p>Voittoja mallinnetaan lineaarisella regressiolla
@@ -261,17 +261,17 @@ jossa <span class="math inline">\(\theta_0 = \left(\beta_0, \beta_1, \beta_2\rig
 </ul>
 <p>Kuitenkin työelämän data-analyyseissä mallin parametrivektori <span class="math inline">\(\theta_0\)</span> on tuntematon<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. Saatavilla on vain dataa, jonka avulla voimme “arvata” eli estimoida parametrin <span class="math inline">\(\theta_0\)</span> arvon.</p>
 <p>Haluttuja estimaattorin <span class="math inline">\(\hat\theta\)</span> ominaisuuksia ovat tarkentuvuus ja harhattomuus. Tarkentuvuus tarkoittaa sitä, että suurella otoskoolla estimaattorin<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> antama estimaatti<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> on lähellä parametrin arvoa eli <span class="math inline">\(\hat\theta \approx \theta\)</span>. Harhattomuus tarkoittaa sitä, että monesta otoksesta laskettujen estimaattien keskiarvo on lähellä oikeaa parametrin arvoa eli formaalisti <span class="math inline">\(\mathbb{E}\left(\hat\theta\right) = \theta\)</span>.</p>
-<p>Tässä luvussa esittelemme erilaisia estimointimenetelmiä. Luvussa <a href="estimoinnista.html#sec:mle">7.1</a> esittelemme suurimman uskottavuuden menetelmän ja luvussa <a href="estimoinnista.html#sec:momentmethod">7.3</a> esittelemme momenttimenetelmän. Ennen momenttimenetelmää luvussa <a href="estimoinnista.html#sec:moment">7.2</a> tutustumme momentin käsitteeseen tilastotieteen näkökulmasta.</p>
+<p>Tässä luvussa esittelemme kaksi erilaista estimointimenetelmää. Luvussa <a href="estimoinnista.html#sec:mle">7.1</a> esittelemme suurimman uskottavuuden menetelmän ja luvussa <a href="estimoinnista.html#sec:momentmethod">7.3</a> esittelemme momenttimenetelmän. Ennen momenttimenetelmää luvussa <a href="estimoinnista.html#sec:moment">7.2</a> tutustumme momentin käsitteeseen. Vaikka rajoitumme yksiulotteisiin jakaumiin, niin esitellyt menetelmät yleistyvät myös moniulotteisille jakaumille.</p>
 <div id="sec:mle" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Suurimman uskottavuuden menetelmä<a href="estimoinnista.html#sec:mle" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos yksiulotteisesta parametrisesta jakaumasta<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> <span class="math inline">\(F_{\theta_0}\)</span>, <span class="math inline">\(\theta_0\in\mathbb{R}^d\)</span>. Suurimman uskottavuuden (SU, eng: <em>maximum likelihood</em>) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille <span class="math inline">\(\theta_0\)</span> havaitun datan perusteella <span class="math inline">\(\overrightarrow{x}\)</span>. SU-menetelmän idea on seuraava.</p>
+<p>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos yksiulotteisesta parametrisesta jakaumasta <span class="math inline">\(F_{\theta_0}\)</span>, <span class="math inline">\(\theta_0\in\mathbb{R}^d\)</span>. Suurimman uskottavuuden (SU, eng: <em>maximum likelihood</em>) menetelmä on eräs tärkeimmistä estimointimenetelmistä määrittää paras arvaus eli estimaatti parametrille <span class="math inline">\(\theta_0\)</span> havaitun datan perusteella <span class="math inline">\(\overrightarrow{x}\)</span>. SU-menetelmän idea on seuraava.</p>
 <ol style="list-style-type: decimal">
 <li><p>Data-analyytikko tekee valistuneen arvauksen siitä millainen on jakauman <span class="math inline">\(F_{\theta_0}\)</span> “muoto”. Voidaan esimerkiksi olettaa, että data tulee normaalijakaumasta, eksponenttijakaumasta, Poisson jakaumasta, tasajakaumasta, binomijakaumasta jne. Tässä vaiheessa ei vielä oteta kantaa siihen, mikä on jakauman <span class="math inline">\(F_{\theta_0}\)</span> todelllinen parametri <span class="math inline">\(\theta_0\)</span>.</p></li>
 <li><p>Seuraavaksi SU-menetelmällä valitaan kaikista mahdollisista jakaumavaihtoehdoista <span class="math inline">\(\{F_{\theta} : \theta\in\mathbb{R}^d\}\)</span> se jakauma <span class="math inline">\(F_{\hat\theta}\)</span>, josta otos <span class="math inline">\(\overrightarrow{x}\)</span> tulee kaikista todennäköisimmin. Tätä jakaumaa vastaava parametri <span class="math inline">\(\hat\theta\)</span> on suurimman uskottavuuden estimaatti tuntemattomalle parametrille <span class="math inline">\(\theta_0\)</span> otokseen <span class="math inline">\(\overrightarrow{x}\)</span> perustuen.</p></li>
 </ol>
 <p>Seuraava esimerkki avaa tarkemmin SU-menetelmän ideaa.</p>
 <div class="example">
-<p><span id="exm:mleidea" class="example"><strong>Esimerkki 7.1  (SU-menetelmän idea) </strong></span>Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa <span class="math inline">\(n = 10\)</span> oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
+<p><span id="exm:mleidea" class="example"><strong>Esimerkki 7.1  (SU-menetelmän idea) </strong></span>Verkkokauppa kamatson on kiinnostunut mallintamaan ostotapahtumiensa tiheyttä. Saatavilla on kokoa <span class="math inline">\(n = 10\)</span> oleva otos, jonka havainnot kuvaavat ostotapahtumien aikavälejä sekunneissa<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="estimoinnista.html#cb265-1" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1] 1.68691452 1.15322054 2.65810974 0.06315472 0.11242195 0.63300243
 ##  [7] 0.62845458 0.29053361 5.45247293 0.05830689</code></pre>
@@ -339,8 +339,8 @@ kun havaintojen <span class="math inline">\(x_i\)</span> oletetaan olevan riippu
 <span class="math display">\[\begin{equation*}
    L\left(\hat\theta; \overrightarrow{x} \right) = \max_{\theta} L\left(\theta; \overrightarrow{x} \right).
 \end{equation*}\]</span>
-Näin määritettyä suuretta <span class="math inline">\(\hat\theta\)</span> kutsutaan parametrin <span class="math inline">\(\theta_0\)</span> suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin – selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun on tarvitaan numeerisia algoritmeja.</p>
-<p>Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (patsi lisätietona huomautuksessa <a href="estimoinnista.html#prp:extra">7.1</a>). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.</p>
+Näin määritettyä suuretta <span class="math inline">\(\hat\theta\)</span> kutsutaan parametrin <span class="math inline">\(\theta_0\)</span> suurimman uskottavuuden estimaattoriksi. Yksinkertaisissa tapauksissa uskottavuusfunktion maksimikohta eli suurimman uskottavuuden estimaattori voidaan löytää käsin – selvitetään uskottavuusfunktion derivaatan nollakohdat ja tarkistetaan, että nollakohta on maksimi. Monimutkaisemmissa tapauksissa maksimin ratkaisuun tarvitaan numeerisia algoritmeja.</p>
+<p>Tämän kurssin tavoite on kuitenkin vain esitellä suurimman uskottavuuden menetelmän idea, joten emme esimerkiksi ratkaise uskottavuusfunktion maksimikohtaa käsin (paitsi lisätietona huomautuksessa <a href="estimoinnista.html#prp:extra">7.1</a>). Alla olevassa esimerkissä arvioimme visuaalisesti suurimman uskottavuuden estimaatin arvon saadun otoksen avulla.</p>
 
 <div class="example">
 <p><span id="exm:mle" class="example"><strong>Esimerkki 7.3  (Uskottavuusfunktion maksimin löytäminen) </strong></span>Oletetaan, että esimerkin <a href="estimoinnista.html#exm:mleidea">7.1</a> otoksen <code>x</code> havainnot ovat riippumattomia ja tulevat jakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Kirjoitetaan nyt otosta vastaava uskottavuusfunktio, jonka kaava ratkaistiin esimerkissä <a href="estimoinnista.html#exm:mlf">7.2</a>. Tätä varten muodostamme oman R funktion. Funktioita voidaan muodostaa seuraavalla syntaksilla.</p>
@@ -368,7 +368,7 @@ Kuva 7.3: Katkoviivalla kuvattu käyrä antaa <a href="estimoinnista.html#exm:ml
 </p>
 </div>
 </div>
-<p>Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin Eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span>. Tämä on siis kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.</p>
+<p>Jos olet kiinnostunut, niin alla olevassa huomautuksessa johdamme SU-estimaattorin eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span>. Tämä on kuitenkin vain lisätietoa eikä kuulu kurssin osaamistavoitteisiin.</p>
 <div class="proposition">
 <p><span id="prp:extra" class="proposition"><strong>Huomautus 7.1  (Lisätietoa esimerkistä <a href="estimoinnista.html#exm:mle">7.3</a>) </strong></span>Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}\)</span> kokoa <span class="math inline">\(n\)</span> oleva otos riippumattomia havaintoja jakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Esimerkin <a href="estimoinnista.html#exm:mlf">7.2</a> uskottavuusfunktio otoskoolle <span class="math inline">\(10\)</span> voidaan yleistää otoskoolle <span class="math inline">\(n\)</span>,
 <span class="math display">\[\begin{equation*}
@@ -389,7 +389,7 @@ Seuraavaksi selvitetään funktion <span class="math inline">\(\ln L\)</span> de
   \iff &amp;\frac{n}{\lambda} - n\bar x = 0 \\
   \iff &amp; \lambda = \frac{1}{\bar x}.
 \end{align*}\]</span>
-Täytyy vielä todistaa, että <span class="math inline">\(\lambda = 1/\bar x\)</span> on maksimi (eikä esimerkiksi minimi). Voimme laskea, että
+Täytyy vielä todistaa, että <span class="math inline">\(\lambda = 1/\bar x\)</span> on maksimikohta (eikä esimerkiksi minimikohta). Voimme laskea, että
 <span class="math display">\[\begin{equation*}
   \frac{\mathrm{d}^2\ln L\left(\lambda; \overrightarrow{x}\right)}
   {\mathrm{d}\lambda^2}
@@ -455,7 +455,7 @@ Myös huipukkuus on satunnaismuuttujan <span class="math inline">\(X\)</span> mo
 <li><p>Korkea huipukkuuden arvo kuvaa sitä, että äärihavaintojen todennäköisyys on suhteellisen suuri.</p></li>
 <li><p>Pieni huipukkuuden arvo kuvaa, sitä että äärihavaintojen todennäköisyys on suhteellisen pieni.</p></li>
 </ul>
-<p>Hyvä vertailukohta-arvo huipukkuudelle on 3, koska normaalijakaumalle <span class="math inline">\(\gamma_2 = 3\)</span>. Jos <span class="math inline">\(\gamma_2 &lt; 3\)</span>, niin jakauman hännät ovat kevyemmät kuin normaalijakauman. Jos <span class="math inline">\(\gamma_2 &gt; 3\)</span>, niin jakauman hännät ovat paksummat kuin normaalijakauman<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. Kuvassa <a href="estimoinnista.html#fig:kurt">7.5</a> näkyy normaalijakauma, normaalijakaumaa kevythäntäisempi jakauma ja normaalijakaumaa paksuhäntäisempi jakauma.</p>
+<p>Hyvä vertailukohta-arvo huipukkuudelle on 3, koska normaalijakaumalle <span class="math inline">\(\gamma_2 = 3\)</span>. Jos <span class="math inline">\(\gamma_2 &lt; 3\)</span>, niin jakauman hännät ovat kevyemmät kuin normaalijakauman. Jos <span class="math inline">\(\gamma_2 &gt; 3\)</span>, niin jakauman hännät ovat paksummat kuin normaalijakauman<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>. Kuvassa <a href="estimoinnista.html#fig:kurt">7.5</a> näkyy normaalijakauma, normaalijakaumaa kevythäntäisempi jakauma ja normaalijakaumaa paksuhäntäisempi jakauma.</p>
 
 <div class="figure"><span style="display:block;" id="fig:kurt"></span>
 <img src="tidaja-book_files/figure-html/kurt-1.png" alt="Musta kiinteä käyrä on erään normaalijakauman (\(\gamma_2 = 3\)) tiheysfunktio, punainen katkoviivakäyrä on paksuhäntäisen jakauman (\(\gamma_2 &gt; 3\)) tiheysfunktio ja sininen pisteviivakäyrä on erään kevythäntäisen jakauman (\(\gamma_2 &lt; 3\)) tiheysfunktio." width="672" />
@@ -467,7 +467,7 @@ Kuva 7.5: Musta kiinteä käyrä on erään normaalijakauman (<span class="math 
 <span class="math display">\[\begin{equation*}
   \hat\gamma_2 = \frac{\frac{1}{n}\sum_{i = 1}^n \left(x_i - \bar x\right)^4}{\left(\frac{1}{n}\sum_{i = 1}^n (x_i - \bar x)^2\right)^2}.
 \end{equation*}\]</span>
-Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.</p>
+Kyseinen estimaattori on harhainen äärellisillä otoksilla. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.</p>
 <div class="proposition">
 <p><span id="prp:unlabeled-div-45" class="proposition"><strong>Huomautus 7.2  </strong></span>Yllä oletimme sanomatta, että kaikki relevantit satunnaismuuttujan <span class="math inline">\(X\)</span> momentit <span class="math inline">\(\mathbb{E}\left(f(X)\right)\)</span> ovat olemassa. Näin ei kuitenkaan aina ole. Jos jakauman hännät ovat tarpeeksi paksut kuten <a href="https://fi.wikipedia.org/wiki/Cauchy-jakauma">Cauchy jakauman</a>, niin edes odotusarvo <span class="math inline">\(\mathbb{E}\left(X\right)\)</span> ei ole olemassa. Tällöin myös varianssi <span class="math inline">\(\mathrm{Var}(X)\)</span>, vinous <span class="math inline">\(\gamma_1\)</span> ja huipukkuus <span class="math inline">\(\gamma_2\)</span> eivät ole hyvin määriteltyjä.</p>
 <p>Myös alla olevassa luvussa oletamme, että kaikki relevantit momentit ovat olemassa.</p>
@@ -488,7 +488,7 @@ Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaa
   \end{split}
 \end{equation}\]</span>
 Yllä olevan yhtälöryhmän ratkaisu <span class="math inline">\(\hat\theta\in\mathbb{R}^d\)</span> on momenttiestimaattori <span class="math inline">\(d\)</span>-ulotteiselle parametrille <span class="math inline">\(\theta_0\)</span>.</p>
-<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a><a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä keskusmomenttia (eng: <em>central moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Keskusmomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> keskusmomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
+<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a><a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä keskusmomenttia (eng: <em>central moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Keskusmomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> keskusmomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
 <span class="math display">\[\begin{equation*}
   \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
 \end{equation*}\]</span>
@@ -499,7 +499,7 @@ Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametr
 \end{equation*}\]</span>
 jossa <span class="math inline">\(f(x;\lambda)\)</span> on kaavan <a href="estimoinnista.html#eq:expf">(7.1)</a> mukainen eksponenttijakauman tiheysfunktio.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-46" class="example"><strong>Esimerkki 7.4  (Momenttimenetelmä ja eksponenttijakauma) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}\)</span> riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>, joka noudattaa jakaumaa <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Estimoidaan parametri <span class="math inline">\(\lambda_0\)</span> momenttimenetelmällä. Koska parametri(vektori) <span class="math inline">\(\theta_0 = \lambda_0\)</span> on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia <span class="math inline">\(\mathbb{E}(X)\)</span>, jonka arvo on <span class="math inline">\(\mathbb{E}(X) = 1/\lambda\)</span>. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
+<p><span id="exm:expmoment" class="example"><strong>Esimerkki 7.4  (Momenttimenetelmä ja eksponenttijakauma) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}\)</span> riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>, joka noudattaa jakaumaa <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Estimoidaan parametri <span class="math inline">\(\lambda_0\)</span> momenttimenetelmällä. Koska parametri(vektori) <span class="math inline">\(\theta_0 = \lambda_0\)</span> on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia <span class="math inline">\(\mathbb{E}(X)\)</span>, jonka arvo on <span class="math inline">\(\mathbb{E}(X) = 1/\lambda\)</span>. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
 <span class="math display">\[\begin{equation}
   \begin{split}
     &amp;\mathbb{E}(X) = \hat m_1 \\
@@ -527,6 +527,30 @@ Tässä tapauksessa saamme momenttiestimaattoriksi <span class="math inline">\(\
 <pre><code>## [1] 0.6911303</code></pre>
 <p>Estimaatin <span class="math inline">\(\hat\lambda_2\)</span> avulla arvioitu keskimääräinen odotusaika ostotapahtumien välillä <span class="math inline">\(1/\hat\lambda_2 \approx 1.4\)</span> on pidempi kuin estimaatin <span class="math inline">\(\hat\lambda_1\)</span> avulla arvioitu keskimääräinen odotusaika <span class="math inline">\(1/\hat\lambda_1 \approx 1.3\)</span>.</p>
 </div>
+<p>Momenttiestimaattorin teoreettisista ominaisuuksista voimme sanoa samantyyppiset faktat kuin SU-estimaattorista.</p>
+<ul>
+<li><p>Tiettyjen (melko lievien) oletusten alla momenttiestimaattori on tarkentuva eli <span class="math inline">\(\hat\theta \approx \theta_0\)</span> suurella otoskoolla <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Momenttiestimaattori voi olla harhainen.</p></li>
+<li><p>Usein momenttiestimaattori ei ole “optimaalinen”. Kuitenkin momenttiestimaattoreita käytetään monissa sovelluksissa esimerkiksi niiden yksinkertaisuuden vuoksi.</p></li>
+</ul>
+<p>Esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> parametri on yksiulotteinen, joten yksi yhtälö riittää momenttiestimaattorin muodostukseen. Viikon 9 tehtävässä 2 pääset muodostamaan momenttiestimaattorin kaksiulotteiselle parametrille – eli tehtävässä täytyy ratkaista yhtälöpari.</p>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-46" class="proposition"><strong>Huomautus 7.3  (Estimaattoreiden vertailu?) </strong></span>Kuten esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, eri menetelmien avulla voidaan päätyä samoihin estimaattoreihin. Eli tarkemmin ottaen esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, että eräs momenttiestimaattori eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span> on sama kuin SU-estimaattori. Tämäntyyppisiä yhtäläisyyksiä esiintyy myös muissa asiayhteyksissä. Esimerkiksi jos lineaarisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_d x_{id} + \varepsilon_i
+\end{equation*}\]</span>
+virhetermit ovat oletuksen <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> mukaista valkoista kohinaa (<strong>erityisesti oletamme, että satunnaiset virhetermit ovat normaalijakautuneita</strong>), niin SU-estimaattori parametrille <span class="math inline">\(\boldsymbol\beta = (\beta_0, \beta_1, \ldots, \beta_d)^T\)</span> on sama kuin pienimmän neliösumman estimaattori, jota käsiteltiin luvussa <a href="moniulotteinen-lineaarinen-regressio.html#sec:fitting">3.2</a>.</p>
+<p>Kuitenkin usein eri menetelmillä johdetut estimaattorit ovat erilaisia. Estimaattoreiden hyvyyksien vertailuun on useita tapoja.</p>
+<ul>
+<li><p>Voidaan analysoida keskineliövirhettä <span class="math inline">\(\mathbb{E}\left(\left(\hat\theta - \theta_0\right)^2\right)\)</span>, joka ottaa huomioon estimaattoriin <span class="math inline">\(\hat\theta\)</span> liittyvän varianssin ja harhan, koska voimme kirjoittaa
+<span class="math display">\[\begin{equation*}
+\mathbb{E}\left(\left(\hat\theta - \theta_0\right)^2\right)
+= \mathrm{Var}\left(\hat\theta\right) + \left(\mathrm{Bias}\left(\hat\theta\right)\right)^2,
+\end{equation*}\]</span>
+jossa harha määritellään <span class="math inline">\(\mathrm{Bias}(\hat\theta) = \mathbb{E}\left(\hat\theta\right) - \theta\)</span>. Joissain asiayhteyksissä haluamme vähentää estimaattoriin liittyvää varianssia sillä kustannuksella, että teemme estimaattorista harhaisen. Tämän vuoksi käytännön sovelluksissa käytetään joskus tarkoituksenmukaisesti harhaisia estimaattoreita!</p></li>
+<li><p>Voidaan analysoida mitä estimaattorille tapahtuu, kun otoskoko kasvaa kohti ääretöntä. Vähittäisvaatimus estimaattorille on tarkentuvuus mutta on myös muita haluttuja ominaisuuksia, joiden halutaan täyttyvän suurille otoskoille. Tämäntyyppisten ominaisuuksien analysointi on tuottanut oman tilastotieteen haaraan nimeltään <a href="https://en.wikipedia.org/wiki/Asymptotic_theory_(statistics)">asymptoottinen tilastotiede</a> (eng: <em>asymptotic statistics</em>).</p></li>
+</ul>
+</div>
 
 </div>
 </div>
@@ -536,10 +560,9 @@ Tässä tapauksessa saamme momenttiestimaattoriksi <span class="math inline">\(\
 <li id="fn17"><p>Yleensä myös tilastoliinen malli on yksinkertaistus sotkuisesta oikean elämän ilmiöstä.<a href="estimoinnista.html#fnref17" class="footnote-back">↩︎</a></p></li>
 <li id="fn18"><p>Muista, että estimaattori on funktio, jonka syöte on data.<a href="estimoinnista.html#fnref18" class="footnote-back">↩︎</a></p></li>
 <li id="fn19"><p>Muista, että estimaatti on estimaattorin tuottama lukuarvo, kun estimaattoriin on syötetty saatu data.<a href="estimoinnista.html#fnref19" class="footnote-back">↩︎</a></p></li>
-<li id="fn20"><p>Tehtävissä ja suurimmassa osassa esimerkkejä jakauman <span class="math inline">\(F_{\theta_0}\)</span> määräämä parametri <span class="math inline">\(\theta_0\)</span> on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri <span class="math inline">\(\theta_0\)</span> on vektori kuten normaalijakauman tapauksessa <span class="math inline">\(\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n\)</span>.<a href="estimoinnista.html#fnref20" class="footnote-back">↩︎</a></p></li>
-<li id="fn21"><p>Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.<a href="estimoinnista.html#fnref21" class="footnote-back">↩︎</a></p></li>
-<li id="fn22"><p>Tämän vuoksi lasketaankin usein liikahuipukkuus (eng: <em>excess kurtosis</em>) <span class="math inline">\(\tilde\gamma_2 = \gamma_2 - 3\)</span>, jotta vertailukohta on <span class="math inline">\(0\)</span> eikä <span class="math inline">\(3\)</span>.<a href="estimoinnista.html#fnref22" class="footnote-back">↩︎</a></p></li>
-<li id="fn23"><p>Välillä yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a> tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.<a href="estimoinnista.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>Todellisuudessa tämäntyyppisen otoksen otoskoko olisi todennäköisesti paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.<a href="estimoinnista.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>Tämän vuoksi lasketaankin usein liikahuipukkuus (eng: <em>excess kurtosis</em>) <span class="math inline">\(\tilde\gamma_2 = \gamma_2 - 3\)</span>, jotta vertailukohta on <span class="math inline">\(0\)</span> eikä <span class="math inline">\(3\)</span>.<a href="estimoinnista.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>Välillä yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a> tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.<a href="estimoinnista.html#fnref22" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

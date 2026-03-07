@@ -185,7 +185,8 @@ fig:skew
 fig:kurt
 prp:unlabeled-div-45
 eq:system
-exm:unlabeled-div-46
+exm:expmoment
+prp:unlabeled-div-46
 eq:euclidean
 exm:unlabeled-div-48
 fig:vec
