@@ -64,13 +64,14 @@ tibble::tibble(x = x, y = 0) |>
 Kuvan \@ref(fig:mlenormal) havaintojen (rastien) perusteella näyttää kuitenkin siltä, että ostovälien jakauma ei ole symmetrinen. Lisäksi ostovälit eivät voi olla negatiivisia. Eli on melko epärealistista olettaa, että data tulisi normaalijakaumasta.
 
 Toisaalta voimme olettaa, että otos `x` tulee eksponenttijakaumasta $\mathrm{Exp}(\lambda_0)$, jonka tiheysfunktio on muotoa
-\begin{equation*}
+\begin{equation}
+  (\#eq:expf)
   f(x; \lambda) =
   \begin{cases}
     \lambda e^{-\lambda x},& x\geq 0, \\
     0,& x < 0.
   \end{cases}
-\end{equation*}
+\end{equation}
 Datan `x` perusteella haluamme estimoida tuntemattoman parametrin $\theta_0 = \lambda_0$. Voisiko parametri olla $\lambda_0 = 0.2$, $\lambda_0 = 1$ tai $\lambda_0 = 0.5$? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan \@ref(fig:mlexp) avulla.
 
 (ref:mlexp) Rastit $x$-akselilla kuvaavat havaintoja. Käyrät kuvaavat erilaisten eksponenttijakaumien tiheysfunktioita (sininen kiinteä viiva: $\lambda = 0.2$, punainen katkoviiva: $\lambda = 1$ ja musta pisteviiva: $\lambda = 0.5$).
@@ -163,7 +164,7 @@ Nyt voimme laskea uskottavuusfunktion arvon esimerkiksi kohdassa $\lambda = 0.1$
 ```{r}
 likelihood(0.1)
 ```
-Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan \@ref(fig:mle) perusteella suurimman uskottavuuden estimaatti on noin $\hat\lambda \approx 0.8$. Eli estimoimme keskimääräiseksi odotusajaksi $1/\hat\lambda = 1.25$ sekuntia datan perusteella.
+Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan \@ref(fig:mle) perusteella suurimman uskottavuuden estimaatti on noin $\hat\lambda \approx 0.8$. Eli estimoimme keskimääräiseksi odotusajaksi $1/\hat\lambda \approx 1.3$ sekuntia datan perusteella.
 ```{r mle, fig.cap="(ref:mle)", echo=FALSE, message=FALSE}
 library(dplyr)
 mle <- 1 / mean(x)
@@ -333,3 +334,40 @@ Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltai
 \begin{equation*}
   \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
 \end{equation*}
+Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametrille $\lambda_0$. Esimerkissä olemme laskeneet tarvittavat teoreettiset momentit $\mathbb{E}(X^k)$ jo valmiiksi. Halutessasi voit laskea momentit itse kaavalla
+\begin{equation*}
+  \mathbb{E}\left(X^k\right)
+  = \int_0^\infty x^k f(x;\lambda) \,\mathrm{d}x,
+\end{equation*}
+jossa $f(x;\lambda)$ on kaavan \@ref(eq:expf) mukainen eksponenttijakauman tiheysfunktio.
+
+:::{.example name="Momenttimenetelmä ja eksponenttijakauma"}
+Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}$ riippumattomia havaintoja satunnaismuuttujasta $X$, joka noudattaa jakaumaa $\mathrm{Exp}(\lambda_0)$. Estimoidaan parametri $\lambda_0$ momenttimenetelmällä. Koska parametri(vektori) $\theta_0 = \lambda_0$ on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia $\mathbb{E}(X)$, jonka arvo on $\mathbb{E}(X) = 1/\lambda$. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
+\begin{equation}
+  \begin{split}
+    &\mathbb{E}(X) = \hat m_1 \\
+    \iff &\frac{1}{\lambda} = \bar x \\
+    \iff & \lambda = \frac{1}{\bar x}.
+  \end{split}
+\end{equation}
+Päädymme momenttiestimaattoriin $\hat\lambda_1 = 1/\bar x$, joka on sama kuin SU-estimaattori (katso huomautus \@ref(prp:extra)).
+
+Jos käytämme toista keskusmomenttia $\mathbb{E}(X^2) = 2/\lambda^2$, päädymme erilaiseen estimaattoriin,
+\begin{equation*}
+  \begin{split}
+    \iff &\mathbb{E}\left(X^2\right) = \hat m_2 \\
+    \iff &\frac{2}{\lambda^2}
+    = \frac{1}{n}\sum_{i = 1}^n x_i^2 \\
+    \iff & \lambda
+    = \sqrt{\frac{2}{\frac{1}{n}\sum_{i = 1}^n x_i^2}}.
+  \end{split}
+\end{equation*}
+Tässä tapauksessa saamme momenttiestimaattoriksi $\hat\lambda_2 = \sqrt{2/\left(\frac{1}{n}\sum_{i = 1}^n x_i^2\right)}$.
+
+On tyypillisempää käyttää momenttiestimaattoria $\hat\lambda_1$ kuin $\hat\lambda_2$, koska voidaan todistaa, että suurella otoskoolla estimaattorin $\hat\lambda_1$ varianssi on pienempi kuin estimaattorin $\hat\lambda_2$. Voimme kuitenkin laskea estimaatin $\hat\lambda_2$ esimerkin \@ref(exm:mleidea) havaintoaineistolle (estimaatti $\hat\lambda_1$ laskettiin jo huomautuksessa \@ref(prp:extra)).
+```{r}
+x
+sqrt(2 / mean(x^2))
+```
+Estimaatin $\hat\lambda_2$ avulla arvioitu keskimääräinen odotusaika ostotapahtumien välillä $1/\hat\lambda_2 \approx `r round(1 / sqrt(2 / mean(x^2)), 1)`$ on pidempi kuin estimaatin $\hat\lambda_1$ avulla arvioitu keskimääräinen odotusaika $1/\hat\lambda_1 \approx 1.3$.
+:::

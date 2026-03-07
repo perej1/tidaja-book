@@ -289,13 +289,14 @@ Kuva 7.1: Rastit <span class="math inline">\(x\)</span>-akselilla kuvaavat havai
 </div>
 <p>Kuvan <a href="estimoinnista.html#fig:mlenormal">7.1</a> havaintojen (rastien) perusteella näyttää kuitenkin siltä, että ostovälien jakauma ei ole symmetrinen. Lisäksi ostovälit eivät voi olla negatiivisia. Eli on melko epärealistista olettaa, että data tulisi normaalijakaumasta.</p>
 <p>Toisaalta voimme olettaa, että otos <code>x</code> tulee eksponenttijakaumasta <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>, jonka tiheysfunktio on muotoa
-<span class="math display">\[\begin{equation*}
+<span class="math display" id="eq:expf">\[\begin{equation}
+  \tag{7.1}
   f(x; \lambda) =
   \begin{cases}
     \lambda e^{-\lambda x},&amp; x\geq 0, \\
     0,&amp; x &lt; 0.
   \end{cases}
-\end{equation*}\]</span>
+\end{equation}\]</span>
 Datan <code>x</code> perusteella haluamme estimoida tuntemattoman parametrin <span class="math inline">\(\theta_0 = \lambda_0\)</span>. Voisiko parametri olla <span class="math inline">\(\lambda_0 = 0.2\)</span>, <span class="math inline">\(\lambda_0 = 1\)</span> tai <span class="math inline">\(\lambda_0 = 0.5\)</span>? Vastausta edellä olevaan kysymykseen voidaan arvioida visuaalisesti kuvan <a href="estimoinnista.html#fig:mlexp">7.2</a> avulla.</p>
 
 <div class="figure"><span style="display:block;" id="fig:mlexp"></span>
@@ -359,7 +360,7 @@ Näin määritettyä suuretta <span class="math inline">\(\hat\theta\)</span> ku
 <p>Nyt voimme laskea uskottavuusfunktion arvon esimerkiksi kohdassa <span class="math inline">\(\lambda = 0.1\)</span>.</p>
 <div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="estimoinnista.html#cb269-1" tabindex="-1"></a><span class="fu">likelihood</span>(<span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 2.798059e-11</code></pre>
-Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan <a href="estimoinnista.html#fig:mle">7.3</a> perusteella suurimman uskottavuuden estimaatti on noin <span class="math inline">\(\hat\lambda \approx 0.8\)</span>. Eli estimoimme keskimääräiseksi odotusajaksi <span class="math inline">\(1/\hat\lambda = 1.25\)</span> sekuntia datan perusteella.
+Haluamme kuitenkin löytää sen arvon, jolla uskottavuusfunktio saavuttaa maksiminsa. Tätä varten piirretään käyrä uskottavuusfunktiosta ja merkataan uskottavuusfunktion maksimikohta. Kuvan <a href="estimoinnista.html#fig:mle">7.3</a> perusteella suurimman uskottavuuden estimaatti on noin <span class="math inline">\(\hat\lambda \approx 0.8\)</span>. Eli estimoimme keskimääräiseksi odotusajaksi <span class="math inline">\(1/\hat\lambda \approx 1.3\)</span> sekuntia datan perusteella.
 <div class="figure"><span style="display:block;" id="fig:mle"></span>
 <img src="tidaja-book_files/figure-html/mle-1.png" alt="Katkoviivalla kuvattu käyrä antaa 7.1 dataa x vastaavan uskottavuusfunktion, kun oletetaan datan noudattavan eksponenttijakaumaa. Punainen pystyviiva on piirretty uskottavuusfunktion \(L(\lambda; \overrightarrow{x})\) maksimin kohdalle." width="672" />
 <p class="caption">
@@ -414,7 +415,7 @@ Koska funktion <span class="math inline">\(\ln L\)</span> toinen derivaatta on n
 </ul>
 <p>ovat momentteja. Odotusarvo kuvaa satunnaismuuttujaa <span class="math inline">\(X\)</span> vastaavan jakauman sijaintia ja varianssi kuvaa satunnaismuuttujaan <span class="math inline">\(X\)</span> liittyvää vaihtelua. Momentit siis kuvaavat satunnaismuuttujan <span class="math inline">\(X\)</span> jakaumaa jollain tavalla. Tämän vuoksi on myös tyypillistä estimoida momentteja otoksen avulla. Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_n\}\)</span> otos riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>. Tällöin tutut tarkentuvat ja harhattomat estimaattorit odotusarvolle ja varianssille ovat
 <span class="math display" id="eq:sampletwomoments">\[\begin{equation}
-  \tag{7.1}
+  \tag{7.2}
   \bar x = \frac{1}{n}\sum_{i = 1}^n x_i \quad\text{ja}\quad
   s^2 = \frac{1}{n - 1} \sum_{i = 1}^n \left(x_i  - \bar x\right)^2.
 \end{equation}\]</span></p>
@@ -443,7 +444,7 @@ Kuva 7.4: Musta kiinteä käyrä on erään symmetrisen jakauman (<span class="m
 <span class="math display">\[\begin{equation*}
   \hat\gamma_1 = \frac{n}{(n - 1)(n - 2)}\sum_{i = 1}^n \left(\frac{x_i - \bar x}{s}\right)^3,
 \end{equation*}\]</span>
-jossa <span class="math inline">\(\bar x\)</span> ja <span class="math inline">\(s = \sqrt{s^2}\)</span> saadaan kaavasta <a href="estimoinnista.html#eq:sampletwomoments">(7.1)</a>.</p>
+jossa <span class="math inline">\(\bar x\)</span> ja <span class="math inline">\(s = \sqrt{s^2}\)</span> saadaan kaavasta <a href="estimoinnista.html#eq:sampletwomoments">(7.2)</a>.</p>
 <p>Esitellään vielä yksi momentti, johon koodattu jotain tietoa satunnaismuuttujan <span class="math inline">\(X\)</span> jakaumasta. Huipukkuus (eng: <em>kurtosis, peakedness</em>) <span class="math inline">\(\gamma_2\)</span> määritellään olevan
 <span class="math display">\[\begin{equation*}
   \gamma_2 = \mathbb{E}\left(\left(\frac{X - \mu}{\sigma}\right)^4\right)
@@ -478,7 +479,7 @@ Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaa
 <p>Oletetaan, että muuttuja <span class="math inline">\(X\)</span> noudattaa parametrin <span class="math inline">\(\theta_0\)</span> määräämää jakaumaa <span class="math inline">\(F_{\theta_0}\)</span>. Olkoon <span class="math inline">\(\overrightarrow{x} = \{x_1, \ldots, x_n\}\)</span> otos riippumattomia havaintoja jakaumasta <span class="math inline">\(F_{\theta_0}\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:mle">7.1</a>, tavoitteena on estimoida parametri <span class="math inline">\(\theta_0\)</span> otoksen <span class="math inline">\(\overrightarrow{x}\)</span> avulla. Nyt esittelemme kuitenkin vaihtoehtoisen estimointimenetelmän SU-menetelmän rinnalle. Luvussa <a href="estimoinnista.html#sec:moment">7.2</a> havaitsimme, että momentit <span class="math inline">\(\mathbb{E}(f(X))\)</span> kertovat paljon muuttujan <span class="math inline">\(X\)</span> jakaumasta. Ehkä voimme siis käyttää momentteja parametrin <span class="math inline">\(\theta_0\)</span> estimointiin. Tämän idean formalisointi johtaa momenttimenetelmään (eng: <em>method of moments</em>).</p>
 <p>Merkitään otoksen <span class="math inline">\(\overrightarrow{x}\)</span> avulla estimoitua momenttia <span class="math inline">\(\mathbb{E}(f(X))\)</span> notaatiolla <span class="math inline">\(\hat m_f\)</span>. Esimerkiksi jos <span class="math inline">\(f(x) = x\)</span>, niin <span class="math inline">\(\hat m_f = \bar x = \frac{1}{n} \sum_{i=1}^n x_i\)</span> luvun <a href="estimoinnista.html#sec:moment">7.2</a> mukaan. Olkoon jakauman <span class="math inline">\(F_{\theta_0}\)</span> parametrivektori <span class="math inline">\(d\)</span>-ulotteinen. Tällöin momenttimenetelmässä muodostetaan <span class="math inline">\(d\)</span> yhtälöä, joissa <span class="math inline">\(d\)</span> valittua teoreettista momenttia <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> laitetaan vastaamaan estimaatteja <span class="math inline">\(\hat m_{f_j}\)</span>, <span class="math inline">\(j\in\{1, \ldots, d\}\)</span>,
 <span class="math display" id="eq:system">\[\begin{equation}
-  \tag{7.2}
+  \tag{7.3}
   \begin{split}
     \mathbb{E}(f_1(X)) &amp;= \hat m_{f_1}, \\
     \mathbb{E}(f_2(X)) &amp;= \hat m_{f_2}, \\
@@ -487,10 +488,45 @@ Kyseinen estimaattori on harhainen äärellisille otoksille. Harhattoman estimaa
   \end{split}
 \end{equation}\]</span>
 Yllä olevan yhtälöryhmän ratkaisu <span class="math inline">\(\hat\theta\in\mathbb{R}^d\)</span> on momenttiestimaattori <span class="math inline">\(d\)</span>-ulotteiselle parametrille <span class="math inline">\(\theta_0\)</span>.</p>
-<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.2)</a><a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä keskusmomenttia (eng: <em>central moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Keskusmomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> keskusmomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
+<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a><a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä keskusmomenttia (eng: <em>central moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Keskusmomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> keskusmomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
 <span class="math display">\[\begin{equation*}
   \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
-\end{equation*}\]</span></p>
+\end{equation*}\]</span>
+Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span>. Esimerkissä olemme laskeneet tarvittavat teoreettiset momentit <span class="math inline">\(\mathbb{E}(X^k)\)</span> jo valmiiksi. Halutessasi voit laskea momentit itse kaavalla
+<span class="math display">\[\begin{equation*}
+  \mathbb{E}\left(X^k\right)
+  = \int_0^\infty x^k f(x;\lambda) \,\mathrm{d}x,
+\end{equation*}\]</span>
+jossa <span class="math inline">\(f(x;\lambda)\)</span> on kaavan <a href="estimoinnista.html#eq:expf">(7.1)</a> mukainen eksponenttijakauman tiheysfunktio.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-46" class="example"><strong>Esimerkki 7.4  (Momenttimenetelmä ja eksponenttijakauma) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}\)</span> riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>, joka noudattaa jakaumaa <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Estimoidaan parametri <span class="math inline">\(\lambda_0\)</span> momenttimenetelmällä. Koska parametri(vektori) <span class="math inline">\(\theta_0 = \lambda_0\)</span> on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia <span class="math inline">\(\mathbb{E}(X)\)</span>, jonka arvo on <span class="math inline">\(\mathbb{E}(X) = 1/\lambda\)</span>. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
+<span class="math display">\[\begin{equation}
+  \begin{split}
+    &amp;\mathbb{E}(X) = \hat m_1 \\
+    \iff &amp;\frac{1}{\lambda} = \bar x \\
+    \iff &amp; \lambda = \frac{1}{\bar x}.
+  \end{split}
+\end{equation}\]</span>
+Päädymme momenttiestimaattoriin <span class="math inline">\(\hat\lambda_1 = 1/\bar x\)</span>, joka on sama kuin SU-estimaattori (katso huomautus <a href="estimoinnista.html#prp:extra">7.1</a>).</p>
+<p>Jos käytämme toista keskusmomenttia <span class="math inline">\(\mathbb{E}(X^2) = 2/\lambda^2\)</span>, päädymme erilaiseen estimaattoriin,
+<span class="math display">\[\begin{equation*}
+  \begin{split}
+    \iff &amp;\mathbb{E}\left(X^2\right) = \hat m_2 \\
+    \iff &amp;\frac{2}{\lambda^2}
+    = \frac{1}{n}\sum_{i = 1}^n x_i^2 \\
+    \iff &amp; \lambda
+    = \sqrt{\frac{2}{\frac{1}{n}\sum_{i = 1}^n x_i^2}}.
+  \end{split}
+\end{equation*}\]</span>
+Tässä tapauksessa saamme momenttiestimaattoriksi <span class="math inline">\(\hat\lambda_2 = \sqrt{2/\left(\frac{1}{n}\sum_{i = 1}^n x_i^2\right)}\)</span>.</p>
+<p>On tyypillisempää käyttää momenttiestimaattoria <span class="math inline">\(\hat\lambda_1\)</span> kuin <span class="math inline">\(\hat\lambda_2\)</span>, koska voidaan todistaa, että suurella otoskoolla estimaattorin <span class="math inline">\(\hat\lambda_1\)</span> varianssi on pienempi kuin estimaattorin <span class="math inline">\(\hat\lambda_2\)</span>. Voimme kuitenkin laskea estimaatin <span class="math inline">\(\hat\lambda_2\)</span> esimerkin <a href="estimoinnista.html#exm:mleidea">7.1</a> havaintoaineistolle (estimaatti <span class="math inline">\(\hat\lambda_1\)</span> laskettiin jo huomautuksessa <a href="estimoinnista.html#prp:extra">7.1</a>).</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="estimoinnista.html#cb273-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1] 1.68691452 1.15322054 2.65810974 0.06315472 0.11242195 0.63300243
+##  [7] 0.62845458 0.29053361 5.45247293 0.05830689</code></pre>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="estimoinnista.html#cb275-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 0.6911303</code></pre>
+<p>Estimaatin <span class="math inline">\(\hat\lambda_2\)</span> avulla arvioitu keskimääräinen odotusaika ostotapahtumien välillä <span class="math inline">\(1/\hat\lambda_2 \approx 1.4\)</span> on pidempi kuin estimaatin <span class="math inline">\(\hat\lambda_1\)</span> avulla arvioitu keskimääräinen odotusaika <span class="math inline">\(1/\hat\lambda_1 \approx 1.3\)</span>.</p>
+</div>
 
 </div>
 </div>
@@ -503,7 +539,7 @@ Yllä olevan yhtälöryhmän ratkaisu <span class="math inline">\(\hat\theta\in\
 <li id="fn20"><p>Tehtävissä ja suurimmassa osassa esimerkkejä jakauman <span class="math inline">\(F_{\theta_0}\)</span> määräämä parametri <span class="math inline">\(\theta_0\)</span> on reaaliluku. Suurimman uskottavuuden estimointi on kuitenkin myös mahdollista, jos parametri <span class="math inline">\(\theta_0\)</span> on vektori kuten normaalijakauman tapauksessa <span class="math inline">\(\theta_0 = (\mu_0, \sigma_0^2) \in\mathbb{R}^n\)</span>.<a href="estimoinnista.html#fnref20" class="footnote-back">↩︎</a></p></li>
 <li id="fn21"><p>Todellisuudessa tämäntyyppisen otoksen otoskoko olisi oikean elämän data-analyysitehtävässä paljon suurempi. Valitsimme pienen otoskoon opetusteknisistä syistä.<a href="estimoinnista.html#fnref21" class="footnote-back">↩︎</a></p></li>
 <li id="fn22"><p>Tämän vuoksi lasketaankin usein liikahuipukkuus (eng: <em>excess kurtosis</em>) <span class="math inline">\(\tilde\gamma_2 = \gamma_2 - 3\)</span>, jotta vertailukohta on <span class="math inline">\(0\)</span> eikä <span class="math inline">\(3\)</span>.<a href="estimoinnista.html#fnref22" class="footnote-back">↩︎</a></p></li>
-<li id="fn23"><p>Välillä yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.2)</a> tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.<a href="estimoinnista.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>Välillä yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a> tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.<a href="estimoinnista.html#fnref23" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
