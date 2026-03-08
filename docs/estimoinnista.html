@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-07" />
+<meta name="date" content="2026-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -488,7 +488,7 @@ Kyseinen estimaattori on harhainen äärellisillä otoksilla. Harhattoman estima
   \end{split}
 \end{equation}\]</span>
 Yllä olevan yhtälöryhmän ratkaisu <span class="math inline">\(\hat\theta\in\mathbb{R}^d\)</span> on momenttiestimaattori <span class="math inline">\(d\)</span>-ulotteiselle parametrille <span class="math inline">\(\theta_0\)</span>.</p>
-<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a><a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä keskusmomenttia (eng: <em>central moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Keskusmomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> keskusmomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
+<p>Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja <span class="math inline">\(\mathbb{E}(f_j(X))\)</span> yhtälöryhmässä <a href="estimoinnista.html#eq:system">(7.3)</a><a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>. On kuitenkin erittäin yleistä käyttää <span class="math inline">\(d\)</span> ensimmäistä raakamomenttia (eng: <em>raw moment</em>) <span class="math inline">\(\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)\)</span>. Raakamomentin tapauksessa funktio <span class="math inline">\(f\)</span> on siis aina muotoa <span class="math inline">\(f(x) = x^j\)</span>. Kuten luvussa <a href="estimoinnista.html#sec:moment">7.2</a> käsiteltyjä momentteja, myös raakamomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori <span class="math inline">\(\hat m_j = \hat m_{x^j}\)</span> raakamomentille <span class="math inline">\(\mathbb{E}\left(X^j\right)\)</span> on
 <span class="math display">\[\begin{equation*}
   \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
 \end{equation*}\]</span>
@@ -499,7 +499,7 @@ Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametr
 \end{equation*}\]</span>
 jossa <span class="math inline">\(f(x;\lambda)\)</span> on kaavan <a href="estimoinnista.html#eq:expf">(7.1)</a> mukainen eksponenttijakauman tiheysfunktio.</p>
 <div class="example">
-<p><span id="exm:expmoment" class="example"><strong>Esimerkki 7.4  (Momenttimenetelmä ja eksponenttijakauma) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}\)</span> riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>, joka noudattaa jakaumaa <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Estimoidaan parametri <span class="math inline">\(\lambda_0\)</span> momenttimenetelmällä. Koska parametri(vektori) <span class="math inline">\(\theta_0 = \lambda_0\)</span> on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia <span class="math inline">\(\mathbb{E}(X)\)</span>, jonka arvo on <span class="math inline">\(\mathbb{E}(X) = 1/\lambda\)</span>. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
+<p><span id="exm:expmoment" class="example"><strong>Esimerkki 7.4  (Momenttimenetelmä ja eksponenttijakauma) </strong></span>Oletetaan, että ollaan havaittu otos <span class="math inline">\(\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}\)</span> riippumattomia havaintoja satunnaismuuttujasta <span class="math inline">\(X\)</span>, joka noudattaa jakaumaa <span class="math inline">\(\mathrm{Exp}(\lambda_0)\)</span>. Estimoidaan parametri <span class="math inline">\(\lambda_0\)</span> momenttimenetelmällä. Koska parametri(vektori) <span class="math inline">\(\theta_0 = \lambda_0\)</span> on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä raakamomenttia <span class="math inline">\(\mathbb{E}(X)\)</span>, jonka arvo on <span class="math inline">\(\mathbb{E}(X) = 1/\lambda\)</span>. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
 <span class="math display">\[\begin{equation}
   \begin{split}
     &amp;\mathbb{E}(X) = \hat m_1 \\
@@ -508,7 +508,7 @@ jossa <span class="math inline">\(f(x;\lambda)\)</span> on kaavan <a href="estim
   \end{split}
 \end{equation}\]</span>
 Päädymme momenttiestimaattoriin <span class="math inline">\(\hat\lambda_1 = 1/\bar x\)</span>, joka on sama kuin SU-estimaattori (katso huomautus <a href="estimoinnista.html#prp:extra">7.1</a>).</p>
-<p>Jos käytämme toista keskusmomenttia <span class="math inline">\(\mathbb{E}(X^2) = 2/\lambda^2\)</span>, päädymme erilaiseen estimaattoriin,
+<p>Jos käytämme toista raakamomenttia <span class="math inline">\(\mathbb{E}(X^2) = 2/\lambda^2\)</span>, päädymme erilaiseen estimaattoriin,
 <span class="math display">\[\begin{equation*}
   \begin{split}
     \iff &amp;\mathbb{E}\left(X^2\right) = \hat m_2 \\

@@ -330,7 +330,7 @@ Merkitään otoksen $\overrightarrow{x}$ avulla estimoitua momenttia $\mathbb{E}
 \end{equation}
 Yllä olevan yhtälöryhmän ratkaisu $\hat\theta\in\mathbb{R}^d$ on momenttiestimaattori $d$-ulotteiselle parametrille $\theta_0$.
 
-Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja $\mathbb{E}(f_j(X))$ yhtälöryhmässä \@ref(eq:system)^[Välillä yhtälöryhmässä \@ref(eq:system) tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.]. On kuitenkin erittäin yleistä käyttää $d$ ensimmäistä keskusmomenttia (eng: *central moment*) $\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)$. Keskusmomentin tapauksessa funktio $f$ on siis aina muotoa $f(x) = x^j$. Kuten luvussa \@ref(sec:moment) käsiteltyjä momentteja, myös keskusmomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori $\hat m_j = \hat m_{x^j}$ keskusmomentille $\mathbb{E}\left(X^j\right)$ on
+Periaatteessa momenttimenetelmässä voimme käyttää mitä tahansa mielivaltaisia momentteja $\mathbb{E}(f_j(X))$ yhtälöryhmässä \@ref(eq:system)^[Välillä yhtälöryhmässä \@ref(eq:system) tapana onkin räätälöidä momenttien valinnat asiayhteydestä riippuen.]. On kuitenkin erittäin yleistä käyttää $d$ ensimmäistä raakamomenttia (eng: *raw moment*) $\mathbb{E}\left(X\right), \mathbb{E}\left(X^2\right), \ldots, \mathbb{E}\left(X^d\right)$. Raakamomentin tapauksessa funktio $f$ on siis aina muotoa $f(x) = x^j$. Kuten luvussa \@ref(sec:moment) käsiteltyjä momentteja, myös raakamomentteja voidaan estimoida otoksen avulla. Tarkentuva estimaattori $\hat m_j = \hat m_{x^j}$ raakamomentille $\mathbb{E}\left(X^j\right)$ on
 \begin{equation*}
   \hat m_j = \frac{1}{n} \sum_{i = 1}^n x_i^j.
 \end{equation*}
@@ -342,7 +342,7 @@ Alla laskemme kaksi erilaista momenttiestimaattoria eksponenttijakauman parametr
 jossa $f(x;\lambda)$ on kaavan \@ref(eq:expf) mukainen eksponenttijakauman tiheysfunktio.
 
 :::{.example #expmoment name="Momenttimenetelmä ja eksponenttijakauma"}
-Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}$ riippumattomia havaintoja satunnaismuuttujasta $X$, joka noudattaa jakaumaa $\mathrm{Exp}(\lambda_0)$. Estimoidaan parametri $\lambda_0$ momenttimenetelmällä. Koska parametri(vektori) $\theta_0 = \lambda_0$ on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä keskusmomenttia $\mathbb{E}(X)$, jonka arvo on $\mathbb{E}(X) = 1/\lambda$. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
+Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, x_{n}\}$ riippumattomia havaintoja satunnaismuuttujasta $X$, joka noudattaa jakaumaa $\mathrm{Exp}(\lambda_0)$. Estimoidaan parametri $\lambda_0$ momenttimenetelmällä. Koska parametri(vektori) $\theta_0 = \lambda_0$ on yksiulotteinen, meidän tarvitsee muodostaa vain yksi yhtälö. Se mitä momenttia käytämme, vaikuttaa saadun estimaattorin muotoon. Käytetään ensin ensimmäistä raakamomenttia $\mathbb{E}(X)$, jonka arvo on $\mathbb{E}(X) = 1/\lambda$. Tällöin saamme ratkaistua momenttiestimaattorin seuraavasti
 \begin{equation}
   \begin{split}
     &\mathbb{E}(X) = \hat m_1 \\
@@ -352,7 +352,7 @@ Oletetaan, että ollaan havaittu otos $\overrightarrow{x} = \{x_1, x_2, \ldots, 
 \end{equation}
 Päädymme momenttiestimaattoriin $\hat\lambda_1 = 1/\bar x$, joka on sama kuin SU-estimaattori (katso huomautus \@ref(prp:extra)).
 
-Jos käytämme toista keskusmomenttia $\mathbb{E}(X^2) = 2/\lambda^2$, päädymme erilaiseen estimaattoriin,
+Jos käytämme toista raakamomenttia $\mathbb{E}(X^2) = 2/\lambda^2$, päädymme erilaiseen estimaattoriin,
 \begin{equation*}
   \begin{split}
     \iff &\mathbb{E}\left(X^2\right) = \hat m_2 \\
