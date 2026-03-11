@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-08" />
+<meta name="date" content="2026-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -223,10 +223,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.2" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:moment"><i class="fa fa-check"></i><b>7.2</b> Esittely momentteihin</a></li>
 <li class="chapter" data-level="7.3" data-path="estimoinnista.html"><a href="estimoinnista.html#sec:momentmethod"><i class="fa fa-check"></i><b>7.3</b> Momenttimenetelmä</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>8</b> Liitteet</a>
+<li class="chapter" data-level="8" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html"><i class="fa fa-check"></i><b>8</b> Logistinen regressio</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="liitteet.html"><a href="liitteet.html#sec:vector"><i class="fa fa-check"></i><b>8.1</b> Vektoreista</a></li>
-<li class="chapter" data-level="8.2" data-path="liitteet.html"><a href="liitteet.html#sec:matrix"><i class="fa fa-check"></i><b>8.2</b> Matriiseista</a></li>
+<li class="chapter" data-level="8.1" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:deflog"><i class="fa fa-check"></i><b>8.1</b> Määritelmä, sovittaminen ja tulkinta</a></li>
+<li class="chapter" data-level="8.2" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:diaglog"><i class="fa fa-check"></i><b>8.2</b> Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet</a></li>
+<li class="chapter" data-level="8.3" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:multilog"><i class="fa fa-check"></i><b>8.3</b> Moniulotteinen logistinen regressio</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>9</b> Liitteet</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="liitteet.html"><a href="liitteet.html#sec:vector"><i class="fa fa-check"></i><b>9.1</b> Vektoreista</a></li>
+<li class="chapter" data-level="9.2" data-path="liitteet.html"><a href="liitteet.html#sec:matrix"><i class="fa fa-check"></i><b>9.2</b> Matriiseista</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lähteet.html"><a href="lähteet.html"><i class="fa fa-check"></i>Lähteet</a></li>
 <li class="divider"></li>
@@ -470,7 +476,7 @@ Kuva 2.2: Otoskorrelaation <span class="math inline">\(\hat\rho_{XY}\)</span> su
 </div>
 <div id="sec:rvec" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Perusteet<a href="moniulotteiset-jakaumat.html#sec:rvec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina. Muista, että vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Vektoreilla on suuruus ja suunta. Kurssin kannalta tarpeelliset esitiedot vektoreista ja vektoreihin liittyvät notaatiot voit kerrata liitteiden kappaleesta <a href="liitteet.html#sec:vector">8.1</a>.</p>
+<p>Moniulotteisia satunnaismuuttujia mallinnetaan satunnaisvektoreina. Muista, että vektori (<span class="math inline">\(d\)</span>-ulotteinen) on <strong>järjestetty</strong> lista lukuja <span class="math inline">\((x_1, x_2, \ldots, x_d)\)</span>, <span class="math inline">\(x_i\in\mathbb{R}\)</span>. Eli vektori voidaan tulkita avaruuden <span class="math inline">\(\mathbb{R}^d\)</span> alkiona. Vektoreilla on suuruus ja suunta. Kurssin kannalta tarpeelliset esitiedot vektoreista ja vektoreihin liittyvät notaatiot voit kerrata liitteiden kappaleesta <a href="liitteet.html#sec:vector">9.1</a>.</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-4" class="example"><strong>Esimerkki 2.4  (Havaintoaineisto ja vektorit) </strong></span></p>
 <ul>
@@ -820,7 +826,7 @@ Kuva 2.3: Hajontakuvio muuttujaa <span class="math inline">\((X, Y)^T\)</span> v
 <h2><span class="header-section-number">2.3</span> Moniulotteinen normaalijakauma<a href="moniulotteiset-jakaumat.html#sec:normal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Seuraavaksi perehdymme tarkemmin moniulotteiseen normaalijakaumaan, jonka voidaan sanoa olevan yksi tärkeimmistä moniulotteisista jatkuvista jakaumista. Moniulotteinen normaalijakauma on tärkeä todennäköisyysteorian näkökulmasta. Esimerkiksi <em>Tilastotieteen perusteista</em> tuttu keskeinen raja-arvolause (eng: <em>central limit theorem</em>) sanoo, että suurella otoskoolla <span class="math inline">\(n\)</span>, riippumattomien ja samoin jakautuneiden satunnaismuuttujien <span class="math inline">\(X_1, \ldots, X_n\)</span> summan <span class="math inline">\(\sum_{i=1}^n X_i\)</span> jakaumaa voidaan approksimoida normaalijakauman avulla. Tulos voidaan yleistää satunnaisvektoreille – suurella otoskoolla <span class="math inline">\(n\)</span>, riippumattomien ja samoin jakautuneiden satunnaisvektoreiden <span class="math inline">\(\boldsymbol X_1, \ldots, \boldsymbol X_n\)</span> summan<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> <span class="math inline">\(\sum_{i=1}^n \boldsymbol X_i\)</span> jakaumaa voidaan approksimoida moniulotteisella normaalijakaumalla.</p>
 <p>Lisäksi moniulotteisella normaalijakaumalla on kivoja teoreettisia ominaisuuksia, joista on hyötyä myös käytännön laskuissa. Tämän vuoksi monissa sovelluksissa ja malleissa oletetaan (moniulotteinen) normaalijakautuneisuus tai havaintoaineistolle tehdään jokin muunnos niin, että muunnettu havaintoaineisto toivottavasti noudattaisi normaalijakaumaa. Huomioi kuitenkin, että data-analyysi voi mennä kriittisesti pieleen, jos normaalijakaumaoletus ei päde. Esimerkiksi vuosien 2007–2009 finanssikriisin eräs juurisyy oli se, että asuntolainojen riskimalleissa oli vääränlaiset jakaumaoletukset, jotka aliarvioivat suurien tappioiden todennäköisyydet <span class="citation">(<a href="#ref-taleb2012">Taleb and Martin 2012</a>)</span>.</p>
-<p>Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun <span class="math inline">\(2\)</span>-ulotteisiin normaalijakaumiin, vaikka <span class="math inline">\(d\)</span>-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen <span class="math inline">\(2\)</span>-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla <em>Johdatus data-analytiikkaan</em> käytyjä perusasioita matriiseista. Esimerkiksi kaksiulotteisen normaalijakauman määritelmä sisältää <span class="math inline">\(2\times 2\)</span> matriisin determinantin, käänteismatriisin ja matriisikertolaskuja. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta <a href="liitteet.html#sec:matrix">8.2</a>.</p>
+<p>Esitys- ja kirjoitusteknisistä syistä rajoitamme tarkastelun <span class="math inline">\(2\)</span>-ulotteisiin normaalijakaumiin, vaikka <span class="math inline">\(d\)</span>-uloitteisen tapauksen voisi käsitellä samaan tyyliin kuin alla. Ennen <span class="math inline">\(2\)</span>-ulotteisen normaalijakauman määrittelemistä voit tarvittaessa kerrata kurssilla <em>Johdatus data-analytiikkaan</em> käytyjä perusasioita matriiseista. Esimerkiksi kaksiulotteisen normaalijakauman määritelmä sisältää <span class="math inline">\(2\times 2\)</span> matriisin determinantin, käänteismatriisin ja matriisikertolaskuja. Kurssin kannalta tarpeelliset esitiedot matriiseista ja matriiseihin liittyvät notaatiot voit kerrata liitteiden luvusta <a href="liitteet.html#sec:matrix">9.2</a>.</p>
 <div class="definition">
 <p><span id="def:bvnormal" class="definition"><strong>Määritelmä 2.5  (Kaksiulotteinen normaalijakauma) </strong></span>Satunnaisvektori <span class="math inline">\(\boldsymbol X = (X_1,  X_2)^T\)</span> noudattaa kaksiulotteista normaalijakaumaa (eng: <em>bivariate normal distribution</em>) sijantiparametrilla <span class="math inline">\(\boldsymbol\mu\in\mathbb{R}^2\)</span> ja hajontaparametrilla <span class="math inline">\(\boldsymbol\Sigma\in\mathbb{R}^{2\times 2}\)</span>, jos sen yhteisjakauman tiheysfunktio on muotoa
 <span class="math display">\[\begin{equation*}
@@ -952,14 +958,14 @@ jossa</p>
 \|\boldsymbol x  - \boldsymbol\mu\|_{\boldsymbol\Sigma}
 = \sqrt{\sum_{i=1}^2 \frac{(x_i  - \mu_i)^2}{c_i}},
 \end{equation*}\]</span>
-joka on vektoria <span class="math inline">\(\boldsymbol x - \boldsymbol\mu\)</span> vastaava painotettu Euklidinen normi (vertaa yhtälöön <a href="liitteet.html#eq:euclidean">(8.1)</a>).</p></li>
+joka on vektoria <span class="math inline">\(\boldsymbol x - \boldsymbol\mu\)</span> vastaava painotettu Euklidinen normi (vertaa yhtälöön <a href="liitteet.html#eq:euclidean">(9.1)</a>).</p></li>
 </ul></li>
 </ul>
 <p>Normin <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> tulkintaan auttaa kuva <a href="moniulotteiset-jakaumat.html#fig:maha">2.6</a>. Eli vektoreille <span class="math inline">\(\boldsymbol x\)</span> ja <span class="math inline">\(\boldsymbol y\)</span> pätee <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma} = \|\boldsymbol y\|_{\boldsymbol\Sigma}\)</span>, jos molemmat vektorit sijaitsevat samalla ellipsillä, jonka muodon määrää matriisi <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tästä tulkinnasta seuraa myös se, että normaalijakauman korkeuskäyrät ovat ympyrän tai ellipsin muotoisia. Samoin jakaumasta <span class="math inline">\(N(\boldsymbol\mu, \boldsymbol\Sigma)\)</span> generoitu otos muodostaa ellipsin muotoisen hajontakuvion. Ellipsin sijainnin määrää <span class="math inline">\(\boldsymbol\mu\)</span> ja muodon määrää <span class="math inline">\(\boldsymbol\Sigma\)</span>. Tätä ilmiötä havainnollistaa kuva <a href="moniulotteiset-jakaumat.html#fig:scatters-normal">2.5</a>.</p>
 <div class="figure"><span style="display:block;" id="fig:maha"></span>
-<img src="images/mahalanobis.jpg" alt="Punaisia pisteitä vastaavat normit \(\|\boldsymbol x\|_{\boldsymbol\Sigma}\) ovat yhtäsuuria jollekin hajontamatriisille \(\boldsymbol\Sigma\). Sinisten pisteiden Euklidiset normit (katso kaava (8.1)) ovat yhtäsuuria." width="785" />
+<img src="images/mahalanobis.jpg" alt="Punaisia pisteitä vastaavat normit \(\|\boldsymbol x\|_{\boldsymbol\Sigma}\) ovat yhtäsuuria jollekin hajontamatriisille \(\boldsymbol\Sigma\). Sinisten pisteiden Euklidiset normit (katso kaava (9.1)) ovat yhtäsuuria." width="785" />
 <p class="caption">
-Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> ovat yhtäsuuria jollekin hajontamatriisille <span class="math inline">\(\boldsymbol\Sigma\)</span>. Sinisten pisteiden Euklidiset normit (katso kaava <a href="liitteet.html#eq:euclidean">(8.1)</a>) ovat yhtäsuuria.
+Kuva 2.6: Punaisia pisteitä vastaavat normit <span class="math inline">\(\|\boldsymbol x\|_{\boldsymbol\Sigma}\)</span> ovat yhtäsuuria jollekin hajontamatriisille <span class="math inline">\(\boldsymbol\Sigma\)</span>. Sinisten pisteiden Euklidiset normit (katso kaava <a href="liitteet.html#eq:euclidean">(9.1)</a>) ovat yhtäsuuria.
 </p>
 </div>
 

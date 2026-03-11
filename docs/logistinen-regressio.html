@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 8 Logistinen regressio | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 8 Logistinen regressio | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 8 Logistinen regressio | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 8 Logistinen regressio | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="liitteet.html"/>
-
+<link rel="prev" href="estimoinnista.html"/>
+<link rel="next" href="liitteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -254,62 +254,99 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lähteet" class="section level1 unnumbered hasAnchor">
-<h1>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="logistinen-regressio" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Luku 8</span> Logistinen regressio<a href="logistinen-regressio.html#logistinen-regressio" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Tavallisessa lineaarisessa regressiossa selittäjät saavat olla intervalliasteikkoisia (esimerkiksi ikä) tai luokkamuuttujia (esimerkiksi <span class="math inline">\(1 = \text{työntekijä kokoaikainen}\)</span>, <span class="math inline">\(0 = \text{työntekijä osa-aikainen}\)</span>) mutta selitettävä muuttuja on aina intervalliasteikkoinen (esimerkiksi vuosipalkka). Kuitenkin useissa tapauksissa halutaan mallintaa esimerkiksi binääristä kyllä/ei luokkamuuttujaa muiden selittäjien avulla. Alla listaamme muutaman esimerkin.</p>
+<ul>
+<li><p>Miten eri tekijät vaikuttavat siihen saako ihminen syövän vai ei?</p></li>
+<li><p>Miten ahkeruus vaikuttaa siihen pääseekö opiskelija tentistä läpi vai ei?</p></li>
+<li><p>Mitkä eri tekijät vaikuttivat siihen selvisikö henkilö pelastuslauttaan Titanicin upotessa?</p></li>
+</ul>
+<p>Esimerkki <a href="logistinen-regressio.html#exm:warning">8.1</a> näyttää, että yllä mainituissa tapauksissa tavallinen lineaarinen regressio ei ole kovin luonnollinen malli.</p>
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div class="csl-entry">
-Peng, Roger D. 2016. <em>R <span>P</span>rogramming for <span>D</span>ata <span>S</span>cience</em>. Lulu.com.
+<div class="example">
+<p><span id="exm:warning" class="example"><strong>Esimerkki 8.1  (Varoittava esimerkki) </strong></span>Havaintoaineisto <code>titanic</code> sisältää dataa liittyen surullisenkuuluisaan Titanic risteilijän uppoamiseen vuonna 1912. Yksi havainto eli rivi kuvaa yhtä Titanicin matkustajaa (<span class="math inline">\(n = 714\)</span>). Jokaista matkustajaa kohden meillä on dataa liittyen neljään muuttujaan.</p>
+<ul>
+<li><p><code>survived</code>: selvisikö matkustaja vai ei (<span class="math inline">\(0 = \text{ei}\)</span>, <span class="math inline">\(1 = \text{kyllä}\)</span>)?</p></li>
+<li><p><code>age</code>: matkustajan ikä vuosissa.</p></li>
+<li><p><code>sex</code>: matkustajan sukupuoli.</p></li>
+<li><p><code>fare</code>: lipun hinta.</p></li>
+</ul>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="logistinen-regressio.html#cb277-1" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;data/titanic.csv&quot;</span>, <span class="at">col_types =</span> <span class="st">&quot;idfd&quot;</span>)</span>
+<span id="cb277-2"><a href="logistinen-regressio.html#cb277-2" tabindex="-1"></a>titanic</span></code></pre></div>
+<pre><code>## # A tibble: 714 × 4
+##    survived   age sex     fare
+##       &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;
+##  1        0    22 male    7.25
+##  2        1    38 female 71.3 
+##  3        1    26 female  7.92
+##  4        1    35 female 53.1 
+##  5        0    35 male    8.05
+##  6        0    54 male   51.9 
+##  7        0     2 male   21.1 
+##  8        1    27 female 11.1 
+##  9        1    14 female 30.1 
+## 10        1     4 female 16.7 
+## # ℹ 704 more rows</code></pre>
+<p>Tavoitteenamme on selittää selviytymistodennäköisyyttä muilla muuttujilla <code>age</code>, <code>sex</code> ja <code>fare</code>. Yksinkertaisuuden vuoksi rajoitutaan vielä yhden selittäjän lineaariseen malliin
+<span class="math display">\[\begin{equation*}
+  \texttt{survived}_i = \beta_0 + \beta_1  \texttt{fare}_i + \varepsilon_i,
+  \quad i\in\{1,  \ldots, n\}.
+\end{equation*}\]</span>
+Koska tavallisten oletusten alla <span class="math inline">\(\mathbb{E}(\varepsilon_i) = 0\)</span>, niin lineaarinen malli voidaan kirjoittaa muodossa<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>
+<span class="math display">\[\begin{equation*}
+  \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
+\end{equation*}\]</span>
+Toisaalta muuttuja <code>survived</code> noudattaa Bernoullin jakaumaa eli
+<span class="math display">\[\begin{equation*}
+\mathbb{P}\left(\texttt{survived}_i\right) =
+\begin{cases}
+  p_i,&amp; \text{jos}\ \texttt{survived}_i = 1, \\
+  1 - p_i,&amp; \text{jos}\ \texttt{survived}_i = 0,
+\end{cases}
+\end{equation*}\]</span>
+jossa <span class="math inline">\(p_i\in[0,1]\)</span> on henkilön <span class="math inline">\(i\)</span> selviytymistodennäköisyys. Tällöin <span class="math inline">\(\mathbb{E}\left(\texttt{survived}_i\right) = p_i\)</span> ja lineaariselle regressiomallille saadaan tulkinta alla olevan kaavan avulla,
+<span class="math display">\[\begin{equation*}
+  p_i = \beta_0 + \beta_1\texttt{fare}_i.
+\end{equation*}\]</span>
+Lineaarinen malli siis kertoo, miten selviytymistodennäköisyys <span class="math inline">\(p_i\)</span> riippuu lipun hinnasta <code>fare</code>. Kuvassa <a href="logistinen-regressio.html#fig:linearprob">8.1</a> näkyvästä sovitteesta voidaan tulkita, että kun lipun hinta kasvaa, niin selviytymistodennäköisyys kasvaa. Kuitenkin tarpeeksi suurella lipun hinnalla ennustettu selviytymistodennäköisyys on suurempaa kuin 1! Tavallinen lineaarinen malli ei siis ole kovin hyödyllinen mallintamaan selviytymistodennäköisyyttä, koska tarpeeksi suurilla (tai pienillä) selittäjien arvoilla selviytymistodennäköisyydeksi saadaan ykköstä suurempia arvoja (tai nollaa pienempiä) arvoja.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="logistinen-regressio.html#cb279-1" tabindex="-1"></a>linear_prob_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(survived <span class="sc">~</span> fare, <span class="at">data =</span> titanic)</span>
+<span id="cb279-2"><a href="logistinen-regressio.html#cb279-2" tabindex="-1"></a><span class="fu">plot</span>(titanic<span class="sc">$</span>fare, titanic<span class="sc">$</span>survived, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">700</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>),</span>
+<span id="cb279-3"><a href="logistinen-regressio.html#cb279-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Lipun hinta&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Selvisikö? (0 = ei, 1 = kyllä)&quot;</span>)</span>
+<span id="cb279-4"><a href="logistinen-regressio.html#cb279-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> linear_prob_model<span class="sc">$</span>coefficients[<span class="dv">1</span>],</span>
+<span id="cb279-5"><a href="logistinen-regressio.html#cb279-5" tabindex="-1"></a>       <span class="at">b =</span> linear_prob_model<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:linearprob"></span>
+<img src="tidaja-book_files/figure-html/linearprob-1.png" alt="Lineaarisen mallin \(p_i = \beta_0 + \beta_1\texttt{fare}_i\) sovitus havaintoaineistoon." width="672" />
+<p class="caption">
+Kuva 8.1: Lineaarisen mallin <span class="math inline">\(p_i = \beta_0 + \beta_1\texttt{fare}_i\)</span> sovitus havaintoaineistoon.
+</p>
 </div>
-<div class="csl-entry">
-Ross, Sheldon M. 2021. <em>Introduction to Probability and Statistics for Engineers and Scientists</em>. 6th ed. London, England: Academic Press.
 </div>
-<div class="csl-entry">
-Taleb, Nassim Nicholas, and George A. Martin. 2012. <span>“How to <span>P</span>revent <span>O</span>ther <span>F</span>inancial <span>C</span>rises.”</span> <em>SAIS Review of International Affairs</em> 32 (1): 49–60. <a href="https://doi.org/10.1353/sais.2012.0010">https://doi.org/10.1353/sais.2012.0010</a>.
+<p>Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa <a href="logistinen-regressio.html#sec:deflog">8.1</a> käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa <a href="logistinen-regressio.html#sec:diaglog">8.2</a> esittelemme työkaluja mallin oletusten ja sovitteen analysointiin. Viimeiseksi luvussa <a href="logistinen-regressio.html#sec:multilog">8.3</a> sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.</p>
+<div id="sec:deflog" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Määritelmä, sovittaminen ja tulkinta<a href="logistinen-regressio.html#sec:deflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div class="csl-entry">
-Wickham, Hadley. 2019. <em>Advanced <span>R</span></em>. Vol. 2. Chapman; Hall/CRC.
+<div id="sec:diaglog" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet<a href="logistinen-regressio.html#sec:diaglog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div class="csl-entry">
-Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2017. <em>R for <span>D</span>ata <span>S</span>cience</em>. Vol. 2. O’Reilly.
+<div id="sec:multilog" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Moniulotteinen logistinen regressio<a href="logistinen-regressio.html#sec:multilog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
 </div>
 </div>
+<div class="footnotes">
+<hr />
+<ol start="23">
+<li id="fn23"><p>Teknisesti ottaen, jos selittäjä <span class="math inline">\(\texttt{fare}\)</span> käsitetään satunnaismuuttujana, niin meidän täytyisi käyttää ehdollista odotusarvoa <span class="math inline">\(\mathbb{E}(\texttt{survived}|\texttt{fare})\)</span>. Jos ajatellaan, että selittäjä ei ole satunnainen ja kaikki satunnaisuus tulee satunnaistermeistä <span class="math inline">\(\varepsilon_i\)</span>, niin merkintä <span class="math inline">\(\mathbb{E}(\texttt{survived})\)</span> on ok. Tällä kurssilla emme kuitenkaan takerru tämäntyyppisiin yksityiskohtiin.<a href="logistinen-regressio.html#fnref23" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="liitteet.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="estimoinnista.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="liitteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

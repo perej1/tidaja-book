@@ -1,0 +1,70 @@
+# Logistinen regressio
+
+Tavallisessa lineaarisessa regressiossa selittäjät saavat olla intervalliasteikkoisia (esimerkiksi ikä) tai luokkamuuttujia (esimerkiksi $1 = \text{työntekijä kokoaikainen}$, $0 = \text{työntekijä osa-aikainen}$) mutta selitettävä muuttuja on aina intervalliasteikkoinen (esimerkiksi vuosipalkka). Kuitenkin useissa tapauksissa halutaan mallintaa esimerkiksi binääristä kyllä/ei luokkamuuttujaa muiden selittäjien avulla. Alla listaamme muutaman esimerkin.
+
+- Miten eri tekijät vaikuttavat siihen saako ihminen syövän vai ei?
+
+- Miten ahkeruus vaikuttaa siihen pääseekö opiskelija tentistä läpi vai ei?
+
+- Mitkä eri tekijät vaikuttivat siihen selvisikö henkilö pelastuslauttaan Titanicin upotessa?
+
+Esimerkki \@ref(exm:warning) näyttää, että yllä mainituissa tapauksissa tavallinen lineaarinen regressio ei ole kovin luonnollinen malli. 
+
+(ref:linearprob) Lineaarisen mallin $p_i = \beta_0 + \beta_1\texttt{fare}_i$ sovitus havaintoaineistoon.
+
+:::{.example #warning name="Varoittava esimerkki"}
+
+Havaintoaineisto `titanic` sisältää dataa liittyen surullisenkuuluisaan Titanic risteilijän uppoamiseen vuonna 1912. Yksi havainto eli rivi kuvaa yhtä Titanicin matkustajaa ($n = 714$). Jokaista matkustajaa kohden meillä on dataa liittyen neljään muuttujaan.
+
+- `survived`: selvisikö matkustaja vai ei ($0 = \text{ei}$, $1 = \text{kyllä}$)?
+
+- `age`: matkustajan ikä vuosissa.
+
+- `sex`: matkustajan sukupuoli.
+
+- `fare`: lipun hinta.
+
+```{r}
+titanic <- readr::read_csv("data/titanic.csv", col_types = "idfd")
+titanic
+```
+
+Tavoitteenamme on selittää selviytymistodennäköisyyttä muilla muuttujilla `age`, `sex` ja `fare`. Yksinkertaisuuden vuoksi rajoitutaan vielä yhden selittäjän lineaariseen malliin
+\begin{equation*}
+  \texttt{survived}_i = \beta_0 + \beta_1  \texttt{fare}_i + \varepsilon_i,
+  \quad i\in\{1,  \ldots, n\}.
+\end{equation*}
+Koska tavallisten oletusten alla $\mathbb{E}(\varepsilon_i) = 0$, niin lineaarinen malli voidaan kirjoittaa muodossa^[Teknisesti ottaen, jos selittäjä $\texttt{fare}$ käsitetään satunnaismuuttujana, niin meidän täytyisi käyttää ehdollista odotusarvoa $\mathbb{E}(\texttt{survived}|\texttt{fare})$. Jos ajatellaan, että selittäjä ei ole satunnainen ja kaikki satunnaisuus tulee satunnaistermeistä $\varepsilon_i$, niin merkintä $\mathbb{E}(\texttt{survived})$ on ok. Tällä kurssilla emme kuitenkaan takerru tämäntyyppisiin yksityiskohtiin.]
+\begin{equation*}
+  \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
+\end{equation*}
+Toisaalta muuttuja `survived` noudattaa Bernoullin jakaumaa eli
+\begin{equation*}
+\mathbb{P}\left(\texttt{survived}_i\right) = 
+\begin{cases}
+  p_i,& \text{jos}\ \texttt{survived}_i = 1, \\
+  1 - p_i,& \text{jos}\ \texttt{survived}_i = 0,
+\end{cases}
+\end{equation*}
+jossa $p_i\in[0,1]$ on henkilön $i$ selviytymistodennäköisyys. Tällöin $\mathbb{E}\left(\texttt{survived}_i\right) = p_i$ ja lineaariselle regressiomallille saadaan tulkinta alla olevan kaavan avulla,
+\begin{equation*}
+  p_i = \beta_0 + \beta_1\texttt{fare}_i.
+\end{equation*}
+Lineaarinen malli siis kertoo, miten selviytymistodennäköisyys $p_i$ riippuu lipun hinnasta `fare`. Kuvassa \@ref(fig:linearprob) näkyvästä sovitteesta voidaan tulkita, että kun lipun hinta kasvaa, niin selviytymistodennäköisyys kasvaa. Kuitenkin tarpeeksi suurella lipun hinnalla ennustettu selviytymistodennäköisyys on suurempaa kuin 1! Tavallinen lineaarinen malli ei siis ole kovin hyödyllinen mallintamaan selviytymistodennäköisyyttä, koska tarpeeksi suurilla (tai pienillä) selittäjien arvoilla selviytymistodennäköisyydeksi saadaan ykköstä suurempia arvoja (tai nollaa pienempiä) arvoja.
+
+```{r linearprob, fig.cap="(ref:linearprob)"}
+linear_prob_model <- lm(survived ~ fare, data = titanic)
+plot(titanic$fare, titanic$survived, xlim = c(0, 700), ylim = c(0, 1.5),
+     xlab = "Lipun hinta", ylab = "Selvisikö? (0 = ei, 1 = kyllä)")
+abline(a = linear_prob_model$coefficients[1],
+       b = linear_prob_model$coefficients[2])
+```
+:::
+
+Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:diaglog) esittelemme työkaluja mallin oletusten ja sovitteen analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
+
+## Määritelmä, sovittaminen ja tulkinta {#sec:deflog}
+
+## Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet {#sec:diaglog}
+
+## Moniulotteinen logistinen regressio {#sec:multilog}

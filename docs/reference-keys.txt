@@ -187,6 +187,8 @@ prp:unlabeled-div-45
 eq:system
 exm:expmoment
 prp:unlabeled-div-46
+exm:warning
+fig:linearprob
 eq:euclidean
 exm:unlabeled-div-48
 fig:vec
@@ -226,6 +228,10 @@ estimoinnista
 sec:mle
 sec:moment
 sec:momentmethod
+logistinen-regressio
+sec:deflog
+sec:diaglog
+sec:multilog
 liitteet
 sec:vector
 sec:matrix
