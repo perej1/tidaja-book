@@ -38,7 +38,7 @@ Koska tavallisten oletusten alla $\mathbb{E}(\varepsilon_i) = 0$, niin lineaarin
 \begin{equation*}
   \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
 \end{equation*}
-Toisaalta muuttuja `survived` noudattaa Bernoullin jakaumaa eli
+Toisaalta muuttuja `survived` noudattaa Bernoullijakaumaa eli
 \begin{equation*}
 \mathbb{P}\left(\texttt{survived}_i\right) = 
 \begin{cases}
@@ -63,7 +63,135 @@ abline(a = linear_prob_model$coefficients[1],
 
 Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:diaglog) esittelemme työkaluja mallin oletusten ja sovitteen analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
 
+
 ## Määritelmä, sovittaminen ja tulkinta {#sec:deflog}
+
+Saatavilla on $n$ kappaletta $2$-ulotteisia satunnaishavaintoja
+\begin{equation*}
+  \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\},
+\end{equation*}
+jossa havainnnon $(y_i, x_i)$ ensimmäinen komponentti kuvaa selitettävää muuttujaa toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot $y_i$ ovat $0$/$1$ arvoisia ja täten noudattavat Bernoullijakaumaa. Kuten esimerkissä \@ref(exm:warning) todettiin, niin $\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i$.
+
+Logistisen regression idea on tehdä muunnos selitettävälle muuuttujalle $\mathbb{E}(y_i) = p_i$ niin, että muunnettu selitettävä muuttuja $g(p_i)$ voi saada arvoja väliltä $(-\infty, \infty)$. Eli haluamme muodostaa lineaarisen mallin
+\begin{equation}
+  (\#eq:glm)
+  g\left(\mathbb{E}(y_i)\right) = \beta_0 + \beta_1 x_i,
+  \quad i\in\{1, 2,\ldots, n\},
+\end{equation}
+sopivalla linkkifunktion $g$ avulla. Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan \@ref(eq:glm) mukaisen [yleistetyn lineaarisen mallin](https://en.wikipedia.org/wiki/Generalized_linear_model) (eng: *generalized linear model*) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu *logit* funktio.
+\begin{equation*}
+\mathrm{logit}(p) = \ln\left(\frac{p}{1 - p}\right), \quad p\in[0, 1].
+\end{equation*}
+Logit funktio ottaa siis sisäänsä todennäköisyyden $\mathbb{E}(y_i) = p_i$ ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan \@ref(fig:logit) vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
+\begin{equation*}
+  \ln\left(\frac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 x_i.
+\end{equation*}
+
+Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistinen funktion
+\begin{equation*}
+  \mathrm{logit}^{-1}(y) = \mathrm{logistic}(y) = \frac{e^y}{1 + e^{y}}, \quad y\in\mathbb{R}
+\end{equation*}
+avulla
+\begin{equation}
+  (\#eq:logistic)
+  p_i = \frac{\exp\left(\beta_0 + \beta_1 x_i\right)}{1  + \exp\left(\beta_0 + \beta_1 x_i\right)}.
+\end{equation}
+
+Logit funktion käänteisfunktion eli logistisen funktion kuvaaja näkyy kuvan \@ref(fig:logit) oikeassa ruudussa.
+
+(ref:logit) Vasemmassa kuvassa on Logit funktio välillä $[0.01, 0.99]$. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä $[-4.9, 4.9]$.
+
+```{r logit, fig.cap="(ref:logit)", echo=FALSE, fig.show="hold", out.width="50%"}
+library(ggplot2)
+par(mar = c(4, 4, .1, .1))
+
+# Rename for clarity
+logit <- qlogis
+logistic <- plogis
+
+ggplot(data.frame(p = c(0.01, 0.99)), aes(p)) +
+  stat_function(fun = logit) +
+  ylab("y")
+
+ggplot(data.frame(y = c(-4.9, 4.9)), aes(y)) +
+  stat_function(fun = logistic) +
+  ylab("p")
+```
+
+Kaavasta \@ref(eq:logistic) nähdään, että logistinen malli kuvaa onnistumistodennäköisyyden riippuvuutta selittäjästä. Lisäksi suhde selitettävän muuttujan ja selittäjän välillä ei ole lineaarinen vaan logistinen. Kuva \@ref(fig:logistic) näyttää, miten parametrit $\beta_0$ ja $\beta_1$ vaikuttavat selitettävän muuttujan (eli onnistumistodennäköisyyden) ja selittäjän väliseen suhteeseen.
+
+- Vasen ylänurkka, $\beta_0$ vaihtelee ja $\beta_1 = 0$:
+
+- Oikea ylänurkka, $\beta_0$ vaihtelee ja $\beta_1 = 1$:
+
+- Vasen alanurkka, $\beta_0 = 0$ ja $\beta_1 > 0$ vaihtelee:
+
+- Oikea alanurkka, $\beta_0 = 0$ ja $\beta_1 < 0$ vaihtelee:
+
+(ref:logistic) Vasemmanpuoleisessa yläkuvassa näkyy funktion $\mathrm{logistic}(\beta_0 + 0 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion $\mathrm{logistic}(\beta_0 + 1 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = 1/2$ (pinkki), $\beta_1 = 1$ (musta) ja $\beta_1 = 2$ (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = -1/2$ (pinkki), $\beta_1 = -1$ (musta) ja $\beta_1 = -2$ (sininen).
+
+```{r logistic, fig.cap="(ref:logistic)", echo=FALSE, fig.show="hold", out.width="50%"}
+library(ggplot2)
+par(mar = c(4, 4, .1, .1))
+
+beta0 <- c(-2, 0, 2)
+beta1 <-  c(0.5, 1, 2)
+beta2 <- -beta1
+
+tibble::tibble(
+  x = seq(-7, 7, length.out = 1000),
+  b1 = logistic(beta0[1]),
+  b2 = logistic(beta0[2]),
+  b3 = logistic(beta0[3])
+  ) |>
+  tidyr::pivot_longer(!x, names_to = "beta0", values_to = "y") |>
+  ggplot(aes(x = x, y = y, color = beta0)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("b1" = "hotpink", "b2" = "black", "b3" = "dodgerblue")) +
+  theme(legend.position = "none") +
+  ylab(expression("logistic(" * beta[0] * " + 0 * x)"))
+
+tibble::tibble(
+  x = seq(-7, 7, length.out = 1000),
+  b1 = logistic(beta0[1] + x),
+  b2 = logistic(beta0[2] + x),
+  b3 = logistic(beta0[3] + x)
+  ) |>
+  tidyr::pivot_longer(!x, names_to = "beta0", values_to = "y") |>
+  ggplot(aes(x = x, y = y, color = beta0)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("b1" = "hotpink", "b2" = "black", "b3" = "dodgerblue")) +
+  theme(legend.position = "none") +
+  ylab(expression("logistic(" * beta[0] * " + 1 * x)"))
+
+tibble::tibble(
+  x = seq(-7, 7, length.out = 1000),
+  b1 = logistic(beta1[1] * x),
+  b2 = logistic(beta1[2] * x),
+  b3 = logistic(beta1[3] * x)
+  ) |>
+  tidyr::pivot_longer(!x, names_to = "beta0", values_to = "y") |>
+  ggplot(aes(x = x, y = y, color = beta0)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("b1" = "hotpink", "b2" = "black", "b3" = "dodgerblue")) +
+  theme(legend.position = "none") +
+  ylab(expression("logistic(0 + "  * beta[1] * " * x)"))
+
+tibble::tibble(
+  x = seq(-7, 7, length.out = 1000),
+  b1 = logistic(beta2[1] * x),
+  b2 = logistic(beta2[2] * x),
+  b3 = logistic(beta2[3] * x)
+  ) |>
+  tidyr::pivot_longer(!x, names_to = "beta0", values_to = "y") |>
+  ggplot(aes(x = x, y = y, color = beta0)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("b1" = "hotpink", "b2" = "black", "b3" = "dodgerblue")) +
+  theme(legend.position = "none") +
+  ylab(expression("logistic(0 + "  * beta[1] * " * x)"))
+```
+
+
 
 ## Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet {#sec:diaglog}
 

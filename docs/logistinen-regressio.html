@@ -297,7 +297,7 @@ Koska tavallisten oletusten alla <span class="math inline">\(\mathbb{E}(\varepsi
 <span class="math display">\[\begin{equation*}
   \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
 \end{equation*}\]</span>
-Toisaalta muuttuja <code>survived</code> noudattaa Bernoullin jakaumaa eli
+Toisaalta muuttuja <code>survived</code> noudattaa Bernoullijakaumaa eli
 <span class="math display">\[\begin{equation*}
 \mathbb{P}\left(\texttt{survived}_i\right) =
 \begin{cases}
@@ -325,6 +325,56 @@ Kuva 8.1: Lineaarisen mallin <span class="math inline">\(p_i = \beta_0 + \beta_1
 <p>Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa <a href="logistinen-regressio.html#sec:deflog">8.1</a> käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa <a href="logistinen-regressio.html#sec:diaglog">8.2</a> esittelemme työkaluja mallin oletusten ja sovitteen analysointiin. Viimeiseksi luvussa <a href="logistinen-regressio.html#sec:multilog">8.3</a> sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.</p>
 <div id="sec:deflog" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Määritelmä, sovittaminen ja tulkinta<a href="logistinen-regressio.html#sec:deflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\(2\)</span>-ulotteisia satunnaishavaintoja
+<span class="math display">\[\begin{equation*}
+  \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\},
+\end{equation*}\]</span>
+jossa havainnnon <span class="math inline">\((y_i, x_i)\)</span> ensimmäinen komponentti kuvaa selitettävää muuttujaa toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot <span class="math inline">\(y_i\)</span> ovat <span class="math inline">\(0\)</span>/<span class="math inline">\(1\)</span> arvoisia ja täten noudattavat Bernoullijakaumaa. Kuten esimerkissä <a href="logistinen-regressio.html#exm:warning">8.1</a> todettiin, niin <span class="math inline">\(\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i\)</span>.</p>
+<p>Logistisen regression idea on tehdä muunnos selitettävälle muuuttujalle <span class="math inline">\(\mathbb{E}(y_i) = p_i\)</span> niin, että muunnettu selitettävä muuttuja <span class="math inline">\(g(p_i)\)</span> voi saada arvoja väliltä <span class="math inline">\((-\infty, \infty)\)</span>. Eli haluamme muodostaa lineaarisen mallin
+<span class="math display" id="eq:glm">\[\begin{equation}
+  \tag{8.1}
+  g\left(\mathbb{E}(y_i)\right) = \beta_0 + \beta_1 x_i,
+  \quad i\in\{1, 2,\ldots, n\},
+\end{equation}\]</span>
+sopivalla linkkifunktion <span class="math inline">\(g\)</span> avulla. Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan <a href="logistinen-regressio.html#eq:glm">(8.1)</a> mukaisen <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">yleistetyn lineaarisen mallin</a> (eng: <em>generalized linear model</em>) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu <em>logit</em> funktio.
+<span class="math display">\[\begin{equation*}
+\mathrm{logit}(p) = \ln\left(\frac{p}{1 - p}\right), \quad p\in[0, 1].
+\end{equation*}\]</span>
+Logit funktio ottaa siis sisäänsä todennäköisyyden <span class="math inline">\(\mathbb{E}(y_i) = p_i\)</span> ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
+<span class="math display">\[\begin{equation*}
+  \ln\left(\frac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 x_i.
+\end{equation*}\]</span></p>
+<p>Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistinen funktion
+<span class="math display">\[\begin{equation*}
+  \mathrm{logit}^{-1}(y) = \mathrm{logistic}(y) = \frac{e^y}{1 + e^{y}}, \quad y\in\mathbb{R}
+\end{equation*}\]</span>
+avulla
+<span class="math display" id="eq:logistic">\[\begin{equation}
+  \tag{8.2}
+  p_i = \frac{\exp\left(\beta_0 + \beta_1 x_i\right)}{1  + \exp\left(\beta_0 + \beta_1 x_i\right)}.
+\end{equation}\]</span></p>
+<p>Logit funktion käänteisfunktion eli logistisen funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> oikeassa ruudussa.</p>
+
+<div class="figure"><span style="display:block;" id="fig:logit"></span>
+<img src="tidaja-book_files/figure-html/logit-1.png" alt="Vasemmassa kuvassa on Logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" /><img src="tidaja-book_files/figure-html/logit-2.png" alt="Vasemmassa kuvassa on Logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" />
+<p class="caption">
+Kuva 8.2: Vasemmassa kuvassa on Logit funktio välillä <span class="math inline">\([0.01, 0.99]\)</span>. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä <span class="math inline">\([-4.9, 4.9]\)</span>.
+</p>
+</div>
+<p>Kaavasta <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> nähdään, että logistinen malli kuvaa onnistumistodennäköisyyden riippuvuutta selittäjästä. Lisäksi suhde selitettävän muuttujan ja selittäjän välillä ei ole lineaarinen vaan logistinen. Kuva <a href="logistinen-regressio.html#fig:logistic">8.3</a> näyttää, miten parametrit <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> vaikuttavat selitettävän muuttujan (eli onnistumistodennäköisyyden) ja selittäjän väliseen suhteeseen.</p>
+<ul>
+<li><p>Vasen ylänurkka, <span class="math inline">\(\beta_0\)</span> vaihtelee ja <span class="math inline">\(\beta_1 = 0\)</span>:</p></li>
+<li><p>Oikea ylänurkka, <span class="math inline">\(\beta_0\)</span> vaihtelee ja <span class="math inline">\(\beta_1 = 1\)</span>:</p></li>
+<li><p>Vasen alanurkka, <span class="math inline">\(\beta_0 = 0\)</span> ja <span class="math inline">\(\beta_1 &gt; 0\)</span> vaihtelee:</p></li>
+<li><p>Oikea alanurkka, <span class="math inline">\(\beta_0 = 0\)</span> ja <span class="math inline">\(\beta_1 &lt; 0\)</span> vaihtelee:</p></li>
+</ul>
+
+<div class="figure"><span style="display:block;" id="fig:logistic"></span>
+<img src="tidaja-book_files/figure-html/logistic-1.png" alt="Vasemmanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 0 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 1 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = 1/2\) (pinkki), \(\beta_1 = 1\) (musta) ja \(\beta_1 = 2\) (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = -1/2\) (pinkki), \(\beta_1 = -1\) (musta) ja \(\beta_1 = -2\) (sininen)." width="50%" /><img src="tidaja-book_files/figure-html/logistic-2.png" alt="Vasemmanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 0 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 1 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = 1/2\) (pinkki), \(\beta_1 = 1\) (musta) ja \(\beta_1 = 2\) (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = -1/2\) (pinkki), \(\beta_1 = -1\) (musta) ja \(\beta_1 = -2\) (sininen)." width="50%" /><img src="tidaja-book_files/figure-html/logistic-3.png" alt="Vasemmanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 0 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 1 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = 1/2\) (pinkki), \(\beta_1 = 1\) (musta) ja \(\beta_1 = 2\) (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = -1/2\) (pinkki), \(\beta_1 = -1\) (musta) ja \(\beta_1 = -2\) (sininen)." width="50%" /><img src="tidaja-book_files/figure-html/logistic-4.png" alt="Vasemmanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 0 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion \(\mathrm{logistic}(\beta_0 + 1 \cdot x)\) kuvaaja arvoilla \(\beta_0 = -2\) (pinkki), \(\beta_0 = 0\) (musta) ja \(\beta_0 = 2\) (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = 1/2\) (pinkki), \(\beta_1 = 1\) (musta) ja \(\beta_1 = 2\) (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion \(\mathrm{logistic}(0 + \beta_1 \cdot x)\) kuvaaja arvoilla \(\beta_1 = -1/2\) (pinkki), \(\beta_1 = -1\) (musta) ja \(\beta_1 = -2\) (sininen)." width="50%" />
+<p class="caption">
+Kuva 8.3: Vasemmanpuoleisessa yläkuvassa näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 0 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = 1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = 1\)</span> (musta) ja <span class="math inline">\(\beta_1 = 2\)</span> (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = -1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = -1\)</span> (musta) ja <span class="math inline">\(\beta_1 = -2\)</span> (sininen).
+</p>
+</div>
 </div>
 <div id="sec:diaglog" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet<a href="logistinen-regressio.html#sec:diaglog" class="anchor-section" aria-label="Anchor link to header"></a></h2>

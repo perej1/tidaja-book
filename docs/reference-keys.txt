@@ -189,6 +189,10 @@ exm:expmoment
 prp:unlabeled-div-46
 exm:warning
 fig:linearprob
+eq:glm
+eq:logistic
+fig:logit
+fig:logistic
 eq:euclidean
 exm:unlabeled-div-48
 fig:vec
