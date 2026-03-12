@@ -195,9 +195,11 @@ eq:logistic
 fig:logit
 fig:logistic
 exm:unlabeled-div-47
+exm:unlabeled-div-48
+exm:unlabeled-div-49
 exm:fit
 eq:euclidean
-exm:unlabeled-div-49
+exm:unlabeled-div-51
 fig:vec
 r-ohjelmointikielestä
 sec:inst

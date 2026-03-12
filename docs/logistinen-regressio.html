@@ -297,7 +297,7 @@ Koska tavallisten oletusten alla <span class="math inline">\(\mathbb{E}(\varepsi
 <span class="math display">\[\begin{equation*}
   \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
 \end{equation*}\]</span>
-Toisaalta muuttuja <code>survived</code> noudattaa Bernoullijakaumaa eli
+Oletetaan, että jokainen <span class="math inline">\(\texttt{survived}_i\)</span> noudattaa Bernoullijakaumaa eli
 <span class="math display">\[\begin{equation*}
 \mathbb{P}\left(\texttt{survived}_i\right) =
 \begin{cases}
@@ -322,43 +322,43 @@ Kuva 8.1: Lineaarisen mallin <span class="math inline">\(p_i = \beta_0 + \beta_1
 </p>
 </div>
 </div>
-<p>Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa <a href="logistinen-regressio.html#sec:deflog">8.1</a> käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa <a href="logistinen-regressio.html#sec:inflog">8.2</a> esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa <a href="logistinen-regressio.html#sec:multilog">8.3</a> sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.</p>
+<p>Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen <span class="math inline">\(0\)</span>/<span class="math inline">\(1\)</span> luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa <a href="logistinen-regressio.html#sec:deflog">8.1</a> käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa <a href="logistinen-regressio.html#sec:inflog">8.2</a> esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa <a href="logistinen-regressio.html#sec:multilog">8.3</a> sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.</p>
 <div id="sec:deflog" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Määritelmä ja tulkinta<a href="logistinen-regressio.html#sec:deflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\(2\)</span>-ulotteisia satunnaishavaintoja
+<p>Saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\(2\)</span>-ulotteisia riippumattomia satunnaishavaintoja
 <span class="math display">\[\begin{equation*}
   \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\},
 \end{equation*}\]</span>
-jossa havainnnon <span class="math inline">\((y_i, x_i)\)</span> ensimmäinen komponentti kuvaa selitettävää muuttujaa toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot <span class="math inline">\(y_i\)</span> ovat <span class="math inline">\(0\)</span>/<span class="math inline">\(1\)</span> arvoisia ja täten noudattavat Bernoullijakaumaa. Kuten esimerkissä <a href="logistinen-regressio.html#exm:warning">8.1</a> todettiin, niin <span class="math inline">\(\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i\)</span>.</p>
+jossa havainnon <span class="math inline">\((y_i, x_i)\)</span> ensimmäinen komponentti kuvaa selitettävää muuttujaa ja toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot <span class="math inline">\(y_i\)</span> ovat <span class="math inline">\(0\)</span>/<span class="math inline">\(1\)</span> arvoisia ja täten noudattavat Bernoullijakaumaa havainnosta <span class="math inline">\(i\)</span> riippuvalla onnistumistodennäköisyydellä <span class="math inline">\(p_i\)</span>. Kuten esimerkissä <a href="logistinen-regressio.html#exm:warning">8.1</a> todettiin, niin <span class="math inline">\(\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i\)</span>.</p>
 <p>Logistisen regression idea on tehdä muunnos selitettävälle muuuttujalle <span class="math inline">\(\mathbb{E}(y_i) = p_i\)</span> niin, että muunnettu selitettävä muuttuja <span class="math inline">\(g(p_i)\)</span> voi saada arvoja väliltä <span class="math inline">\((-\infty, \infty)\)</span>. Eli haluamme muodostaa lineaarisen mallin
 <span class="math display" id="eq:glm">\[\begin{equation}
   \tag{8.1}
   g\left(\mathbb{E}(y_i)\right) = \beta_0 + \beta_1 x_i,
   \quad i\in\{1, 2,\ldots, n\},
 \end{equation}\]</span>
-sopivalla linkkifunktion <span class="math inline">\(g\)</span> avulla. Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan <a href="logistinen-regressio.html#eq:glm">(8.1)</a> mukaisen <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">yleistetyn lineaarisen mallin</a> (eng: <em>generalized linear model</em>) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu <em>logit</em> funktio.
+sopivan linkkifunktion <span class="math inline">\(g\)</span> avulla<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a>. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu <em>logit</em> funktio.
 <span class="math display">\[\begin{equation*}
 \mathrm{logit}(p) = \ln\left(\frac{p}{1 - p}\right), \quad p\in[0, 1].
 \end{equation*}\]</span>
-Logit funktio ottaa siis sisäänsä todennäköisyyden <span class="math inline">\(\mathbb{E}(y_i) = p_i\)</span> ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
+Logit funktio ottaa siis sisäänsä todennäköisyyden <span class="math inline">\(p\)</span> ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
 <span class="math display">\[\begin{equation*}
   \ln\left(\frac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 x_i.
 \end{equation*}\]</span></p>
-<p>Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistinen funktion
+<p>Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistisen funktion
 <span class="math display">\[\begin{equation*}
-  \mathrm{logit}^{-1}(y) = \mathrm{logistic}(y) = \frac{e^y}{1 + e^{y}}, \quad y\in\mathbb{R}
+  \mathrm{logit}^{-1}(x) = \mathrm{logistic}(x) = \frac{e^x}{1 + e^{x}}, \quad y\in\mathbb{R},
 \end{equation*}\]</span>
 avulla
 <span class="math display" id="eq:logistic">\[\begin{equation}
   \tag{8.2}
   p_i = \frac{\exp\left(\beta_0 + \beta_1 x_i\right)}{1  + \exp\left(\beta_0 + \beta_1 x_i\right)}.
-\end{equation}\]</span></p>
-<p>Logit funktion käänteisfunktion eli logistisen funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> oikeassa ruudussa.</p>
+\end{equation}\]</span>
+Logit funktion käänteisfunktion eli logistisen funktion kuvaaja näkyy kuvan <a href="logistinen-regressio.html#fig:logit">8.2</a> oikeassa ruudussa.</p>
 
 <div class="figure"><span style="display:block;" id="fig:logit"></span>
-<img src="tidaja-book_files/figure-html/logit-1.png" alt="Vasemmassa kuvassa on Logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" /><img src="tidaja-book_files/figure-html/logit-2.png" alt="Vasemmassa kuvassa on Logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" />
+<img src="tidaja-book_files/figure-html/logit-1.png" alt="Vasemmassa kuvassa on logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" /><img src="tidaja-book_files/figure-html/logit-2.png" alt="Vasemmassa kuvassa on logit funktio välillä \([0.01, 0.99]\). Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä \([-4.9, 4.9]\)." width="50%" />
 <p class="caption">
-Kuva 8.2: Vasemmassa kuvassa on Logit funktio välillä <span class="math inline">\([0.01, 0.99]\)</span>. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä <span class="math inline">\([-4.9, 4.9]\)</span>.
+Kuva 8.2: Vasemmassa kuvassa on logit funktio välillä <span class="math inline">\([0.01, 0.99]\)</span>. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä <span class="math inline">\([-4.9, 4.9]\)</span>.
 </p>
 </div>
 <p>Kaavasta <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> nähdään, että logistinen malli kuvaa onnistumistodennäköisyyden riippuvuutta selittäjästä. Lisäksi suhde selitettävän muuttujan ja selittäjän välillä ei ole lineaarinen vaan logistinen. Kuva <a href="logistinen-regressio.html#fig:logistic">8.3</a> näyttää, miten parametrit <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> vaikuttavat selitettävän muuttujan (eli onnistumistodennäköisyyden) ja selittäjän väliseen suhteeseen.</p>
@@ -375,7 +375,7 @@ Kuva 8.2: Vasemmassa kuvassa on Logit funktio välillä <span class="math inline
 Kuva 8.3: <strong>Vasemmanpuoleisessa yläkulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 0 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). <strong>Oikeanpuoleisessa yläkulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). <strong>Vasemmanpuoleisessa alakulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = 1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = 1\)</span> (musta) ja <span class="math inline">\(\beta_1 = 2\)</span> (sininen). <strong>Oikeanpuoleisessa alakulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = -1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = -1\)</span> (musta) ja <span class="math inline">\(\beta_1 = -2\)</span> (sininen).
 </p>
 </div>
-<p>Seuraavaksi tavoitteenamme on tulkita tarkemmin sitä, miten kulmakerroin <span class="math inline">\(\beta_1\)</span> vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tukintaa yhden selittäjän lineaarisessa regressiossa
+<p>Seuraavaksi tavoitteenamme on tulkita tarkemmin, miten kulmakerroin <span class="math inline">\(\beta_1\)</span> vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tulkintaa yhden selittäjän lineaarisessa regressiossa
 <span class="math display">\[\begin{equation*}
   \mathbb{E}(y_i) = \beta_0 + \beta_1 x_i.
 \end{equation*}\]</span>
@@ -385,27 +385,70 @@ Olkoon <span class="math inline">\(\mathbb{E}(y_i^*) = \beta_0 + \beta_1 (x_i + 
   \left(\beta_0 + \beta_1 (x_i + 1)\right) - \left(\beta_0 + \beta_1 x_i\right)
   = \beta_1,
 \end{equation*}\]</span>
-joten riippumatta selittäjän <span class="math inline">\(x_i\)</span> arvosta kulmakerroin <span class="math inline">\(\beta_1\)</span> kuvaa odotusarvoisen muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön <span class="math inline">\(x_i\rightarrow x_i + 1\)</span>. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> kulmakerroin riippuu selittäjän arvosta<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.</p>
-<p>Järkevää parametrin <span class="math inline">\(\beta_1\)</span> tulkintaa varten esittelemme vastasuhteen (eng: <em>odds</em>) käsitteen. Tapahtuman todennäköisyyden <span class="math inline">\(p\)</span> vastasuhde <span class="math inline">\(\mathrm{Odds}(p)\)</span> määritellään olevan
+joten riippumatta selittäjän <span class="math inline">\(x_i\)</span> arvosta kulmakerroin <span class="math inline">\(\beta_1\)</span> kuvaa odotusarvoisen muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön <span class="math inline">\(x_i\rightarrow x_i + 1\)</span>. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> kulmakerroin riippuu selittäjän arvosta<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a> johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.</p>
+<p>Järkevää parametrin <span class="math inline">\(\beta_1\)</span> tulkintaa varten esittelemme vetokertoimen (eng: <em>odds</em>) käsitteen. Tapahtuman todennäköisyyden <span class="math inline">\(p\)</span> vetokerroin <span class="math inline">\(\mathrm{Odds}(p)\)</span> määritellään olevan
 <span class="math display">\[\begin{equation*}
   \mathrm{Odds}(p) = \frac{p}{1 - p}.
 \end{equation*}\]</span>
-Vastasuhteen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa <span class="math inline">\(\mathrm{Odds}(p)  = a / b\)</span>, <span class="math inline">\(a,b\in\{1, 2, \ldots\}\)</span>, oleva vastasuhde kirjoitetaan usein muodossa <span class="math inline">\(a:b\)</span>. Alla on esimerkkejä vastasuhteen tulkinnasta.</p>
+Vetokertoimen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa <span class="math inline">\(\mathrm{Odds}(p)  = a / b\)</span>, <span class="math inline">\(a,b\in\{1, 2, \ldots\}\)</span>, oleva vetokerroin kirjoitetaan usein notaatiolla <span class="math inline">\(a:b\)</span>. Alla on esimerkkejä vetokertoimen tulkinnasta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-47" class="example"><strong>Esimerkki 8.2  (Vastasuhde) </strong></span></p>
+<p><span id="exm:unlabeled-div-47" class="example"><strong>Esimerkki 8.2  (Vetokerroin) </strong></span></p>
 <ul>
-<li><p>Kun <span class="math inline">\(p = 1/2\)</span>, niin <span class="math inline">\(\mathrm{Odds}(p) = 1\)</span>. Vastasuhde voidaan myös antaa notaatiolla <span class="math inline">\(1:1\)</span>.</p></li>
-<li><p>Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vastasuhteen <span class="math inline">\(5\)</span>:<span class="math inline">\(1\)</span> joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että <span class="math inline">\(\mathrm{Odds}(p) = 5\)</span> ja <span class="math inline">\(p = 5/6\)</span>, jossa <span class="math inline">\(p\)</span> on todennäköisyys joukkueen Bodø/Glimt voitolle.</p></li>
+<li><p>Kun <span class="math inline">\(p = 1/2\)</span>, niin <span class="math inline">\(\mathrm{Odds}(p) = 1\)</span>. Vetokerroin voidaan myös antaa notaatiolla <span class="math inline">\(1:1\)</span>.</p></li>
+<li><p>Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vetokertoimen <span class="math inline">\(5:1\)</span> joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että <span class="math inline">\(\mathrm{Odds}(p) = 5\)</span> ja <span class="math inline">\(p = 5/6\)</span>, jossa <span class="math inline">\(p\)</span> on todennäköisyys joukkueen Bodø/Glimt voitolle.</p></li>
 <li><p>Todennäköisyys, että huomenna sataa on <span class="math inline">\(p = 0.11\)</span>. Tällöin <span class="math inline">\(\mathrm{Odds}(p) \approx 0.1236\)</span>.</p></li>
-<li><p>Vastasuhdetta <span class="math inline">\(3:2\)</span> vastaava onnistumistodennäköisyys on <span class="math inline">\(p = 3 / (3 + 2) = 3 / 5\)</span>. Vastasuhde voidaan kirjoittaa myös muodossa <span class="math inline">\(\mathrm{Odds}(p) = 3/2\)</span>.</p></li>
+<li><p>Vetokerrointa <span class="math inline">\(3:2\)</span> vastaava onnistumistodennäköisyys on <span class="math inline">\(p = 3 / (3 + 2) = 3 / 5\)</span>. Vetokerroin voidaan kirjoittaa myös muodossa <span class="math inline">\(\mathrm{Odds}(p) = 3/2\)</span>.</p></li>
 </ul>
+</div>
+<p>Kahden erillisten tapahtuman todennäköisyyksiä <span class="math inline">\(p_1\)</span> ja <span class="math inline">\(p_2\)</span> voidaan verrata vetosuhteella (eng: <em>odds ratio</em>)
+<span class="math display">\[\begin{equation*}
+  \mathrm{OR}(p_1, p_2) = \frac{\mathrm{Odds}(p_1)}{\mathrm{Odds}(p_2)}.
+\end{equation*}\]</span>
+Vetosuhteen tulkinta on seuraava.</p>
+<ul>
+<li><p>Jos <span class="math inline">\(\mathrm{OR}(p_1, p_2) &gt; 1\)</span>, niin ensimmäinen tapahtuma on todennäköisempi kuin toinen.</p></li>
+<li><p>Jos <span class="math inline">\(\mathrm{OR}(p_1, p_2) = 1\)</span>, niin tapahtumat ovat yhtä todennäköisiä.</p></li>
+<li><p>Jos <span class="math inline">\(\mathrm{OR}(p_1, p_2) &lt; 1\)</span>, niin toinen tapahtuma on todennäköisempi kuin ensimmäinen.</p></li>
+</ul>
+<div class="example">
+<p><span id="exm:unlabeled-div-48" class="example"><strong>Esimerkki 8.3  (Vetosuhde) </strong></span>Tupakoimattomista ihmisistä <span class="math inline">\(p_1 = 20\%\)</span> saa keuhkosyövän ja tupakoivista ihmisistä <span class="math inline">\(p_2 = 60\%\)</span> saa keuhkosyövän. Nyt <span class="math inline">\(\mathrm{Odds}(p_1) = 0.25\)</span> ja <span class="math inline">\(\mathrm{Odds}(p_2) = 1.5\)</span>. Tällöin
+<span class="math display">\[\begin{equation*}
+  \mathrm{OR}(p_2, p_1) = \frac{1.5}{0.25} = 6.
+\end{equation*}\]</span>
+<strong>Vetosuhteen tulkinta</strong>: Jos löisit vetoa siitä saako ihminen syövän, niin tupakoitsijaa vastaava vetokerroin on kuusi kertaa suurempi kuin tupakoimatonta henkilöä vastaava vetokerroin.</p>
+</div>
+<p>Nyt vetosuhteen käsitteen avulla saamme vihdoinkin tulkinnan kertoimelle <span class="math inline">\(\beta_1\)</span>. Olkoon <span class="math inline">\(p_i\)</span> kuten kaavassa <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> ja
+<span class="math display">\[\begin{equation*}
+  p_i^* = \frac{\exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}{1 + \exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}.
+\end{equation*}\]</span>
+Nyt viikon 10 harjoitustehtävän 1 mukaan
+<span class="math display">\[\begin{equation*}
+  \mathrm{OR}(p_i^*, p_i) = \exp\left(\beta_1\right).
+\end{equation*}\]</span>
+Eli <span class="math inline">\(\exp(\beta_1)\)</span> kuvaa vetokertoimen suhteellista muutosta, kun selittäjä kasvaa yhden yksikön <span class="math inline">\(x\rightarrow x+1\)</span>.</p>
+
+<div class="example">
+<p><span id="exm:unlabeled-div-49" class="example"><strong>Esimerkki 8.4  (Parametrien <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> tulkinta) </strong></span>Data-analyytikko tutkii iän ja ja erään taudin suhdetta sovittamalla logistisen regressiomallin
+<span class="math display">\[\begin{equation*}
+  \mathrm{logit}(p_i) = -2 + 0.03 x_i.
+\end{equation*}\]</span>
+Tällöin vastasyntyneellä lapsella (<span class="math inline">\(x_i = 0\)</span>) tauti kehittyy todennäköisyydellä
+<span class="math display">\[\begin{equation*}
+  p_i = \mathrm{logit}^{-1}(\beta_0) = \mathrm{logistic}(\beta_0)
+  = \frac{e^{-2}}{1 + e^{-2}} \approx \approx 0.12.
+\end{equation*}\]</span>
+ja esimerkiksi <span class="math inline">\(50\)</span> vuotiaalle henkilölle tauti kehittyy todennäköisyydellä <span class="math inline">\(\mathrm{logistic}(\beta_0 + \beta_1 \cdot 50)\approx 0.38\)</span>.</p>
+<p>Jokainen lisävuosi kasvattaa vetokerrointa taudin saamiselle suhteellisella osuudella <span class="math inline">\(\exp(\beta_1) = \exp(0.03)\approx 1.03\)</span>. Tällöin kymmenen vuoden vanheneminen kasvattaa vetokerrointa taudin saamiselle <span class="math inline">\(\approx 35\%\)</span>, sillä
+<span class="math display">\[\begin{equation*}
+  \exp(0.03)^{10} = \exp(0.30) \approx 1.35.
+\end{equation*}\]</span></p>
 </div>
 </div>
 <div id="sec:inflog" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Tilastollinen päättely<a href="logistinen-regressio.html#sec:inflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi estimaatteja ei saada sijoittamalla lukuja kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>.</p>
 <div class="example">
-<p><span id="exm:fit" class="example"><strong>Esimerkki 8.3  (Mallin sovittaminen ja tulkinta) </strong></span>TODO</p>
+<p><span id="exm:fit" class="example"><strong>Esimerkki 8.5  (Mallin sovittaminen ja tulkinta) </strong></span>TODO</p>
 </div>
 </div>
 <div id="sec:multilog" class="section level2 hasAnchor" number="8.3">
@@ -417,7 +460,8 @@ Vastasuhteen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa <span 
 <hr />
 <ol start="23">
 <li id="fn23"><p>Teknisesti ottaen, jos selittäjä <span class="math inline">\(\texttt{fare}\)</span> käsitetään satunnaismuuttujana, niin meidän täytyisi käyttää ehdollista odotusarvoa <span class="math inline">\(\mathbb{E}(\texttt{survived}|\texttt{fare})\)</span>. Jos ajatellaan, että selittäjä ei ole satunnainen ja kaikki satunnaisuus tulee satunnaistermeistä <span class="math inline">\(\varepsilon_i\)</span>, niin merkintä <span class="math inline">\(\mathbb{E}(\texttt{survived})\)</span> on ok. Tällä kurssilla emme kuitenkaan takerru tämäntyyppisiin yksityiskohtiin.<a href="logistinen-regressio.html#fnref23" class="footnote-back">↩︎</a></p></li>
-<li id="fn24"><p>Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion <span class="math inline">\(p(x) = \beta_0 + \beta_1 x\)</span> “kulmakerroin” eli derivaatta on <span class="math inline">\(p&#39;(x) = \beta_1p(x)(1-p(x))\)</span> kohdassa <span class="math inline">\(x\)</span>.<a href="logistinen-regressio.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan <a href="logistinen-regressio.html#eq:glm">(8.1)</a> näköisen <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">yleistetyn lineaarisen mallin</a> (eng: <em>generalized linear model</em>) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa.<a href="logistinen-regressio.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion <span class="math inline">\(p(x) = \mathrm{logistic}(\beta_0 + \beta_1 x)\)</span> “kulmakerroin” eli derivaatta on <span class="math inline">\(p&#39;(x) = \beta_1p(x)(1-p(x))\)</span> kohdassa <span class="math inline">\(x\)</span>.<a href="logistinen-regressio.html#fnref25" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

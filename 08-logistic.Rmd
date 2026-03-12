@@ -38,7 +38,7 @@ Koska tavallisten oletusten alla $\mathbb{E}(\varepsilon_i) = 0$, niin lineaarin
 \begin{equation*}
   \mathbb{E}\left(\texttt{survived}_i\right) = \beta_0 + \beta_1\texttt{fare}_i.
 \end{equation*}
-Toisaalta muuttuja `survived` noudattaa Bernoullijakaumaa eli
+Oletetaan, että jokainen $\texttt{survived}_i$ noudattaa Bernoullijakaumaa eli
 \begin{equation*}
 \mathbb{P}\left(\texttt{survived}_i\right) = 
 \begin{cases}
@@ -61,16 +61,16 @@ abline(a = linear_prob_model$coefficients[1],
 ```
 :::
 
-Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:inflog) esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
+Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen $0$/$1$ luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:inflog) esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
 
 
 ## Määritelmä ja tulkinta {#sec:deflog}
 
-Saatavilla on $n$ kappaletta $2$-ulotteisia satunnaishavaintoja
+Saatavilla on $n$ kappaletta $2$-ulotteisia riippumattomia satunnaishavaintoja
 \begin{equation*}
   \left\{(y_1, x_1), \ldots, (y_n, x_n)\right\},
 \end{equation*}
-jossa havainnnon $(y_i, x_i)$ ensimmäinen komponentti kuvaa selitettävää muuttujaa toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot $y_i$ ovat $0$/$1$ arvoisia ja täten noudattavat Bernoullijakaumaa. Kuten esimerkissä \@ref(exm:warning) todettiin, niin $\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i$.
+jossa havainnon $(y_i, x_i)$ ensimmäinen komponentti kuvaa selitettävää muuttujaa ja toinen komponentti antaa selittävän muuttujan. Tämän lisäksi havainnot $y_i$ ovat $0$/$1$ arvoisia ja täten noudattavat Bernoullijakaumaa havainnosta $i$ riippuvalla onnistumistodennäköisyydellä $p_i$. Kuten esimerkissä \@ref(exm:warning) todettiin, niin $\mathbb{E}(y_i) = \mathbb{P}(y_i = 1) = p_i$.
 
 Logistisen regression idea on tehdä muunnos selitettävälle muuuttujalle $\mathbb{E}(y_i) = p_i$ niin, että muunnettu selitettävä muuttuja $g(p_i)$ voi saada arvoja väliltä $(-\infty, \infty)$. Eli haluamme muodostaa lineaarisen mallin
 \begin{equation}
@@ -78,28 +78,27 @@ Logistisen regression idea on tehdä muunnos selitettävälle muuuttujalle $\mat
   g\left(\mathbb{E}(y_i)\right) = \beta_0 + \beta_1 x_i,
   \quad i\in\{1, 2,\ldots, n\},
 \end{equation}
-sopivalla linkkifunktion $g$ avulla. Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan \@ref(eq:glm) mukaisen [yleistetyn lineaarisen mallin](https://en.wikipedia.org/wiki/Generalized_linear_model) (eng: *generalized linear model*) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu *logit* funktio.
+sopivan linkkifunktion $g$ avulla^[Linkkifunktio voidaan valita eri tavoin riippuen asiayhteydestä. Kaavan \@ref(eq:glm) näköisen [yleistetyn lineaarisen mallin](https://en.wikipedia.org/wiki/Generalized_linear_model) (eng: *generalized linear model*) lisäksi linkkifunktioilla (tai linkkifunktioiden käänteisfunktioilla) on merkittävä rooli esimerkiksi neuroverkoissa.]. Logistisessa regressiossa linkkifunktioksi valitaan niin kutsuttu *logit* funktio.
 \begin{equation*}
 \mathrm{logit}(p) = \ln\left(\frac{p}{1 - p}\right), \quad p\in[0, 1].
 \end{equation*}
-Logit funktio ottaa siis sisäänsä todennäköisyyden $\mathbb{E}(y_i) = p_i$ ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan \@ref(fig:logit) vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
+Logit funktio ottaa siis sisäänsä todennäköisyyden $p$ ja palauttaa reaaliluvun. Logit funktion kuvaaja näkyy kuvan \@ref(fig:logit) vasemmassa ruudussa. Eli logistinen regressiomalli on muotoa
 \begin{equation*}
   \ln\left(\frac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1 x_i.
 \end{equation*}
 
-Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistinen funktion
+Toisaalta logistinen regressiomalli voidaan kirjoittaa logit funktion käänteisfunktion eli logistisen funktion
 \begin{equation*}
-  \mathrm{logit}^{-1}(y) = \mathrm{logistic}(y) = \frac{e^y}{1 + e^{y}}, \quad y\in\mathbb{R}
+  \mathrm{logit}^{-1}(x) = \mathrm{logistic}(x) = \frac{e^x}{1 + e^{x}}, \quad y\in\mathbb{R},
 \end{equation*}
 avulla
 \begin{equation}
   (\#eq:logistic)
   p_i = \frac{\exp\left(\beta_0 + \beta_1 x_i\right)}{1  + \exp\left(\beta_0 + \beta_1 x_i\right)}.
 \end{equation}
-
 Logit funktion käänteisfunktion eli logistisen funktion kuvaaja näkyy kuvan \@ref(fig:logit) oikeassa ruudussa.
 
-(ref:logit) Vasemmassa kuvassa on Logit funktio välillä $[0.01, 0.99]$. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä $[-4.9, 4.9]$.
+(ref:logit) Vasemmassa kuvassa on logit funktio välillä $[0.01, 0.99]$. Oikeassa kuvassa on logit funktion käänteisfunktio eli logistinen funktio välillä $[-4.9, 4.9]$.
 
 ```{r logit, fig.cap="(ref:logit)", echo=FALSE, fig.show="hold", out.width="50%"}
 library(ggplot2)
@@ -111,9 +110,9 @@ logistic <- plogis
 
 ggplot(data.frame(p = c(0.01, 0.99)), aes(p)) +
   stat_function(fun = logit) +
-  ylab("y")
+  ylab("x")
 
-ggplot(data.frame(y = c(-4.9, 4.9)), aes(y)) +
+ggplot(data.frame(x = c(-4.9, 4.9)), aes(x)) +
   stat_function(fun = logistic) +
   ylab("p")
 ```
@@ -195,7 +194,7 @@ tibble::tibble(
   ylim(0, 1)
 ```
 
-Seuraavaksi tavoitteenamme on tulkita tarkemmin sitä, miten kulmakerroin $\beta_1$ vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tukintaa yhden selittäjän lineaarisessa regressiossa
+Seuraavaksi tavoitteenamme on tulkita tarkemmin, miten kulmakerroin $\beta_1$ vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tulkintaa yhden selittäjän lineaarisessa regressiossa
 \begin{equation*}
   \mathbb{E}(y_i) = \beta_0 + \beta_1 x_i.
 \end{equation*}
@@ -205,25 +204,73 @@ Olkoon $\mathbb{E}(y_i^*) = \beta_0 + \beta_1 (x_i + 1)$. Nyt kaikille $i\in\{1,
   \left(\beta_0 + \beta_1 (x_i + 1)\right) - \left(\beta_0 + \beta_1 x_i\right)
   = \beta_1,
 \end{equation*}
-joten riippumatta selittäjän $x_i$ arvosta kulmakerroin $\beta_1$ kuvaa odotusarvoisen  muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön $x_i\rightarrow x_i + 1$. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän \@ref(eq:logistic) kulmakerroin riippuu selittäjän arvosta^[Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion $p(x) = \beta_0 + \beta_1 x$ "kulmakerroin" eli derivaatta on $p'(x) = \beta_1p(x)(1-p(x))$ kohdassa $x$.] johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.
+joten riippumatta selittäjän $x_i$ arvosta kulmakerroin $\beta_1$ kuvaa odotusarvoisen  muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön $x_i\rightarrow x_i + 1$. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän \@ref(eq:logistic) kulmakerroin riippuu selittäjän arvosta^[Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion $p(x) = \mathrm{logistic}(\beta_0 + \beta_1 x)$ "kulmakerroin" eli derivaatta on $p'(x) = \beta_1p(x)(1-p(x))$ kohdassa $x$.] johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.
 
-Järkevää parametrin $\beta_1$ tulkintaa varten esittelemme vastasuhteen (eng: *odds*) käsitteen. Tapahtuman todennäköisyyden $p$ vastasuhde $\mathrm{Odds}(p)$ määritellään olevan
+Järkevää parametrin $\beta_1$ tulkintaa varten esittelemme vetokertoimen (eng: *odds*) käsitteen. Tapahtuman todennäköisyyden $p$ vetokerroin $\mathrm{Odds}(p)$ määritellään olevan
 \begin{equation*}
   \mathrm{Odds}(p) = \frac{p}{1 - p}.
 \end{equation*}
-Vastasuhteen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa $\mathrm{Odds}(p)  = a / b$, $a,b\in\{1, 2, \ldots\}$, oleva vastasuhde kirjoitetaan usein muodossa $a:b$. Alla on esimerkkejä vastasuhteen tulkinnasta.
+Vetokertoimen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa $\mathrm{Odds}(p)  = a / b$, $a,b\in\{1, 2, \ldots\}$, oleva vetokerroin kirjoitetaan usein notaatiolla $a:b$. Alla on esimerkkejä vetokertoimen tulkinnasta.
 
-:::{.example name=Vastasuhde}
-- Kun $p = 1/2$, niin $\mathrm{Odds}(p) = 1$. Vastasuhde voidaan myös antaa notaatiolla $1:1$.
+:::{.example name="Vetokerroin"}
+- Kun $p = 1/2$, niin $\mathrm{Odds}(p) = 1$. Vetokerroin voidaan myös antaa notaatiolla $1:1$.
 
-- Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vastasuhteen $5$:$1$ joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että $\mathrm{Odds}(p) = 5$ ja $p = 5/6$, jossa $p$ on todennäköisyys joukkueen Bodø/Glimt voitolle.
+- Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vetokertoimen $5:1$ joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että $\mathrm{Odds}(p) = 5$ ja $p = 5/6$, jossa $p$ on todennäköisyys joukkueen Bodø/Glimt voitolle.
 
 - Todennäköisyys, että huomenna sataa on $p = 0.11$. Tällöin $\mathrm{Odds}(p) \approx 0.1236$.
 
-- Vastasuhdetta $3:2$ vastaava onnistumistodennäköisyys on $p = 3 / (3 + 2) = 3 / 5$. Vastasuhde voidaan kirjoittaa myös muodossa $\mathrm{Odds}(p) = 3/2$.
+- Vetokerrointa $3:2$ vastaava onnistumistodennäköisyys on $p = 3 / (3 + 2) = 3 / 5$. Vetokerroin voidaan kirjoittaa myös muodossa $\mathrm{Odds}(p) = 3/2$.
 :::
 
+Kahden erillisten tapahtuman todennäköisyyksiä $p_1$ ja $p_2$ voidaan verrata vetosuhteella (eng: *odds ratio*)
+\begin{equation*}
+  \mathrm{OR}(p_1, p_2) = \frac{\mathrm{Odds}(p_1)}{\mathrm{Odds}(p_2)}.
+\end{equation*}
+Vetosuhteen tulkinta on seuraava.
 
+- Jos $\mathrm{OR}(p_1, p_2) > 1$, niin ensimmäinen tapahtuma on todennäköisempi kuin toinen.
+
+- Jos $\mathrm{OR}(p_1, p_2) = 1$, niin tapahtumat ovat yhtä todennäköisiä.
+
+- Jos $\mathrm{OR}(p_1, p_2) < 1$, niin toinen tapahtuma on todennäköisempi kuin ensimmäinen.
+
+:::{.example name="Vetosuhde"}
+Tupakoimattomista ihmisistä $p_1 = 20\%$ saa keuhkosyövän ja tupakoivista ihmisistä $p_2 = 60\%$ saa keuhkosyövän. Nyt $\mathrm{Odds}(p_1) = 0.25$ ja $\mathrm{Odds}(p_2) = 1.5$. Tällöin
+\begin{equation*}
+  \mathrm{OR}(p_2, p_1) = \frac{1.5}{0.25} = 6.
+\end{equation*}
+**Vetosuhteen tulkinta**: Jos löisit vetoa siitä saako ihminen syövän, niin tupakoitsijaa vastaava vetokerroin on kuusi kertaa suurempi kuin tupakoimatonta henkilöä vastaava vetokerroin.
+:::
+
+Nyt vetosuhteen käsitteen avulla saamme vihdoinkin tulkinnan kertoimelle $\beta_1$. Olkoon $p_i$ kuten kaavassa \@ref(eq:logistic) ja
+\begin{equation*}
+  p_i^* = \frac{\exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}{1 + \exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}.
+\end{equation*}
+Nyt viikon 10 harjoitustehtävän 1 mukaan
+\begin{equation*}
+  \mathrm{OR}(p_i^*, p_i) = \exp\left(\beta_1\right).
+\end{equation*}
+Eli $\exp(\beta_1)$ kuvaa vetokertoimen suhteellista muutosta, kun selittäjä kasvaa yhden yksikön $x\rightarrow x+1$.
+
+(ref:param) Parametrien $\beta_0$ ja $\beta_1$ tulkinta
+
+:::{.example name="(ref:param)"}
+Data-analyytikko tutkii iän ja ja erään taudin suhdetta sovittamalla logistisen regressiomallin
+\begin{equation*}
+  \mathrm{logit}(p_i) = -2 + 0.03 x_i.
+\end{equation*}
+Tällöin vastasyntyneellä lapsella ($x_i = 0$) tauti kehittyy todennäköisyydellä
+\begin{equation*}
+  p_i = \mathrm{logit}^{-1}(\beta_0) = \mathrm{logistic}(\beta_0)
+  = \frac{e^{-2}}{1 + e^{-2}} \approx \approx 0.12.
+\end{equation*}
+ja esimerkiksi $50$ vuotiaalle henkilölle tauti kehittyy todennäköisyydellä $\mathrm{logistic}(\beta_0 + \beta_1 \cdot 50)\approx 0.38$.
+
+Jokainen lisävuosi kasvattaa vetokerrointa taudin saamiselle suhteellisella osuudella $\exp(\beta_1) = \exp(0.03)\approx 1.03$. Tällöin kymmenen vuoden vanheneminen kasvattaa vetokerrointa taudin saamiselle $\approx 35\%$, sillä
+\begin{equation*}
+  \exp(0.03)^{10} = \exp(0.30) \approx 1.35. 
+\end{equation*}
+:::
 
 
 ## Tilastollinen päättely {#sec:inflog}
