@@ -94,6 +94,7 @@ eq:data
 eq:regmatrix
 exm:regconstruction
 eq:fit
+eq:ols
 exm:fitreg
 fig:3dreg
 fig:overfit
@@ -193,6 +194,7 @@ eq:glm
 eq:logistic
 fig:logit
 fig:logistic
+exm:fit
 eq:euclidean
 exm:unlabeled-div-48
 fig:vec
@@ -234,7 +236,7 @@ sec:moment
 sec:momentmethod
 logistinen-regressio
 sec:deflog
-sec:diaglog
+sec:inflog
 sec:multilog
 liitteet
 sec:vector

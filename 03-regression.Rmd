@@ -265,9 +265,10 @@ jossa
     \end{split}
 \end{equation}
 Eli lopullisen estimaattorin $\hat{\boldsymbol\beta}$ antama "arvaus" $\hat y_i$ oikealle arvolle $y_i$ on mahdollisimman hyvä ($SSE$ mielessä). Edellä määritellylle PNS estimaattorille $\hat{\boldsymbol\beta}$ on kaava datamatriisin $\boldsymbol X$ ja datavektorin $\boldsymbol y$ suhteen
-\begin{equation*}
+\begin{equation}
+  (\#eq:ols)
   \hat{\boldsymbol\beta} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y.
-\end{equation*}
+\end{equation}
 PNS estimaattorin $\hat{\boldsymbol\beta}$ avulla annettuja kaavan \@ref(eq:fit) arvauksia $\hat y_i$ kutsutaan sovitteiksi (eng: *fitted value*).
 
 Estimaattien $\hat\beta_0, \hat\beta_1, \ldots, \hat\beta_d$ arvoja tulkitaan samaan tyyliin kuin yksiulotteisessa lineaarisessa regressiossa.

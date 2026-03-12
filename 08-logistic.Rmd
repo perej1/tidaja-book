@@ -61,10 +61,10 @@ abline(a = linear_prob_model$coefficients[1],
 ```
 :::
 
-Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:diaglog) esittelemme työkaluja mallin oletusten ja sovitteen analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
+Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen 0/1 luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:inflog) esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
 
 
-## Määritelmä, sovittaminen ja tulkinta {#sec:deflog}
+## Määritelmä ja tulkinta {#sec:deflog}
 
 Saatavilla on $n$ kappaletta $2$-ulotteisia satunnaishavaintoja
 \begin{equation*}
@@ -128,7 +128,7 @@ Kaavasta \@ref(eq:logistic) nähdään, että logistinen malli kuvaa onnistumist
 
 - Oikea alanurkka, $\beta_0 = 0$ ja $\beta_1 < 0$ vaihtelee: Tulkinta on samantyyppinen kuin vasemman alanurkan kuvaajassa. Ainoa ero on, että kun selittävän muuttujan $x_i$ arvo kasvaa niin onnistumistodennäköisyys pienenee eikä kasva.
 
-(ref:logistic) Vasemmanpuoleisessa yläkuvassa näkyy funktion $\mathrm{logistic}(\beta_0 + 0 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). Oikeanpuoleisessa yläkuvassa näkyy funktion $\mathrm{logistic}(\beta_0 + 1 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). Vasemmanpuoleisessa alakuvassa näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = 1/2$ (pinkki), $\beta_1 = 1$ (musta) ja $\beta_1 = 2$ (sininen). Oikeanpuoleisessa alakuvassa näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = -1/2$ (pinkki), $\beta_1 = -1$ (musta) ja $\beta_1 = -2$ (sininen).
+(ref:logistic) **Vasemmanpuoleisessa yläkulmassa** näkyy funktion $\mathrm{logistic}(\beta_0 + 0 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). **Oikeanpuoleisessa yläkulmassa** näkyy funktion $\mathrm{logistic}(\beta_0 + 1 \cdot x)$ kuvaaja arvoilla $\beta_0 = -2$ (pinkki), $\beta_0 = 0$ (musta) ja $\beta_0 = 2$ (sininen). **Vasemmanpuoleisessa alakulmassa** näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = 1/2$ (pinkki), $\beta_1 = 1$ (musta) ja $\beta_1 = 2$ (sininen). **Oikeanpuoleisessa alakulmassa** näkyy funktion $\mathrm{logistic}(0 + \beta_1 \cdot x)$ kuvaaja arvoilla $\beta_1 = -1/2$ (pinkki), $\beta_1 = -1$ (musta) ja $\beta_1 = -2$ (sininen).
 
 ```{r logistic, fig.cap="(ref:logistic)", echo=FALSE, fig.show="hold", out.width="50%"}
 library(ggplot2)
@@ -197,6 +197,14 @@ tibble::tibble(
 
 
 
-## Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet {#sec:diaglog}
+
+## Tilastollinen päättely {#sec:inflog}
+
+Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan kaavat (katso yhtälö \@ref(eq:ols)). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi estimaatteja ei saada sijoittamalla lukuja kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla `glm()`.
+
+:::{.example #fit name="Mallin sovittaminen ja tulkinta"}
+TODO
+:::
+
 
 ## Moniulotteinen logistinen regressio {#sec:multilog}

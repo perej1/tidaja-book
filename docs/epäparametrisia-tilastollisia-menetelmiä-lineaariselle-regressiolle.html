@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-11" />
+<meta name="date" content="2026-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -225,8 +225,8 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html"><i class="fa fa-check"></i><b>8</b> Logistinen regressio</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:deflog"><i class="fa fa-check"></i><b>8.1</b> Määritelmä, sovittaminen ja tulkinta</a></li>
-<li class="chapter" data-level="8.2" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:diaglog"><i class="fa fa-check"></i><b>8.2</b> Diagnostiikka, sovitteen hyvyys ja malliin liittyvät epävarmuudet</a></li>
+<li class="chapter" data-level="8.1" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:deflog"><i class="fa fa-check"></i><b>8.1</b> Määritelmä ja tulkinta</a></li>
+<li class="chapter" data-level="8.2" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:inflog"><i class="fa fa-check"></i><b>8.2</b> Tilastollinen päättely</a></li>
 <li class="chapter" data-level="8.3" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:multilog"><i class="fa fa-check"></i><b>8.3</b> Moniulotteinen logistinen regressio</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>9</b> Liitteet</a>
@@ -280,7 +280,7 @@ Käsitellyt testit olivat parametrisia, koska testeissä oletimme satunaisvirhei
 <p>Luvun molempien testien ideat ovat hyvin samankaltaisia – testeissä dataa “sekoitetaan” eli permutoidaan jollain tavalla. Tämän vuoksi näitä tilastollisia testejä kutsutaan permutaatiotesteiksi.</p>
 <div id="mallin-merkitsevyys" class="section level3 hasAnchor" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Mallin merkitsevyys<a href="epäparametrisia-tilastollisia-menetelmiä-lineaariselle-regressiolle.html#mallin-merkitsevyys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>F-testin testisuure kaavassa <a href="moniulotteinen-lineaarinen-regressio.html#eq:fstat">(3.11)</a> lasketaan selitysasteen <span class="math inline">\(R^2\)</span> (joka aina välillä <span class="math inline">\([0,1]\)</span>) avulla. Muista, että <span class="math inline">\(R^2\)</span> kuvaa sitä, kuinka suuren osan selitettävän muuttujan <span class="math inline">\(y\)</span> vaihtelusta sovitettu malli selittää. Jos <span class="math inline">\(R^2\approx 1,\)</span> niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos <span class="math inline">\(R^2\approx 0\)</span>, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.</p>
+<p>F-testin testisuure kaavassa <a href="moniulotteinen-lineaarinen-regressio.html#eq:fstat">(3.12)</a> lasketaan selitysasteen <span class="math inline">\(R^2\)</span> (joka aina välillä <span class="math inline">\([0,1]\)</span>) avulla. Muista, että <span class="math inline">\(R^2\)</span> kuvaa sitä, kuinka suuren osan selitettävän muuttujan <span class="math inline">\(y\)</span> vaihtelusta sovitettu malli selittää. Jos <span class="math inline">\(R^2\approx 1,\)</span> niin malli selittää suuren osan selitettävän muuttujan vaihtelusta. Jos <span class="math inline">\(R^2\approx 0\)</span>, niin satunnaisvirhe selittää suurimman osan selitettävän muuttujan vaihtelusta.</p>
 <p>Myös epäparametrinen testi mallin merkitsevyydelle voidaan rakentaa selitysasteen avulla. Ideana on tutkia, onko <span class="math inline">\(R^2\)</span> arvo tietynlainen (esimerkiksi <span class="math inline">\(0.2\)</span>, <span class="math inline">\(0.001\)</span> tai <span class="math inline">\(0.5\)</span>) vain sattumalta vai kuvaako <span class="math inline">\(R^2\)</span> arvo sitä, että malli on oleellinen selitettävän ilmiön kannalta. Voisi siis ajatella, että jos “satunnaisella” datalla saamme samaa suuruusluokkaa olevan <span class="math inline">\(R^2\)</span> arvon kuin alkuperäisellä datalla, niin malli ei ole merkitsevä. Permutaatiotesti (eng: <em>permutation test</em>) perustuu juuri tähän ideaan. Permutaatiotestissä testaamme seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
 <span class="math display">\[\begin{equation*}
   \begin{split}
