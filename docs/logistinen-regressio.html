@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-12" />
+<meta name="date" content="2026-03-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -446,7 +446,17 @@ ja esimerkiksi <span class="math inline">\(50\)</span> vuotiaalle henkilölle ta
 </div>
 <div id="sec:inflog" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Tilastollinen päättely<a href="logistinen-regressio.html#sec:inflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan tietyt kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi logistisen regressiomallin tapauksessa estimaatteja ei saada laskettua sijoittamalla lukuja johonkin kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>. Funktion <code>glm()</code> avulla voidaan sovittaa muunlaisikin yleistettyja lineaarisia malleja kuin logistinen regressiomalli, joten argumentissa <code>family</code> täytyy määrittää selitettävän muuttujan jakauma ja linkkifunktio oikein. Logistisessa regressiossa asetetaan <code>family = binomial(link = "logit")</code>.</p>
+<p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan tietyt kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi logistisen regressiomallin tapauksessa estimaatteja ei saada laskettua sijoittamalla lukuja johonkin kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>. Funktion <code>glm()</code> avulla voidaan sovittaa muunlaisiakin yleistettyja lineaarisia malleja kuin logistinen regressiomalli, joten argumentissa <code>family</code> täytyy määrittää selitettävän muuttujan jakauma ja linkkifunktio oikein. Logistisessa regressiossa asetetaan <code>family = binomial(link = "logit")</code>.</p>
+<p>Kun malli ollaan sovitettu, niin kuten tavallisen lineaarisen regression tapauksessa, olemme kiinnostuneita estimaattien tulkintojen lisäksi estimaatteihin liittyvistä epävarmuuksista. Eli parametrin <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(j\in\{0, 1\}\)</span>, tapauksessa olemme kiinnostuneita testaamaan seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vaihtoehtoista hypoteesia <span class="math inline">\(H_1\)</span> vastaan
+<span class="math display">\[\begin{align*}
+  &amp;H_0: \beta_j = 0, \\
+  &amp;H_0: \beta_j \neq 0.
+\end{align*}\]</span>
+Olkoon <span class="math inline">\(s_{\hat\beta_j}^2\)</span> varianssin <span class="math inline">\(\mathrm{Var}\left(\hat\beta_j\right)\)</span> estimaattori. Nollahypoteesin alla testisuure
+<span class="math display">\[\begin{equation*}
+  z = \frac{\hat\beta_j}{\sqrt{s_{\hat\beta_j}^2}}
+\end{equation*}\]</span>
+noudattaa likimain standardinormaalijakaumaa <span class="math inline">\(N(0, 1)\)</span> tarpeeksi suurilla otoksilla. Tämä tilastollinen testi on siis hyvin samanlainen kuin t-testi tavallisen lineaarisen regression parametrien merkitsevyydelle. Seuraavassa esimerkissä sovitamme logistisen regressiomallin, annamme tulkinnat parametreille ja päättelemme, ovatko parametrit tilastollisesti merkitseviä.</p>
 <div class="example">
 <p><span id="exm:fit" class="example"><strong>Esimerkki 8.5  (Mallin sovitus) </strong></span>Sovitetaan esimerkin <a href="logistinen-regressio.html#exm:warning">8.1</a> <code>titanic</code> dataan yhden selittäjän logistinen regressiomalli
 <span class="math display">\[\begin{equation*}
@@ -491,8 +501,7 @@ Alla sovitetaan kuvailtu logistinen regressiomalli ja tulostetaan <code>summary(
 ## AIC: 754.7
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-<p>Koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta <span class="math inline">\(\mathrm{logistic}\left(\beta_0\right)\)</span>, joka voidaan laskea R:llä.</p>
+<p>Ensinnäkin merkitsevyystasolla <span class="math inline">\(\alpha = 0.05\)</span> sekä <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> ovat tilastollisesti merkitseviä. Toiseksi koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta <span class="math inline">\(\mathrm{logistic}\left(\beta_0\right)\)</span>, joka voidaan laskea R:llä.</p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="logistinen-regressio.html#cb282-1" tabindex="-1"></a><span class="co"># Rename function for convenience</span></span>
 <span id="cb282-2"><a href="logistinen-regressio.html#cb282-2" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> plogis</span>
 <span id="cb282-3"><a href="logistinen-regressio.html#cb282-3" tabindex="-1"></a></span>
@@ -505,6 +514,11 @@ Alla sovitetaan kuvailtu logistinen regressiomalli ja tulostetaan <code>summary(
 <span id="cb284-2"><a href="logistinen-regressio.html#cb284-2" tabindex="-1"></a><span class="fu">logistic</span>(<span class="fu">sum</span>(titanic_model<span class="sc">$</span>coefficients))</span></code></pre></div>
 <pre><code>## [1] 0.7547893</code></pre>
 <p>Naisten selviytymistodennäköisyys <span class="math inline">\(\approx 0.75\)</span> Titanicilta oli siis merkittävästi korkeampi kuin miesten <span class="math inline">\(\approx 0.21\)</span>.</p>
+<p>Estimaatille <span class="math inline">\(\hat\beta_1\)</span> saadaan tulkinta myös vetosuhteen kautta. Eli alla olevan koodinpätkän mukaan vetokerroin naisen selviämiselle on <span class="math inline">\(\exp(\beta_1) \approx 11.9\)</span> kertaa suurempi kuin vetokerroin miehen selviämiselle Titanicilta.</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="logistinen-regressio.html#cb286-1" tabindex="-1"></a><span class="fu">exp</span>(titanic_model<span class="sc">$</span>coefficients[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## sexfemale 
+##  11.91532</code></pre>
+</div>
 </div>
 <div id="sec:multilog" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Moniulotteinen logistinen regressio<a href="logistinen-regressio.html#sec:multilog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
