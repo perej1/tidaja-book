@@ -375,12 +375,37 @@ Kuva 8.2: Vasemmassa kuvassa on Logit funktio välillä <span class="math inline
 Kuva 8.3: <strong>Vasemmanpuoleisessa yläkulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 0 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). <strong>Oikeanpuoleisessa yläkulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(\beta_0 + 1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_0 = -2\)</span> (pinkki), <span class="math inline">\(\beta_0 = 0\)</span> (musta) ja <span class="math inline">\(\beta_0 = 2\)</span> (sininen). <strong>Vasemmanpuoleisessa alakulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = 1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = 1\)</span> (musta) ja <span class="math inline">\(\beta_1 = 2\)</span> (sininen). <strong>Oikeanpuoleisessa alakulmassa</strong> näkyy funktion <span class="math inline">\(\mathrm{logistic}(0 + \beta_1 \cdot x)\)</span> kuvaaja arvoilla <span class="math inline">\(\beta_1 = -1/2\)</span> (pinkki), <span class="math inline">\(\beta_1 = -1\)</span> (musta) ja <span class="math inline">\(\beta_1 = -2\)</span> (sininen).
 </p>
 </div>
+<p>Seuraavaksi tavoitteenamme on tulkita tarkemmin sitä, miten kulmakerroin <span class="math inline">\(\beta_1\)</span> vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tukintaa yhden selittäjän lineaarisessa regressiossa
+<span class="math display">\[\begin{equation*}
+  \mathbb{E}(y_i) = \beta_0 + \beta_1 x_i.
+\end{equation*}\]</span>
+Olkoon <span class="math inline">\(\mathbb{E}(y_i^*) = \beta_0 + \beta_1 (x_i + 1)\)</span>. Nyt kaikille <span class="math inline">\(i\in\{1,  \ldots, n\}\)</span> pätee
+<span class="math display">\[\begin{equation*}
+  \mathbb{E}(y_i^*) - \mathbb{E}(y_i) =
+  \left(\beta_0 + \beta_1 (x_i + 1)\right) - \left(\beta_0 + \beta_1 x_i\right)
+  = \beta_1,
+\end{equation*}\]</span>
+joten riippumatta selittäjän <span class="math inline">\(x_i\)</span> arvosta kulmakerroin <span class="math inline">\(\beta_1\)</span> kuvaa odotusarvoisen muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön <span class="math inline">\(x_i\rightarrow x_i + 1\)</span>. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän <a href="logistinen-regressio.html#eq:logistic">(8.2)</a> kulmakerroin riippuu selittäjän arvosta<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.</p>
+<p>Järkevää parametrin <span class="math inline">\(\beta_1\)</span> tulkintaa varten esittelemme vastasuhteen (eng: <em>odds</em>) käsitteen. Tapahtuman todennäköisyyden <span class="math inline">\(p\)</span> vastasuhde <span class="math inline">\(\mathrm{Odds}(p)\)</span> määritellään olevan
+<span class="math display">\[\begin{equation*}
+  \mathrm{Odds}(p) = \frac{p}{1 - p}.
+\end{equation*}\]</span>
+Vastasuhteen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa <span class="math inline">\(\mathrm{Odds}(p)  = a / b\)</span>, <span class="math inline">\(a,b\in\{1, 2, \ldots\}\)</span>, oleva vastasuhde kirjoitetaan usein muodossa <span class="math inline">\(a:b\)</span>. Alla on esimerkkejä vastasuhteen tulkinnasta.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-47" class="example"><strong>Esimerkki 8.2  (Vastasuhde) </strong></span></p>
+<ul>
+<li><p>Kun <span class="math inline">\(p = 1/2\)</span>, niin <span class="math inline">\(\mathrm{Odds}(p) = 1\)</span>. Vastasuhde voidaan myös antaa notaatiolla <span class="math inline">\(1:1\)</span>.</p></li>
+<li><p>Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vastasuhteen <span class="math inline">\(5\)</span>:<span class="math inline">\(1\)</span> joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että <span class="math inline">\(\mathrm{Odds}(p) = 5\)</span> ja <span class="math inline">\(p = 5/6\)</span>, jossa <span class="math inline">\(p\)</span> on todennäköisyys joukkueen Bodø/Glimt voitolle.</p></li>
+<li><p>Todennäköisyys, että huomenna sataa on <span class="math inline">\(p = 0.11\)</span>. Tällöin <span class="math inline">\(\mathrm{Odds}(p) \approx 0.1236\)</span>.</p></li>
+<li><p>Vastasuhdetta <span class="math inline">\(3:2\)</span> vastaava onnistumistodennäköisyys on <span class="math inline">\(p = 3 / (3 + 2) = 3 / 5\)</span>. Vastasuhde voidaan kirjoittaa myös muodossa <span class="math inline">\(\mathrm{Odds}(p) = 3/2\)</span>.</p></li>
+</ul>
+</div>
 </div>
 <div id="sec:inflog" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Tilastollinen päättely<a href="logistinen-regressio.html#sec:inflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi estimaatteja ei saada sijoittamalla lukuja kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>.</p>
 <div class="example">
-<p><span id="exm:fit" class="example"><strong>Esimerkki 8.2  (Mallin sovittaminen ja tulkinta) </strong></span>TODO</p>
+<p><span id="exm:fit" class="example"><strong>Esimerkki 8.3  (Mallin sovittaminen ja tulkinta) </strong></span>TODO</p>
 </div>
 </div>
 <div id="sec:multilog" class="section level2 hasAnchor" number="8.3">
@@ -392,6 +417,7 @@ Kuva 8.3: <strong>Vasemmanpuoleisessa yläkulmassa</strong> näkyy funktion <spa
 <hr />
 <ol start="23">
 <li id="fn23"><p>Teknisesti ottaen, jos selittäjä <span class="math inline">\(\texttt{fare}\)</span> käsitetään satunnaismuuttujana, niin meidän täytyisi käyttää ehdollista odotusarvoa <span class="math inline">\(\mathbb{E}(\texttt{survived}|\texttt{fare})\)</span>. Jos ajatellaan, että selittäjä ei ole satunnainen ja kaikki satunnaisuus tulee satunnaistermeistä <span class="math inline">\(\varepsilon_i\)</span>, niin merkintä <span class="math inline">\(\mathbb{E}(\texttt{survived})\)</span> on ok. Tällä kurssilla emme kuitenkaan takerru tämäntyyppisiin yksityiskohtiin.<a href="logistinen-regressio.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion <span class="math inline">\(p(x) = \beta_0 + \beta_1 x\)</span> “kulmakerroin” eli derivaatta on <span class="math inline">\(p&#39;(x) = \beta_1p(x)(1-p(x))\)</span> kohdassa <span class="math inline">\(x\)</span>.<a href="logistinen-regressio.html#fnref24" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

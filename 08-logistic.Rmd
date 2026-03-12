@@ -195,6 +195,34 @@ tibble::tibble(
   ylim(0, 1)
 ```
 
+Seuraavaksi tavoitteenamme on tulkita tarkemmin sitä, miten kulmakerroin $\beta_1$ vaikuttaa selitettävään muuttujaan logistisessa regressiossa. Muistellaan ensin kulmakertoimen tukintaa yhden selittäjän lineaarisessa regressiossa
+\begin{equation*}
+  \mathbb{E}(y_i) = \beta_0 + \beta_1 x_i.
+\end{equation*}
+Olkoon $\mathbb{E}(y_i^*) = \beta_0 + \beta_1 (x_i + 1)$. Nyt kaikille $i\in\{1,  \ldots, n\}$ pätee
+\begin{equation*}
+  \mathbb{E}(y_i^*) - \mathbb{E}(y_i) =
+  \left(\beta_0 + \beta_1 (x_i + 1)\right) - \left(\beta_0 + \beta_1 x_i\right)
+  = \beta_1,
+\end{equation*}
+joten riippumatta selittäjän $x_i$ arvosta kulmakerroin $\beta_1$ kuvaa odotusarvoisen  muutoksen suuruutta selitettävässä muuttujassa, kun selittäjä kasvaa yhden yksikön $x_i\rightarrow x_i + 1$. Logistisessa regressiossa tulkinta ei ole näin yksinkertainen, koska käyrän \@ref(eq:logistic) kulmakerroin riippuu selittäjän arvosta^[Vapaaehtoisena harjoitustehtävänä voit todistaa, että funktion $p(x) = \beta_0 + \beta_1 x$ "kulmakerroin" eli derivaatta on $p'(x) = \beta_1p(x)(1-p(x))$ kohdassa $x$.] johtuen siitä, että selitettävän muuttujan ja selittäjän suhde on epälineaarinen.
+
+Järkevää parametrin $\beta_1$ tulkintaa varten esittelemme vastasuhteen (eng: *odds*) käsitteen. Tapahtuman todennäköisyyden $p$ vastasuhde $\mathrm{Odds}(p)$ määritellään olevan
+\begin{equation*}
+  \mathrm{Odds}(p) = \frac{p}{1 - p}.
+\end{equation*}
+Vastasuhteen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa $\mathrm{Odds}(p)  = a / b$, $a,b\in\{1, 2, \ldots\}$, oleva vastasuhde kirjoitetaan usein muodossa $a:b$. Alla on esimerkkejä vastasuhteen tulkinnasta.
+
+:::{.example name=Vastasuhde}
+- Kun $p = 1/2$, niin $\mathrm{Odds}(p) = 1$. Vastasuhde voidaan myös antaa notaatiolla $1:1$.
+
+- Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vastasuhteen $5$:$1$ joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että $\mathrm{Odds}(p) = 5$ ja $p = 5/6$, jossa $p$ on todennäköisyys joukkueen Bodø/Glimt voitolle.
+
+- Todennäköisyys, että huomenna sataa on $p = 0.11$. Tällöin $\mathrm{Odds}(p) \approx 0.1236$.
+
+- Vastasuhdetta $3:2$ vastaava onnistumistodennäköisyys on $p = 3 / (3 + 2) = 3 / 5$. Vastasuhde voidaan kirjoittaa myös muodossa $\mathrm{Odds}(p) = 3/2$.
+:::
+
 
 
 
