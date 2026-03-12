@@ -275,11 +275,53 @@ Jokainen lisävuosi kasvattaa vetokerrointa taudin saamiselle suhteellisella osu
 
 ## Tilastollinen päättely {#sec:inflog}
 
-Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan kaavat (katso yhtälö \@ref(eq:ols)). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi estimaatteja ei saada sijoittamalla lukuja kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla `glm()`.
+Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan tietyt kaavat (katso yhtälö \@ref(eq:ols)). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi logistisen regressiomallin tapauksessa estimaatteja ei saada laskettua sijoittamalla lukuja johonkin kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla `glm()`. Funktion `glm()` avulla voidaan sovittaa muunlaisikin yleistettyja lineaarisia malleja kuin logistinen regressiomalli, joten argumentissa `family` täytyy määrittää selitettävän muuttujan jakauma ja linkkifunktio oikein. Logistisessa regressiossa asetetaan `family = binomial(link = "logit")`.
 
-:::{.example #fit name="Mallin sovittaminen ja tulkinta"}
-TODO
+:::{.example #fit name="Mallin sovitus"}
+Sovitetaan esimerkin \@ref(exm:warning) `titanic` dataan yhden selittäjän logistinen regressiomalli
+\begin{equation*}
+  p_i = \mathrm{logistic}(\beta_0 + \beta_1 \texttt{sex}_i)
+  = \frac{\exp\left(\beta_0 + \beta_1 \texttt{sex}_i\right)}{1  + \exp\left(\beta_0 + \beta_1 \texttt{sex}_i\right)},
+\end{equation*}
+jossa $p_i$ on todennäköisyys, että matkustaja $i$ selviytyy ja
+\begin{equation*}
+  \texttt{sex}_i =
+  \begin{cases}
+    1,&\text{jos matkustaja $i$ oli nainen}, \\
+    0,&\text{jos matkustaja $i$ oli mies}.
+  \end{cases}
+\end{equation*}
+Huomaa siis, että $\texttt{sex}_i$ on osoitinmuuttuja ja sovitettava malli voidaan kirjoittaa myös muodossa
+\begin{equation*}
+  p_i =
+  \begin{cases}
+    \mathrm{logistic}\left(\beta_0 + \beta_1\right), &\text{jos matkustaja $i$ oli nainen}, \\
+    \mathrm{logistic}\left(\beta_0\right), &\text{jos matkustaja $i$ oli mies}.
+  \end{cases}
+\end{equation*}
+Alla sovitetaan kuvailtu logistinen regressiomalli ja tulostetaan `summary(titanic_model)`. Kuten tavallisen lineaarisen regression tapauksessa, komento `summary(titanic_model)` antaa paljon informaatiota mutta tässä esimerkissä keskitymme vain parametrien $\beta_0$ ja $\beta_1$ estimaatteihin $\hat\beta_0$ ja $\hat\beta_1$.
+
+```{r}
+titanic_model <- glm(survived ~ sex, data = titanic, binomial(link = "logit"))
+summary(titanic_model)
+```
 :::
 
+Koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta $\mathrm{logistic}\left(\beta_0\right)$, joka voidaan laskea R:llä.
+```{r}
+# Rename function for convenience
+logistic <- plogis
+
+# Compute estimated survival probability for men
+logistic(titanic_model$coefficients[1])
+```
+
+Samoin estimoitu selviytymistodennäköisyys naisille saadaan kaavasta $\mathrm{logistic}\left(\beta_0 + \beta_1\right)$.
+```{r}
+# Compute estimated survival probability for women
+logistic(sum(titanic_model$coefficients))
+```
+
+Naisten selviytymistodennäköisyys $\approx 0.75$ Titanicilta oli siis merkittävästi korkeampi kuin miesten $\approx 0.21$.
 
 ## Moniulotteinen logistinen regressio {#sec:multilog}

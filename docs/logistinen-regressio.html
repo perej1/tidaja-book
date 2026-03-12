@@ -446,10 +446,65 @@ ja esimerkiksi <span class="math inline">\(50\)</span> vuotiaalle henkilölle ta
 </div>
 <div id="sec:inflog" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Tilastollinen päättely<a href="logistinen-regressio.html#sec:inflog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi estimaatteja ei saada sijoittamalla lukuja kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>.</p>
+<p>Tavallinen lineaarinen regressiomalli sovitetaan pienimmän neliösumman menetelmällä, jonka avulla vakiotermin ja kulmakertoimien estimaateille saadaan tietyt kaavat (katso yhtälö <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a>). Kuitenkin logistinen regressiomalli sovitetaan suurimman uskottavuuden menetelmällä. Lisäksi logistisen regressiomallin tapauksessa estimaatteja ei saada laskettua sijoittamalla lukuja johonkin kaavaan vaan uskottavuusfunktion maksimi täytyy approksimoida numeerisen algoritmin kuten iteratiivisen painotetun pienimmän neliösummamenetelmän avulla. Esimerkiksi R:ssä logistinen regressiomalli voidaan sovittaa funktiolla <code>glm()</code>. Funktion <code>glm()</code> avulla voidaan sovittaa muunlaisikin yleistettyja lineaarisia malleja kuin logistinen regressiomalli, joten argumentissa <code>family</code> täytyy määrittää selitettävän muuttujan jakauma ja linkkifunktio oikein. Logistisessa regressiossa asetetaan <code>family = binomial(link = "logit")</code>.</p>
 <div class="example">
-<p><span id="exm:fit" class="example"><strong>Esimerkki 8.5  (Mallin sovittaminen ja tulkinta) </strong></span>TODO</p>
+<p><span id="exm:fit" class="example"><strong>Esimerkki 8.5  (Mallin sovitus) </strong></span>Sovitetaan esimerkin <a href="logistinen-regressio.html#exm:warning">8.1</a> <code>titanic</code> dataan yhden selittäjän logistinen regressiomalli
+<span class="math display">\[\begin{equation*}
+  p_i = \mathrm{logistic}(\beta_0 + \beta_1 \texttt{sex}_i)
+  = \frac{\exp\left(\beta_0 + \beta_1 \texttt{sex}_i\right)}{1  + \exp\left(\beta_0 + \beta_1 \texttt{sex}_i\right)},
+\end{equation*}\]</span>
+jossa <span class="math inline">\(p_i\)</span> on todennäköisyys, että matkustaja <span class="math inline">\(i\)</span> selviytyy ja
+<span class="math display">\[\begin{equation*}
+  \texttt{sex}_i =
+  \begin{cases}
+    1,&amp;\text{jos matkustaja $i$ oli nainen}, \\
+    0,&amp;\text{jos matkustaja $i$ oli mies}.
+  \end{cases}
+\end{equation*}\]</span>
+Huomaa siis, että <span class="math inline">\(\texttt{sex}_i\)</span> on osoitinmuuttuja ja sovitettava malli voidaan kirjoittaa myös muodossa
+<span class="math display">\[\begin{equation*}
+  p_i =
+  \begin{cases}
+    \mathrm{logistic}\left(\beta_0 + \beta_1\right), &amp;\text{jos matkustaja $i$ oli nainen}, \\
+    \mathrm{logistic}\left(\beta_0\right), &amp;\text{jos matkustaja $i$ oli mies}.
+  \end{cases}
+\end{equation*}\]</span>
+Alla sovitetaan kuvailtu logistinen regressiomalli ja tulostetaan <code>summary(titanic_model)</code>. Kuten tavallisen lineaarisen regression tapauksessa, komento <code>summary(titanic_model)</code> antaa paljon informaatiota mutta tässä esimerkissä keskitymme vain parametrien <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> estimaatteihin <span class="math inline">\(\hat\beta_0\)</span> ja <span class="math inline">\(\hat\beta_1\)</span>.</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="logistinen-regressio.html#cb280-1" tabindex="-1"></a>titanic_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> sex, <span class="at">data =</span> titanic, <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb280-2"><a href="logistinen-regressio.html#cb280-2" tabindex="-1"></a><span class="fu">summary</span>(titanic_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = survived ~ sex, family = binomial(link = &quot;logit&quot;), 
+##     data = titanic)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.3535     0.1163  -11.64   &lt;2e-16 ***
+## sexfemale     2.4778     0.1850   13.39   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 750.70  on 712  degrees of freedom
+## AIC: 754.7
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
 </div>
+<p>Koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta <span class="math inline">\(\mathrm{logistic}\left(\beta_0\right)\)</span>, joka voidaan laskea R:llä.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="logistinen-regressio.html#cb282-1" tabindex="-1"></a><span class="co"># Rename function for convenience</span></span>
+<span id="cb282-2"><a href="logistinen-regressio.html#cb282-2" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> plogis</span>
+<span id="cb282-3"><a href="logistinen-regressio.html#cb282-3" tabindex="-1"></a></span>
+<span id="cb282-4"><a href="logistinen-regressio.html#cb282-4" tabindex="-1"></a><span class="co"># Compute estimated survival probability for men</span></span>
+<span id="cb282-5"><a href="logistinen-regressio.html#cb282-5" tabindex="-1"></a><span class="fu">logistic</span>(titanic_model<span class="sc">$</span>coefficients[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    0.205298</code></pre>
+<p>Samoin estimoitu selviytymistodennäköisyys naisille saadaan kaavasta <span class="math inline">\(\mathrm{logistic}\left(\beta_0 + \beta_1\right)\)</span>.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="logistinen-regressio.html#cb284-1" tabindex="-1"></a><span class="co"># Compute estimated survival probability for women</span></span>
+<span id="cb284-2"><a href="logistinen-regressio.html#cb284-2" tabindex="-1"></a><span class="fu">logistic</span>(<span class="fu">sum</span>(titanic_model<span class="sc">$</span>coefficients))</span></code></pre></div>
+<pre><code>## [1] 0.7547893</code></pre>
+<p>Naisten selviytymistodennäköisyys <span class="math inline">\(\approx 0.75\)</span> Titanicilta oli siis merkittävästi korkeampi kuin miesten <span class="math inline">\(\approx 0.21\)</span>.</p>
 </div>
 <div id="sec:multilog" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Moniulotteinen logistinen regressio<a href="logistinen-regressio.html#sec:multilog" class="anchor-section" aria-label="Anchor link to header"></a></h2>
