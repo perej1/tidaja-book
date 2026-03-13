@@ -198,8 +198,9 @@ exm:unlabeled-div-47
 exm:unlabeled-div-48
 exm:unlabeled-div-49
 exm:fit
+exm:unlabeled-div-50
 eq:euclidean
-exm:unlabeled-div-51
+exm:unlabeled-div-52
 fig:vec
 r-ohjelmointikielestä
 sec:inst

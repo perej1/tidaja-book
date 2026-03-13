@@ -61,7 +61,7 @@ abline(a = linear_prob_model$coefficients[1],
 ```
 :::
 
-Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen $0$/$1$ luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:inflog) esittelemme työkaluja sovitetun mallin analysointiin. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
+Tässä luvussa esittelemme yleistyksen lineaarisesta regressiosta tapaukseen, jossa selitettävä muuttuja voi olla binäärinen $0$/$1$ luokkamuuttuja ja selittäjät voivat edelleen olla luokkamuuttujia tai intervalliasteikkoisia. Käsittelemme pääosin yhden selittäjän logistista regressiota. Luvussa \@ref(sec:deflog) käymme läpi yhden selittäjän logistisen regressiomallin perusteet. Luvussa \@ref(sec:inflog) analysoimme mallin sovitetta. Viimeiseksi luvussa \@ref(sec:multilog) sanomme pari sanaa useamman selittäjän lineaarisesta regressiosta.
 
 
 ## Määritelmä ja tulkinta {#sec:deflog}
@@ -246,7 +246,7 @@ Nyt vetosuhteen käsitteen avulla saamme vihdoinkin tulkinnan kertoimelle $\beta
 \begin{equation*}
   p_i^* = \frac{\exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}{1 + \exp\left(\beta_0 + \beta_1 (x_i + 1)\right)}.
 \end{equation*}
-Nyt viikon 10 harjoitustehtävän 1 mukaan
+Nyt viikon 10 harjoitustehtävän 2 mukaan
 \begin{equation*}
   \mathrm{OR}(p_i^*, p_i) = \exp\left(\beta_1\right).
 \end{equation*}
@@ -286,7 +286,9 @@ Olkoon $s_{\hat\beta_j}^2$ varianssin $\mathrm{Var}\left(\hat\beta_j\right)$ est
 \begin{equation*}
   z = \frac{\hat\beta_j}{\sqrt{s_{\hat\beta_j}^2}}
 \end{equation*}
-noudattaa likimain standardinormaalijakaumaa $N(0, 1)$ tarpeeksi suurilla otoksilla. Tämä tilastollinen testi on siis hyvin samanlainen kuin t-testi tavallisen lineaarisen regression parametrien merkitsevyydelle. Seuraavassa esimerkissä sovitamme logistisen regressiomallin, annamme tulkinnat parametreille ja päättelemme, ovatko parametrit tilastollisesti merkitseviä.
+noudattaa likimain standardinormaalijakaumaa $N(0, 1)$ tarpeeksi suurilla otoksilla. Tämä tilastollinen testi on siis hyvin samanlainen kuin t-testi tavallisen lineaarisen regression parametrien merkitsevyydelle.
+
+Myös koko logistisen regressiomallin merkitsevyyttä (vertaa luvun \@ref(sec:regtesting) F-testiin) voidaan testata esimerkiksi uskottavuusosamäärätestillä (eng: *likelihood ratio test*). Tätä emme kuitenkaan käy tällä kurssilla. Seuraavassa esimerkissä sovitamme logistisen regressiomallin, annamme tulkinnat parametreille ja päättelemme, ovatko parametrit tilastollisesti merkitseviä.
 
 :::{.example #fit name="Mallin sovitus"}
 Sovitetaan esimerkin \@ref(exm:warning) `titanic` dataan yhden selittäjän logistinen regressiomalli
@@ -317,7 +319,7 @@ titanic_model <- glm(survived ~ sex, data = titanic, binomial(link = "logit"))
 summary(titanic_model)
 ```
 
-Ensinnäkin merkitsevyystasolla $\alpha = 0.05$ sekä $\beta_0$ ja $\beta_1$ ovat tilastollisesti merkitseviä. Toiseksi koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta $\mathrm{logistic}\left(\beta_0\right)$, joka voidaan laskea R:llä.
+Ensinnäkin merkitsevyystasolla $\alpha = 0.05$ sekä $\beta_0$ ja $\beta_1$ ovat tilastollisesti merkitseviä. Toiseksi koska tämän esimerkin logistisessa regressiomallissa on vain yksi selittäjä, joka on osoitinmuuttuja, niin tulkinta menee ehkä hieman suoraviivaisemmin kuin yleensä. Eli estimoitu selviytymistodennäköisyys miehille saadaan kaavasta $\mathrm{logistic}\left(\hat\beta_0\right)$, joka voidaan laskea R:llä.
 ```{r}
 # Rename function for convenience
 logistic <- plogis
@@ -326,13 +328,13 @@ logistic <- plogis
 logistic(titanic_model$coefficients[1])
 ```
 
-Samoin estimoitu selviytymistodennäköisyys naisille saadaan kaavasta $\mathrm{logistic}\left(\beta_0 + \beta_1\right)$.
+Samoin estimoitu selviytymistodennäköisyys naisille saadaan kaavasta $\mathrm{logistic}\left(\hat\beta_0 + \hat\beta_1\right)$.
 ```{r}
 # Compute estimated survival probability for women
 logistic(sum(titanic_model$coefficients))
 ```
 
-Naisten selviytymistodennäköisyys $\approx 0.75$ Titanicilta oli siis merkittävästi korkeampi kuin miesten $\approx 0.21$.
+Naisten estimoitu selviytymistodennäköisyys $\approx 0.75$ Titanicilta oli siis merkittävästi korkeampi kuin miesten $\approx 0.21$.
 
 Estimaatille $\hat\beta_1$ saadaan tulkinta myös vetosuhteen kautta. Eli alla olevan koodinpätkän mukaan vetokerroin naisen selviämiselle on $\exp(\beta_1) \approx 11.9$ kertaa suurempi kuin vetokerroin miehen selviämiselle Titanicilta.
 ```{r}
@@ -342,3 +344,62 @@ exp(titanic_model$coefficients[2])
 
 
 ## Moniulotteinen logistinen regressio {#sec:multilog}
+
+Kuten tavallinen lineaarinen regressio, myös logistinen regressio yleistyy useamman selittäjän tapaukseen
+\begin{equation*}
+  p_i = \mathrm{logistic}\left(\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_d x_{id}\right), \quad i\in\{1, \ldots, n\}.
+\end{equation*}
+Kertoimen $\beta_j$, $j\in\{1, \ldots, d\}$, tulkinta  on samansuuntainen kuin yhden selittäjän logistisessa regressiossa -- kun $j$:nnen selittäjän arvo kasvaa yhdellä $x_j\rightarrow x_j + 1$ ja muut selittäjät pidetään samoina, niin vetosuhde muuttuu $\exp(\beta_j)$ verran. Emme käsittele moniulotteista logistista regressiota kovin tarkasti mutta alla näytämme esimerkin moniulotteisen logistisen regressiomallin sovituksesta.
+
+:::{.example name="Moniulotteinen logistinen regressio"}
+Sovitetaan esimerkin \@ref(exm:warning) `titanic` dataan logistinen regressiomalli
+\begin{equation*}
+  p_i = \mathrm{logistic}(\beta_0 + \beta_1 \texttt{age}_i + \beta_2 \texttt{sex}_i + \beta_2 \texttt{fare}_i).
+\end{equation*}
+Sovitus tehdään `glm()` funktion avulla.
+```{r}
+titanic_model <- glm(survived ~ ., data = titanic, binomial(link = "logit"))
+summary(titanic_model)
+```
+
+Halutessasi voit tulkita komennon `summary(titanic_model)` antamaa tulostetta. Sovitteen avulla voidaan tehdä myös ennustuksia funktion `predict.glm` avulla. Esimerkiksi voimme määrittää ennustetun selviytymistodennäköisyyden, kun matkustajalla on seuraavat arvot:
+
+- $\texttt{age} = 23$,
+
+- $\texttt{sex} = \texttt{female}$ ja
+
+- $\texttt{fare} = 500$.
+
+On tärkeää asettaa funktion `predict.glm()` argumentti `type` oikein (katso dokumentaatio `?predict.glm()`).
+```{r}
+x <- data.frame(age = 23, sex = "female", fare = 500)
+pred <- predict.glm(titanic_model, newdata = x, type = "response")
+pred
+```
+
+Eli ennustettu selviytymistodennäköisyys $\tilde p\approx 0.9992$ oli hyvin korkea nuorella naisella, joka maksoi paljon lipusta. Joskus tapana on vielä muuttaa ennustus $0$/$1$ muotoon esimerkiksi kaavalla
+\begin{equation*}
+  \widetilde{\texttt{survived}} =
+  \begin{cases}
+    0,&\text{jos}\ \tilde p \leq 0.5, \\
+    1,&\text{jos}\ \tilde p > 0.5,
+  \end{cases}
+\end{equation*}
+koska alkuperäiset selitettävän muuttujan havainnot ovat binäärisiä. Tämä voidaan tehdä helposti R:ssä.
+```{r}
+# Tidyverse equivalent of base R function ifelse()
+dplyr::if_else(pred > 0.5, 1, 0)
+``` 
+:::
+
+Viimeiseksi huomioimme, että tämä luku oli vain pintaraapaisu logistiseen regression. Esimerkiksi jos haluat soveltaa logistista regressiota kandidaatintyössäsi, niin on suositeltavaa opiskella seuraavia asioita luvun sisältöjen lisäksi:
+
+- Diagnostiset työkalut (miten tarkistetaan, että logistisen mallin oletukset pätevät? Esimerkiksi kuten lineaarisessa regressiossa, myös logistisessa regressiossa multikollineaarisuutta voidaan analysoida varianssin inflaatiokertoimella).
+
+- Sovitteen hyvyys (tähän on olemassa monia työkalua, lineaarisessa regressiossa käytetty selitysaste $R^2$ ei enää käy, koska logistisen regressiomallin sovitukseen ei käytetä pienimmän neliösumman menetelmää).
+
+- Mallin merkitsevyys (esimerkiksi uskottavuusosamäärätesti).
+
+- Ennustuksiin liittyvien epävarmuuksien arvionti.
+
+Lisätietoa yllä mainituista asioista löydät esimerkiksi kirjan *Regression Modeling Strategies* luvuista 10--12 [@harrell2015].
