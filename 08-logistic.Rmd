@@ -110,11 +110,11 @@ logistic <- plogis
 
 ggplot(data.frame(p = c(0.01, 0.99)), aes(p)) +
   stat_function(fun = logit) +
-  ylab("x")
+  ylab("logit(p)")
 
 ggplot(data.frame(x = c(-4.9, 4.9)), aes(x)) +
   stat_function(fun = logistic) +
-  ylab("p")
+  ylab("logistic(x)")
 ```
 
 Kaavasta \@ref(eq:logistic) nähdään, että logistinen malli kuvaa onnistumistodennäköisyyden riippuvuutta selittäjästä. Lisäksi suhde selitettävän muuttujan ja selittäjän välillä ei ole lineaarinen vaan logistinen. Kuva \@ref(fig:logistic) näyttää, miten parametrit $\beta_0$ ja $\beta_1$ vaikuttavat selitettävän muuttujan (eli onnistumistodennäköisyyden) ja selittäjän väliseen suhteeseen.
