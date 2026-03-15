@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 9 “Above &amp; Beyond” | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 9 “Above &amp; Beyond” | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 9 “Above &amp; Beyond” | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lähteet | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 9 “Above &amp; Beyond” | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="liitteet.html"/>
-
+<link rel="prev" href="logistinen-regressio.html"/>
+<link rel="next" href="liitteet.html"/>
 <script src="libs/jquery-3.6.1/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -260,67 +260,30 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lähteet" class="section level1 unnumbered hasAnchor">
-<h1>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="above-beyond" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Luku 9</span> “Above &amp; Beyond”<a href="above-beyond.html#above-beyond" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Kryptinen otsikko viittaa siihen, että tässä luvussa esittelemme muutamia menetelmiä, joiden tarkempi läpikäynti menee tämän kurssin ulkopuolelle. Kuitenkin esimerkiksi, jos olet kiinnostunut kvantitatiivisesta kandidaatintyöstä, niin on hyvä olla tietoinen alla olevista aiheista.</p>
+<p>ANOVA:a ja Kruskal–Wallis testiä käsittelimme luvuissa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a>. Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja. Seuraava luonnollinen askel tästä on useamman populaation parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Parittaiseen vertailuun liittyviä ongelmia avataan luvussa <a href="above-beyond.html#sec:multiple">9.1</a>.</p>
+<p>Eräs tavallisen lineaarisen regression yleistys eli logistinen regressio esiteltiin edellisessä luvussa. Luvussa <a href="above-beyond.html#sec:ridge">9.2</a> esittelemme toisen yleistyksen lineaarisesta regressiosta eli harjanneregression, jota voidaan soveltaa vahvan multikollineaarisuuden tapauksesta.</p>
+<p>Koko kurssin ajan monissa menetelmissä tyypillinen oletus on ollut muotoa “havainnot ovat riippumattomia”, vaikka riippumattomuus ei aina ole realistinen oletus. Kuten olemme jo nähneet, niin moniulotteisen datan tapauksessa on tietynlaista riippuvuutta – havainnot ovat riippumattomia mutta komponentit ovat riippuvaisia. Viimeiseksi luvussa <a href="above-beyond.html#sec:time">9.3</a> esittelemme aikasarjat, joissa myös harvoin riippumattomuus pätee. Aikasarjat ovat erittäin tärkeä datatyyppi, koska lukuisat kauppatieteisiin liittyvät havaintoaineistot kuten osakeindeksit ovat aikasarjoja.</p>
+<div id="sec:multiple" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Monitestaus<a href="above-beyond.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:ridge" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Harjanneregressio<a href="above-beyond.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="sec:time" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Aikasarjat<a href="above-beyond.html#sec:time" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div class="csl-entry">
-Harrell, Frank E. 2015. <em>Regression Modeling Strategies : With Applications to Linear Models, Logistic and Ordinal Regression and Survival Analysis</em>. Springer Series in Statistics. New York: Springer.
-</div>
-<div class="csl-entry">
-Peng, Roger D. 2016. <em>R <span>P</span>rogramming for <span>D</span>ata <span>S</span>cience</em>. Lulu.com.
-</div>
-<div class="csl-entry">
-Ross, Sheldon M. 2021. <em>Introduction to Probability and Statistics for Engineers and Scientists</em>. 6th ed. London, England: Academic Press.
-</div>
-<div class="csl-entry">
-Taleb, Nassim Nicholas, and George A. Martin. 2012. <span>“How to <span>P</span>revent <span>O</span>ther <span>F</span>inancial <span>C</span>rises.”</span> <em>SAIS Review of International Affairs</em> 32 (1): 49–60. <a href="https://doi.org/10.1353/sais.2012.0010">https://doi.org/10.1353/sais.2012.0010</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley. 2019. <em>Advanced <span>R</span></em>. Vol. 2. Chapman; Hall/CRC.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2017. <em>R for <span>D</span>ata <span>S</span>cience</em>. Vol. 2. O’Reilly.
 </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="liitteet.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="logistinen-regressio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="liitteet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

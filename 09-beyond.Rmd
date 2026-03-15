@@ -1,0 +1,17 @@
+# "Above & Beyond"
+
+Kryptinen otsikko viittaa siihen, että tässä luvussa esittelemme muutamia menetelmiä, joiden tarkempi läpikäynti menee tämän kurssin ulkopuolelle. Kuitenkin esimerkiksi, jos olet kiinnostunut kvantitatiivisesta kandidaatintyöstä, niin on hyvä olla tietoinen alla olevista aiheista.
+
+ANOVA:a ja Kruskal--Wallis testiä käsittelimme luvuissa \@ref(sec:anova) ja \@ref(sec:nonparammultiplesample). Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja. Seuraava luonnollinen askel tästä on useamman populaation parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Parittaiseen vertailuun liittyviä ongelmia avataan luvussa \@ref(sec:multiple).
+
+Eräs tavallisen lineaarisen regression yleistys eli logistinen regressio esiteltiin edellisessä luvussa. Luvussa \@ref(sec:ridge) esittelemme toisen yleistyksen lineaarisesta regressiosta eli harjanneregression, jota voidaan soveltaa vahvan multikollineaarisuuden tapauksesta.
+
+Koko kurssin ajan monissa menetelmissä tyypillinen oletus on ollut muotoa "havainnot ovat riippumattomia", vaikka riippumattomuus ei aina ole realistinen oletus. Kuten olemme jo nähneet, niin moniulotteisen datan tapauksessa on tietynlaista riippuvuutta -- havainnot ovat riippumattomia mutta komponentit ovat riippuvaisia. Viimeiseksi luvussa \@ref(sec:time) esittelemme aikasarjat, joissa myös harvoin riippumattomuus pätee. Aikasarjat ovat erittäin tärkeä datatyyppi, koska lukuisat kauppatieteisiin liittyvät havaintoaineistot kuten osakeindeksit ovat aikasarjoja.
+
+
+## Monitestaus {#sec:multiple}
+
+## Harjanneregressio {#sec:ridge}
+
+## Aikasarjat {#sec:time}
+

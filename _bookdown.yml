@@ -13,4 +13,4 @@ language:
     prp: "Huomautus "
   ui:
     chapter_name: "Luku "
-rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "03-regression.Rmd", "04-anova.Rmd", "05-nonparam.Rmd", "06-reg-nonparam.Rmd", "07-estimation.Rmd", "08-logistic.Rmd", "appendix.Rmd", "references.Rmd"]
+rmd-files: ["index.Rmd", "01-rbasics.Rmd","02-multivariate.Rmd", "03-regression.Rmd", "04-anova.Rmd", "05-nonparam.Rmd", "06-reg-nonparam.Rmd", "07-estimation.Rmd", "08-logistic.Rmd", "09-beyond.Rmd", "appendix.Rmd", "references.Rmd"]

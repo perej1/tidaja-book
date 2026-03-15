@@ -242,6 +242,10 @@ logistinen-regressio
 sec:deflog
 sec:inflog
 sec:multilog
+above-beyond
+sec:multiple
+sec:ridge
+sec:time
 liitteet
 sec:vector
 sec:matrix
