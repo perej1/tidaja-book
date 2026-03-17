@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-15" />
+<meta name="date" content="2026-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -311,7 +311,7 @@ alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Ki
 </div>
 <p>Alla sovellamme permutaatiotestiä mallin merkitsevyydelle käytännössä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-42" class="example"><strong>Esimerkki 6.1  (Permutaatiotesti ja mallin merkitsevyys) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
+<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 6.1  (Permutaatiotesti ja mallin merkitsevyys) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
 <ul>
 <li><p><span class="math inline">\(Y = \text{voitto kuukaudessa tuhansina euroina}\)</span> (<code>profit</code>),</p></li>
 <li><p><span class="math inline">\(X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}\)</span> (<code>advertisement</code>) ja</p></li>
@@ -609,7 +609,7 @@ alkuperäinen otos, jonka otoskoko on <span class="math inline">\(n\)</span>. Mu
 </ol>
 <p>Uusiomenetelmän ideana on siis luoda uusia otoksia alkuperäisestä otoksesta, joiden avulla laskettuja estimaatteja käytetään luottamusvälin muodostamiseen. Englanninkielinen nimitys <em>bootstrap</em> viittaakin itsensä nostamiseen ylös suosta vetämällä tarpeeksi kovaa omista kengännauhoista. Tämä on tietenkin fyysisesti mahdotonta mutta kuvaa hyvin sitä, kuinka uusiomenetelmässä luodaan uusia otoksia alkuperäistä. Alla sovellamme uusiomenetelmää käytännössä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-43" class="example"><strong>Esimerkki 6.3  (Uusiomenetelmä) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
+<p><span id="exm:unlabeled-div-42" class="example"><strong>Esimerkki 6.3  (Uusiomenetelmä) </strong></span>Käytämme samaa dataa kuin esimerkissä <a href="moniulotteinen-lineaarinen-regressio.html#exm:fitreg">3.3</a>. Eli meillä on kuvitteellinen <span class="math inline">\(n = 10\)</span> kokoinen havaintoaineisto. Havainnot ovat toteumia satunnaisvektorista <span class="math inline">\((Y, X_1, X_2)\)</span>, jossa</p>
 <ul>
 <li><p><span class="math inline">\(Y = \text{voitto kuukaudessa tuhansina euroina}\)</span> (<code>profit</code>),</p></li>
 <li><p><span class="math inline">\(X_1 = \text{mainosbudjetti kuukaudessa tuhansina euroina}\)</span> (<code>advertisement</code>) ja</p></li>
@@ -717,7 +717,7 @@ Kuva 6.5: Sama tilanne kuin kuvassa <a href="epäparametrisia-tilastollisia-mene
 </div>
 </div>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-44" class="proposition"><strong>Huomautus 6.2  </strong></span>Uusiomenetelmää voidaan käyttää myös muunlaisten luottamusvälien laskemiseen. Esimerkiksi lineaarisen mallin ennustuksille voidaan laskea luottamusvälit käyttämällä uusiomenetelmää. Uusiomenetelmä ei ole myöskään sidoksissa lineaariseen regressioon vaan menetelmää voidaan käyttää muissa yhteyksissä. Kuitenkin tällä kurssilla käytämme uusiomenetelmää ainoastaan luottamusvälien laskemiseen lineaarisen mallin parametreille <span class="math inline">\(\beta_j\)</span>.</p>
+<p><span id="prp:unlabeled-div-43" class="proposition"><strong>Huomautus 6.2  </strong></span>Uusiomenetelmää voidaan käyttää myös muunlaisten luottamusvälien laskemiseen. Esimerkiksi lineaarisen mallin ennustuksille voidaan laskea luottamusvälit käyttämällä uusiomenetelmää. Uusiomenetelmä ei ole myöskään sidoksissa lineaariseen regressioon vaan menetelmää voidaan käyttää muissa yhteyksissä. Kuitenkin tällä kurssilla käytämme uusiomenetelmää ainoastaan luottamusvälien laskemiseen lineaarisen mallin parametreille <span class="math inline">\(\beta_j\)</span>.</p>
 <p>Huomaa myös, että oletuksen <a href="moniulotteinen-lineaarinen-regressio.html#def:whitenoise">3.1</a> alla parametreille <span class="math inline">\(\beta_j\)</span> voidaan laskea parametrinen luottamusväli. Tämä jätetään kuitenkin kurssin ulkopuolelle, koska parametristen luottamusvälien laskemisen filosofiaa käytiin kurssilla <em>Tilastotieteen perusteet</em>.</p>
 </div>
 

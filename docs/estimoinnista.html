@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-15" />
+<meta name="date" content="2026-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -481,7 +481,7 @@ Kuva 7.5: Musta kiinteä käyrä on erään normaalijakauman (<span class="math 
 \end{equation*}\]</span>
 Kyseinen estimaattori on harhainen äärellisillä otoksilla. Harhattoman estimaattorin kehittäminen huipukkuudelle ei ole yksinkertaista.</p>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-45" class="proposition"><strong>Huomautus 7.2  </strong></span>Yllä oletimme sanomatta, että kaikki relevantit satunnaismuuttujan <span class="math inline">\(X\)</span> momentit <span class="math inline">\(\mathbb{E}\left(f(X)\right)\)</span> ovat olemassa. Näin ei kuitenkaan aina ole. Jos jakauman hännät ovat tarpeeksi paksut kuten <a href="https://fi.wikipedia.org/wiki/Cauchy-jakauma">Cauchy jakauman</a>, niin edes odotusarvo <span class="math inline">\(\mathbb{E}\left(X\right)\)</span> ei ole olemassa. Tällöin myös varianssi <span class="math inline">\(\mathrm{Var}(X)\)</span>, vinous <span class="math inline">\(\gamma_1\)</span> ja huipukkuus <span class="math inline">\(\gamma_2\)</span> eivät ole hyvin määriteltyjä.</p>
+<p><span id="prp:unlabeled-div-44" class="proposition"><strong>Huomautus 7.2  </strong></span>Yllä oletimme sanomatta, että kaikki relevantit satunnaismuuttujan <span class="math inline">\(X\)</span> momentit <span class="math inline">\(\mathbb{E}\left(f(X)\right)\)</span> ovat olemassa. Näin ei kuitenkaan aina ole. Jos jakauman hännät ovat tarpeeksi paksut kuten <a href="https://fi.wikipedia.org/wiki/Cauchy-jakauma">Cauchy jakauman</a>, niin edes odotusarvo <span class="math inline">\(\mathbb{E}\left(X\right)\)</span> ei ole olemassa. Tällöin myös varianssi <span class="math inline">\(\mathrm{Var}(X)\)</span>, vinous <span class="math inline">\(\gamma_1\)</span> ja huipukkuus <span class="math inline">\(\gamma_2\)</span> eivät ole hyvin määriteltyjä.</p>
 <p>Myös alla olevassa luvussa oletamme, että kaikki relevantit momentit ovat olemassa.</p>
 <p>Lisätietoa: Jos joku momentti ei ole hyvin määritelty, niin käytännössä tämä tarkoittaa sitä, että jakauma tuottaa poikkeavia havaintoja suhteellisen suurella todennäköisyydellä. Toisin sanoen tiheysfunktion hännät ovat paksuja. Mitä vähemmän momentteja ollaan määritelty sitä paksummat hännät.</p>
 </div>
@@ -547,7 +547,7 @@ Tässä tapauksessa saamme momenttiestimaattoriksi <span class="math inline">\(\
 </ul>
 <p>Esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> parametri on yksiulotteinen, joten yksi yhtälö riittää momenttiestimaattorin muodostukseen. Viikon 9 tehtävässä 2 pääset muodostamaan momenttiestimaattorin kaksiulotteiselle parametrille – eli tehtävässä täytyy ratkaista yhtälöpari.</p>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-46" class="proposition"><strong>Huomautus 7.3  (Estimaattoreiden vertailu?) </strong></span>Kuten esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, eri menetelmien avulla voidaan päätyä samoihin estimaattoreihin. Eli tarkemmin ottaen esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, että eräs momenttiestimaattori eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span> on sama kuin SU-estimaattori. Tämäntyyppisiä yhtäläisyyksiä esiintyy myös muissa asiayhteyksissä. Esimerkiksi jos lineaarisen regressiomallin
+<p><span id="prp:unlabeled-div-45" class="proposition"><strong>Huomautus 7.3  (Estimaattoreiden vertailu?) </strong></span>Kuten esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, eri menetelmien avulla voidaan päätyä samoihin estimaattoreihin. Eli tarkemmin ottaen esimerkissä <a href="estimoinnista.html#exm:expmoment">7.4</a> huomattiin, että eräs momenttiestimaattori eksponenttijakauman parametrille <span class="math inline">\(\lambda_0\)</span> on sama kuin SU-estimaattori. Tämäntyyppisiä yhtäläisyyksiä esiintyy myös muissa asiayhteyksissä. Esimerkiksi jos lineaarisen regressiomallin
 <span class="math display">\[\begin{equation*}
   y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_d x_{id} + \varepsilon_i
 \end{equation*}\]</span>

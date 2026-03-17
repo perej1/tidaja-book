@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-15" />
+<meta name="date" content="2026-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -398,7 +398,7 @@ joten riippumatta selittäjän <span class="math inline">\(x_i\)</span> arvosta 
 \end{equation*}\]</span>
 Vetokertoimen käsitteeseen törmää usein vedonlyönnissä, jossa muotoa <span class="math inline">\(\mathrm{Odds}(p)  = a / b\)</span>, <span class="math inline">\(a,b\in\{1, 2, \ldots\}\)</span>, oleva vetokerroin kirjoitetaan usein notaatiolla <span class="math inline">\(a:b\)</span>. Alla on esimerkkejä vetokertoimen tulkinnasta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-47" class="example"><strong>Esimerkki 8.2  (Vetokerroin) </strong></span></p>
+<p><span id="exm:unlabeled-div-46" class="example"><strong>Esimerkki 8.2  (Vetokerroin) </strong></span></p>
 <ul>
 <li><p>Kun <span class="math inline">\(p = 1/2\)</span>, niin <span class="math inline">\(\mathrm{Odds}(p) = 1\)</span>. Vetokerroin voidaan myös antaa notaatiolla <span class="math inline">\(1:1\)</span>.</p></li>
 <li><p>Jalkapallo-ottelussa Bodø/Glimt vastaan Sporting vedonlyöntiyritys antaa vetokertoimen <span class="math inline">\(5:1\)</span> joukkueen Bodø/Glimt voitolle. Tämä tarkoittaa, että <span class="math inline">\(\mathrm{Odds}(p) = 5\)</span> ja <span class="math inline">\(p = 5/6\)</span>, jossa <span class="math inline">\(p\)</span> on todennäköisyys joukkueen Bodø/Glimt voitolle.</p></li>
@@ -417,7 +417,7 @@ Vetosuhteen tulkinta on seuraava.</p>
 <li><p>Jos <span class="math inline">\(\mathrm{OR}(p_1, p_2) &lt; 1\)</span>, niin toinen tapahtuma on todennäköisempi kuin ensimmäinen.</p></li>
 </ul>
 <div class="example">
-<p><span id="exm:unlabeled-div-48" class="example"><strong>Esimerkki 8.3  (Vetosuhde) </strong></span>Tupakoimattomista ihmisistä <span class="math inline">\(p_1 = 20\%\)</span> saa keuhkosyövän ja tupakoivista ihmisistä <span class="math inline">\(p_2 = 60\%\)</span> saa keuhkosyövän. Nyt <span class="math inline">\(\mathrm{Odds}(p_1) = 0.25\)</span> ja <span class="math inline">\(\mathrm{Odds}(p_2) = 1.5\)</span>. Tällöin
+<p><span id="exm:unlabeled-div-47" class="example"><strong>Esimerkki 8.3  (Vetosuhde) </strong></span>Tupakoimattomista ihmisistä <span class="math inline">\(p_1 = 20\%\)</span> saa keuhkosyövän ja tupakoivista ihmisistä <span class="math inline">\(p_2 = 60\%\)</span> saa keuhkosyövän. Nyt <span class="math inline">\(\mathrm{Odds}(p_1) = 0.25\)</span> ja <span class="math inline">\(\mathrm{Odds}(p_2) = 1.5\)</span>. Tällöin
 <span class="math display">\[\begin{equation*}
   \mathrm{OR}(p_2, p_1) = \frac{1.5}{0.25} = 6.
 \end{equation*}\]</span>
@@ -434,7 +434,7 @@ Nyt viikon 10 harjoitustehtävän 2 mukaan
 Eli <span class="math inline">\(\exp(\beta_1)\)</span> kuvaa vetokertoimen suhteellista muutosta, kun selittäjä kasvaa yhden yksikön <span class="math inline">\(x\rightarrow x+1\)</span>.</p>
 
 <div class="example">
-<p><span id="exm:unlabeled-div-49" class="example"><strong>Esimerkki 8.4  (Parametrien <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> tulkinta) </strong></span>Data-analyytikko tutkii iän ja ja erään taudin suhdetta sovittamalla logistisen regressiomallin
+<p><span id="exm:unlabeled-div-48" class="example"><strong>Esimerkki 8.4  (Parametrien <span class="math inline">\(\beta_0\)</span> ja <span class="math inline">\(\beta_1\)</span> tulkinta) </strong></span>Data-analyytikko tutkii iän ja ja erään taudin suhdetta sovittamalla logistisen regressiomallin
 <span class="math display">\[\begin{equation*}
   \mathrm{logit}(p_i) = -2 + 0.03 x_i.
 \end{equation*}\]</span>
@@ -535,7 +535,7 @@ Alla sovitetaan kuvailtu logistinen regressiomalli ja tulostetaan <code>summary(
 \end{equation*}\]</span>
 Kertoimen <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(j\in\{1, \ldots, d\}\)</span>, tulkinta on samansuuntainen kuin yhden selittäjän logistisessa regressiossa – kun <span class="math inline">\(j\)</span>:nnen selittäjän arvo kasvaa yhdellä <span class="math inline">\(x_j\rightarrow x_j + 1\)</span> ja muut selittäjät pidetään samoina, niin vetosuhde muuttuu <span class="math inline">\(\exp(\beta_j)\)</span> verran. Emme käsittele moniulotteista logistista regressiota kovin tarkasti mutta alla näytämme esimerkin moniulotteisen logistisen regressiomallin sovituksesta.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 8.6  (Moniulotteinen logistinen regressio) </strong></span>Sovitetaan esimerkin <a href="logistinen-regressio.html#exm:warning">8.1</a> <code>titanic</code> dataan logistinen regressiomalli
+<p><span id="exm:unlabeled-div-49" class="example"><strong>Esimerkki 8.6  (Moniulotteinen logistinen regressio) </strong></span>Sovitetaan esimerkin <a href="logistinen-regressio.html#exm:warning">8.1</a> <code>titanic</code> dataan logistinen regressiomalli
 <span class="math display">\[\begin{equation*}
   p_i = \mathrm{logistic}(\beta_0 + \beta_1 \texttt{age}_i + \beta_2 \texttt{sex}_i + \beta_2 \texttt{fare}_i).
 \end{equation*}\]</span>

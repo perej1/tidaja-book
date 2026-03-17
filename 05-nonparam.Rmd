@@ -33,7 +33,6 @@ ggplot() +
                    yend = dexp(mean_exp, lambda)), linetype = "dashed", color = "red") +
   geom_segment(aes(x = median_exp, xend = median_exp, y = 0,
                    yend = dexp(median_exp, lambda)), color = "blue")
-
 ```
 
 
@@ -486,7 +485,7 @@ ggplot(df, aes(x = x, y = y)) +
 
 Kruskal--Wallis testi voidaan suorittaa R:ssä funktiolla `kruskal.test()`. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio `kruskal.test()` käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal--Wallis testin ensin funktiolla `kruskal.test()` ja sitten "manuaalisesti".
 
-:::{.example name="Kruskal-Wallis testin suorittaminen"}
+:::{.example #kruskal name="Kruskal-Wallis testin suorittaminen"}
 ```{r, echo=FALSE}
 choco <- readr::read_csv("data/choco.csv", col_types = "dddd")
 ```

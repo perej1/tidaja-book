@@ -11,6 +11,94 @@ Koko kurssin ajan monissa menetelmissä tyypillinen oletus on ollut muotoa "hava
 
 ## Monitestaus {#sec:multiple}
 
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+set.seed(14)
+num_factory <- 8
+n <-  20
+choco_big <- purrr::map(1:num_factory, ~rnorm(n, 100, 6))
+names(choco_big) <- stringr::str_c("factory", 1:num_factory)
+choco_big <- tibble::as_tibble(choco_big)
+choco_big <- choco_big  %>%
+  mutate(factory4 = rnorm(n, 90, 6))
+```
+
+Esimerkeissä \@ref(exm:anova) ja \@ref(exm:kruskal) vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal--Wallis testillä^[Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal--Wallis testin oletukset.]. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa jakaumat eroavat toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi voimme suorittaa kahden otoksen t-testin jokaiselle tehdasparille erikseen
+
+Riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi  sijasummatestillä) testeillä. Vaikka tässä käytämme epäparametrisia testejä, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.
+
+**Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin \@ref(exm:warningmultiple) kuvailema lähestymistapa on ongelmallinen.**
+
+:::{.example #warningmultiple name="Varoittava esimerkki"}
+Vilin makeistehdas on laajentanut toimintaansa yhteensä kymmeneen tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja.
+```{r}
+choco_big
+```
+
+Aluksi muokataan havaintoaineistoa niin, että toinen sarake antaa havainnot ja ensimmäinen sarake antaa tehtaan, josta havainto tulee.
+```{r}
+library(tidyr)
+choco_mod <- choco_big %>%
+  pivot_longer(everything(), names_to = "factory", values_to = "weight") %>%
+  mutate(factory = factor(factory))
+```
+
+Kuvan \@ref(fig:chocobox) perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin.
+
+(ref:chocobox) Tehtaiden otoksia vastaavat laatikkokuviot. 
+
+```{r chocobox, fig.cap="(ref:chocobox)"}
+# las argument changes the orientation of x-axis labels
+boxplot(weight ~ factory, data = choco_mod, xlab = NA, ylab = "Weight",
+        las = 2)
+```
+
+Suoritetaan Kruskal--Wallis testi.
+```{r}
+kruskal.test(weight ~ factory, data = choco_mod)
+```
+
+Merkitsevyystasolla $\alpha = 0.05$ nollahypoteesi siitä, että suklaalevyjen painojen jakaumat $F_i$ tehtaissa $i\in\{1, \ldots, 8\}$ ovat erilaisia
+\begin{equation*}
+  H_0: F_1 = F_2 = \cdots = F_8
+\end{equation*}
+hylätään. Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia $H_0$ vastahypoteesia vastaan $H_1$
+\begin{align*}
+  &H_0: F_i = F_j \\
+  &H_0: F_i \neq F_j
+\end{align*}
+tehtaille $i,j\in\{1, \ldots, 8\}$, $i\neq j$. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.
+```{r}
+wilcox.test(choco_big$factory3, choco_big$factory6, paired = FALSE,
+            alternative = "two.sided", exact = TRUE)
+```
+
+Onneksi testejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio `pairwise.wilcox.test()`.
+
+```{r}
+pairwise.wilcox.test(choco_mod$weight, choco_mod$factory,
+                     p.adjust.method = "none")
+```
+
+Käyttämällä merkitsevyystasoa $\alpha = 0.05$ huomaamme, että
+
+- tehtaan $4$ suklaalevyjen painojakauma eroaa merkittävästi kaikista tehtaista ja
+
+- tehtaan $1$ painojakaumat eroaa merkittävästi tehtaista $2$, $3$, $4$, $5$, $7$ ja $8$.
+:::
+
+
+:::{.example #bonferroni name="Bonferroni korjaus"}
+```{r}
+pairwise.wilcox.test(choco_mod$weight, choco_mod$factory,
+                     p.adjust.method = "bonferroni")
+```
+:::
+
+:::{.proposition}
+Paljasta tulokset
+:::
+
 ## Harjanneregressio {#sec:ridge}
 
 ## Aikasarjat {#sec:time}

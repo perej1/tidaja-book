@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-15" />
+<meta name="date" content="2026-03-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -923,7 +923,7 @@ Kuva 5.4: Kiinteä musta käyrä kuvaa khi-neliöjakauman <span class="math inli
 </div>
 <p>Kruskal–Wallis testi voidaan suorittaa R:ssä funktiolla <code>kruskal.test()</code>. Testin p-arvon laskeminen testisuureen tarkan jakauman avulla on laskennallisesti vaativaa suurella otoskoolla, joten funktio <code>kruskal.test()</code> käyttää khi-neliöjakaumaa p-arvon laskemiseen. Alla olevassa esimerkissä suoritamme Kruskal–Wallis testin ensin funktiolla <code>kruskal.test()</code> ja sitten “manuaalisesti”.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-41" class="example"><strong>Esimerkki 5.7  (Kruskal-Wallis testin suorittaminen) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> analyysi Kruskal–Wallis testin avulla ANOVA:n sijasta. Meillä on siis <span class="math inline">\(n = 20\)</span> kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehdasta vastaavat otokset suklaalevyistä.</p>
+<p><span id="exm:kruskal" class="example"><strong>Esimerkki 5.7  (Kruskal-Wallis testin suorittaminen) </strong></span>Suoritetaan esimerkin <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> analyysi Kruskal–Wallis testin avulla ANOVA:n sijasta. Meillä on siis <span class="math inline">\(n = 20\)</span> kokoiset otokset neljästä tehtaasta. Otokset sisältävät tuotettujen suklaalevyjen painoja jokaisesta tehtaasta. Alla näkyy kaikkia neljää tehdasta vastaavat otokset suklaalevyistä.</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="epäparametrisia-tilastollisia-testejä.html#cb208-1" tabindex="-1"></a>choco</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 4
 ##    factory1 factory2 factory3 factory4
