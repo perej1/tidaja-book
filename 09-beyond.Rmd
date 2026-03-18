@@ -63,7 +63,7 @@ hylätään.
 kruskal.test(weight ~ factory, data = choco_mod)
 ```
 
-Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia $H_0$ vastahypoteesia vastaan $H_1$
+Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia $H_0$ vastahypoteesia $H_1$ vastaan
 \begin{align*}
   &H_0: F_j = F_k, \\
   &H_0: F_j \neq F_k,
@@ -142,7 +142,7 @@ Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\a
   \text{$H_0$ hylätään} \iff \text{p-arvo} < \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} < \alpha.
 \end{equation*}
-Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus^[Muitakin p-arvojen korjausmenetelmiä on olemassa.], jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
 
 
 ## Harjanneregressio {#sec:ridge}
