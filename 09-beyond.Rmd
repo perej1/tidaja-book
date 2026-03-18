@@ -130,11 +130,11 @@ Merkitsevyystaso $\alpha$ antaa ylärajan hylkäysvirheelle eli
 Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monivertailuissa haluamme nimenomaan kontrolloida todennäköisyyttä, jolla saadaan ainakin yksi hylkäysvirhe. Alla oleva fakta, jonka paikkaansapitävyys todistetaan viikon 11 tehtävässä 1, auttaa ylärajan muodostamisessa.
 
 :::{.theorem #fwer name="Yläraja perhekohtaiselle virhetodennäköisyydelle"}
-Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. Merkitään tilastollisen testin $j\in\{1, \ldots, m\}$ nollahypoteesia notaatiolla $H_0^{(j)}$. Samoin merkitään tapahtumaa, että tilastollisessa testissä $j$ tehdään hylkäysvirhe notaatiolla $A_j  = \{H_0 \ \text{hylätään} | H_0\}$. Tällöin
+Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. Merkitään tilastollisen testin $j\in\{1, \ldots, m\}$ nollahypoteesia notaatiolla $H_0^{(j)}$. Samoin merkitään tapahtumaa, että tilastollisessa testissä $j$ tehdään hylkäysvirhe notaatiolla $A_j  = \left\{H_0^{(j)} \ \text{hylätään} | H_0^{(j)}\right\}$. Tällöin
 \begin{equation*}
-  \mathbb{P}\left(\bigcup A_j\right) \leq \alpha.
+  \mathbb{P}\left(\bigcup_{j=1}^m A_j\right) \leq \alpha.
 \end{equation*}
-Todennäköisyyttä $\mathbb{P}\left(\bigcup A_j\right)$ kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: *family-wise error rate*).
+Todennäköisyyttä $\mathbb{P}\left(\bigcup_{i=1}^n A_j\right)$ kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: *family-wise error rate*).
 :::
 
 Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\alpha/m$, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on $\alpha$. Tästä johtuen tuntuisi loogiselta, että esimerkin \@ref(exm:warningmultiple) funktiossa `pairwise.wilcox.test()` meidän kannattaisi käyttää merkitsevyystasona^[Jaetaan luvulla $28$, koska testejä tehdään yhteensä 28 kappaletta.] $0.05 / 28  \approx 0.001786$ alkuperäisen $0.05$ sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on $0.05$. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja $m\cdot \text{p-arvo}$ alkuperäiseen merkitsevyystasoon $\alpha = 0.05$, koska
@@ -142,7 +142,7 @@ Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\a
   \text{$H_0$ hylätään} \iff \text{p-arvo} < \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} < \alpha.
 \end{equation*}
-Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot  kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
 
 
 ## Harjanneregressio {#sec:ridge}
