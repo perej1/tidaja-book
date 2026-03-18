@@ -29,7 +29,7 @@ Esimerkeissä \@ref(exm:anova) ja \@ref(exm:kruskal) vertailimme eri tehtaiden t
 **Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin \@ref(exm:warningmultiple) kuvailema lähestymistapa on ongelmallinen.**
 
 :::{.example #warningmultiple name="Varoittava esimerkki"}
-Vilin makeistehdas on laajentanut toimintaansa yhteensä kahdeksaan tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja. Jokaisesta tehtaasta on $n = 20$ kokoinen otos suklaalevyjä.
+Vilin makeistehdas oy on laajentanut toimintaansa yhteensä kahdeksaan tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja kaikissa tehtaissa. Jokaisesta tehtaasta on $n = 20$ kokoinen otos suklaalevyjä.
 
 ```{r}
 choco_big
