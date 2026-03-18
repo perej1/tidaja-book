@@ -1,6 +1,6 @@
 # "Above & Beyond"
 
-Kryptinen otsikko viittaa siihen, että tässä luvussa esittelemme muutamia menetelmiä, joiden tarkempi läpikäynti menee tämän kurssin ulkopuolelle. Kuitenkin esimerkiksi, jos olet kiinnostunut kvantitatiivisesta kandidaatintyöstä, niin on hyvä olla tietoinen alla olevista aiheista.
+Laajennamme teoriaa liittyen erinäisiin luentomonisteessa jo esiteltyihin teemoihin. Kryptinen luvun otsikko viittaa siihen, että tämän luvun asioita ei käydä samalla tarkkuudella kuin muita kurssin  pääteemoja kuten lineaarista regressiota. Tavoite on tarjota ikkuna haastavampiin aiheisiin, joista osaa käydään tarkemmin myöhemmillä data-analytiikan kursseilla.
 
 ANOVA:a ja Kruskal--Wallis testiä käsittelimme luvuissa \@ref(sec:anova) ja \@ref(sec:nonparammultiplesample). Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja. Seuraava luonnollinen askel tästä on useamman populaation parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Parittaiseen vertailuun liittyviä ongelmia avataan luvussa \@ref(sec:multiple).
 
@@ -21,16 +21,16 @@ names(choco_big) <- stringr::str_c("factory", 1:num_factory)
 choco_big <- tibble::as_tibble(choco_big)
 choco_big <- choco_big  %>%
   mutate(factory4 = rnorm(n, 90, 6))
+readr::write_csv(choco_big, "data/choco-big.csv")
 ```
 
-Esimerkeissä \@ref(exm:anova) ja \@ref(exm:kruskal) vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal--Wallis testillä^[Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal--Wallis testin oletukset.]. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa jakaumat eroavat toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi voimme suorittaa kahden otoksen t-testin jokaiselle tehdasparille erikseen
-
-Riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi  sijasummatestillä) testeillä. Vaikka tässä käytämme epäparametrisia testejä, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.
+Esimerkeissä \@ref(exm:anova) ja \@ref(exm:kruskal) vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal--Wallis testillä^[Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal--Wallis testin oletukset.]. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa suklaalevyjen painot eroavat tilastollisesti merkitsevästi toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi  sijasummatestillä) testeillä. Vaikka tässä luvussa käytämme epäparametrisia testejä populaatioiden vertailuun, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.
 
 **Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin \@ref(exm:warningmultiple) kuvailema lähestymistapa on ongelmallinen.**
 
 :::{.example #warningmultiple name="Varoittava esimerkki"}
-Vilin makeistehdas on laajentanut toimintaansa yhteensä kymmeneen tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja.
+Vilin makeistehdas on laajentanut toimintaansa yhteensä kahdeksaan tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja. Jokaisesta tehtaasta on $n = 20$ kokoinen otos suklaalevyjä.
+
 ```{r}
 choco_big
 ```
@@ -41,9 +41,10 @@ library(tidyr)
 choco_mod <- choco_big %>%
   pivot_longer(everything(), names_to = "factory", values_to = "weight") %>%
   mutate(factory = factor(factory))
+choco_mod
 ```
 
-Kuvan \@ref(fig:chocobox) perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin.
+Kuvan \@ref(fig:chocobox) perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin. Visuaalisen tarkastelun perusteella siis ainakin yhden tehtaan suklaalevyjen painojakauma eroaa muista tehtaista.
 
 (ref:chocobox) Tehtaiden otoksia vastaavat laatikkokuviot. 
 
@@ -53,27 +54,27 @@ boxplot(weight ~ factory, data = choco_mod, xlab = NA, ylab = "Weight",
         las = 2)
 ```
 
-Suoritetaan Kruskal--Wallis testi.
+Suoritetaan Kruskal--Wallis testi. Merkitsevyystasolla $\alpha = 0.05$ nollahypoteesi siitä, että suklaalevyjen painojen jakaumat $F_j$ tehtaissa $j\in\{1, \ldots, 8\}$ ovat erilaisia
+\begin{equation*}
+  H_0: F_1 = F_2 = \cdots = F_8
+\end{equation*}
+hylätään.
 ```{r}
 kruskal.test(weight ~ factory, data = choco_mod)
 ```
 
-Merkitsevyystasolla $\alpha = 0.05$ nollahypoteesi siitä, että suklaalevyjen painojen jakaumat $F_i$ tehtaissa $i\in\{1, \ldots, 8\}$ ovat erilaisia
-\begin{equation*}
-  H_0: F_1 = F_2 = \cdots = F_8
-\end{equation*}
-hylätään. Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia $H_0$ vastahypoteesia vastaan $H_1$
+Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia $H_0$ vastahypoteesia vastaan $H_1$
 \begin{align*}
-  &H_0: F_i = F_j \\
-  &H_0: F_i \neq F_j
+  &H_0: F_j = F_k, \\
+  &H_0: F_j \neq F_k,
 \end{align*}
-tehtaille $i,j\in\{1, \ldots, 8\}$, $i\neq j$. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.
+tehtaille $j,k\in\{1, \ldots, 8\}$, $j\neq k$. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.
 ```{r}
 wilcox.test(choco_big$factory3, choco_big$factory6, paired = FALSE,
             alternative = "two.sided", exact = TRUE)
 ```
 
-Onneksi testejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio `pairwise.wilcox.test()`.
+Onneksi sijasummatestejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio `pairwise.wilcox.test()`.
 
 ```{r}
 pairwise.wilcox.test(choco_mod$weight, choco_mod$factory,
@@ -87,17 +88,62 @@ Käyttämällä merkitsevyystasoa $\alpha = 0.05$ huomaamme, että
 - tehtaan $1$ painojakaumat eroaa merkittävästi tehtaista $2$, $3$, $4$, $5$, $7$ ja $8$.
 :::
 
+Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla `pairwise.wilcox.test()` (yhteensä $28$ testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään sattumalta datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: [*multiple comparisons problem*](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)), jota kuvaamme alla tarkemmin.
 
-:::{.example #bonferroni name="Bonferroni korjaus"}
-```{r}
-pairwise.wilcox.test(choco_mod$weight, choco_mod$factory,
-                     p.adjust.method = "bonferroni")
+Muista *Tilastotieteen perusteista*, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa \@ref(tab:errortype).
+
+1. Voimme sattumalta hylätä nollahypoteesin, vaikka nollahypoteesi kuvaisi totuutta (Tyypin 1 virhe, väärä positiivinen)
+
+2. Voimme sattumalta olla hylkäämättä nollahypoteesia, vaikka nollahypoteesi ei olisi totta (Tyypin 2 virhe, väärä negatiivinen).
+
+```{r errortype, echo=FALSE, message=FALSE}
+library(knitr)
+library(kableExtra)
+
+error_table <- data.frame(
+  Päätös = c("$H_0$ hylätään", "$H_0$ ei hylätä"),
+  "$H_0$ on totta" = c("Hylkäysvirhe <br> (Tyypin 1 virhe)", 
+                   "Oikea päätös"),
+  "$H_1$ on totta" = c("Oikea päätös", 
+                       "Hyväksymisvirhe <br> (Tyypin 2 virhe)"),
+  check.names = FALSE
+)
+
+kbl(error_table, 
+      align = "c",
+      caption = "Havainnollistus testausvirheistä.",
+      escape = FALSE) %>%
+  kable_styling(full_width = FALSE, position = "center") %>%
+  add_header_above(c(" " = 1, "Todellisuus" = 2)) %>%
+  column_spec(1, bold = TRUE)
 ```
+
+Muista myös, että hylkäysvirheen todennäköisyyttä voidaan kontrolloida merkitsevyystason $\alpha$ avulla.
+
+:::{.theorem #type1 name="Yläraja hylkäysvirheelle"}
+Merkitsevyystaso $\alpha$ antaa ylärajan hylkäysvirheelle eli
+\begin{equation*}
+  \mathbb{P}(H_0 \ \text{hylätään} | H_0) \leq \alpha.
+\end{equation*}
 :::
 
-:::{.proposition}
-Paljasta tulokset
+Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monivertailuissa haluamme nimenomaan kontrolloida todennäköisyyttä, jolla saadaan ainakin yksi hylkäysvirhe. Alla oleva fakta, jonka paikkaansapitävyys todistetaan viikon 11 tehtävässä 1, auttaa ylärajan muodostamisessa.
+
+:::{.theorem #fwer name="Yläraja perhekohtaiselle virhetodennäköisyydelle"}
+Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. Merkitään tilastollisen testin $j\in\{1, \ldots, m\}$ nollahypoteesia notaatiolla $H_0^{(j)}$. Samoin merkitään tapahtumaa, että tilastollisessa testissä $j$ tehdään hylkäysvirhe notaatiolla $A_j  = \{H_0 \ \text{hylätään} | H_0\}$. Tällöin
+\begin{equation*}
+  \mathbb{P}\left(\bigcup A_j\right) \leq \alpha.
+\end{equation*}
+Todennäköisyyttä $\mathbb{P}\left(\bigcup A_j\right)$ kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: *family-wise error rate*).
 :::
+
+Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\alpha/m$, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on $\alpha$. Tästä johtuen tuntuisi loogiselta, että esimerkin \@ref(exm:warningmultiple) funktiossa `pairwise.wilcox.test()` meidän kannattaisi käyttää merkitsevyystasona^[Jaetaan luvulla $28$, koska testejä tehdään yhteensä 28 kappaletta.] $0.05 / 28  \approx 0.001786$ alkuperäisen $0.05$ sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on $0.05$. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja $m\cdot \text{p-arvo}$ alkuperäiseen merkitsevyystasoon $\alpha = 0.05$, koska
+\begin{equation*}
+  \text{$H_0$ hylätään} \iff \text{p-arvo} < \frac{\alpha}{m}
+  \iff m\cdot \text{p-arvo} < \alpha.
+\end{equation*}
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot  kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+
 
 ## Harjanneregressio {#sec:ridge}
 

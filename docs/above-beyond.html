@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-17" />
+<meta name="date" content="2026-03-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -262,17 +262,16 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="above-beyond" class="section level1 hasAnchor" number="9">
 <h1><span class="header-section-number">Luku 9</span> “Above &amp; Beyond”<a href="above-beyond.html#above-beyond" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Kryptinen otsikko viittaa siihen, että tässä luvussa esittelemme muutamia menetelmiä, joiden tarkempi läpikäynti menee tämän kurssin ulkopuolelle. Kuitenkin esimerkiksi, jos olet kiinnostunut kvantitatiivisesta kandidaatintyöstä, niin on hyvä olla tietoinen alla olevista aiheista.</p>
+<p>Laajennamme teoriaa liittyen erinäisiin luentomonisteessa jo esiteltyihin teemoihin. Kryptinen luvun otsikko viittaa siihen, että tämän luvun asioita ei käydä samalla tarkkuudella kuin muita kurssin pääteemoja kuten lineaarista regressiota. Tavoite on tarjota ikkuna haastavampiin aiheisiin, joista osaa käydään tarkemmin myöhemmillä data-analytiikan kursseilla.</p>
 <p>ANOVA:a ja Kruskal–Wallis testiä käsittelimme luvuissa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a>. Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja. Seuraava luonnollinen askel tästä on useamman populaation parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Parittaiseen vertailuun liittyviä ongelmia avataan luvussa <a href="above-beyond.html#sec:multiple">9.1</a>.</p>
 <p>Eräs tavallisen lineaarisen regression yleistys eli logistinen regressio esiteltiin edellisessä luvussa. Luvussa <a href="above-beyond.html#sec:ridge">9.2</a> esittelemme toisen yleistyksen lineaarisesta regressiosta eli harjanneregression, jota voidaan soveltaa vahvan multikollineaarisuuden tapauksesta.</p>
 <p>Koko kurssin ajan monissa menetelmissä tyypillinen oletus on ollut muotoa “havainnot ovat riippumattomia”, vaikka riippumattomuus ei aina ole realistinen oletus. Kuten olemme jo nähneet, niin moniulotteisen datan tapauksessa on tietynlaista riippuvuutta – havainnot ovat riippumattomia mutta komponentit ovat riippuvaisia. Viimeiseksi luvussa <a href="above-beyond.html#sec:time">9.3</a> esittelemme aikasarjat, joissa myös harvoin riippumattomuus pätee. Aikasarjat ovat erittäin tärkeä datatyyppi, koska lukuisat kauppatieteisiin liittyvät havaintoaineistot kuten osakeindeksit ovat aikasarjoja.</p>
 <div id="sec:multiple" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Monitestaus<a href="above-beyond.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Esimerkeissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#exm:kruskal">5.7</a> vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal–Wallis testillä<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa jakaumat eroavat toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi voimme suorittaa kahden otoksen t-testin jokaiselle tehdasparille erikseen</p>
-<p>Riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi sijasummatestillä) testeillä. Vaikka tässä käytämme epäparametrisia testejä, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.</p>
+<p>Esimerkeissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#exm:kruskal">5.7</a> vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal–Wallis testillä<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa suklaalevyjen painot eroavat tilastollisesti merkitsevästi toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi sijasummatestillä) testeillä. Vaikka tässä luvussa käytämme epäparametrisia testejä populaatioiden vertailuun, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.</p>
 <p><strong>Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin <a href="above-beyond.html#exm:warningmultiple">9.1</a> kuvailema lähestymistapa on ongelmallinen.</strong></p>
 <div class="example">
-<p><span id="exm:warningmultiple" class="example"><strong>Esimerkki 9.1  (Varoittava esimerkki) </strong></span>Vilin makeistehdas on laajentanut toimintaansa yhteensä kymmeneen tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja.</p>
+<p><span id="exm:warningmultiple" class="example"><strong>Esimerkki 9.1  (Varoittava esimerkki) </strong></span>Vilin makeistehdas on laajentanut toimintaansa yhteensä kahdeksaan tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja. Jokaisesta tehtaasta on <span class="math inline">\(n = 20\)</span> kokoinen otos suklaalevyjä.</p>
 <div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="above-beyond.html#cb294-1" tabindex="-1"></a>choco_big</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 8
 ##    factory1 factory2 factory3 factory4 factory5 factory6 factory7 factory8
@@ -301,46 +300,61 @@ div.csl-indent {
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="above-beyond.html#cb296-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb296-2"><a href="above-beyond.html#cb296-2" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco_big <span class="sc">%&gt;%</span></span>
 <span id="cb296-3"><a href="above-beyond.html#cb296-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;factory&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;weight&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb296-4"><a href="above-beyond.html#cb296-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span></code></pre></div>
-<p>Kuvan <a href="above-beyond.html#fig:chocobox">9.1</a> perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin.</p>
+<span id="cb296-4"><a href="above-beyond.html#cb296-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span>
+<span id="cb296-5"><a href="above-beyond.html#cb296-5" tabindex="-1"></a>choco_mod</span></code></pre></div>
+<pre><code>## # A tibble: 160 × 2
+##    factory  weight
+##    &lt;fct&gt;     &lt;dbl&gt;
+##  1 factory1   96.0
+##  2 factory2   92.4
+##  3 factory3   97.4
+##  4 factory4   81.2
+##  5 factory5   95.9
+##  6 factory6  110. 
+##  7 factory7   96.7
+##  8 factory8   98.1
+##  9 factory1  110. 
+## 10 factory2   98.8
+## # ℹ 150 more rows</code></pre>
+<p>Kuvan <a href="above-beyond.html#fig:chocobox">9.1</a> perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin. Visuaalisen tarkastelun perusteella siis ainakin yhden tehtaan suklaalevyjen painojakauma eroaa muista tehtaista.</p>
 
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="above-beyond.html#cb297-1" tabindex="-1"></a><span class="co"># las argument changes the orientation of x-axis labels</span></span>
-<span id="cb297-2"><a href="above-beyond.html#cb297-2" tabindex="-1"></a><span class="fu">boxplot</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod, <span class="at">xlab =</span> <span class="cn">NA</span>, <span class="at">ylab =</span> <span class="st">&quot;Weight&quot;</span>,</span>
-<span id="cb297-3"><a href="above-beyond.html#cb297-3" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="above-beyond.html#cb298-1" tabindex="-1"></a><span class="co"># las argument changes the orientation of x-axis labels</span></span>
+<span id="cb298-2"><a href="above-beyond.html#cb298-2" tabindex="-1"></a><span class="fu">boxplot</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod, <span class="at">xlab =</span> <span class="cn">NA</span>, <span class="at">ylab =</span> <span class="st">&quot;Weight&quot;</span>,</span>
+<span id="cb298-3"><a href="above-beyond.html#cb298-3" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:chocobox"></span>
 <img src="tidaja-book_files/figure-html/chocobox-1.png" alt="Tehtaiden otoksia vastaavat laatikkokuviot." width="672" />
 <p class="caption">
 Kuva 9.1: Tehtaiden otoksia vastaavat laatikkokuviot.
 </p>
 </div>
-<p>Suoritetaan Kruskal–Wallis testi.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="above-beyond.html#cb298-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
+<p>Suoritetaan Kruskal–Wallis testi. Merkitsevyystasolla <span class="math inline">\(\alpha = 0.05\)</span> nollahypoteesi siitä, että suklaalevyjen painojen jakaumat <span class="math inline">\(F_j\)</span> tehtaissa <span class="math inline">\(j\in\{1, \ldots, 8\}\)</span> ovat erilaisia
+<span class="math display">\[\begin{equation*}
+  H_0: F_1 = F_2 = \cdots = F_8
+\end{equation*}\]</span>
+hylätään.</p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="above-beyond.html#cb299-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  weight by factory
 ## Kruskal-Wallis chi-squared = 46.192, df = 7, p-value = 8.02e-08</code></pre>
-<p>Merkitsevyystasolla <span class="math inline">\(\alpha = 0.05\)</span> nollahypoteesi siitä, että suklaalevyjen painojen jakaumat <span class="math inline">\(F_i\)</span> tehtaissa <span class="math inline">\(i\in\{1, \ldots, 8\}\)</span> ovat erilaisia
-<span class="math display">\[\begin{equation*}
-  H_0: F_1 = F_2 = \cdots = F_8
-\end{equation*}\]</span>
-hylätään. Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vastahypoteesia vastaan <span class="math inline">\(H_1\)</span>
+<p>Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vastahypoteesia vastaan <span class="math inline">\(H_1\)</span>
 <span class="math display">\[\begin{align*}
-  &amp;H_0: F_i = F_j \\
-  &amp;H_0: F_i \neq F_j
+  &amp;H_0: F_j = F_k, \\
+  &amp;H_0: F_j \neq F_k,
 \end{align*}\]</span>
-tehtaille <span class="math inline">\(i,j\in\{1, \ldots, 8\}\)</span>, <span class="math inline">\(i\neq j\)</span>. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="above-beyond.html#cb300-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(choco_big<span class="sc">$</span>factory3, choco_big<span class="sc">$</span>factory6, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb300-2"><a href="above-beyond.html#cb300-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+tehtaille <span class="math inline">\(j,k\in\{1, \ldots, 8\}\)</span>, <span class="math inline">\(j\neq k\)</span>. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="above-beyond.html#cb301-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(choco_big<span class="sc">$</span>factory3, choco_big<span class="sc">$</span>factory6, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb301-2"><a href="above-beyond.html#cb301-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum exact test
 ## 
 ## data:  choco_big$factory3 and choco_big$factory6
 ## W = 153, p-value = 0.211
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
-<p>Onneksi testejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio <code>pairwise.wilcox.test()</code>.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="above-beyond.html#cb302-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(choco_mod<span class="sc">$</span>weight, choco_mod<span class="sc">$</span>factory,</span>
-<span id="cb302-2"><a href="above-beyond.html#cb302-2" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p>Onneksi sijasummatestejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio <code>pairwise.wilcox.test()</code>.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="above-beyond.html#cb303-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(choco_mod<span class="sc">$</span>weight, choco_mod<span class="sc">$</span>factory,</span>
+<span id="cb303-2"><a href="above-beyond.html#cb303-2" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum exact test 
 ## 
@@ -362,29 +376,84 @@ tehtaille <span class="math inline">\(i,j\in\{1, \ldots, 8\}\)</span>, <span cla
 <li><p>tehtaan <span class="math inline">\(1\)</span> painojakaumat eroaa merkittävästi tehtaista <span class="math inline">\(2\)</span>, <span class="math inline">\(3\)</span>, <span class="math inline">\(4\)</span>, <span class="math inline">\(5\)</span>, <span class="math inline">\(7\)</span> ja <span class="math inline">\(8\)</span>.</p></li>
 </ul>
 </div>
-<div class="example">
-<p><span id="exm:bonferroni" class="example"><strong>Esimerkki 9.2  (Bonferroni korjaus) </strong></span></p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="above-beyond.html#cb304-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(choco_mod<span class="sc">$</span>weight, choco_mod<span class="sc">$</span>factory,</span>
-<span id="cb304-2"><a href="above-beyond.html#cb304-2" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-##  Pairwise comparisons using Wilcoxon rank sum exact test 
-## 
-## data:  choco_mod$weight and choco_mod$factory 
-## 
-##          factory1 factory2 factory3 factory4 factory5 factory6 factory7
-## factory2 0.54703  -        -        -        -        -        -       
-## factory3 0.14366  1.00000  -        -        -        -        -       
-## factory4 4.9e-09  7.4e-06  0.00109  -        -        -        -       
-## factory5 0.09895  1.00000  1.00000  3.2e-05  -        -        -       
-## factory6 1.00000  1.00000  1.00000  0.00016  1.00000  -        -       
-## factory7 0.04947  1.00000  1.00000  0.00081  1.00000  1.00000  -       
-## factory8 0.22387  1.00000  1.00000  0.00019  1.00000  1.00000  1.00000 
-## 
-## P value adjustment method: bonferroni</code></pre>
+<p>Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla <code>pairwise.wilcox.test()</code> (yhteensä <span class="math inline">\(28\)</span> testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään sattumalta datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"><em>multiple comparisons problem</em></a>), jota kuvaamme alla tarkemmin.</p>
+<p>Muista <em>Tilastotieteen perusteista</em>, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa <a href="above-beyond.html#tab:errortype">9.1</a>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Voimme sattumalta hylätä nollahypoteesin, vaikka nollahypoteesi kuvaisi totuutta (Tyypin 1 virhe, väärä positiivinen)</p></li>
+<li><p>Voimme sattumalta olla hylkäämättä nollahypoteesia, vaikka nollahypoteesi ei olisi totta (Tyypin 2 virhe, väärä negatiivinen).</p></li>
+</ol>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:errortype">Taulukko 9.1: </span>Havainnollistus testausvirheistä.
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Todellisuus
 </div>
-<div class="proposition">
-<p><span id="prp:unlabeled-div-50" class="proposition"><strong>Huomautus 9.1  </strong></span>Paljasta tulokset</p>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Päätös
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(H_0\)</span> on totta
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(H_1\)</span> on totta
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+<span class="math inline">\(H_0\)</span> hylätään
+</td>
+<td style="text-align:center;">
+Hylkäysvirhe <br> (Tyypin 1 virhe)
+</td>
+<td style="text-align:center;">
+Oikea päätös
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+<span class="math inline">\(H_0\)</span> ei hylätä
+</td>
+<td style="text-align:center;">
+Oikea päätös
+</td>
+<td style="text-align:center;">
+Hyväksymisvirhe <br> (Tyypin 2 virhe)
+</td>
+</tr>
+</tbody>
+</table>
+<p>Muista myös, että hylkäysvirheen todennäköisyyttä voidaan kontrolloida merkitsevyystason <span class="math inline">\(\alpha\)</span> avulla.</p>
+<div class="theorem">
+<p><span id="thm:type1" class="theorem"><strong>Fakta 9.1  (Yläraja hylkäysvirheelle) </strong></span>Merkitsevyystaso <span class="math inline">\(\alpha\)</span> antaa ylärajan hylkäysvirheelle eli
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}(H_0 \ \text{hylätään} | H_0) \leq \alpha.
+\end{equation*}\]</span></p>
 </div>
+<p>Kuitenkin esimerkin <a href="above-beyond.html#exm:warningmultiple">9.1</a> tyyppisissä monivertailuissa haluamme nimenomaan kontrolloida todennäköisyyttä, jolla saadaan ainakin yksi hylkäysvirhe. Alla oleva fakta, jonka paikkaansapitävyys todistetaan viikon 11 tehtävässä 1, auttaa ylärajan muodostamisessa.</p>
+<div class="theorem">
+<p><span id="thm:fwer" class="theorem"><strong>Fakta 9.2  (Yläraja perhekohtaiselle virhetodennäköisyydelle) </strong></span>Suoritetaan <span class="math inline">\(m\)</span> tilastollista testiä käyttäen merkitsevyystasoa <span class="math inline">\(\alpha/m\)</span>. Merkitään tilastollisen testin <span class="math inline">\(j\in\{1, \ldots, m\}\)</span> nollahypoteesia notaatiolla <span class="math inline">\(H_0^{(j)}\)</span>. Samoin merkitään tapahtumaa, että tilastollisessa testissä <span class="math inline">\(j\)</span> tehdään hylkäysvirhe notaatiolla <span class="math inline">\(A_j  = \{H_0 \ \text{hylätään} | H_0\}\)</span>. Tällöin
+<span class="math display">\[\begin{equation*}
+  \mathbb{P}\left(\bigcup A_j\right) \leq \alpha.
+\end{equation*}\]</span>
+Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\bigcup A_j\right)\)</span> kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: <em>family-wise error rate</em>).</p>
+</div>
+<p>Eli jos teemme <span class="math inline">\(m\)</span> tilastollista testiä samanaikaisesti merkitsevyystasolla <span class="math inline">\(\alpha/m\)</span>, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on <span class="math inline">\(\alpha\)</span>. Tästä johtuen tuntuisi loogiselta, että esimerkin <a href="above-beyond.html#exm:warningmultiple">9.1</a> funktiossa <code>pairwise.wilcox.test()</code> meidän kannattaisi käyttää merkitsevyystasona<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> <span class="math inline">\(0.05 / 28  \approx 0.001786\)</span> alkuperäisen <span class="math inline">\(0.05\)</span> sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on <span class="math inline">\(0.05\)</span>. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja <span class="math inline">\(m\cdot \text{p-arvo}\)</span> alkuperäiseen merkitsevyystasoon <span class="math inline">\(\alpha = 0.05\)</span>, koska
+<span class="math display">\[\begin{equation*}
+  \text{$H_0$ hylätään} \iff \text{p-arvo} &lt; \frac{\alpha}{m}
+  \iff m\cdot \text{p-arvo} &lt; \alpha.
+\end{equation*}\]</span>
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi <span class="math inline">\(0.01\)</span> tai <span class="math inline">\(0.05\)</span>). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä <span class="math inline">\(m\)</span>. R funktio <code>pairwise.wilcox.test()</code> tuottaa Bonferroni korjatut p-arvot kun asetetaan <code>p.adjust.method = "bonferroni"</code> funktion sisällä (Viikko 11, tehtävä 1).</p>
 </div>
 <div id="sec:ridge" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Harjanneregressio<a href="above-beyond.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -398,6 +467,7 @@ tehtaille <span class="math inline">\(i,j\in\{1, \ldots, 8\}\)</span>, <span cla
 <hr />
 <ol start="26">
 <li id="fn26"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="above-beyond.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä 28 kappaletta.<a href="above-beyond.html#fnref27" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

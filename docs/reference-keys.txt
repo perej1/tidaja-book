@@ -201,10 +201,11 @@ exm:fit
 exm:unlabeled-div-49
 exm:warningmultiple
 fig:chocobox
-exm:bonferroni
-prp:unlabeled-div-50
+tab:errortype
+thm:type1
+thm:fwer
 eq:euclidean
-exm:unlabeled-div-52
+exm:unlabeled-div-51
 fig:vec
 r-ohjelmointikielestä
 sec:inst
