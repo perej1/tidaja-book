@@ -376,7 +376,7 @@ tehtaille <span class="math inline">\(j,k\in\{1, \ldots, 8\}\)</span>, <span cla
 <li><p>tehtaan <span class="math inline">\(1\)</span> painojakaumat eroaa merkittävästi tehtaista <span class="math inline">\(2\)</span>, <span class="math inline">\(3\)</span>, <span class="math inline">\(4\)</span>, <span class="math inline">\(5\)</span>, <span class="math inline">\(7\)</span> ja <span class="math inline">\(8\)</span>.</p></li>
 </ul>
 </div>
-<p>Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla <code>pairwise.wilcox.test()</code> (yhteensä <span class="math inline">\(28\)</span> testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään sattumalta datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"><em>multiple comparisons problem</em></a>), jota kuvaamme alla tarkemmin.</p>
+<p>Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla <code>pairwise.wilcox.test()</code> (yhteensä <span class="math inline">\(28\)</span> testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"><em>multiple comparisons problem</em></a>), jota kuvaamme alla tarkemmin.</p>
 <p>Muista <em>Tilastotieteen perusteista</em>, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa <a href="above-beyond.html#tab:errortype">9.1</a>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Voimme sattumalta hylätä nollahypoteesin, vaikka nollahypoteesi kuvaisi totuutta (Tyypin 1 virhe, väärä positiivinen)</p></li>
@@ -440,7 +440,7 @@ Hyväksymisvirhe <br> (Tyypin 2 virhe)
   \mathbb{P}(H_0 \ \text{hylätään} | H_0) \leq \alpha.
 \end{equation*}\]</span></p>
 </div>
-<p>Kuitenkin esimerkin <a href="above-beyond.html#exm:warningmultiple">9.1</a> tyyppisissä monivertailuissa haluamme nimenomaan kontrolloida todennäköisyyttä, jolla saadaan ainakin yksi hylkäysvirhe. Alla oleva fakta, jonka paikkaansapitävyys todistetaan viikon 11 tehtävässä 1, auttaa ylärajan muodostamisessa.</p>
+<p>Kuitenkin esimerkin <a href="above-beyond.html#exm:warningmultiple">9.1</a> tyyppisissä monivertailuissa haluamme kontrolloida todennäköisyyttä, jolla saadaan <strong>ainakin</strong> yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktaktassa, joka todistetaan viikon 11 tehtävässä 1.</p>
 <div class="theorem">
 <p><span id="thm:fwer" class="theorem"><strong>Fakta 9.2  (Yläraja perhekohtaiselle virhetodennäköisyydelle) </strong></span>Suoritetaan <span class="math inline">\(m\)</span> tilastollista testiä käyttäen merkitsevyystasoa <span class="math inline">\(\alpha/m\)</span>. Merkitään tilastollisen testin <span class="math inline">\(j\in\{1, \ldots, m\}\)</span> nollahypoteesia notaatiolla <span class="math inline">\(H_0^{(j)}\)</span>. Samoin merkitään tapahtumaa, että tilastollisessa testissä <span class="math inline">\(j\)</span> tehdään hylkäysvirhe notaatiolla <span class="math inline">\(A_j  = \left\{H_0^{(j)} \ \text{hylätään} | H_0^{(j)}\right\}\)</span>. Tällöin
 <span class="math display">\[\begin{equation*}
@@ -453,7 +453,7 @@ Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\bigcup_{i=1}^n 
   \text{$H_0$ hylätään} \iff \text{p-arvo} &lt; \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} &lt; \alpha.
 \end{equation*}\]</span>
-Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi <span class="math inline">\(0.01\)</span> tai <span class="math inline">\(0.05\)</span>). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä <span class="math inline">\(m\)</span>. R funktio <code>pairwise.wilcox.test()</code> tuottaa Bonferroni korjatut p-arvot, kun asetetaan <code>p.adjust.method = "bonferroni"</code> funktion sisällä (Viikko 11, tehtävä 1).</p>
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi <span class="math inline">\(0.01\)</span> tai <span class="math inline">\(0.05\)</span>). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä <span class="math inline">\(m\)</span>. R funktio <code>pairwise.wilcox.test()</code> tuottaa Bonferroni korjatut p-arvot, kun asetetaan <code>p.adjust.method = "bonferroni"</code> funktion sisällä (Viikko 11, tehtävä 1).</p>
 </div>
 <div id="sec:ridge" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Harjanneregressio<a href="above-beyond.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -467,7 +467,7 @@ Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärke
 <hr />
 <ol start="26">
 <li id="fn26"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="above-beyond.html#fnref26" class="footnote-back">↩︎</a></p></li>
-<li id="fn27"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä 28 kappaletta.<a href="above-beyond.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä <span class="math inline">\(28\)</span> kappaletta.<a href="above-beyond.html#fnref27" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

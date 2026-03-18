@@ -88,7 +88,7 @@ Käyttämällä merkitsevyystasoa $\alpha = 0.05$ huomaamme, että
 - tehtaan $1$ painojakaumat eroaa merkittävästi tehtaista $2$, $3$, $4$, $5$, $7$ ja $8$.
 :::
 
-Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla `pairwise.wilcox.test()` (yhteensä $28$ testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään sattumalta datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: [*multiple comparisons problem*](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)), jota kuvaamme alla tarkemmin.
+Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla `pairwise.wilcox.test()` (yhteensä $28$ testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: [*multiple comparisons problem*](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)), jota kuvaamme alla tarkemmin.
 
 Muista *Tilastotieteen perusteista*, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa \@ref(tab:errortype).
 
@@ -127,7 +127,7 @@ Merkitsevyystaso $\alpha$ antaa ylärajan hylkäysvirheelle eli
 \end{equation*}
 :::
 
-Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monivertailuissa haluamme nimenomaan kontrolloida todennäköisyyttä, jolla saadaan ainakin yksi hylkäysvirhe. Alla oleva fakta, jonka paikkaansapitävyys todistetaan viikon 11 tehtävässä 1, auttaa ylärajan muodostamisessa.
+Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monivertailuissa haluamme kontrolloida todennäköisyyttä, jolla saadaan **ainakin** yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktaktassa, joka todistetaan viikon 11 tehtävässä 1.
 
 :::{.theorem #fwer name="Yläraja perhekohtaiselle virhetodennäköisyydelle"}
 Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. Merkitään tilastollisen testin $j\in\{1, \ldots, m\}$ nollahypoteesia notaatiolla $H_0^{(j)}$. Samoin merkitään tapahtumaa, että tilastollisessa testissä $j$ tehdään hylkäysvirhe notaatiolla $A_j  = \left\{H_0^{(j)} \ \text{hylätään} | H_0^{(j)}\right\}$. Tällöin
@@ -137,12 +137,12 @@ Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. M
 Todennäköisyyttä $\mathbb{P}\left(\bigcup_{i=1}^n A_j\right)$ kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: *family-wise error rate*).
 :::
 
-Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\alpha/m$, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on $\alpha$. Tästä johtuen tuntuisi loogiselta, että esimerkin \@ref(exm:warningmultiple) funktiossa `pairwise.wilcox.test()` meidän kannattaisi käyttää merkitsevyystasona^[Jaetaan luvulla $28$, koska testejä tehdään yhteensä 28 kappaletta.] $0.05 / 28  \approx 0.001786$ alkuperäisen $0.05$ sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on $0.05$. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja $m\cdot \text{p-arvo}$ alkuperäiseen merkitsevyystasoon $\alpha = 0.05$, koska
+Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\alpha/m$, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on $\alpha$. Tästä johtuen tuntuisi loogiselta, että esimerkin \@ref(exm:warningmultiple) funktiossa `pairwise.wilcox.test()` meidän kannattaisi käyttää merkitsevyystasona^[Jaetaan luvulla $28$, koska testejä tehdään yhteensä $28$ kappaletta.] $0.05 / 28  \approx 0.001786$ alkuperäisen $0.05$ sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on $0.05$. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja $m\cdot \text{p-arvo}$ alkuperäiseen merkitsevyystasoon $\alpha = 0.05$, koska
 \begin{equation*}
   \text{$H_0$ hylätään} \iff \text{p-arvo} < \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} < \alpha.
 \end{equation*}
-Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäisvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus, jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
 
 
 ## Harjanneregressio {#sec:ridge}
