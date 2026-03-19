@@ -381,9 +381,10 @@ knitr::include_graphics("images/overfit.jpg")
 Lineaarisen regression tapauksessa liikasovitus on myös mahdollista, sillä lisättäessä uusi selittävä muuttuja malliin, selitysasteen $R^2$ arvo nousee tai pysyy samana. Näin tapahtuu aina, vaikka itse selittävällä muuttujalla ei olisi mitään tekemistä mallinnettavan ilmiön kanssa. Tämän vuoksi tuijotettaessa pelkästään selitysasteen $R^2$ arvoa voidaan vahingossa syyllistyä liikasovittamiseen.
 
 Liikasovittamisen välttämiseksi selitysasteen sijasta käytetään yleensä muokattua selitysastetta $R_{adj}^2$ (eng: *adjusted $R^2$*), joka rankaisee mallin monimutkaisuudesta eli lineaarisen regression tapauksessa selittävien muuttujien määrästä $d$,
-\begin{equation*}
+\begin{equation}
+  (\#eq:adjusted)
   R_{adj}^2 = 1 - \left(1 - R^2\right)\frac{n-1}{n-d-1}.
-\end{equation*}
+\end{equation}
 
 (ref:rsq) Arvojen $R^2$ ja $R_{adj}^2$ laskeminen
 

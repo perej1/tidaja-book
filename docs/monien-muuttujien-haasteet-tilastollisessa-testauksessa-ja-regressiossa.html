@@ -456,33 +456,33 @@ Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärke�
 </div>
 <div id="sec:selection" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Muuttujanvalinta lineaarisessa regressiossa<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Oletetaan, että saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((d+1)\)</span>-ulotteisia riippumattomia havaintoja
+<p>Oletetaan, että saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((p + 1)\)</span>-ulotteisia riippumattomia havaintoja
 <span class="math display">\[\begin{equation*}
-  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots,
-  (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\},
+  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1p}), \ldots,
+  (y_n, x_{n1}, x_{n2}, \ldots, x_{np})\right\},
 \end{equation*}\]</span>
-jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat <em>mahdollisten</em> <span class="math inline">\(d\)</span> selittävien muuttujien havainnot. Varsinkin jos selittäviä muuttujia on useita ja emme ole varmoja ovatko kaikki selittäjät relevantteja, niin sisällytämme vain osajoukon selittäjistä lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.</p>
+jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat <em>mahdollisten</em> <span class="math inline">\(p\)</span> selittävien muuttujien havainnot. Usein halutaan sisällyttää vain oleelliset selittäjät lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.</p>
 <ul>
 <li><p>Jos sisällytämme liian vähän selittäjiä, niin mallin sovite on huono (alhainen selitysaste <span class="math inline">\(R^2\)</span> tai muokattu selitysaste <span class="math inline">\(R_{adj}^2\)</span>) ja myös ennustuksien laatu kärsii.</p></li>
 <li><p>Jos sisällytämme liikaa selittäjiä, niin vaarana on liikasovittaminen ja multikollineaarisuus.</p></li>
 </ul>
 <p>Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 9.2  </strong></span>Havaintoaineisto <code>cars</code> sisältää dataa liittyen autojen ominaisuuksiin (yhteensä 11 muuttujaa). Havaintoja (eli autoja) on yhteensä <span class="math inline">\(32\)</span> kappaletta. Haluamme selittää polttoaineen kulutusta <code>mpg</code> muilla havaintoaineiston muuttujilla. Muuttujaa <code>mpg</code> mitataan yksiköissä maili<span class="math inline">\(/\)</span>gallona. Eli suuri <code>mpg</code> arvo viittaa pieneen polttoaineen kulutukseen ja pieni <code>mpg</code> arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla <code>?mtcars</code>.</p>
+<p><span id="exm:modelnum" class="example"><strong>Esimerkki 9.2  (Mallien määrä) </strong></span>Havaintoaineisto <code>mtcars</code> sisältää dataa liittyen autojen ominaisuuksiin (yhteensä <span class="math inline">\(7\)</span> muuttujaa). Havaintoja (eli autoja) on yhteensä <span class="math inline">\(32\)</span> kappaletta. Haluamme selittää polttoaineen kulutusta <code>mpg</code> muilla havaintoaineiston muuttujilla. Muuttujaa <code>mpg</code> mitataan yksiköissä maili<span class="math inline">\(/\)</span>gallona. Eli suuri <code>mpg</code> arvo viittaa pieneen polttoaineen kulutukseen ja pieni <code>mpg</code> arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla <code>?mtcars</code>.</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb305-1" tabindex="-1"></a>mtcars</span></code></pre></div>
-<pre><code>## # A tibble: 32 × 11
-##      mpg cyl    disp    hp  drat    wt  qsec vs    am    gear  carb 
-##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
-##  1  21   6      160    110  3.9   2.62  16.5 0     1     4     4    
-##  2  21   6      160    110  3.9   2.88  17.0 0     1     4     4    
-##  3  22.8 4      108     93  3.85  2.32  18.6 1     1     4     1    
-##  4  21.4 6      258    110  3.08  3.22  19.4 1     0     3     1    
-##  5  18.7 8      360    175  3.15  3.44  17.0 0     0     3     2    
-##  6  18.1 6      225    105  2.76  3.46  20.2 1     0     3     1    
-##  7  14.3 8      360    245  3.21  3.57  15.8 0     0     3     4    
-##  8  24.4 4      147.    62  3.69  3.19  20   1     0     4     2    
-##  9  22.8 4      141.    95  3.92  3.15  22.9 1     0     4     2    
-## 10  19.2 6      168.   123  3.92  3.44  18.3 1     0     4     4    
+<pre><code>## # A tibble: 32 × 7
+##      mpg cyl    disp    hp  drat    wt  qsec
+##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21   6      160    110  3.9   2.62  16.5
+##  2  21   6      160    110  3.9   2.88  17.0
+##  3  22.8 4      108     93  3.85  2.32  18.6
+##  4  21.4 6      258    110  3.08  3.22  19.4
+##  5  18.7 8      360    175  3.15  3.44  17.0
+##  6  18.1 6      225    105  2.76  3.46  20.2
+##  7  14.3 8      360    245  3.21  3.57  15.8
+##  8  24.4 4      147.    62  3.69  3.19  20  
+##  9  22.8 4      141.    95  3.92  3.15  22.9
+## 10  19.2 6      168.   123  3.92  3.44  18.3
 ## # ℹ 22 more rows</code></pre>
 <p>Nyt esimerkiksi mahdollisia kahden selittäjän lineaarisia regressiomalleja
 <span class="math display">\[\begin{align*}
@@ -492,7 +492,103 @@ jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut 
   &amp;\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_5 \texttt{wt}_i + \varepsilon_i,
   &amp;\quad\text{jne.}
 \end{align*}\]</span>
-on <span class="math inline">\(\binom{10}{2} = 45\)</span> kappaletta. Kolmen selittäjän malleja on <span class="math inline">\(\binom{10}{3} = 120\)</span> kappaletta. Kokonaisuudessaan mahdollisia malleja on <span class="math inline">\(\sum_{i=0}^{10} \binom{10}{i} = 2^{10} = 1024\)</span> kappaletta<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, kun myös “tyhjä” malli <span class="math inline">\(y_i = \beta_0 + \varepsilon_i\)</span> on vaihtoehto.</p>
+on <span class="math inline">\(\binom{6}{2} = 15\)</span> kappaletta. Kolmen selittäjän malleja on <span class="math inline">\(\binom{6}{3} = 20\)</span> kappaletta. Kokonaisuudessaan mahdollisia malleja on <span class="math inline">\(\sum_{i=0}^{6} \binom{6}{i} = 2^{6} = 64\)</span> kappaletta<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, kun myös malli ilman selittäjiä <span class="math inline">\(\texttt{mpg}_i = \beta_0 + \varepsilon_i\)</span> on vaihtoehto.</p>
+</div>
+<p>Yleensä ideana on valita selittäjät niin, että kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:epsilonse">(3.11)</a> estimoitu virhetermien <span class="math inline">\(\varepsilon_i\)</span> varianssi <span class="math inline">\(s^2\)</span> on mahdollisimman pieni mutta toisaalta selittäjien lukumäärä <span class="math inline">\(d\in\{1, \ldots, p\}\)</span> on myös mahdollisimman pieni. Matemaattisesti tämä tarkoittaa yleensä jonkun järkevän funktion <span class="math inline">\(f = f(s^2, d)\)</span> minimoimista selittäjien suhteen. Vaihtoehtoja funktiolla <span class="math inline">\(f\)</span> on useita. Yleisiä valintoja ovat esimerkiksi</p>
+<ul>
+<li><p>kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:adjusted">(3.8)</a> muokattu selitysaste <span class="math inline">\(f(s^2, d) = R_{adj}^2\)</span> tai</p></li>
+<li><p>niin kutsuttu Akaiken informaatiokriteeri (eng: <em>Akaike information criterion, AIC</em>) <span class="math inline">\(f(s^2, d) = \ln\left(s^2\right) + \frac{2d}{n}\)</span>.</p></li>
+</ul>
+<p>Nyt periaatteessa valitun funktion <span class="math inline">\(f\)</span> arvo voitaisiin laskea kaikille mahdollisille malleille ja sitten valitaan se malli, jolle <span class="math inline">\(f(s^2, d)\)</span> on pienin. Yleensä kuitenkin malleja on niin paljon, että näin ei tehdä. Tämän sijaan käytännön ongelmissa käytetään jotain strategiaa<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, jolla päästään usein lähelle optimaalista mallia. Kolme erilaista mallinvalintastrategiaa perustuen Akaiken informaatiokriteeriin ollaan implementoitu R funktiossa <code>step()</code>. Huomaa, että minimoitavan funktion <span class="math inline">\(f\)</span> valinnan lisäksi myös mallinvalintastrategia vaikuttaa siihen, mihin malliin lopulta päädytään (Viikko 11, tehtävä 2).</p>
+<p>Alla on esimerkki mallinvalinnasta R funktion <code>step()</code> avulla.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 9.3  (Muuttujanvalinta) </strong></span>Nyt haluamme suorittaa muuttujanvalinnan esimerkin <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:modelnum">9.2</a> tilanteessa. Minimoitavana funktiona käytämme Akaiken informaatiokriteeriä (AIC). Käytämme seuraavaa valintastrategiaa.</p>
+<ol style="list-style-type: decimal">
+<li><p>Laskemme sovitettua mallia vastaavan AIC:n.</p></li>
+<li><p>Lisäämme/poistamme selittäjän niin, että uuden sovitetun mallin AIC pienenee mahdollisimman paljon.</p></li>
+<li><p>Toistamme askeleet 1 ja 2 kunnes minkään selittäjän lisäys/poisto ei vähennä sovitetun mallin AIC:tä.</p></li>
+</ol>
+<p>Valintastrategia määritetään argumentin <code>direction</code> avulla. Lisäksi meidän täytyy asettaa algoritmille joku aloituspiste eli malli, josta aloitamme. Tässä tapauksessa aloituspisteeksi asetamme mallin ilman selittäjiä <span class="math inline">\(\texttt{mpg}_i = \beta_0 + \varepsilon_i\)</span> ensimmäisessä argumentissa. Funktion <code>step()</code> argumentissä <code>scope</code> täytyy myös määritellä mallit joita algoritmi harkitsee.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-1" tabindex="-1"></a><span class="co"># Model with only the intercept</span></span>
+<span id="cb307-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-2" tabindex="-1"></a>empty_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mtcars)</span>
+<span id="cb307-3"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-3" tabindex="-1"></a></span>
+<span id="cb307-4"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-4" tabindex="-1"></a><span class="co"># Model with all the possible explatonary variables</span></span>
+<span id="cb307-5"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-5" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)</span>
+<span id="cb307-6"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-6" tabindex="-1"></a></span>
+<span id="cb307-7"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-7" tabindex="-1"></a><span class="co"># Perform stepwise selection starting from the empty model</span></span>
+<span id="cb307-8"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-8" tabindex="-1"></a>model_step <span class="ot">&lt;-</span> <span class="fu">step</span>(empty_model, </span>
+<span id="cb307-9"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-9" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty_model, <span class="at">upper =</span> full_model), </span>
+<span id="cb307-10"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-10" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
+<pre><code>## Start:  AIC=115.94
+## mpg ~ 1
+## 
+##        Df Sum of Sq     RSS     AIC
+## + wt    1    847.73  278.32  73.217
+## + disp  1    808.89  317.16  77.397
+## + cyl   2    824.78  301.26  77.752
+## + hp    1    678.37  447.67  88.427
+## + drat  1    522.48  603.57  97.988
+## + qsec  1    197.39  928.66 111.776
+## &lt;none&gt;              1126.05 115.943
+## 
+## Step:  AIC=73.22
+## mpg ~ wt
+## 
+##        Df Sum of Sq     RSS     AIC
+## + cyl   2     95.26  183.06  63.810
+## + hp    1     83.27  195.05  63.840
+## + qsec  1     82.86  195.46  63.908
+## + disp  1     31.64  246.68  71.356
+## &lt;none&gt;               278.32  73.217
+## + drat  1      9.08  269.24  74.156
+## - wt    1    847.73 1126.05 115.943
+## 
+## Step:  AIC=63.81
+## mpg ~ wt + cyl
+## 
+##        Df Sum of Sq    RSS    AIC
+## + hp    1    22.281 160.78 61.657
+## &lt;none&gt;              183.06 63.810
+## + qsec  1    10.949 172.11 63.837
+## + disp  1     0.110 182.95 65.791
+## + drat  1     0.073 182.99 65.798
+## - cyl   2    95.263 278.32 73.217
+## - wt    1   118.204 301.26 77.752
+## 
+## Step:  AIC=61.66
+## mpg ~ wt + cyl + hp
+## 
+##        Df Sum of Sq    RSS    AIC
+## &lt;none&gt;              160.78 61.657
+## + drat  1     2.438 158.34 63.168
+## + disp  1     0.651 160.13 63.527
+## + qsec  1     0.229 160.55 63.611
+## - hp    1    22.281 183.06 63.810
+## - cyl   2    34.270 195.05 63.840
+## - wt    1   116.390 277.17 77.084</code></pre>
+<p>Yllä oleva tuloste näyttää muuttujanvalinnan kaikki vaiheet. Esimerkiksi ensimmäisessä vaiheessa muuttujan <code>wt</code> lisääminen pienentää AIC:tä eniten. Tässä tapauksessa algoritmi lisää yhteensä kolme selittäjää (<code>wt</code>, <code>cyl</code> ja <code>hp</code>) ja huomaa, että tämän jälkeen minkään uuden selittäjän lisääminen tai vanhan selittäjän poistaminen ei pienennä AIC:ta. Lopullinen sovitettu malli ollaan tallennettu muuttujaan <code>model_step</code>. Mallin analysoimista voitaisiin jatkaa nyt normaalisti (diagnostiikka, mallin sovitteen hyvyys, merkitsevyys jne).</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb309-1" tabindex="-1"></a><span class="fu">summary</span>(model_step)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + cyl + hp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.2612 -1.0320 -0.3210  0.9281  5.3947 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 32.48697    2.81147  11.555 5.86e-12 ***
+## wt          -3.18140    0.71960  -4.421 0.000144 ***
+## cyl4         3.35902    1.40167   2.396 0.023747 *  
+## cyl8         0.17314    1.65392   0.105 0.917400    
+## hp          -0.02312    0.01195  -1.934 0.063613 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.44 on 27 degrees of freedom
+## Multiple R-squared:  0.8572, Adjusted R-squared:  0.8361 
+## F-statistic: 40.53 on 4 and 27 DF,  p-value: 4.869e-11</code></pre>
 </div>
 </div>
 <div id="sec:ridge" class="section level2 hasAnchor" number="9.3">
@@ -507,7 +603,8 @@ on <span class="math inline">\(\binom{10}{2} = 45\)</span> kappaletta. Kolmen se
 <li id="fn27"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref27" class="footnote-back">↩︎</a></p></li>
 <li id="fn28"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä <span class="math inline">\(28\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref28" class="footnote-back">↩︎</a></p></li>
 <li id="fn29"><p>Muitakin p-arvojen korjausmenetelmiä on olemassa.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref29" class="footnote-back">↩︎</a></p></li>
-<li id="fn30"><p>Jos selittäjiä on <span class="math inline">\(d\)</span> kappaletta, niin mahdollisia lineaarisia malleja on <span class="math inline">\(2^d\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>Jos selittäjiä on <span class="math inline">\(p\)</span> kappaletta, niin mahdollisia lineaarisia malleja on <span class="math inline">\(2^p\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>Nämä strategiat ovat esimerkkejä ahneista algoritmeista (eng: <em>greedy algorithm</em>). Ahneet algoritmien ideana on tehdä lyhyen tähtäimen optimaalisia päätöksiä siinä toivossa, että algoritmi päätyy lähelle oikeaa optimaalista arvoa.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref31" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

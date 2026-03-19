@@ -145,12 +145,12 @@ Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärke�
 
 ## Muuttujanvalinta lineaarisessa regressiossa {#sec:selection}
 
-Oletetaan, että saatavilla on $n$ kappaletta $(d+1)$-ulotteisia riippumattomia havaintoja
+Oletetaan, että saatavilla on $n$ kappaletta $(p + 1)$-ulotteisia riippumattomia havaintoja
 \begin{equation*}
-  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots,
-  (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\},
+  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1p}), \ldots,
+  (y_n, x_{n1}, x_{n2}, \ldots, x_{np})\right\},
 \end{equation*}
-jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat *mahdollisten* $d$ selittävien muuttujien havainnot. Varsinkin jos selittäviä muuttujia on useita ja emme ole varmoja ovatko kaikki selittäjät relevantteja, niin sisällytämme vain osajoukon selittäjistä lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.
+jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat *mahdollisten* $p$ selittävien muuttujien havainnot. Usein halutaan sisällyttää vain oleelliset selittäjät lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.
 
 - Jos sisällytämme liian vähän selittäjiä, niin mallin sovite on huono (alhainen selitysaste $R^2$ tai muokattu selitysaste $R_{adj}^2$) ja myös ennustuksien laatu kärsii.
 
@@ -158,12 +158,13 @@ jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut 
 
 Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.
 
-:::{.example}
+:::{.example #modelnum name="Mallien määrä"}
 ```{r, echo=FALSE}
-mtcars <- readr::read_csv("data/cars.csv", col_types = "dfdidddffff")
+mtcars <- readr::read_csv("data/cars.csv", col_types = "dfdidddffff") %>%
+  select(-vs, -am, -gear, -carb)
 ```
 
-Havaintoaineisto `cars` sisältää dataa liittyen autojen ominaisuuksiin (yhteensä 11 muuttujaa). Havaintoja (eli autoja) on yhteensä $32$ kappaletta. Haluamme selittää polttoaineen kulutusta `mpg` muilla havaintoaineiston muuttujilla. Muuttujaa `mpg` mitataan yksiköissä maili$/$gallona. Eli suuri `mpg` arvo viittaa pieneen polttoaineen kulutukseen ja pieni `mpg` arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla `?mtcars`. 
+Havaintoaineisto `mtcars` sisältää dataa liittyen autojen ominaisuuksiin (yhteensä $7$ muuttujaa). Havaintoja (eli autoja) on yhteensä $32$ kappaletta. Haluamme selittää polttoaineen kulutusta `mpg` muilla havaintoaineiston muuttujilla. Muuttujaa `mpg` mitataan yksiköissä maili$/$gallona. Eli suuri `mpg` arvo viittaa pieneen polttoaineen kulutukseen ja pieni `mpg` arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla `?mtcars`. 
 ```{r}
 mtcars
 ```
@@ -176,10 +177,48 @@ Nyt esimerkiksi mahdollisia kahden selittäjän lineaarisia regressiomalleja
   &\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_5 \texttt{wt}_i + \varepsilon_i,
   &\quad\text{jne.}
 \end{align*}
-on $\binom{10}{2} = 45$ kappaletta. Kolmen selittäjän malleja on $\binom{10}{3} = 120$ kappaletta. Kokonaisuudessaan mahdollisia malleja on $\sum_{i=0}^{10} \binom{10}{i} = 2^{10} = 1024$ kappaletta^[Jos selittäjiä on $d$ kappaletta, niin mahdollisia lineaarisia malleja on $2^d$ kappaletta.], kun myös "tyhjä" malli $y_i = \beta_0 + \varepsilon_i$ on vaihtoehto.
+on $\binom{6}{2} = 15$ kappaletta. Kolmen selittäjän malleja on $\binom{6}{3} = 20$ kappaletta. Kokonaisuudessaan mahdollisia malleja on $\sum_{i=0}^{6} \binom{6}{i} = 2^{6} = 64$ kappaletta^[Jos selittäjiä on $p$ kappaletta, niin mahdollisia lineaarisia malleja on $2^p$ kappaletta.], kun myös malli ilman selittäjiä $\texttt{mpg}_i = \beta_0 + \varepsilon_i$ on vaihtoehto.
 :::
 
+Yleensä ideana on valita selittäjät niin, että kaavan \@ref(eq:epsilonse) estimoitu virhetermien $\varepsilon_i$ varianssi $s^2$ on mahdollisimman pieni mutta toisaalta selittäjien lukumäärä $d\in\{1, \ldots, p\}$ on myös mahdollisimman pieni. Matemaattisesti tämä tarkoittaa yleensä jonkun järkevän funktion $f = f(s^2, d)$ minimoimista selittäjien suhteen. Vaihtoehtoja funktiolla $f$ on useita. Yleisiä valintoja ovat esimerkiksi 
+
+- kaavan \@ref(eq:adjusted) muokattu selitysaste $f(s^2, d) = R_{adj}^2$ tai
+
+- niin kutsuttu Akaiken informaatiokriteeri (eng: *Akaike information criterion, AIC*) $f(s^2, d) = \ln\left(s^2\right) + \frac{2d}{n}$.
+
+Nyt periaatteessa valitun funktion $f$ arvo voitaisiin laskea kaikille mahdollisille malleille ja sitten valitaan se malli, jolle $f(s^2, d)$ on pienin. Yleensä kuitenkin malleja on niin paljon, että näin ei tehdä. Tämän sijaan käytännön ongelmissa käytetään jotain strategiaa^[Nämä strategiat ovat esimerkkejä ahneista algoritmeista (eng: *greedy algorithm*). Ahneet algoritmien ideana on tehdä lyhyen tähtäimen optimaalisia päätöksiä siinä toivossa, että algoritmi päätyy lähelle oikeaa optimaalista arvoa.], jolla päästään usein lähelle optimaalista mallia. Kolme erilaista mallinvalintastrategiaa perustuen Akaiken informaatiokriteeriin ollaan implementoitu R funktiossa `step()`. Huomaa, että minimoitavan funktion $f$ valinnan lisäksi myös mallinvalintastrategia vaikuttaa siihen, mihin malliin lopulta päädytään (Viikko 11, tehtävä 2).
+
+Alla on esimerkki mallinvalinnasta R funktion `step()` avulla.
+
+:::{.example name="Muuttujanvalinta"}
+Nyt haluamme suorittaa muuttujanvalinnan esimerkin \@ref(exm:modelnum) tilanteessa. Minimoitavana funktiona käytämme Akaiken informaatiokriteeriä (AIC). Käytämme seuraavaa valintastrategiaa.
+
+1. Laskemme sovitettua mallia vastaavan AIC:n.
+
+2. Lisäämme/poistamme selittäjän niin, että uuden sovitetun mallin AIC pienenee mahdollisimman paljon.
+
+3. Toistamme askeleet 1 ja 2 kunnes minkään selittäjän lisäys/poisto ei vähennä sovitetun mallin AIC:tä.
+
+Valintastrategia määritetään argumentin `direction` avulla. Lisäksi meidän täytyy asettaa algoritmille joku aloituspiste eli malli, josta aloitamme. Tässä tapauksessa aloituspisteeksi asetamme mallin ilman selittäjiä $\texttt{mpg}_i = \beta_0 + \varepsilon_i$ ensimmäisessä argumentissa. Funktion `step()` argumentissä `scope` täytyy myös määritellä mallit joita algoritmi harkitsee.
+
+```{r}
+# Model with only the intercept
+empty_model <- lm(mpg ~ 1, data = mtcars)
+
+# Model with all the possible explatonary variables
+full_model <- lm(mpg ~ ., data = mtcars)
+
+# Perform stepwise selection starting from the empty model
+model_step <- step(empty_model, 
+                   scope = list(lower = empty_model, upper = full_model), 
+                   direction = "both")
+```
+
+Yllä oleva tuloste näyttää muuttujanvalinnan kaikki vaiheet. Esimerkiksi ensimmäisessä vaiheessa muuttujan `wt` lisääminen pienentää AIC:tä eniten. Tässä tapauksessa algoritmi lisää yhteensä kolme selittäjää (`wt`, `cyl` ja `hp`) ja huomaa, että tämän jälkeen minkään uuden selittäjän lisääminen tai vanhan selittäjän poistaminen ei pienennä AIC:ta. Lopullinen sovitettu malli ollaan tallennettu muuttujaan `model_step`. Mallin analysoimista voitaisiin jatkaa nyt normaalisti (diagnostiikka, mallin sovitteen hyvyys, merkitsevyys jne).
+```{r}
+summary(model_step)
+```
+:::
+
+
 ## Harjanneregressio {#sec:ridge}
-
-
-
