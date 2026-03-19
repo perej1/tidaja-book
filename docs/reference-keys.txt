@@ -204,8 +204,9 @@ fig:chocobox
 tab:errortype
 thm:type1
 thm:fwer
+exm:unlabeled-div-50
 eq:euclidean
-exm:unlabeled-div-51
+exm:unlabeled-div-52
 fig:vec
 r-ohjelmointikielestä
 sec:inst

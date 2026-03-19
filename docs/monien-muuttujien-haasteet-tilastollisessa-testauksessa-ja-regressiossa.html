@@ -456,6 +456,44 @@ Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärke�
 </div>
 <div id="sec:selection" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Muuttujanvalinta lineaarisessa regressiossa<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Oletetaan, että saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((d+1)\)</span>-ulotteisia riippumattomia havaintoja
+<span class="math display">\[\begin{equation*}
+  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots,
+  (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\},
+\end{equation*}\]</span>
+jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat <em>mahdollisten</em> <span class="math inline">\(d\)</span> selittävien muuttujien havainnot. Varsinkin jos selittäviä muuttujia on useita ja emme ole varmoja ovatko kaikki selittäjät relevantteja, niin sisällytämme vain osajoukon selittäjistä lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.</p>
+<ul>
+<li><p>Jos sisällytämme liian vähän selittäjiä, niin mallin sovite on huono (alhainen selitysaste <span class="math inline">\(R^2\)</span> tai muokattu selitysaste <span class="math inline">\(R_{adj}^2\)</span>) ja myös ennustuksien laatu kärsii.</p></li>
+<li><p>Jos sisällytämme liikaa selittäjiä, niin vaarana on liikasovittaminen ja multikollineaarisuus.</p></li>
+</ul>
+<p>Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 9.2  </strong></span>Havaintoaineisto <code>cars</code> sisältää dataa liittyen autojen ominaisuuksiin (yhteensä 11 muuttujaa). Havaintoja (eli autoja) on yhteensä <span class="math inline">\(32\)</span> kappaletta. Haluamme selittää polttoaineen kulutusta <code>mpg</code> muilla havaintoaineiston muuttujilla. Muuttujaa <code>mpg</code> mitataan yksiköissä maili<span class="math inline">\(/\)</span>gallona. Eli suuri <code>mpg</code> arvo viittaa pieneen polttoaineen kulutukseen ja pieni <code>mpg</code> arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla <code>?mtcars</code>.</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb305-1" tabindex="-1"></a>mtcars</span></code></pre></div>
+<pre><code>## # A tibble: 32 × 11
+##      mpg cyl    disp    hp  drat    wt  qsec vs    am    gear  carb 
+##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
+##  1  21   6      160    110  3.9   2.62  16.5 0     1     4     4    
+##  2  21   6      160    110  3.9   2.88  17.0 0     1     4     4    
+##  3  22.8 4      108     93  3.85  2.32  18.6 1     1     4     1    
+##  4  21.4 6      258    110  3.08  3.22  19.4 1     0     3     1    
+##  5  18.7 8      360    175  3.15  3.44  17.0 0     0     3     2    
+##  6  18.1 6      225    105  2.76  3.46  20.2 1     0     3     1    
+##  7  14.3 8      360    245  3.21  3.57  15.8 0     0     3     4    
+##  8  24.4 4      147.    62  3.69  3.19  20   1     0     4     2    
+##  9  22.8 4      141.    95  3.92  3.15  22.9 1     0     4     2    
+## 10  19.2 6      168.   123  3.92  3.44  18.3 1     0     4     4    
+## # ℹ 22 more rows</code></pre>
+<p>Nyt esimerkiksi mahdollisia kahden selittäjän lineaarisia regressiomalleja
+<span class="math display">\[\begin{align*}
+  &amp;\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_2\texttt{disp}_i + \varepsilon_i,
+  &amp;\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_3 \texttt{hp}_i + \varepsilon_i, \\
+  &amp;\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_4 \texttt{drat}_i + \varepsilon_i,
+  &amp;\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_5 \texttt{wt}_i + \varepsilon_i,
+  &amp;\quad\text{jne.}
+\end{align*}\]</span>
+on <span class="math inline">\(\binom{10}{2} = 45\)</span> kappaletta. Kolmen selittäjän malleja on <span class="math inline">\(\binom{10}{3} = 120\)</span> kappaletta. Kokonaisuudessaan mahdollisia malleja on <span class="math inline">\(\sum_{i=0}^{10} \binom{10}{i} = 2^{10} = 1024\)</span> kappaletta<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, kun myös “tyhjä” malli <span class="math inline">\(y_i = \beta_0 + \varepsilon_i\)</span> on vaihtoehto.</p>
+</div>
 </div>
 <div id="sec:ridge" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Harjanneregressio<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -469,6 +507,7 @@ Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärke�
 <li id="fn27"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref27" class="footnote-back">↩︎</a></p></li>
 <li id="fn28"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä <span class="math inline">\(28\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref28" class="footnote-back">↩︎</a></p></li>
 <li id="fn29"><p>Muitakin p-arvojen korjausmenetelmiä on olemassa.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>Jos selittäjiä on <span class="math inline">\(d\)</span> kappaletta, niin mahdollisia lineaarisia malleja on <span class="math inline">\(2^d\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref30" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

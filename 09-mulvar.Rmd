@@ -145,7 +145,39 @@ Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärke�
 
 ## Muuttujanvalinta lineaarisessa regressiossa {#sec:selection}
 
+Oletetaan, että saatavilla on $n$ kappaletta $(d+1)$-ulotteisia riippumattomia havaintoja
+\begin{equation*}
+  \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1d}), \ldots,
+  (y_n, x_{n1}, x_{n2}, \ldots, x_{nd})\right\},
+\end{equation*}
+jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut komponentit antavat *mahdollisten* $d$ selittävien muuttujien havainnot. Varsinkin jos selittäviä muuttujia on useita ja emme ole varmoja ovatko kaikki selittäjät relevantteja, niin sisällytämme vain osajoukon selittäjistä lopulliseen lineaariseen regressiomalliin. Tällöin kysymys kuuluukin, mitkä selittäjät tulee sisällyttää malliin.
 
+- Jos sisällytämme liian vähän selittäjiä, niin mallin sovite on huono (alhainen selitysaste $R^2$ tai muokattu selitysaste $R_{adj}^2$) ja myös ennustuksien laatu kärsii.
+
+- Jos sisällytämme liikaa selittäjiä, niin vaarana on liikasovittaminen ja multikollineaarisuus.
+
+Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.
+
+:::{.example}
+```{r, echo=FALSE}
+mtcars <- readr::read_csv("data/cars.csv", col_types = "dfdidddffff")
+```
+
+Havaintoaineisto `cars` sisältää dataa liittyen autojen ominaisuuksiin (yhteensä 11 muuttujaa). Havaintoja (eli autoja) on yhteensä $32$ kappaletta. Haluamme selittää polttoaineen kulutusta `mpg` muilla havaintoaineiston muuttujilla. Muuttujaa `mpg` mitataan yksiköissä maili$/$gallona. Eli suuri `mpg` arvo viittaa pieneen polttoaineen kulutukseen ja pieni `mpg` arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla `?mtcars`. 
+```{r}
+mtcars
+```
+
+Nyt esimerkiksi mahdollisia kahden selittäjän lineaarisia regressiomalleja
+\begin{align*}
+  &\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_2\texttt{disp}_i + \varepsilon_i,
+  &\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_3 \texttt{hp}_i + \varepsilon_i, \\
+  &\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_4 \texttt{drat}_i + \varepsilon_i,
+  &\texttt{mpg}_i = \beta_0 + \beta_1 \texttt{cyl}_i + \beta_5 \texttt{wt}_i + \varepsilon_i,
+  &\quad\text{jne.}
+\end{align*}
+on $\binom{10}{2} = 45$ kappaletta. Kolmen selittäjän malleja on $\binom{10}{3} = 120$ kappaletta. Kokonaisuudessaan mahdollisia malleja on $\sum_{i=0}^{10} \binom{10}{i} = 2^{10} = 1024$ kappaletta^[Jos selittäjiä on $d$ kappaletta, niin mahdollisia lineaarisia malleja on $2^d$ kappaletta.], kun myös "tyhjä" malli $y_i = \beta_0 + \varepsilon_i$ on vaihtoehto.
+:::
 
 ## Harjanneregressio {#sec:ridge}
 
