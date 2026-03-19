@@ -1,12 +1,10 @@
-# "Above & Beyond"
+# Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa
 
-Laajennamme teoriaa liittyen erinäisiin luentomonisteessa jo esiteltyihin teemoihin. Kryptinen luvun otsikko viittaa siihen, että tämän luvun asioita ei käydä samalla tarkkuudella kuin muita kurssin  pääteemoja kuten lineaarista regressiota. Tavoite on tarjota ikkuna haastavampiin aiheisiin, joista osaa käydään tarkemmin myöhemmillä data-analytiikan kursseilla.
+Yhä moniulotteisempia havaintoaineistoja esiintyy monilla tilastotieteen ja kauppatieteiden aloilla. Intuitiivisesti voidaan ajatella, että mitä enemmän dataa sitä parempi. Kuitenkin monen muuttujan tilastollisiin analyyseihin liittyy omat sudenkuoppansa.
 
-ANOVA:a ja Kruskal--Wallis testiä käsittelimme luvuissa \@ref(sec:anova) ja \@ref(sec:nonparammultiplesample). Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja. Seuraava luonnollinen askel tästä on useamman populaation parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Parittaiseen vertailuun liittyviä ongelmia avataan luvussa \@ref(sec:multiple).
+ANOVA:a ja Kruskal--Wallis testiä käsittelimme luvuissa \@ref(sec:anova) ja \@ref(sec:nonparammultiplesample). Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja yhtäaikaisesti. Seuraava luonnollinen askel tästä on populaatioiden yhtäaikainen parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Useamman muuttujan samanaikaiseen parittaiseen vertailuun liittyviä ongelmia avataan luvussa \@ref(sec:multiple).
 
-Eräs tavallisen lineaarisen regression yleistys eli logistinen regressio esiteltiin edellisessä luvussa. Luvussa \@ref(sec:ridge) esittelemme toisen yleistyksen lineaarisesta regressiosta eli harjanneregression, jota voidaan soveltaa vahvan multikollineaarisuuden tapauksesta.
-
-Koko kurssin ajan monissa menetelmissä tyypillinen oletus on ollut muotoa "havainnot ovat riippumattomia", vaikka riippumattomuus ei aina ole realistinen oletus. Kuten olemme jo nähneet, niin moniulotteisen datan tapauksessa on tietynlaista riippuvuutta -- havainnot ovat riippumattomia mutta komponentit ovat riippuvaisia. Viimeiseksi luvussa \@ref(sec:time) esittelemme aikasarjat, joissa myös harvoin riippumattomuus pätee. Aikasarjat ovat erittäin tärkeä datatyyppi, koska lukuisat kauppatieteisiin liittyvät havaintoaineistot kuten osakeindeksit ovat aikasarjoja.
+Usein lineaarisessa regressiossa, jos dataa on useista selittäjistä^[Käytännön data-analyyseissä mahdollisia selittäjäkandidaatteja voi olla esimerkiksi jopa satoja.], niin vain oleelliset selittäjät halutaan valita malliin. Muuttujanvalintastrategioita esitellään luvussa \@ref(sec:selection). Luvussa \@ref(sec:ridge) esittelemme erään yleistyksen lineaarisesta regressiosta eli harjanneregression. Harjanneregression voidaan nähdä olevan vaihtoehto perinteiselle muuttujanvalinnalle. Muutujanvalinnassa tietty muuttuja jota sisällytetään malliin tai ei. Toisaalta harjanneregressiossa kaikki alkuperäiset selittäjät pidetään mallissa mutta epäoleellisia muuttujia vastaavia kulmakertoimia kutistetaan.
 
 
 ## Monitestaus {#sec:multiple}
@@ -88,7 +86,7 @@ Käyttämällä merkitsevyystasoa $\alpha = 0.05$ huomaamme, että
 - tehtaan $1$ painojakaumat eroaa merkittävästi tehtaista $2$, $3$, $4$, $5$, $7$ ja $8$.
 :::
 
-Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla `pairwise.wilcox.test()` (yhteensä $28$ testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monivertailuongelmaksi (eng: [*multiple comparisons problem*](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)), jota kuvaamme alla tarkemmin.
+Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla `pairwise.wilcox.test()` (yhteensä $28$ testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monitestausongelmaksi (eng: [*multiple testing problem*](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)), jota kuvaamme alla tarkemmin.
 
 Muista *Tilastotieteen perusteista*, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa \@ref(tab:errortype).
 
@@ -127,7 +125,7 @@ Merkitsevyystaso $\alpha$ antaa ylärajan hylkäysvirheelle eli
 \end{equation*}
 :::
 
-Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monivertailuissa haluamme kontrolloida todennäköisyyttä, jolla saadaan **ainakin** yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktaktassa, joka todistetaan viikon 11 tehtävässä 1.
+Kuitenkin esimerkin \@ref(exm:warningmultiple) tyyppisissä monitestauksessa haluamme kontrolloida todennäköisyyttä, jolla saadaan **ainakin** yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktaktassa, joka todistetaan viikon 11 tehtävässä 1.
 
 :::{.theorem #fwer name="Yläraja perhekohtaiselle virhetodennäköisyydelle"}
 Suoritetaan $m$ tilastollista testiä käyttäen merkitsevyystasoa $\alpha/m$. Merkitään tilastollisen testin $j\in\{1, \ldots, m\}$ nollahypoteesia notaatiolla $H_0^{(j)}$. Samoin merkitään tapahtumaa, että tilastollisessa testissä $j$ tehdään hylkäysvirhe notaatiolla $A_j  = \left\{H_0^{(j)} \ \text{hylätään} | H_0^{(j)}\right\}$. Tällöin
@@ -142,10 +140,14 @@ Eli jos teemme $m$ tilastollista testiä samanaikaisesti merkitsevyystasolla $\a
   \text{$H_0$ hylätään} \iff \text{p-arvo} < \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} < \alpha.
 \end{equation*}
-Eli monivertailuongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus^[Muitakin p-arvojen korjausmenetelmiä on olemassa.], jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi $0.01$ tai $0.05$). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus^[Muitakin p-arvojen korjausmenetelmiä on olemassa.], jossa p-arvot kerrotaan tilastollisten testien määrällä $m$. R funktio `pairwise.wilcox.test()` tuottaa Bonferroni korjatut p-arvot, kun asetetaan `p.adjust.method = "bonferroni"` funktion sisällä (Viikko 11, tehtävä 1).
+
+
+## Muuttujanvalinta lineaarisessa regressiossa {#sec:selection}
+
 
 
 ## Harjanneregressio {#sec:ridge}
 
-## Aikasarjat {#sec:time}
+
 

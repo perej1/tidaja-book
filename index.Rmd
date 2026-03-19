@@ -24,7 +24,7 @@ topics <- c(
   "Uusiomenetelmä ja permutaatiotesti (plus Kruskal--Wallis testi)",
   "Estimoinnista (jatkoa *tilastotieteen perusteista*)",
   "Logistinen regressio",
-  '"Above & Beyond"', 
+  'Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa', 
   "Kertaus"
   )
 
