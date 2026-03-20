@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Luku 9 Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi</title>
-  <meta name="description" content="Luku 9 Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <title>Luku 9 Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi</title>
+  <meta name="description" content="Luku 9 Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Luku 9 Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta property="og:title" content="Luku 9 Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Luku 9 Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
+  <meta name="twitter:title" content="Luku 9 Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa | Tilastotieteen ja data-analytiikan jatkokurssi" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-19" />
+<meta name="date" content="2026-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -229,11 +229,11 @@ div.csl-indent {
 <li class="chapter" data-level="8.2" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:inflog"><i class="fa fa-check"></i><b>8.2</b> Tilastollinen päättely</a></li>
 <li class="chapter" data-level="8.3" data-path="logistinen-regressio.html"><a href="logistinen-regressio.html#sec:multilog"><i class="fa fa-check"></i><b>8.3</b> Moniulotteinen logistinen regressio</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><i class="fa fa-check"></i><b>9</b> Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa</a>
+<li class="chapter" data-level="9" data-path="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><i class="fa fa-check"></i><b>9</b> Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple"><i class="fa fa-check"></i><b>9.1</b> Monitestaus</a></li>
-<li class="chapter" data-level="9.2" data-path="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection"><i class="fa fa-check"></i><b>9.2</b> Muuttujanvalinta lineaarisessa regressiossa</a></li>
-<li class="chapter" data-level="9.3" data-path="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge"><i class="fa fa-check"></i><b>9.3</b> Harjanneregressio</a></li>
+<li class="chapter" data-level="9.1" data-path="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple"><i class="fa fa-check"></i><b>9.1</b> Monitestaus</a></li>
+<li class="chapter" data-level="9.2" data-path="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection"><i class="fa fa-check"></i><b>9.2</b> Muuttujanvalinta lineaarisessa regressiossa</a></li>
+<li class="chapter" data-level="9.3" data-path="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge"><i class="fa fa-check"></i><b>9.3</b> Harjanneregressio</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="liitteet.html"><a href="liitteet.html"><i class="fa fa-check"></i><b>10</b> Liitteet</a>
 <ul>
@@ -260,18 +260,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Luku 9</span> Monien muuttujien haasteet tilastollisessa testauksessa ja regressiossa<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Yhä moniulotteisempia havaintoaineistoja esiintyy monilla tilastotieteen ja kauppatieteiden aloilla. Intuitiivisesti voidaan ajatella, että mitä enemmän dataa sitä parempi. Kuitenkin monen muuttujan tilastollisiin analyyseihin liittyy omat sudenkuoppansa.</p>
-<p>ANOVA:a ja Kruskal–Wallis testiä käsittelimme luvuissa <a href="ryhmien-odotusarvojen-vertailu.html#sec:anova">4.3</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#sec:nonparammultiplesample">5.4</a>. Eli vertailimme useampien populaatioiden jakaumia tai niiden sijainteja yhtäaikaisesti. Seuraava luonnollinen askel tästä on populaatioiden yhtäaikainen parittainen vertailu, joka ei kuitenkaan ole täysin yksinkertaista. Useamman muuttujan samanaikaiseen parittaiseen vertailuun liittyviä ongelmia avataan luvussa <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple">9.1</a>.</p>
-<p>Usein lineaarisessa regressiossa, jos dataa on useista selittäjistä<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>, niin vain oleelliset selittäjät halutaan valita malliin. Muuttujanvalintastrategioita esitellään luvussa <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection">9.2</a>. Luvussa <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge">9.3</a> esittelemme erään yleistyksen lineaarisesta regressiosta eli harjanneregression. Harjanneregression voidaan nähdä olevan vaihtoehto perinteiselle muuttujanvalinnalle. Muutujanvalinnassa tietty muuttuja joko sisällytetään malliin tai ei. Toisaalta harjanneregressiossa kaikki alkuperäiset selittäjät pidetään mallissa mutta epäoleellisia muuttujia vastaavia kulmakertoimia kutistetaan.</p>
+<div id="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Luku 9</span> Moniulotteisuuden haasteet tilastollisessa testauksessa ja regressiossa<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Yhä moniulotteisempia havaintoaineistoja esiintyy monilla tilastotieteen ja kauppatieteiden aloilla. Intuitiivisesti voidaan ajatella, että mitä enemmän dataa on sitä parempi. Kuitenkin monen muuttujan tilastollisiin analyyseihin liittyy omat sudenkuoppansa.</p>
+<p>Esimerkiksi joissain tilanteissa haluamme suorittaa useamman tilastollisen testin samalle havaintoaineistolle, mitä kutsutaan monitestaukseksi. Monitestaukseen liittyviä haasteita käsitellään luvussa <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple">9.1</a>. Toisaalta usein lineaarisessa regressiossa, jos dataa on useista selittäjistä<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>, niin vain oleelliset selittäjät halutaan valita lopulliseen malliin. Muuttujanvalintastrategioita esitellään luvuissa <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection">9.2</a> ja <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge">9.3</a>.</p>
 <div id="sec:multiple" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Monitestaus<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Esimerkeissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#exm:kruskal">5.7</a> vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal–Wallis testillä<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa suklaalevyjen painot eroavat tilastollisesti merkitsevästi toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Esimerkiksi riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parittain parametrisilla (esimerkiksi t-testillä) tai epäparametrisilla (esimerkiksi sijasummatestillä) testeillä. Vaikka tässä luvussa käytämme epäparametrisia testejä populaatioiden vertailuun, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.</p>
-<p><strong>Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> kuvailema lähestymistapa on ongelmallinen.</strong></p>
+<h2><span class="header-section-number">9.1</span> Monitestaus<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Esimerkeissä <a href="ryhmien-odotusarvojen-vertailu.html#exm:anova">4.8</a> ja <a href="epäparametrisia-tilastollisia-testejä.html#exm:kruskal">5.7</a> vertailimme eri tehtaiden tuottamien suklaalevyjen painoja ANOVA:lla ja Kruskal–Wallis testillä<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. Molemmissa esimerkeissä päädyimme siihen johtopäätökseen, että ainakin kahdessa eri tehtaassa suklaalevyjen painot eroavat tilastollisesti merkitsevästi. Seuraava askel onkin selvittää, missä tehtaissa suklaalevyjen painot eroavat tilastollisesti merkitsevästi toisistaan. Tämä toteutetaan usein tehtaiden parittaisella vertailulla. Riippuen satunnaishavaintoihin liittyvistä oletuksista, tehtaita voidaan vertailla parametrisilla (esimerkiksi kahden otoksen t-testillä) tai epäparametrisilla (esimerkiksi sijasummatestillä) testeillä. Vaikka tässä luvussa käytämme epäparametrisia testejä populaatioiden vertailuun, niin luvussa käydyt periaatteet pätevät myös parametrisiin testeihin.</p>
+<p><strong>Alla näytetään lähestymistapa tehtaiden parittaiseen vertailuun, joka saattaa aluksi tuntua luonnolliselta. Kuitenkin esimerkin <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> kuvailema lähestymistapa on ongelmallinen.</strong></p>
 <div class="example">
 <p><span id="exm:warningmultiple" class="example"><strong>Esimerkki 9.1  (Varoittava esimerkki) </strong></span>Vilin makeistehdas oy on laajentanut toimintaansa yhteensä kahdeksaan tehtaaseen. Johtoporras on asettanut laatukriteeriksi, että suklaalevyjen painojakaumat pitäisi olla samoja kaikissa tehtaissa. Jokaisesta tehtaasta on <span class="math inline">\(n = 20\)</span> kokoinen otos suklaalevyjä.</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb294-1" tabindex="-1"></a>choco_big</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb294-1" tabindex="-1"></a>choco_big</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 8
 ##    factory1 factory2 factory3 factory4 factory5 factory6 factory7 factory8
 ##       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -296,11 +295,11 @@ div.csl-indent {
 ## 19    101.     108.     107.      89.7    102.      94.7    101.      93.9
 ## 20    107.     100.      99.1     88.7     95.4    100.      91.4     90.5</code></pre>
 <p>Aluksi muokataan havaintoaineistoa niin, että toinen sarake antaa havainnot ja ensimmäinen sarake antaa tehtaan, josta havainto tulee.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb296-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-2" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco_big <span class="sc">%&gt;%</span></span>
-<span id="cb296-3"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;factory&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;weight&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb296-4"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span>
-<span id="cb296-5"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-5" tabindex="-1"></a>choco_mod</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb296-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-2" tabindex="-1"></a>choco_mod <span class="ot">&lt;-</span> choco_big <span class="sc">%&gt;%</span></span>
+<span id="cb296-3"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;factory&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;weight&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb296-4"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factory =</span> <span class="fu">factor</span>(factory))</span>
+<span id="cb296-5"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb296-5" tabindex="-1"></a>choco_mod</span></code></pre></div>
 <pre><code>## # A tibble: 160 × 2
 ##    factory  weight
 ##    &lt;fct&gt;     &lt;dbl&gt;
@@ -315,11 +314,11 @@ div.csl-indent {
 ##  9 factory1  110. 
 ## 10 factory2   98.8
 ## # ℹ 150 more rows</code></pre>
-<p>Kuvan <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fig:chocobox">9.1</a> perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin. Visuaalisen tarkastelun perusteella siis ainakin yhden tehtaan suklaalevyjen painojakauma eroaa muista tehtaista.</p>
+<p>Kuvan <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fig:chocobox">9.1</a> perusteella ainakin tehtaan 4 jakauman sijainti (tässä tapauksessa mediaani) näyttää kaikista poikkeavimmilta verrattuna muihin tehtaisiin. Visuaalisen tarkastelun perusteella siis ainakin yhden tehtaan suklaalevyjen painojakauma eroaa muista tehtaista.</p>
 
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-1" tabindex="-1"></a><span class="co"># las argument changes the orientation of x-axis labels</span></span>
-<span id="cb298-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-2" tabindex="-1"></a><span class="fu">boxplot</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod, <span class="at">xlab =</span> <span class="cn">NA</span>, <span class="at">ylab =</span> <span class="st">&quot;Weight&quot;</span>,</span>
-<span id="cb298-3"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-3" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-1" tabindex="-1"></a><span class="co"># las argument changes the orientation of x-axis labels</span></span>
+<span id="cb298-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-2" tabindex="-1"></a><span class="fu">boxplot</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod, <span class="at">xlab =</span> <span class="cn">NA</span>, <span class="at">ylab =</span> <span class="st">&quot;Weight&quot;</span>,</span>
+<span id="cb298-3"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb298-3" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:chocobox"></span>
 <img src="tidaja-book_files/figure-html/chocobox-1.png" alt="Tehtaiden otoksia vastaavat laatikkokuviot." width="672" />
 <p class="caption">
@@ -331,7 +330,7 @@ Kuva 9.1: Tehtaiden otoksia vastaavat laatikkokuviot.
   H_0: F_1 = F_2 = \cdots = F_8
 \end{equation*}\]</span>
 hylätään.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb299-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb299-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(weight <span class="sc">~</span> factory, <span class="at">data =</span> choco_mod)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -340,11 +339,11 @@ hylätään.</p>
 <p>Nyt haluamme selvittää, missä tehtaissa suklaalevyjen painojakaumat ovat erilaisia. Muista, että sijasummatestillä voimme testata seuraavaa nollahypoteesia <span class="math inline">\(H_0\)</span> vastahypoteesia <span class="math inline">\(H_1\)</span> vastaan
 <span class="math display">\[\begin{align*}
   &amp;H_0: F_j = F_k, \\
-  &amp;H_0: F_j \neq F_k,
+  &amp;H_1: F_j \neq F_k,
 \end{align*}\]</span>
 tehtaille <span class="math inline">\(j,k\in\{1, \ldots, 8\}\)</span>, <span class="math inline">\(j\neq k\)</span>. Esimerkiksi alla olevassa koodinpätkässä vertaamme kolmatta ja kuudetta tehdasta.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb301-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(choco_big<span class="sc">$</span>factory3, choco_big<span class="sc">$</span>factory6, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb301-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb301-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb301-1" tabindex="-1"></a><span class="fu">wilcox.test</span>(choco_big<span class="sc">$</span>factory3, choco_big<span class="sc">$</span>factory6, <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb301-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb301-2" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">exact =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum exact test
 ## 
@@ -352,8 +351,8 @@ tehtaille <span class="math inline">\(j,k\in\{1, \ldots, 8\}\)</span>, <span cla
 ## W = 153, p-value = 0.211
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Onneksi sijasummatestejä ei tarvitse suorittaa mekaanisesti kaikille tehdaspariyhdistelmille, vaan tätä varten on oma R funktio <code>pairwise.wilcox.test()</code>.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb303-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(choco_mod<span class="sc">$</span>weight, choco_mod<span class="sc">$</span>factory,</span>
-<span id="cb303-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb303-2" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb303-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(choco_mod<span class="sc">$</span>weight, choco_mod<span class="sc">$</span>factory,</span>
+<span id="cb303-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb303-2" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum exact test 
 ## 
@@ -375,8 +374,8 @@ tehtaille <span class="math inline">\(j,k\in\{1, \ldots, 8\}\)</span>, <span cla
 <li><p>tehtaan <span class="math inline">\(1\)</span> painojakaumat eroaa merkittävästi tehtaista <span class="math inline">\(2\)</span>, <span class="math inline">\(3\)</span>, <span class="math inline">\(4\)</span>, <span class="math inline">\(5\)</span>, <span class="math inline">\(7\)</span> ja <span class="math inline">\(8\)</span>.</p></li>
 </ul>
 </div>
-<p>Yllä olevan esimerkin ongelma liittyy siihen, että teemme useamman vertailun samanaikaisesti suorittamalla useamman tilastollisen testin funktiolla <code>pairwise.wilcox.test()</code> (yhteensä <span class="math inline">\(28\)</span> testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monitestausongelmaksi (eng: <a href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem"><em>multiple testing problem</em></a>), jota kuvaamme alla tarkemmin.</p>
-<p>Muista <em>Tilastotieteen perusteista</em>, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#tab:errortype">9.1</a>.</p>
+<p>Yllä olevan esimerkin ongelma liittyy siihen, että suorittamme useamman tilastollisen testin samanaikaisesti funktiolla <code>pairwise.wilcox.test()</code> (yhteensä <span class="math inline">\(28\)</span> testiä). Mitä useamman testin teemme samanaikaisesti sitä todennäköisempää on, että nollahypoteesi hylätään ainakin yhden testin kohdalla datan satunnaisvaihtelun vuoksi. Tätä ongelmaa kutsutaan tilastotieteessä monitestausongelmaksi (eng: <em>multiple testing problem</em>), jota kuvaamme alla tarkemmin.</p>
+<p>Muista <em>Tilastotieteen perusteista</em>, että tilastollisessa testauksessa on kaksi mahdollista tapaa tehdä vääränlainen johtopäätös eli testausvirhe. Tyypin 1 virhe eli hylkäysvirhe ja tyypin 2 virhe eli hyväksymisvirhe ollaan kuvailtu taulukossa <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#tab:errortype">9.1</a>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Voimme sattumalta hylätä nollahypoteesin, vaikka nollahypoteesi kuvaisi totuutta (Tyypin 1 virhe, väärä positiivinen)</p></li>
 <li><p>Voimme sattumalta olla hylkäämättä nollahypoteesia, vaikka nollahypoteesi ei olisi totta (Tyypin 2 virhe, väärä negatiivinen).</p></li>
@@ -439,15 +438,15 @@ Hyväksymisvirhe <br> (Tyypin 2 virhe)
   \mathbb{P}(H_0 \ \text{hylätään} | H_0) \leq \alpha.
 \end{equation*}\]</span></p>
 </div>
-<p>Kuitenkin esimerkin <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> tyyppisissä monitestauksessa haluamme kontrolloida todennäköisyyttä, jolla saadaan <strong>ainakin</strong> yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktaktassa, joka todistetaan viikon 11 tehtävässä 1.</p>
+<p>Kuitenkin esimerkin <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> tyyppisessä monitestauksessa haluamme kontrolloida todennäköisyyttä, jolla saadaan <strong>ainakin</strong> yksi hylkäysvirhe. Tälle todennäköisyydelle annetaan yläraja alla olevassa faktassa, joka todistetaan viikon 11 tehtävässä 1.</p>
 <div class="theorem">
 <p><span id="thm:fwer" class="theorem"><strong>Fakta 9.2  (Yläraja perhekohtaiselle virhetodennäköisyydelle) </strong></span>Suoritetaan <span class="math inline">\(m\)</span> tilastollista testiä käyttäen merkitsevyystasoa <span class="math inline">\(\alpha/m\)</span>. Merkitään tilastollisen testin <span class="math inline">\(j\in\{1, \ldots, m\}\)</span> nollahypoteesia notaatiolla <span class="math inline">\(H_0^{(j)}\)</span>. Samoin merkitään tapahtumaa, että tilastollisessa testissä <span class="math inline">\(j\)</span> tehdään hylkäysvirhe notaatiolla <span class="math inline">\(A_j  = \left\{H_0^{(j)} \ \text{hylätään} | H_0^{(j)}\right\}\)</span>. Tällöin
 <span class="math display">\[\begin{equation*}
   \mathbb{P}\left(\bigcup_{j=1}^m A_j\right) \leq \alpha.
 \end{equation*}\]</span>
-Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\bigcup_{i=1}^n A_j\right)\)</span> kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: <em>family-wise error rate</em>).</p>
+Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\bigcup_{i=1}^m A_j\right)\)</span> kutsutaan perhekohtaiseksi virhetodennäköisyydeksi (eng: <em>family-wise error rate</em>).</p>
 </div>
-<p>Eli jos teemme <span class="math inline">\(m\)</span> tilastollista testiä samanaikaisesti merkitsevyystasolla <span class="math inline">\(\alpha/m\)</span>, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on <span class="math inline">\(\alpha\)</span>. Tästä johtuen tuntuisi loogiselta, että esimerkin <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> funktiossa <code>pairwise.wilcox.test()</code> meidän kannattaisi käyttää merkitsevyystasona<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a> <span class="math inline">\(0.05 / 28  \approx 0.001786\)</span> alkuperäisen <span class="math inline">\(0.05\)</span> sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on <span class="math inline">\(0.05\)</span>. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja <span class="math inline">\(m\cdot \text{p-arvo}\)</span> alkuperäiseen merkitsevyystasoon <span class="math inline">\(\alpha = 0.05\)</span>, koska
+<p>Eli jos teemme <span class="math inline">\(m\)</span> tilastollista testiä samanaikaisesti merkitsevyystasolla <span class="math inline">\(\alpha/m\)</span>, niin yläraja perhekohtaiselle virhetodennäköisyydelle (todennäköisyys saada ainakin yksi hylkäysvirhe) on <span class="math inline">\(\alpha\)</span>. Tästä johtuen tuntuisi loogiselta, että esimerkin <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:warningmultiple">9.1</a> funktiossa <code>pairwise.wilcox.test()</code> meidän kannattaisi käyttää merkitsevyystasona<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a> <span class="math inline">\(0.05 / 28  \approx 0.001786\)</span> alkuperäisen <span class="math inline">\(0.05\)</span> sijaan, jotta yläraja perhekohtaiselle virhetodennäköisyydelle on <span class="math inline">\(0.05\)</span>. Tämä on yhtäpitävää sen kanssa, että vertaamme korjattuja p-arvoja <span class="math inline">\(m\cdot \text{p-arvo}\)</span> alkuperäiseen merkitsevyystasoon <span class="math inline">\(\alpha = 0.05\)</span>, koska
 <span class="math display">\[\begin{equation*}
   \text{$H_0$ hylätään} \iff \text{p-arvo} &lt; \frac{\alpha}{m}
   \iff m\cdot \text{p-arvo} &lt; \alpha.
@@ -455,7 +454,7 @@ Todennäköisyyttä <span class="math inline">\(\mathbb{P}\left(\bigcup_{i=1}^n 
 Eli monitestausongelmassa perhekohtainen virhetodennäköisyys on paljon tärkeämpi suure kuin todennäköisyys hylkäysvirheelle yhdessä testissä. Tämän vuoksi p-arvoja usein korjataan siten, että perhekohtainen virhetodennäköisyys saadaan oikealla tasolle (esimerkiksi <span class="math inline">\(0.01\)</span> tai <span class="math inline">\(0.05\)</span>). Eräs yksinkertaisimmista tavoista korjata p-arvoja on Bonferronin korjaus<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>, jossa p-arvot kerrotaan tilastollisten testien määrällä <span class="math inline">\(m\)</span>. R funktio <code>pairwise.wilcox.test()</code> tuottaa Bonferroni korjatut p-arvot, kun asetetaan <code>p.adjust.method = "bonferroni"</code> funktion sisällä (Viikko 11, tehtävä 1).</p>
 </div>
 <div id="sec:selection" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Muuttujanvalinta lineaarisessa regressiossa<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">9.2</span> Muuttujanvalinta lineaarisessa regressiossa<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Oletetaan, että saatavilla on <span class="math inline">\(n\)</span> kappaletta <span class="math inline">\((p + 1)\)</span>-ulotteisia riippumattomia havaintoja
 <span class="math display">\[\begin{equation*}
   \left\{(y_1, x_{11}, x_{12}, \ldots, x_{1p}), \ldots,
@@ -469,7 +468,7 @@ jossa ensimmäinen komponentti antaa selitettävän muuttujan havainnot ja muut 
 <p>Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.</p>
 <div class="example">
 <p><span id="exm:modelnum" class="example"><strong>Esimerkki 9.2  (Mallien määrä) </strong></span>Havaintoaineisto <code>mtcars</code> sisältää dataa liittyen autojen ominaisuuksiin (yhteensä <span class="math inline">\(7\)</span> muuttujaa). Havaintoja (eli autoja) on yhteensä <span class="math inline">\(32\)</span> kappaletta. Haluamme selittää polttoaineen kulutusta <code>mpg</code> muilla havaintoaineiston muuttujilla. Muuttujaa <code>mpg</code> mitataan yksiköissä maili<span class="math inline">\(/\)</span>gallona. Eli suuri <code>mpg</code> arvo viittaa pieneen polttoaineen kulutukseen ja pieni <code>mpg</code> arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla <code>?mtcars</code>.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb305-1" tabindex="-1"></a>mtcars</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb305-1" tabindex="-1"></a>mtcars</span></code></pre></div>
 <pre><code>## # A tibble: 32 × 7
 ##      mpg cyl    disp    hp  drat    wt  qsec
 ##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -499,26 +498,26 @@ on <span class="math inline">\(\binom{6}{2} = 15\)</span> kappaletta. Kolmen sel
 <li><p>kaavan <a href="moniulotteinen-lineaarinen-regressio.html#eq:adjusted">(3.8)</a> muokattu selitysaste <span class="math inline">\(f(s^2, d) = R_{adj}^2\)</span> tai</p></li>
 <li><p>niin kutsuttu Akaiken informaatiokriteeri (eng: <em>Akaike information criterion, AIC</em>) <span class="math inline">\(f(s^2, d) = \ln\left(s^2\right) + \frac{2d}{n}\)</span>.</p></li>
 </ul>
-<p>Nyt periaatteessa valitun funktion <span class="math inline">\(f\)</span> arvo voitaisiin laskea kaikille mahdollisille malleille ja sitten valitaan se malli, jolle <span class="math inline">\(f(s^2, d)\)</span> on pienin. Yleensä kuitenkin malleja on niin paljon, että näin ei tehdä. Tämän sijaan käytännön ongelmissa käytetään jotain strategiaa<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, jolla päästään usein lähelle optimaalista mallia. Kolme erilaista mallinvalintastrategiaa perustuen Akaiken informaatiokriteeriin ollaan implementoitu R funktiossa <code>step()</code>. Huomaa, että minimoitavan funktion <span class="math inline">\(f\)</span> valinnan lisäksi myös mallinvalintastrategia vaikuttaa siihen, mihin malliin lopulta päädytään (Viikko 11, tehtävä 2).</p>
-<p>Alla on esimerkki mallinvalinnasta R funktion <code>step()</code> avulla.</p>
+<p>Nyt periaatteessa valitun funktion <span class="math inline">\(f\)</span> arvo voitaisiin laskea kaikille mahdollisille malleille ja sitten valitaan se malli, jolle <span class="math inline">\(f(s^2, d)\)</span> on pienin. Yleensä kuitenkin malleja on niin paljon, että näin ei tehdä. Tämän sijaan käytännön ongelmissa käytetään jotain strategiaa<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>, jolla päästään usein lähelle optimaalista mallia. Kolme erilaista muuttujanvalintastrategiaa perustuen Akaiken informaatiokriteeriin ollaan implementoitu R funktiossa <code>step()</code>. Huomaa, että minimoitavan funktion <span class="math inline">\(f\)</span> valinnan lisäksi myös muuttujanvalintastrategia vaikuttaa siihen, mihin malliin lopulta päädytään (Viikko 11, tehtävä 2).</p>
+<p>Alla on esimerkki muuttujanvalinnasta R funktion <code>step()</code> avulla.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 9.3  (Muuttujanvalinta) </strong></span>Nyt haluamme suorittaa muuttujanvalinnan esimerkin <a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:modelnum">9.2</a> tilanteessa. Minimoitavana funktiona käytämme Akaiken informaatiokriteeriä (AIC). Käytämme seuraavaa valintastrategiaa.</p>
+<p><span id="exm:unlabeled-div-50" class="example"><strong>Esimerkki 9.3  (Muuttujanvalinta) </strong></span>Nyt haluamme suorittaa muuttujanvalinnan esimerkin <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:modelnum">9.2</a> tilanteessa. Minimoitavana funktiona käytämme Akaiken informaatiokriteeriä (AIC). Käytämme seuraavaa valintastrategiaa.</p>
 <ol style="list-style-type: decimal">
 <li><p>Laskemme sovitettua mallia vastaavan AIC:n.</p></li>
 <li><p>Lisäämme/poistamme selittäjän niin, että uuden sovitetun mallin AIC pienenee mahdollisimman paljon.</p></li>
 <li><p>Toistamme askeleet 1 ja 2 kunnes minkään selittäjän lisäys/poisto ei vähennä sovitetun mallin AIC:tä.</p></li>
 </ol>
 <p>Valintastrategia määritetään argumentin <code>direction</code> avulla. Lisäksi meidän täytyy asettaa algoritmille joku aloituspiste eli malli, josta aloitamme. Tässä tapauksessa aloituspisteeksi asetamme mallin ilman selittäjiä <span class="math inline">\(\texttt{mpg}_i = \beta_0 + \varepsilon_i\)</span> ensimmäisessä argumentissa. Funktion <code>step()</code> argumentissä <code>scope</code> täytyy myös määritellä mallit joita algoritmi harkitsee.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-1" tabindex="-1"></a><span class="co"># Model with only the intercept</span></span>
-<span id="cb307-2"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-2" tabindex="-1"></a>empty_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mtcars)</span>
-<span id="cb307-3"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-3" tabindex="-1"></a></span>
-<span id="cb307-4"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-4" tabindex="-1"></a><span class="co"># Model with all the possible explatonary variables</span></span>
-<span id="cb307-5"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-5" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)</span>
-<span id="cb307-6"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-6" tabindex="-1"></a></span>
-<span id="cb307-7"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-7" tabindex="-1"></a><span class="co"># Perform stepwise selection starting from the empty model</span></span>
-<span id="cb307-8"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-8" tabindex="-1"></a>model_step <span class="ot">&lt;-</span> <span class="fu">step</span>(empty_model, </span>
-<span id="cb307-9"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-9" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty_model, <span class="at">upper =</span> full_model), </span>
-<span id="cb307-10"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-10" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-1" tabindex="-1"></a><span class="co"># Model with only the intercept</span></span>
+<span id="cb307-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-2" tabindex="-1"></a>empty_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mtcars)</span>
+<span id="cb307-3"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-3" tabindex="-1"></a></span>
+<span id="cb307-4"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-4" tabindex="-1"></a><span class="co"># Model with all the possible explatonary variables</span></span>
+<span id="cb307-5"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-5" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)</span>
+<span id="cb307-6"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-6" tabindex="-1"></a></span>
+<span id="cb307-7"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-7" tabindex="-1"></a><span class="co"># Perform stepwise selection starting from the empty model</span></span>
+<span id="cb307-8"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-8" tabindex="-1"></a>model_step <span class="ot">&lt;-</span> <span class="fu">step</span>(empty_model, </span>
+<span id="cb307-9"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-9" tabindex="-1"></a>                   <span class="at">scope =</span> <span class="fu">list</span>(<span class="at">lower =</span> empty_model, <span class="at">upper =</span> full_model), </span>
+<span id="cb307-10"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb307-10" tabindex="-1"></a>                   <span class="at">direction =</span> <span class="st">&quot;both&quot;</span>)</span></code></pre></div>
 <pre><code>## Start:  AIC=115.94
 ## mpg ~ 1
 ## 
@@ -567,7 +566,7 @@ on <span class="math inline">\(\binom{6}{2} = 15\)</span> kappaletta. Kolmen sel
 ## - cyl   2    34.270 195.05 63.840
 ## - wt    1   116.390 277.17 77.084</code></pre>
 <p>Yllä oleva tuloste näyttää muuttujanvalinnan kaikki vaiheet. Esimerkiksi ensimmäisessä vaiheessa muuttujan <code>wt</code> lisääminen pienentää AIC:tä eniten. Tässä tapauksessa algoritmi lisää yhteensä kolme selittäjää (<code>wt</code>, <code>cyl</code> ja <code>hp</code>) ja huomaa, että tämän jälkeen minkään uuden selittäjän lisääminen tai vanhan selittäjän poistaminen ei pienennä AIC:ta. Lopullinen sovitettu malli ollaan tallennettu muuttujaan <code>model_step</code>. Mallin analysoimista voitaisiin jatkaa nyt normaalisti (diagnostiikka, mallin sovitteen hyvyys, merkitsevyys jne).</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb309-1" tabindex="-1"></a><span class="fu">summary</span>(model_step)</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb309-1" tabindex="-1"></a><span class="fu">summary</span>(model_step)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ wt + cyl + hp, data = mtcars)
@@ -592,19 +591,96 @@ on <span class="math inline">\(\binom{6}{2} = 15\)</span> kappaletta. Kolmen sel
 </div>
 </div>
 <div id="sec:ridge" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Harjanneregressio<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">9.3</span> Harjanneregressio<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#sec:ridge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Harjanneregression voidaan nähdä olevan vaihtoehto perinteiselle muuttujanvalinnalle. Muuttujanvalinnassa tietty muuttuja joko sisällytetään malliin tai ei. Toisaalta harjanneregressiossa kaikki alkuperäiset selittäjät pidetään mallissa mutta suuria kulmakertoimia kutistetaan.</p>
+<p>Muista että pienimmän neliösumman menetelmällä lasketut estimaatit <span class="math inline">\(\hat\beta_j\)</span> minimoivat neliösummaa
+<span class="math display">\[\begin{equation*}
+  \sum_{i = 1}^n \left(y_i - \beta_0 - \sum_{j = 1}^d \beta_j x_{ij}\right)^2.
+\end{equation*}\]</span>
+Matemaattisesti harjanneregression kertoimien kutistaminen tarkoittaa sitä, että estimaatit <span class="math inline">\(\hat\beta_j\)</span> minimoivat sakotettua neliösummaa
+<span class="math display" id="eq:pen">\[\begin{equation}
+  \tag{9.1}
+  \underbrace{\sum_{i = 1}^n \left(y_i - \beta_0 - \sum_{j = 1}^d \beta_j x_{ij}\right)^2}_{\text{neliösumma}} +
+  \underbrace{\lambda \sum_{j=1}^d \beta_j^2}_{\text{sakkotermi}},
+\end{equation}\]</span>
+jossa <span class="math inline">\(\lambda &gt; 0\)</span>. Parametri <span class="math inline">\(\lambda\)</span> määrittää, kuinka paljon kertoimia <span class="math inline">\(\beta_j\)</span> sakotetaan. Mitä suurempi <span class="math inline">\(\lambda\)</span> sitä lähempänä kertoimien estimaatit ovat lähempänä nollaa. Huomaa myös, että sakkotermissä <span class="math inline">\(\lambda \sum_{j=1}^d \beta_j^2\)</span> ei oteta termiä <span class="math inline">\(\beta_0\)</span> mukaan – ainoastaan kulmakertoimia sakotetaan.</p>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-51" class="proposition"><strong>Huomautus 9.1  (Mitä hyötyä sakkotermistä on?) </strong></span></p>
+<ol style="list-style-type: decimal">
+<li><p>Kun selittäjiä on todella paljon, niin lineaarinen malli on mahdollisesti epävakaa esimerkiksi vahvan multikollineaarisuuden vuoksi (selittäjät korreloituneita). Kertoimien kutistaminen on tapa lievittää multikollineaarisuudesta aiheutuvia ongelmia.</p></li>
+<li><p>Jos jotkut selittäjät ovat täydellisesti korreloituneita, niin tavallinen pienimmän neliösumman menetelmä ei toimi mutta harjanneregressio toimii.</p></li>
+<li><p>Harjanneregression avulla saadaan sisällytettyä kaikki potentiaaliset selittäjät malliin ilman liikasovittamista.</p></li>
+<li><p>Tyypillisesti harjanneregressio vähentää estimaattoreihin <span class="math inline">\(\hat\beta_j\)</span> liittyvää epävarmuutta (varianssia).</p>
+<ul>
+<li>Huom! Hinta varianssin pienentämisestä on se, että harjanneregressioestimaattorit <span class="math inline">\(\hat\beta_j\)</span> ovat harhaisia. Perinteiset pienimmän neliösumman estimaattorit kertoimille <span class="math inline">\(\beta_j\)</span> ovat harhattomia.</li>
+</ul></li>
+</ol>
+</div>
+<p>Yleensä ennen harjanneregression sovittamista dataa muokataan hieman. Ensimmäiseksi selittäjät standardisoidaan siten, että jokaisen selittäjän keskiarvo on nolla ja otoskeskiarvo on yksi. Tällöin selittäjien skaala ei vaikuta sakottamiseen, vaan kaikkia selittäjiä sakotetaan “tasapuolisesti”. Toiseksi selitettävä muuttuja yleensä keskitetään siten, että sen otoskeskiarvo on nolla, jolloin <span class="math inline">\(\hat\beta_0 = 0\)</span> eli datan siivoamisen jälkeen vakiotermista ei tarvitse välittää.</p>
+<p>Merkitään standardisoituja selittäjien havaintoja notaatiolla
+<span class="math display">\[\begin{equation*}
+  \boldsymbol X =
+  \begin{pmatrix}
+    \tilde x_{11} &amp; \tilde x_{12} &amp; \cdots &amp; \tilde x_{1d} \\
+     \tilde x_{21} &amp; \tilde x_{22} &amp; \cdots &amp; \tilde x_{2d} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    \tilde x_{n1} &amp; \tilde x_{n2} &amp; \cdots &amp; \tilde x_{nd}
+  \end{pmatrix} \in\mathbb{R}^{n\times d},
+\end{equation*}\]</span>
+keskitettyjä selitettävän muuttujan havaintoja notaatiolla
+<span class="math display">\[\begin{equation*}
+  \boldsymbol y = (\tilde y_1, \tilde y_2, \cdots, \tilde y_d)^T \in\mathbb{R}^d
+\end{equation*}\]</span>
+ja kertoimia notaatiolla
+<span class="math display">\[\begin{equation*}
+  \boldsymbol\beta = (\beta_1, \beta_2, \cdots, \beta_d)^T \in\mathbb{R}^d.
+\end{equation*}\]</span>
+Nyt yllä määriteltyjen notaatioiden avulla kaavan <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#eq:pen">(9.1)</a> sakotettu neliösumma (ilman vakiotermiä <span class="math inline">\(\beta_0\)</span>) voidaan kirjoittaa matriisimuodossa vektorinormin <a href="liitteet.html#eq:euclidean">(10.1)</a> avulla
+<span class="math display">\[\begin{equation*}
+  \|\boldsymbol y - \boldsymbol X \boldsymbol \beta\|^2 + \lambda\|\boldsymbol\beta\|^2.
+\end{equation*}\]</span>
+Yllä olevasta kaavasta nähdään vielä selkeämmin, että sakkotermissä sakotetaan kerrroinvektorin <span class="math inline">\(\boldsymbol\beta\)</span> suuruudesta <span class="math inline">\(\|\boldsymbol\beta\|\)</span>. Nyt minimoimalla sakotettua neliösummaa saadaan estimaattori kerroinvektorille,
+<span class="math display" id="eq:ridgest">\[\begin{equation}
+  \tag{9.2}
+  \hat{\boldsymbol\beta} = \left(\boldsymbol X^T \boldsymbol X + \lambda \boldsymbol I\right)^{-1}\boldsymbol X^T\boldsymbol y,
+\end{equation}\]</span>
+jossa <span class="math inline">\(\boldsymbol I\)</span> on <span class="math inline">\((d\times d)\)</span>-ulotteinen identiteettimatriisi. Verrattaessa harjanneregressioestimaattoria <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#eq:ridgest">(9.2)</a> pienimmän neliösumman estimaattoriin <a href="moniulotteinen-lineaarinen-regressio.html#eq:ols">(3.7)</a> huomataan, että ainoa ero on termi <span class="math inline">\(\lambda \boldsymbol I\)</span>.</p>
+
+<div class="proposition">
+<p><span id="prp:unlabeled-div-52" class="proposition"><strong>Huomautus 9.2  (Termin <span class="math inline">\(\lambda \boldsymbol I\)</span> vaikutus.) </strong></span>Muista, että pienimmän neliösumman estimaattori <span class="math inline">\(\hat{\boldsymbol\beta}_{PNS} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y\)</span> ei ole hyvin määritelty, jos jotkut selittäjät ovat täysin korreloituneita keskenään. Termin <span class="math inline">\(\lambda \boldsymbol I\)</span> lisääminen matriisiin <span class="math inline">\(\boldsymbol X^T \boldsymbol X\)</span> aiheuttaa sen, että <span class="math inline">\(\hat{\boldsymbol\beta}_{Harjanne} = \left(\boldsymbol X^T \boldsymbol X + \lambda \boldsymbol I\right)^{-1}\boldsymbol X^T\boldsymbol y\)</span> on aina hyvin määritelty, vaikka jotkut selittäjät olisivatkin täysin korreloituneita<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a>.</p>
+</div>
+<p>R:ssä harajanneregressiomallin voi sovittaa paketin <code>glmnet()</code> funktiolla <code>glmnet()</code>. Alla on esimerkki funktion <code>glmnet()</code> käytöstä.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-53" class="example"><strong>Esimerkki 9.4  (Harjanneregressio) </strong></span></p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-1" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb311-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-2" tabindex="-1"></a></span>
+<span id="cb311-3"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb311-4"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">select</span>(mtcars, <span class="sc">-</span>mpg)</span>
+<span id="cb311-5"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-5" tabindex="-1"></a></span>
+<span id="cb311-6"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-6" tabindex="-1"></a>ridge_model <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb311-7"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-7" tabindex="-1"></a></span>
+<span id="cb311-8"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-8" tabindex="-1"></a><span class="fu">names</span>(ridge_model)</span></code></pre></div>
+<pre><code>##  [1] &quot;a0&quot;        &quot;beta&quot;      &quot;df&quot;        &quot;dim&quot;       &quot;lambda&quot;    &quot;dev.ratio&quot;
+##  [7] &quot;nulldev&quot;   &quot;npasses&quot;   &quot;jerr&quot;      &quot;offset&quot;    &quot;call&quot;      &quot;nobs&quot;</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb313-1" tabindex="-1"></a><span class="fu">plot</span>(ridge_model)</span></code></pre></div>
+<p><img src="tidaja-book_files/figure-html/unnamed-chunk-151-1.png" alt="" width="672" /></p>
+</div>
+<div class="proposition">
+<p><span id="prp:unlabeled-div-54" class="proposition"><strong>Huomautus 9.3  (Sääntely) </strong></span>TODO</p>
+</div>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="26">
-<li id="fn26"><p>Käytännön data-analyyseissä mahdollisia selittäjäkandidaatteja voi olla esimerkiksi jopa satoja.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref26" class="footnote-back">↩︎</a></p></li>
-<li id="fn27"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref27" class="footnote-back">↩︎</a></p></li>
-<li id="fn28"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä <span class="math inline">\(28\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref28" class="footnote-back">↩︎</a></p></li>
-<li id="fn29"><p>Muitakin p-arvojen korjausmenetelmiä on olemassa.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref29" class="footnote-back">↩︎</a></p></li>
-<li id="fn30"><p>Jos selittäjiä on <span class="math inline">\(p\)</span> kappaletta, niin mahdollisia lineaarisia malleja on <span class="math inline">\(2^p\)</span> kappaletta.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref30" class="footnote-back">↩︎</a></p></li>
-<li id="fn31"><p>Nämä strategiat ovat esimerkkejä ahneista algoritmeista (eng: <em>greedy algorithm</em>). Ahneet algoritmien ideana on tehdä lyhyen tähtäimen optimaalisia päätöksiä siinä toivossa, että algoritmi päätyy lähelle oikeaa optimaalista arvoa.<a href="monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn26"><p>Käytännön data-analyyseissä mahdollisia selittäjäkandidaatteja voi olla esimerkiksi jopa satoja.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Muista, että ANOVA:n oletukset ovat tiukemmat kuin Kruskal–Wallis testin oletukset.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p>Jaetaan luvulla <span class="math inline">\(28\)</span>, koska testejä tehdään yhteensä <span class="math inline">\(28\)</span> kappaletta.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>Muitakin p-arvojen korjausmenetelmiä on olemassa.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>Jos selittäjiä on <span class="math inline">\(p\)</span> kappaletta, niin mahdollisia lineaarisia malleja on <span class="math inline">\(2^p\)</span> kappaletta.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>Nämä strategiat ovat esimerkkejä ahneista algoritmeista (eng: <em>greedy algorithm</em>). Ahneet algoritmien ideana on tehdä lyhyen tähtäimen optimaalisia päätöksiä siinä toivossa, että algoritmi päätyy lähelle oikeaa optimaalista arvoa.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>Tarkalleen ottaen, matriisin <span class="math inline">\(\boldsymbol X^T \boldsymbol X + \lambda \boldsymbol I\)</span>, <span class="math inline">\(\lambda &gt; 0\)</span>, käänteismatriisi on aina olemassa, vaikka matriisin <span class="math inline">\(\boldsymbol X^T \boldsymbol X\)</span> käänteismatriisi ei ole olemassa aina olemassa.<a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fnref32" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

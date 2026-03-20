@@ -207,8 +207,14 @@ thm:type1
 thm:fwer
 exm:modelnum
 exm:unlabeled-div-50
+eq:pen
+prp:unlabeled-div-51
+eq:ridgest
+prp:unlabeled-div-52
+exm:unlabeled-div-53
+prp:unlabeled-div-54
 eq:euclidean
-exm:unlabeled-div-52
+exm:unlabeled-div-56
 fig:vec
 r-ohjelmointikielestä
 sec:inst
@@ -250,7 +256,7 @@ logistinen-regressio
 sec:deflog
 sec:inflog
 sec:multilog
-monien-muuttujien-haasteet-tilastollisessa-testauksessa-ja-regressiossa
+moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa
 sec:multiple
 sec:selection
 sec:ridge
