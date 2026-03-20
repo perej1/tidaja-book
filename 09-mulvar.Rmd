@@ -233,7 +233,7 @@ Matemaattisesti harjanneregression kertoimien kutistaminen tarkoittaa sitä, ett
   \underbrace{\sum_{i = 1}^n \left(y_i - \beta_0 - \sum_{j = 1}^d \beta_j x_{ij}\right)^2}_{\text{neliösumma}} +
   \underbrace{\lambda \sum_{j=1}^d \beta_j^2}_{\text{sakkotermi}},
 \end{equation}
-jossa $\lambda > 0$. Parametri $\lambda$ määrittää, kuinka paljon kertoimia $\beta_j$ sakotetaan. Mitä suurempi $\lambda$ sitä lähempänä kertoimien estimaatit ovat lähempänä nollaa. Huomaa myös, että sakkotermissä $\lambda \sum_{j=1}^d \beta_j^2$ ei oteta termiä $\beta_0$ mukaan -- ainoastaan kulmakertoimia sakotetaan.
+jossa $\lambda > 0$. Parametri $\lambda$ määrittää, kuinka paljon kertoimia $\beta_j$ sakotetaan. Mitä suurempi $\lambda$ sitä lähempänä kertoimien estimaatit ovat lähempänä nollaa. Toisaalta kun $\lambda = 0$, niin harjanneregression kertoimien estimaatit vastaavat pienimmän neliösumman estimaatteja. Huomaa myös, että sakkotermissä $\lambda \sum_{j=1}^d \beta_j^2$ ei oteta termiä $\beta_0$ mukaan -- ainoastaan kulmakertoimia sakotetaan.
 
 :::{.proposition name="Mitä hyötyä sakkotermistä on?"}
 1. Kun selittäjiä on todella paljon, niin lineaarinen malli on mahdollisesti epävakaa esimerkiksi vahvan multikollineaarisuuden vuoksi (selittäjät korreloituneita). Kertoimien kutistaminen on tapa lievittää multikollineaarisuudesta aiheutuvia ongelmia.
@@ -284,21 +284,29 @@ jossa $\boldsymbol I$ on $(d\times d)$-ulotteinen identiteettimatriisi. Verratta
 Muista, että pienimmän neliösumman estimaattori $\hat{\boldsymbol\beta}_{PNS} = \left(\boldsymbol X^T \boldsymbol X\right)^{-1}\boldsymbol X^T\boldsymbol y$ ei ole hyvin määritelty, jos jotkut selittäjät ovat täysin korreloituneita keskenään. Termin $\lambda \boldsymbol I$ lisääminen matriisiin $\boldsymbol X^T \boldsymbol X$ aiheuttaa sen, että $\hat{\boldsymbol\beta}_{Harjanne} = \left(\boldsymbol X^T \boldsymbol X + \lambda \boldsymbol I\right)^{-1}\boldsymbol X^T\boldsymbol y$ on aina hyvin määritelty, vaikka jotkut selittäjät olisivatkin täysin korreloituneita^[Tarkalleen ottaen, matriisin $\boldsymbol X^T \boldsymbol X + \lambda \boldsymbol I$, $\lambda > 0$, käänteismatriisi on aina olemassa, vaikka matriisin $\boldsymbol X^T \boldsymbol X$ käänteismatriisi ei ole olemassa aina olemassa.].
 :::
 
-R:ssä harajanneregressiomallin voi sovittaa paketin `glmnet()` funktiolla `glmnet()`. Alla on esimerkki funktion `glmnet()` käytöstä. 
+R:ssä harjanneregressiomallin voi sovittaa paketin `glmnet()` funktiolla `glmnet()` (paketin ja funktion nimet ovat samat). Alla on esimerkki funktion `glmnet()` käytöstä. 
 
 :::{.example name="Harjanneregressio"}
+Funktio `glmnet()` toimii hieman eri tavalla kuin `lm()`. Koko dokumentaation näet komennolla `?glmnet`. Esimerkiksi ensimmäinen argumentti `x` on matriisi selittäjien havainnoista ja toinen argumentti `y` on vektori selitettävän muuttujan havainnoista. Funktio `glmnet()` voi käyttää muunlaisiakin sakkoja kuin harjanneregression sakko $\lambda\|\boldsymbol\beta\|^2$. Harjanneregression sakkoa käytetään asettamalla `alpha = 0`. Lisäksi oletuksena harjanneregressio sovitetaan useamman parametrin $\lambda$ arvolla (oletuksena $100$ erilaista $\lambda$ arvoa).
+
+Alla sovitetaan harjanneregressio useammalla parametrin $\lambda$ arvolla, kun esimerkin \@ref(exm:modelnum) havaintoaineiston `mtcars` muuttujaa  `mpg` selitetään muilla havaintoaineiston muuttujilla.
+
 ```{r, message=FALSE}
 library(glmnet)
 
 y <- mtcars$mpg
-x <- select(mtcars, -mpg)
-
-ridge_model <- glmnet(x, y, alpha = 0)
-
-names(ridge_model)
-
-plot(ridge_model)
+x <- dplyr::select(mtcars, -mpg)
+cars_ridge <- glmnet::glmnet(x, y, alpha = 0)
 ```
+
+(ref:ridge) Harjanneregression kertoimien arvot eri parametrin $\lambda$ arvoilla.
+
+Seuraavaksi voimme piirtää eräänlaisen "oletuskuvan" liittyen muuttujaan `cars_ridge` funktiolla `plot()`. Kuvan \@ref(fig:ridge) alemmalla $x$-akselilla parametrin $\lambda$ arvo pienenee vasemmalta oikealle. Kertoimien estimaattien arvot näkyvät $y$-akselilla. Eli vasemmalla sakottaminen on ankaraa ja kaikkien kertoimien estimaatit ovat lähellä nollaa. Mentäessä oikealle estimaattien arvot lähenevät pienimmän neliösumman estimaatteja. Huomaa, että $x$-akselin $\lambda$ arvoille ollaan tehty $\log$-muunnos kuvaajan lukemisen helpottamiseksi. Argumentti `label = TRUE` merkitsee selittäjiä vastaavat käyrät muuttujan `x` sarakkeiden järjestyksen mukaan. Eli `1 = cyl`, `2 = disp`, ..., `6 = qsec`. Ylemmän $x$-akselin luvuilla $6$ ei ole mitään merkitystä tässä tapauksessa. Dokumentaation luokan `glmnet` olion kuvaajan piirtämiseen löydät komennolla `?plot.glmnet`.
+```{r ridge, fig.cap="(ref:ridge)"}
+plot(cars_ridge, label = TRUE, ylab = "Kertoimet")
+```
+
+Yleensä parametri $\lambda$ halutaan kiinnittää johonkin optimaaliseen arvoon. Sitten tätä optimaalista parametrin $\lambda$ arvoa vastaavaa sovitettua harjanneregressiomallia käytetään tilastolliseen analyysiin kuten ennustamiseen ja mallin tulkintaan (viikko 11, tehtävä 3).
 :::
 
 :::{.proposition name="Sääntely"}

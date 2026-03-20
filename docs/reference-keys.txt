@@ -212,6 +212,7 @@ prp:unlabeled-div-51
 eq:ridgest
 prp:unlabeled-div-52
 exm:unlabeled-div-53
+fig:ridge
 prp:unlabeled-div-54
 eq:euclidean
 exm:unlabeled-div-56
