@@ -23,7 +23,7 @@
 <meta name="author" content="Jaakko Pere" />
 
 
-<meta name="date" content="2026-03-20" />
+<meta name="date" content="2026-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -651,7 +651,7 @@ jossa <span class="math inline">\(\boldsymbol I\)</span> on <span class="math in
 </div>
 <p>R:ssä harjanneregressiomallin voi sovittaa paketin <code>glmnet()</code> funktiolla <code>glmnet()</code> (paketin ja funktion nimet ovat samat). Alla on esimerkki funktion <code>glmnet()</code> käytöstä.</p>
 <div class="example">
-<p><span id="exm:unlabeled-div-53" class="example"><strong>Esimerkki 9.4  (Harjanneregressio) </strong></span>Funktio <code>glmnet()</code> toimii hieman eri tavalla kuin <code>lm()</code>. Koko dokumentaation näet komennolla <code>?glmnet</code>. Esimerkiksi ensimmäinen argumentti <code>x</code> on matriisi selittäjien havainnoista ja toinen argumentti <code>y</code> on vektori selitettävän muuttujan havainnoista. Funktio <code>glmnet()</code> voi käyttää muunlaisiakin sakkoja kuin harjanneregression sakko <span class="math inline">\(\lambda\|\boldsymbol\beta\|^2\)</span>. Harjanneregression sakkoa käytetään asettamalla <code>alpha = 0</code>. Lisäksi oletuksena harjanneregressio sovitetaan useamman parametrin <span class="math inline">\(\lambda\)</span> arvolla (oletuksena <span class="math inline">\(100\)</span> erilaista <span class="math inline">\(\lambda\)</span> arvoa).</p>
+<p><span id="exm:unlabeled-div-53" class="example"><strong>Esimerkki 9.4  (Harjanneregressio) </strong></span>Funktio <code>glmnet()</code> toimii hieman eri tavalla kuin <code>lm()</code>. Koko dokumentaation näet komennolla <code>?glmnet</code>. Esimerkiksi ensimmäinen argumentti <code>x</code> on matriisi selittäjien havainnoista ja toinen argumentti <code>y</code> on vektori selitettävän muuttujan havainnoista. Funktio <code>glmnet()</code> voi käyttää muunlaisiakin sakkoja kuin harjanneregression sakko <span class="math inline">\(\lambda\|\boldsymbol\beta\|^2\)</span>. Harjanneregression sakkoa käytetään asettamalla <code>alpha = 0</code>. Lisäksi oletuksena harjanneregressio sovitetaan useamman parametrin <span class="math inline">\(\lambda\)</span> arvolla.</p>
 <p>Alla sovitetaan harjanneregressio useammalla parametrin <span class="math inline">\(\lambda\)</span> arvolla, kun esimerkin <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#exm:modelnum">9.2</a> havaintoaineiston <code>mtcars</code> muuttujaa <code>mpg</code> selitetään muilla havaintoaineiston muuttujilla.</p>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-1" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
 <span id="cb311-2"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-2" tabindex="-1"></a></span>
@@ -659,7 +659,7 @@ jossa <span class="math inline">\(\boldsymbol I\)</span> on <span class="math in
 <span id="cb311-4"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(mtcars, <span class="sc">-</span>mpg)</span>
 <span id="cb311-5"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb311-5" tabindex="-1"></a>cars_ridge <span class="ot">&lt;-</span> glmnet<span class="sc">::</span><span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span></code></pre></div>
 
-<p>Seuraavaksi voimme piirtää eräänlaisen “oletuskuvan” liittyen muuttujaan <code>cars_ridge</code> funktiolla <code>plot()</code>. Kuvan <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fig:ridge">9.2</a> alemmalla <span class="math inline">\(x\)</span>-akselilla parametrin <span class="math inline">\(\lambda\)</span> arvo pienenee vasemmalta oikealle. Kertoimien estimaattien arvot näkyvät <span class="math inline">\(y\)</span>-akselilla. Eli vasemmalla sakottaminen on ankaraa ja kaikkien kertoimien estimaatit ovat lähellä nollaa. Mentäessä oikealle estimaattien arvot lähenevät pienimmän neliösumman estimaatteja. Huomaa, että <span class="math inline">\(x\)</span>-akselin <span class="math inline">\(\lambda\)</span> arvoille ollaan tehty <span class="math inline">\(\log\)</span>-muunnos kuvaajan lukemisen helpottamiseksi. Argumentti <code>label = TRUE</code> merkitsee selittäjiä vastaavat käyrät muuttujan <code>x</code> sarakkeiden järjestyksen mukaan. Eli <code>1 = cyl</code>, <code>2 = disp</code>, …, <code>6 = qsec</code>. Ylemmän <span class="math inline">\(x\)</span>-akselin luvuilla <span class="math inline">\(6\)</span> ei ole mitään merkitystä tässä tapauksessa. Dokumentaation luokan <code>glmnet</code> olion kuvaajan piirtämiseen löydät komennolla <code>?plot.glmnet</code>.</p>
+<p>Seuraavaksi voimme piirtää eräänlaisen “oletuskuvan” liittyen muuttujaan <code>cars_ridge</code> funktiolla <code>plot()</code>. Kuvan <a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#fig:ridge">9.2</a> alemmalla <span class="math inline">\(x\)</span>-akselilla parametrin <span class="math inline">\(\lambda\)</span> arvo pienenee vasemmalta oikealle. Kertoimien estimaattien arvot näkyvät <span class="math inline">\(y\)</span>-akselilla. Eli vasemmalla sakottaminen on ankaraa ja kaikkien kertoimien estimaatit ovat lähellä nollaa. Mentäessä oikealle estimaattien arvot lähenevät pienimmän neliösumman estimaatteja. Huomaa, että <span class="math inline">\(x\)</span>-akselin <span class="math inline">\(\lambda\)</span> arvoille ollaan tehty <span class="math inline">\(\log\)</span>-muunnos kuvaajan lukemisen helpottamiseksi. Argumentti <code>label = TRUE</code> merkitsee selittäjiä vastaavat käyrät muuttujan <code>x</code> sarakkeiden järjestyksen mukaan. Eli <code>1 = cyl</code>, <code>2 = disp</code>, …, <code>6 = qsec</code>. Ylemmän <span class="math inline">\(x\)</span>-akselin luvuilla <span class="math inline">\(6\)</span> ei ole mitään tärkeää merkitystä tässä tapauksessa. Dokumentaation luokan <code>glmnet</code> olion kuvaajan piirtämiseen löydät komennolla <code>?plot.glmnet</code>.</p>
 <div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="moniulotteisuuden-haasteet-tilastollisessa-testauksessa-ja-regressiossa.html#cb312-1" tabindex="-1"></a><span class="fu">plot</span>(cars_ridge, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">ylab =</span> <span class="st">&quot;Kertoimet&quot;</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:ridge"></span>
 <img src="tidaja-book_files/figure-html/ridge-1.png" alt="Harjanneregression kertoimien arvot eri parametrin \(\lambda\) arvoilla." width="672" />
@@ -669,10 +669,18 @@ Kuva 9.2: Harjanneregression kertoimien arvot eri parametrin <span class="math i
 </div>
 <p>Yleensä parametri <span class="math inline">\(\lambda\)</span> halutaan kiinnittää johonkin optimaaliseen arvoon. Sitten tätä optimaalista parametrin <span class="math inline">\(\lambda\)</span> arvoa vastaavaa sovitettua harjanneregressiomallia käytetään tilastolliseen analyysiin kuten ennustamiseen ja mallin tulkintaan (viikko 11, tehtävä 3).</p>
 </div>
+<p>Viimeiseksi huomautamme, että harjanneregressio on vain yksi monista sääntelymenetelmistä.</p>
 <div class="proposition">
-<p><span id="prp:unlabeled-div-54" class="proposition"><strong>Huomautus 9.3  (Sääntely) </strong></span>TODO</p>
+<p><span id="prp:unlabeled-div-54" class="proposition"><strong>Huomautus 9.3  (Sääntely) </strong></span>Sääntely (eng: <em>regularization</em>) viittaa tilastotieteen kontekstissa yleensä tapoihin estää mallin ylisovittamista. Esimerkiksi lineaarisille malleille on harjanneregression lisäksi muitakin sääntelymenetelmiä kuten LASSO. Sääntelymenetelmistä lineaarisille malleille voit lukea lisää kirjan <em>The Elements of Statistical Learning</em> luvusta 3 <span class="citation">(<a href="#ref-hastie2009">Hastie, Tibshirani, and Friedman 2009</a>)</span>.</p>
+<p>Lisäksi sääntelyä käytetään muidenkin tilastollisten mallien yhteyksissä. Esimerkiksi neuroverkkojen ylisovittamisen estämisessä sääntely on elintärkeää.</p>
 </div>
 
+</div>
+</div>
+<h3>Lähteet<a href="lähteet.html#l%C3%A4hteet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-hastie2009" class="csl-entry">
+Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. 2nd ed. Springer Series in Statistics. New York: Springer.
 </div>
 </div>
 <div class="footnotes">

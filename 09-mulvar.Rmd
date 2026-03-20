@@ -287,7 +287,7 @@ Muista, että pienimmän neliösumman estimaattori $\hat{\boldsymbol\beta}_{PNS}
 R:ssä harjanneregressiomallin voi sovittaa paketin `glmnet()` funktiolla `glmnet()` (paketin ja funktion nimet ovat samat). Alla on esimerkki funktion `glmnet()` käytöstä. 
 
 :::{.example name="Harjanneregressio"}
-Funktio `glmnet()` toimii hieman eri tavalla kuin `lm()`. Koko dokumentaation näet komennolla `?glmnet`. Esimerkiksi ensimmäinen argumentti `x` on matriisi selittäjien havainnoista ja toinen argumentti `y` on vektori selitettävän muuttujan havainnoista. Funktio `glmnet()` voi käyttää muunlaisiakin sakkoja kuin harjanneregression sakko $\lambda\|\boldsymbol\beta\|^2$. Harjanneregression sakkoa käytetään asettamalla `alpha = 0`. Lisäksi oletuksena harjanneregressio sovitetaan useamman parametrin $\lambda$ arvolla (oletuksena $100$ erilaista $\lambda$ arvoa).
+Funktio `glmnet()` toimii hieman eri tavalla kuin `lm()`. Koko dokumentaation näet komennolla `?glmnet`. Esimerkiksi ensimmäinen argumentti `x` on matriisi selittäjien havainnoista ja toinen argumentti `y` on vektori selitettävän muuttujan havainnoista. Funktio `glmnet()` voi käyttää muunlaisiakin sakkoja kuin harjanneregression sakko $\lambda\|\boldsymbol\beta\|^2$. Harjanneregression sakkoa käytetään asettamalla `alpha = 0`. Lisäksi oletuksena harjanneregressio sovitetaan useamman parametrin $\lambda$ arvolla.
 
 Alla sovitetaan harjanneregressio useammalla parametrin $\lambda$ arvolla, kun esimerkin \@ref(exm:modelnum) havaintoaineiston `mtcars` muuttujaa  `mpg` selitetään muilla havaintoaineiston muuttujilla.
 
@@ -301,7 +301,7 @@ cars_ridge <- glmnet::glmnet(x, y, alpha = 0)
 
 (ref:ridge) Harjanneregression kertoimien arvot eri parametrin $\lambda$ arvoilla.
 
-Seuraavaksi voimme piirtää eräänlaisen "oletuskuvan" liittyen muuttujaan `cars_ridge` funktiolla `plot()`. Kuvan \@ref(fig:ridge) alemmalla $x$-akselilla parametrin $\lambda$ arvo pienenee vasemmalta oikealle. Kertoimien estimaattien arvot näkyvät $y$-akselilla. Eli vasemmalla sakottaminen on ankaraa ja kaikkien kertoimien estimaatit ovat lähellä nollaa. Mentäessä oikealle estimaattien arvot lähenevät pienimmän neliösumman estimaatteja. Huomaa, että $x$-akselin $\lambda$ arvoille ollaan tehty $\log$-muunnos kuvaajan lukemisen helpottamiseksi. Argumentti `label = TRUE` merkitsee selittäjiä vastaavat käyrät muuttujan `x` sarakkeiden järjestyksen mukaan. Eli `1 = cyl`, `2 = disp`, ..., `6 = qsec`. Ylemmän $x$-akselin luvuilla $6$ ei ole mitään merkitystä tässä tapauksessa. Dokumentaation luokan `glmnet` olion kuvaajan piirtämiseen löydät komennolla `?plot.glmnet`.
+Seuraavaksi voimme piirtää eräänlaisen "oletuskuvan" liittyen muuttujaan `cars_ridge` funktiolla `plot()`. Kuvan \@ref(fig:ridge) alemmalla $x$-akselilla parametrin $\lambda$ arvo pienenee vasemmalta oikealle. Kertoimien estimaattien arvot näkyvät $y$-akselilla. Eli vasemmalla sakottaminen on ankaraa ja kaikkien kertoimien estimaatit ovat lähellä nollaa. Mentäessä oikealle estimaattien arvot lähenevät pienimmän neliösumman estimaatteja. Huomaa, että $x$-akselin $\lambda$ arvoille ollaan tehty $\log$-muunnos kuvaajan lukemisen helpottamiseksi. Argumentti `label = TRUE` merkitsee selittäjiä vastaavat käyrät muuttujan `x` sarakkeiden järjestyksen mukaan. Eli `1 = cyl`, `2 = disp`, ..., `6 = qsec`. Ylemmän $x$-akselin luvuilla $6$ ei ole mitään tärkeää merkitystä tässä tapauksessa. Dokumentaation luokan `glmnet` olion kuvaajan piirtämiseen löydät komennolla `?plot.glmnet`.
 ```{r ridge, fig.cap="(ref:ridge)"}
 plot(cars_ridge, label = TRUE, ylab = "Kertoimet")
 ```
@@ -309,6 +309,10 @@ plot(cars_ridge, label = TRUE, ylab = "Kertoimet")
 Yleensä parametri $\lambda$ halutaan kiinnittää johonkin optimaaliseen arvoon. Sitten tätä optimaalista parametrin $\lambda$ arvoa vastaavaa sovitettua harjanneregressiomallia käytetään tilastolliseen analyysiin kuten ennustamiseen ja mallin tulkintaan (viikko 11, tehtävä 3).
 :::
 
+Viimeiseksi huomautamme, että harjanneregressio on vain yksi monista sääntelymenetelmistä.
+
 :::{.proposition name="Sääntely"}
-TODO
+Sääntely (eng: *regularization*) viittaa tilastotieteen kontekstissa yleensä tapoihin estää mallin ylisovittamista. Esimerkiksi lineaarisille malleille on harjanneregression lisäksi muitakin sääntelymenetelmiä kuten LASSO. Sääntelymenetelmistä lineaarisille malleille voit lukea lisää kirjan *The Elements of Statistical Learning* luvusta 3 [@hastie2009].
+
+Lisäksi sääntelyä käytetään muidenkin tilastollisten mallien yhteyksissä. Esimerkiksi neuroverkkojen ylisovittamisen estämisessä sääntely on elintärkeää.
 :::
