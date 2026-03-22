@@ -158,11 +158,10 @@ Muuttujanvalintaa voi soveltaa esimerkiksi alla kuvaillussa tilanteessa.
 
 :::{.example #modelnum name="Mallien määrä"}
 ```{r, echo=FALSE}
-mtcars <- readr::read_csv("data/cars.csv", col_types = "dfdidddffff") %>%
-  select(-vs, -am, -gear, -carb)
+mtcars <- readr::read_csv("data/cars.csv", col_types = "dfdiddd")
 ```
 
-Havaintoaineisto `mtcars` sisältää dataa liittyen autojen ominaisuuksiin (yhteensä $7$ muuttujaa). Havaintoja (eli autoja) on yhteensä $32$ kappaletta. Haluamme selittää polttoaineen kulutusta `mpg` muilla havaintoaineiston muuttujilla. Muuttujaa `mpg` mitataan yksiköissä maili$/$gallona. Eli suuri `mpg` arvo viittaa pieneen polttoaineen kulutukseen ja pieni `mpg` arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla `?mtcars`. 
+Havaintoaineisto `mtcars` sisältää dataa liittyen autojen ominaisuuksiin (yhteensä $7$ muuttujaa). Havaintoja (eli autoja) on yhteensä $32$ kappaletta. Haluamme selittää polttoaineen kulutusta `mpg` muilla havaintoaineiston muuttujilla. Muuttujaa `mpg` mitataan yksiköissä maili$/$gallona. Eli suuri `mpg` arvo viittaa pieneen polttoaineen kulutukseen ja pieni `mpg` arvo viittaa suureen polttoaineen kulutukseen. Tarkemman kuvailun kaikista muuttujista näet komennolla `?mtcars`.
 ```{r}
 mtcars
 ```
