@@ -12,6 +12,12 @@ bootstrapping and permutation test.
 
 The theory is illustrated with examples and R code snippets.
 
+## TODO
+
+- [ ] Make a list of notatations
+
+- [ ] Make a list of preliminaries
+
 ## License
 
 The source code is licensed under the [MIT
