@@ -8,7 +8,10 @@ bibliography: "book.bib"
 link-citations: yes
 ---
 
-# Alustava kurssiohjelma {-}
+# Alkusanat ja kurssiohjelma {-}
+
+Tämä luentomoniste on lisensioitu [Nimeä-EiKaupallinen-JaaSamoin 4.0 Kansainvälinen](https://creativecommons.org/licenses/by-nc-sa/4.0/) lisenssillä. Jos huomaat virheitä tai sinulla on parannusehdotuksia, niin ole yhteydessä (`jaakko.pere@aalto.fi`)!. Alla näkyy alustava kurssiohjelma.
+
 
 ```{r, echo=FALSE}
 weeks <- stringr::str_c("Viikko ", 1:12)
