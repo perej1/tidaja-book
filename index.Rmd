@@ -10,7 +10,7 @@ link-citations: yes
 
 # Alkusanat ja kurssiohjelma {-}
 
-Tämä luentomoniste on lisensioitu [Nimeä-EiKaupallinen-JaaSamoin 4.0 Kansainvälinen](https://creativecommons.org/licenses/by-nc-sa/4.0/) lisenssillä. Jos huomaat virheitä tai sinulla on parannusehdotuksia, niin ole yhteydessä (`jaakko.pere@aalto.fi`)!. Alla näkyy alustava kurssiohjelma.
+Tämä luentomoniste on lisensioitu [Nimeä-EiKaupallinen-JaaSamoin 4.0 Kansainvälinen](https://creativecommons.org/licenses/by-nc-sa/4.0/) lisenssillä. Jos huomaat virheitä tai sinulla on parannusehdotuksia, niin ole yhteydessä (`jaakko.pere@aalto.fi`)!. Tilastollisten termien suomennokset ovat pääosin *Suomen tilastoseuran* ylläpitämän [tilastotieteen sanaston](https://sanasto.tilastoseura.fi/) mukaisia [@tilasto]. Alla näkyy alustava kurssiohjelma.
 
 
 ```{r, echo=FALSE}

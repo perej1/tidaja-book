@@ -14,7 +14,7 @@ The theory is illustrated with examples and R code snippets.
 
 ## TODO
 
-- [ ] Make a list of notatations
+- [ ] Make a list of notations
 
 - [ ] Make a list of preliminaries
 
